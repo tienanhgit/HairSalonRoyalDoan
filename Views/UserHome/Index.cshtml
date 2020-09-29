@@ -2,18 +2,56 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_UserHome.cshtml";
-
-
+    <link href="~/Content/Css/User/ContentHome.css" rel="stylesheet" />
+    
+  
 }
 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-<div class="main">
- 
-    <div class="content">
-        Content
+</head>
+<body>
 
+    <div class="main">
+        <div class="content">
+            <div class="swiper-main">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="~/Content/Images/UserHomeImg/hoinghetocvietnam.png" />
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="~/Content/Images/UserHomeImg/banner4.png" />
+                        </div>
+                        <div class="swiper-slide"><img src="~/Content/Images/UserHomeImg/banner2.jpg" /></div>
+                        <div class="swiper-slide"><img src="~/Content/Images/UserHomeImg/banner.jpg" /></div>
+                        <div class="swiper-slide">
+                            <img src="~/Content/Images/UserHomeImg/banner3.jpg" />
+                        </div>
 
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+        
+            </div>
 
+          
+        </div>
     </div>
+    
    
-</div>
+ 
+
+    <script src="~/Scripts/Common/User/UserHome.js"></script>
+</body>
+</html>
+
+
+
