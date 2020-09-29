@@ -6,11 +6,11 @@
 }
 .swiper-main img{
     width:100%;
-    height:400px;
+    height:450px;
 
 }
 .swiper-main{
-    height:400px;
+    height:450px;
 
 }
 .swiper-slide {
@@ -29,4 +29,17 @@
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+}
+.sub-content {
+    width: 100%;
+    height:100%;
+    background-color: #ffff;
+}
+.service-content{
+    padding:8px;
+
+}
+.service-content .service-content-text {
+
+
 }

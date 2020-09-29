@@ -6,22 +6,32 @@
 <head>
     <title></title>
     <link href="~/Content/Css/User/UserHome.css" rel="stylesheet" />
+
+    <link href="~/Content/Library/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
    
     <div class="header-main">
       
-        <div class="header-container">
-            <div class="logo-header">
-                <img src="~/Content/Images/UserHomeImg/120088657_329116491512759_284388020705763635_n.jpg" />
-            </div>
+        <div class="container-fluid">
+            <div class="row">
 
-            <div class="text-header"><a href="">VỀ ROYAL ĐOÀN </a></div>
-            <div class="text-header">ROYAL ĐOÀN STORE</div>
-            <div class="text-header">DỊCH VỤ</div>
-            <div class="text-header">ĐẶT LỊCH</div>
-            
-            <div class="text-header" id="login-header">ĐĂNG NHẬP</div>
+
+                <div class="col-md-2 logo-header">
+
+                    <img src="~/Content/Images/UserHomeImg/logo.jpg" />
+                </div>
+                <div class="col-md-10 row-near-logo">
+                    <div class=" text-header"><a href="">VỀ ROYAL ĐOÀN </a></div>
+                    <div class=" text-header">ROYAL ĐOÀN STORE</div>
+                    <div class=" text-header">DỊCH VỤ</div>
+                    <div class=" text-header" >ĐẶT LỊCH</div>
+                    <div class=" text-header" id="login-header" >ĐĂNG NHẬP</div>
+
+                </div>
+              
+                
+            </div>
         </div>
     </div>
     @RenderBody()

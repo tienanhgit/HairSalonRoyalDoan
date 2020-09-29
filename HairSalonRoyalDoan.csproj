@@ -126,13 +126,16 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\UserHomeImg\anh_home.PNG" />
+    <Content Include="Content\Images\UserHomeImg\banggiadichvu2.jpg" />
+    <Content Include="Content\Images\UserHomeImg\Banggiadichvu3.gif" />
+    <Content Include="Content\Library\bootstrap-theme.css" />
+    <Content Include="Content\Library\bootstrap-theme.min.css" />
+    <Content Include="Content\Library\bootstrap.css" />
+    <Content Include="Content\Library\bootstrap.min.css" />
     <Content Include="Content\Css\User\ContentHome.css" />
     <Content Include="Content\Css\User\UserHome.css" />
-    <Content Include="Content\Images\UserHomeImg\120088657_329116491512759_284388020705763635_n.jpg" />
+    <Content Include="Content\Images\UserHomeImg\logo.jpg" />
     <Content Include="Content\Images\UserHomeImg\banner.jpg" />
     <Content Include="Content\Images\UserHomeImg\banner2.jpg" />
     <Content Include="Content\Images\UserHomeImg\banner3.jpg" />
@@ -141,7 +144,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\Library\Site.css" />
     <Content Include="Scripts\Library\bootstrap.js" />
     <Content Include="Scripts\Library\bootstrap.min.js" />
     <None Include="Scripts\Library\jquery-3.4.1.intellisense.js" />
@@ -187,10 +190,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\Library\bootstrap.min.css.map" />
+    <Content Include="Content\Library\bootstrap.css.map" />
+    <Content Include="Content\Library\bootstrap-theme.min.css.map" />
+    <Content Include="Content\Library\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Scripts\Library\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\Library\jquery-3.4.1.min.map" />
