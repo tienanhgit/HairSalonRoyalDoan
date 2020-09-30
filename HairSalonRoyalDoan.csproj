@@ -129,18 +129,20 @@
     <Content Include="Content\Images\UserHomeImg\anh_home.PNG" />
     <Content Include="Content\Images\UserHomeImg\banggiadichvu2.jpg" />
     <Content Include="Content\Images\UserHomeImg\Banggiadichvu3.gif" />
+    <Content Include="Content\Images\UserHomeImg\bannerdichvu.PNG" />
     <Content Include="Content\Library\bootstrap-theme.css" />
     <Content Include="Content\Library\bootstrap-theme.min.css" />
     <Content Include="Content\Library\bootstrap.css" />
     <Content Include="Content\Library\bootstrap.min.css" />
     <Content Include="Content\Css\User\ContentHome.css" />
-    <Content Include="Content\Css\User\UserHome.css" />
+    <Content Include="Content\Css\User\Layouttemplate.css" />
     <Content Include="Content\Images\UserHomeImg\logo.jpg" />
     <Content Include="Content\Images\UserHomeImg\banner.jpg" />
     <Content Include="Content\Images\UserHomeImg\banner2.jpg" />
     <Content Include="Content\Images\UserHomeImg\banner3.jpg" />
     <Content Include="Content\Images\UserHomeImg\banner4.png" />
     <Content Include="Content\Images\UserHomeImg\hoinghetocvietnam.png" />
+    <Content Include="Content\Library\swiper-bundle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -159,6 +161,7 @@
     <Content Include="Scripts\Library\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\Library\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Library\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Library\swiper-bundle.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -12,8 +12,7 @@ var swiper = new Swiper('.swiper-container', {
    
 });
 
-var swiper = new Swiper('.swiper-container-service', {
-    pagination: {
-        el: '.swiper-pagination',
-    },
-});
+
+
+
+
