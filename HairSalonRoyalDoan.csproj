@@ -126,6 +126,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\ImagesProduct\anhsanpham1.jpg" />
+    <Content Include="Content\Images\ImagesProduct\anhsanphan2.jpg" />
+    <Content Include="Content\Images\UserHomeImg\anhsanpham1.jpg" />
     <Content Include="Content\Images\UserHomeImg\anh_home.PNG" />
     <Content Include="Content\Images\UserHomeImg\banggiadichvu2.jpg" />
     <Content Include="Content\Images\UserHomeImg\Banggiadichvu3.gif" />
