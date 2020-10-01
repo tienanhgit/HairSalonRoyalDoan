@@ -23,10 +23,14 @@ justify-content:center;
     }
 
 
-    .header-main a {
-        text-decoration: none;
-        color:black;
-    }
+.header-main a {
+    text-decoration: none;
+    color: black;
+    font-family: 'Oswald-Medium';
+
+}
+
+    
  
 .logo-header img {
     width: 100px;
@@ -127,7 +131,7 @@ justify-content:center;
 .footer p {
     color: white;
     font-weight: lighter;
-    font-size:
+    
 }
 
 .footer a:hover {

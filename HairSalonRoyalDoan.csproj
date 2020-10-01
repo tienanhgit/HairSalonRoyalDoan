@@ -152,6 +152,12 @@
     <Content Include="Content\Library\Site.css" />
     <Content Include="Scripts\Library\bootstrap.js" />
     <Content Include="Scripts\Library\bootstrap.min.js" />
+    <Content Include="fonts\Oswald-Bold.ttf" />
+    <Content Include="fonts\Oswald-ExtraLight.ttf" />
+    <Content Include="fonts\Oswald-Light.ttf" />
+    <Content Include="fonts\Oswald-Medium.ttf" />
+    <Content Include="fonts\Oswald-Regular.ttf" />
+    <Content Include="fonts\Oswald-SemiBold.ttf" />
     <None Include="Scripts\Library\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Common\User\UserHome.js" />
     <Content Include="Scripts\Library\jquery-3.4.1.js" />
