@@ -10,76 +10,74 @@
     <link href="~/Content/Library/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-   
-    <div class="header-main">
-      
-        <div class="container-fluid">
-            <div class="row">
 
 
-                <div class="col-md-2 logo-header">
-
-                    <img src="~/Content/Images/UserHomeImg/logo.jpg" />
-                </div>
-                <div class="col-md-10 row-near-logo">
-                    <div class=" text-header"><a href="">VỀ ROYAL ĐOÀN </a></div>
-                    <div class=" text-header">ROYAL ĐOÀN STORE</div>
-                    <div class=" text-header">DỊCH VỤ</div>
-                    <div class=" text-header" >ĐẶT LỊCH</div>
-                    <div class=" text-header" id="login-header" >ĐĂNG NHẬP</div>
-
-                </div>
-              
-                
-            </div>
+    <div class="header">
+        <a href="#default" class="logo">
+            <img src="~/Content/Images/UserHomeImg/logo.jpg" />
+        </a>
+        <div class="header-right">
+            <a href="#home">GIỚI THIỆU</a>
+            <a href="#contact">ROYAL ĐOÀN STORE</a>
+            <a href="#about">ĐẶT LỊCH</a>
+            <a href="#about">XEM LỊCH ĐẶT</a>
+            <a href="#about">DỊCH VỤ</a>
+            <a class="active">ĐĂNG NHẬP</a>
         </div>
     </div>
+
+
+    <img src="~/Content/Images/ImagesProduct/anhsanpham1.jpg" />
+
+
+
+
     @RenderBody()
 
 
 
-<div class="footer-main">
-    <footer style="margin-top:10px;">
-        <div class="footer" id="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                        <h4>ROYAL ĐOÀN </h4>
-                        <h3>Số 12 đường 183 Tiền Trung, Ái Quốc, TP Hải Dương  </h3>
-                    </div>
-                    <div class="col-lg-3 col-sm-2 col-xs-3">
-                        <h3> GIỜ PHỤC VỤ </h3>
-                        <ul>
-                            <li><a class="email" href="#"> 8.30-21.30</a></li>
-                            <br />
-                            <li> <p> </p> </li>
-                            <li> <p> Hotline : 0902087097 </p> </li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-3 col-sm-2 col-xs-3">
-                        <ul>
-                            <li> <h5> <a href="#" style="margin-top: 5em"> ABOUT US</a> </h5></li>
-                          
-                        </ul>
-                    </div>
-
-                    <!--/.row-->
-                </div>
-                <!--/.container-->
-            </div>
-            <!--/.footer-->
-
-            <div class="footer-bottom">
+    <div class="footer-main">
+        <footer style="margin-top:10px;">
+            <div class="footer" id="footer">
                 <div class="container">
-                    <p class="pull-left copyright"> Copyright © RoyalDoan. </p>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                            <h4>ROYAL ĐOÀN </h4>
+                            <h3>Số 12 đường 183 Tiền Trung, Ái Quốc, TP Hải Dương  </h3>
+                        </div>
+                        <div class="col-lg-3 col-sm-2 col-xs-3">
+                            <h3> GIỜ PHỤC VỤ </h3>
+                            <ul>
+                                <li><a class="email" href="#"> 8.30-21.30</a></li>
+                                <br />
+                                <li> <p> </p> </li>
+                                <li> <p> Hotline : 0902087097 </p> </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-sm-2 col-xs-3">
+                            <ul>
+                                <li> <h5> <a href="#" style="margin-top: 5em"> ABOUT US</a> </h5></li>
+
+                            </ul>
+                        </div>
+
+                        <!--/.row-->
+                    </div>
+                    <!--/.container-->
                 </div>
-            </div>
-            <!--/.footer-bottom-->
+                <!--/.footer-->
+
+                <div class="footer-bottom">
+                    <div class="container">
+                        <p class="pull-left copyright"> Copyright © RoyalDoan. </p>
+                    </div>
+                </div>
+                <!--/.footer-bottom-->
             </div>
 
-    </footer>
+        </footer>
 
-</div>
+    </div>
 </body>
 </html>
 

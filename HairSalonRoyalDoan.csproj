@@ -123,6 +123,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Common\Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -194,8 +195,7 @@
     <Folder Include="Content\Font\" />
     <Folder Include="Content\Icon\" />
     <Folder Include="Controllers\Admin\" />
-    <Folder Include="Models\Common\" />
-    <Folder Include="Models\Dictionary\" />
+    <Folder Include="Models\Library\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
