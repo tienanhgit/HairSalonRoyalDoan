@@ -123,7 +123,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Common\Class1.cs" />
+    <Compile Include="Models\Common\DataProvider.cs" />
+    <Compile Include="Models\Dictionary\ProductModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -195,7 +196,6 @@
     <Folder Include="Content\Font\" />
     <Folder Include="Content\Icon\" />
     <Folder Include="Controllers\Admin\" />
-    <Folder Include="Models\Library\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -209,6 +209,12 @@
     <None Include="packages.config" />
     <Content Include="Scripts\Library\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\Library\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RoyalDoanEnitty\RoyalDoanEnitty.csproj">
+      <Project>{09f18f37-333b-4654-a040-ae92a0c631d1}</Project>
+      <Name>RoyalDoanEnitty</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
