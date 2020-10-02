@@ -17,7 +17,6 @@ namespace HairSalonRoyalDoan.Controllers
             SanPham sanPham = new SanPham();
             ProductModel productModel = new ProductModel();
             List<SanPham> sanpham = productModel.GetData();
-        
                 ViewBag['a'] = sanpham[0].HinhAnh;
 
         
