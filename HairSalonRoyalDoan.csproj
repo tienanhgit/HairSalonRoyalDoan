@@ -139,8 +139,9 @@
     <Content Include="Content\Library\bootstrap-theme.min.css" />
     <Content Include="Content\Library\bootstrap.css" />
     <Content Include="Content\Library\bootstrap.min.css" />
-    <Content Include="Content\Css\User\ContentHome.css" />
-    <Content Include="Content\Css\User\Layouttemplate.css" />
+    <Content Include="CSS\Common\Library.css" />
+    <Content Include="CSS\User\ContentHome.css" />
+    <Content Include="CSS\User\Layouttemplate.css" />
     <Content Include="Content\Images\UserHomeImg\logo.jpg" />
     <Content Include="Content\Images\UserHomeImg\banner.jpg" />
     <Content Include="Content\Images\UserHomeImg\banner2.jpg" />
@@ -152,27 +153,28 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Library\Site.css" />
-    <Content Include="Scripts\Library\bootstrap.js" />
-    <Content Include="Scripts\Library\bootstrap.min.js" />
+    <Content Include="Scripts\Common\Library.js" />
+    <Content Include="Scripts\Common\Library\bootstrap.js" />
+    <Content Include="Scripts\Common\Library\bootstrap.min.js" />
     <Content Include="fonts\Oswald-Bold.ttf" />
     <Content Include="fonts\Oswald-ExtraLight.ttf" />
     <Content Include="fonts\Oswald-Light.ttf" />
     <Content Include="fonts\Oswald-Medium.ttf" />
     <Content Include="fonts\Oswald-Regular.ttf" />
     <Content Include="fonts\Oswald-SemiBold.ttf" />
-    <None Include="Scripts\Library\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\Common\User\UserHome.js" />
-    <Content Include="Scripts\Library\jquery-3.4.1.js" />
-    <Content Include="Scripts\Library\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\Library\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\Library\jquery-3.4.1.slim.min.js" />
-    <None Include="Scripts\Library\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\Library\jquery.validate.js" />
-    <Content Include="Scripts\Library\jquery.validate.min.js" />
-    <Content Include="Scripts\Library\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\Library\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\Library\modernizr-2.8.3.js" />
-    <Content Include="Scripts\Library\swiper-bundle.js" />
+    <None Include="Scripts\Common\Library\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\User\UserHome.js" />
+    <Content Include="Scripts\Common\Library\jquery-3.4.1.js" />
+    <Content Include="Scripts\Common\Library\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\Common\Library\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\Common\Library\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\Common\Library\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\Common\Library\jquery.validate.js" />
+    <Content Include="Scripts\Common\Library\jquery.validate.min.js" />
+    <Content Include="Scripts\Common\Library\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\Common\Library\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Common\Library\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Common\Library\swiper-bundle.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -207,8 +209,8 @@
     <Content Include="Content\Library\bootstrap-theme.min.css.map" />
     <Content Include="Content\Library\bootstrap-theme.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\Library\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\Library\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\Common\Library\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\Common\Library\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RoyalDoanEnitty\RoyalDoanEnitty.csproj">

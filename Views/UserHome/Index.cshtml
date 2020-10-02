@@ -2,17 +2,19 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_UserHome.cshtml";
-    <link href="~/Content/Css/User/ContentHome.css" rel="stylesheet" />
-    
+
   
+
+
 }
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
-    <link href="~/Content/Library/swiper-bundle.css" rel="stylesheet" />
-    <script src="~/Scripts/Library/jquery-3.4.1.js"></script>
-    <script src="~/Scripts/Library/swiper-bundle.js"></script>
+    
+    <link href="~/CSS/User/ContentHome.css" rel="stylesheet" />
+    <link href="~/CSS/Common/Library.css" rel="stylesheet" />
+    
 </head>
 <body>
     <div class="main">
@@ -34,8 +36,8 @@
                     </div>
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
-                </div>      
-            </div>    
+                </div>
+            </div>
 
             <div class="container sub-content">
                 <div class="container-sub-content">
@@ -73,9 +75,7 @@
                                 <div class="swiper-slide"><a href=""><img src="~/Content/Images/ImagesProduct/anhsanphan2.jpg" /></a></div>
                                 <div class="swiper-slide"><a href=""><img src="~/Content/Images/ImagesProduct/anhsanphan2.jpg" /></a></div>
                                 <div class="swiper-slide"><a href=""></a></div>
-                                <div class="swiper-slide">Slide 8</div>
-                                <div class="swiper-slide">Slide 9</div>
-                                <div class="swiper-slide">Slide 10</div>
+
                             </div>
                             <!-- Add Pagination -->
                             <div class="swiper-pagination swp2"></div>
@@ -83,18 +83,19 @@
 
 
                     </div>
-                
+
 
                 </div>
 
-                </div>
+            </div>
 
         </div>
     </div>
-    
-  
+    <script src="~/Scripts/Common/Library/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/Common/Library/bootstrap.js"></script>
+    <script src="~/Scripts/Common/Library/swiper-bundle.js"></script>
 
-    <script src="~/Scripts/Common/User/UserHome.js"></script>
+    <script src="~/Scripts/User/UserHome.js"></script>
 </body>
 </html>
 
