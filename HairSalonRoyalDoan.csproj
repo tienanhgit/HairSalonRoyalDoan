@@ -212,12 +212,6 @@
     <Content Include="Scripts\Common\Library\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\Common\Library\jquery-3.4.1.min.map" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\RoyalDoanEnitty\RoyalDoanEnitty.csproj">
-      <Project>{09f18f37-333b-4654-a040-ae92a0c631d1}</Project>
-      <Name>RoyalDoanEnitty</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
