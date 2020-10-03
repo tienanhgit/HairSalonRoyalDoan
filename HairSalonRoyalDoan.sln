@@ -5,8 +5,6 @@ VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HairSalonRoyalDoan", "HairSalonRoyalDoan.csproj", "{3E0A3380-4AC2-4B62-A101-888549726424}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoyalDoanEntity", "RoyalDoanEntity\RoyalDoanEntity.csproj", "{3FCA8492-2B41-4B63-8D57-5913D354C5DF}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{3E0A3380-4AC2-4B62-A101-888549726424}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E0A3380-4AC2-4B62-A101-888549726424}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E0A3380-4AC2-4B62-A101-888549726424}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FCA8492-2B41-4B63-8D57-5913D354C5DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FCA8492-2B41-4B63-8D57-5913D354C5DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FCA8492-2B41-4B63-8D57-5913D354C5DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FCA8492-2B41-4B63-8D57-5913D354C5DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

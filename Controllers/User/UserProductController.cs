@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 
 using HairSalonRoyalDoan.Models.Dictionary;
-
+using HairSalonRoyalDoan.Repository;
 
 namespace HairSalonRoyalDoan.Controllers
 {
@@ -15,12 +15,12 @@ namespace HairSalonRoyalDoan.Controllers
         public ActionResult Index()
         {
 
-            //        ProductModel productModel = new ProductModel();
-            //        //List<SanPham> dssanpham = productModel.GetData();
+            ProductModel productModel = new ProductModel();
+            List<SanPham> dssanpham = productModel.GetData();
 
-            return View();
-            //    }
-            //}
-        }
+            return View(dssanpham);
+        
+    
+}
     }
 }
