@@ -17,6 +17,8 @@ CMND int,
 NgaySinh datetime,
 Hinhthuclam nvarchar(50),
 ChucVu nvarchar(50),/*Co 2 loai chuc vu : Nhan vien quan ly, Nhan vien quay*/
+NgayTao datetime,
+NgaySua datetime
 );
 go
 create table Luong
@@ -50,7 +52,9 @@ HinhThucTT nvarchar(50),
 TrangThai nvarchar(50),
 HoTenNguoiNhan nvarchar(50),
 DiaChiNhanHang nvarchar(50),
-ThoiGianLapDon datetime,
+NgayTao datetime,
+NgaySua datetime
+
 );
 go
 
@@ -83,6 +87,8 @@ Gia float,
 HinhAnh nvarchar(255),
 MoTa ntext ,
 DanhGia ntext,
+NgayTao datetime,
+NgaySua datetime
 );
 
 go
@@ -100,6 +106,9 @@ MaDV int not null identity primary key,
 TenDV ntext,
 Gia float,
 HoatDong ntext,
+NgayTao datetime,
+NgaySua datetime
+
 );
 go
 create table Chitietdichvu
