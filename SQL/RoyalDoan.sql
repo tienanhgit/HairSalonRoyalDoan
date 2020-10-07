@@ -1,7 +1,7 @@
 ﻿create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
-
+ 
 /*tesst*/
 
 go
@@ -10,6 +10,7 @@ create table NhanVien
 MaNV int Identity primary key,
 HoTenNV nvarchar(50),
 Email nvarchar(50),
+MatKhau nvarchar(255),
 SoDTNV int,
 QueQuan nvarchar(50),
 CMND int,
@@ -293,8 +294,15 @@ as
 begin
 select * from SanPham
 end
+go
 
 
+
+select * from NhanVien
+/*Them du lieu demo*/
+insert into NhanVien 
+values (N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','0902087097',N'Hải Dương',142987653,'09/02/1978','Fulltime','Chủ cửa hàng','10/7/2020','10/7/2020')
+select * from NhanVien
 
 
 

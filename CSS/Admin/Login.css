@@ -1,0 +1,15 @@
+﻿
+body {
+    background: #34495e;
+}
+
+#loginForm {
+    width: 300px;
+    min-height: 200px;
+    padding: 20px;
+    margin: 120px auto 0;
+    background: #fff;
+    border-radius: 7px;
+}
+
+

@@ -17,10 +17,18 @@ namespace HairSalonRoyalDoan.Controllers
 
             ProductModel productModel = new ProductModel();
             List<SanPham> dssanpham = productModel.GetData();
+            return View(dssanpham);    
+        }
+        public ActionResult ProductDetail()
+        {
+            ViewBag.IdSanPham = Request.QueryString["id"];
 
-            return View(dssanpham);
-        
-    
-}
+
+            return View();
+        }
+
+
+
+
     }
 }

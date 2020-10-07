@@ -115,6 +115,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Admin\LoginController.cs" />
+    <Compile Include="Repository\SessionHelper.cs" />
+    <Compile Include="Repository\UserSession.cs" />
     <Compile Include="Controllers\User\UserHomeController.cs" />
     <Compile Include="Controllers\User\UserProductController.cs" />
     <Compile Include="Global.asax.cs">
@@ -128,6 +130,9 @@
   <ItemGroup>
     <Content Include="Content\Images\ImagesProduct\anhsanpham1.jpg" />
     <Content Include="Content\Images\ImagesProduct\anhsanphan2.jpg" />
+    <Content Include="Content\Images\ImagesProduct\dauduongtocdiva.jpg" />
+    <Content Include="Content\Images\ImagesProduct\dauduongtocp&amp;m.jpg" />
+    <Content Include="Content\Images\ImagesProduct\dauduongtoctigi.jpg" />
     <Content Include="Content\Images\UserHomeImg\anhsanpham1.jpg" />
     <Content Include="Content\Images\UserHomeImg\anh_home.PNG" />
     <Content Include="Content\Images\UserHomeImg\banggiadichvu2.jpg" />
@@ -141,6 +146,7 @@
     <Content Include="Content\Library\bootstrap-theme.min.css" />
     <Content Include="Content\Library\bootstrap.css" />
     <Content Include="Content\Library\bootstrap.min.css" />
+    <Content Include="CSS\Admin\Login.css" />
     <Content Include="CSS\Common\Library.css" />
     <Content Include="CSS\User\ContentHome.css" />
     <Content Include="CSS\User\Layouttemplate.css" />
@@ -205,12 +211,14 @@
     <Content Include="Views\UserHome\Index.cshtml" />
     <Content Include="Views\UserProduct\Index.cshtml" />
     <Content Include="Views\Shared\_UserHome.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\UserProduct\ProductDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Font\" />
     <Folder Include="Content\Icon\" />
-    <Folder Include="Views\Login\" />
+    <Folder Include="Views\SessionHelper\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
