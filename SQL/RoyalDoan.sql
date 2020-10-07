@@ -2,8 +2,7 @@
 go
 use HairSalonRoyalDoan
 
-
-
+/*tesst*/
 
 go
 create table NhanVien
@@ -17,6 +16,8 @@ CMND int,
 NgaySinh datetime,
 Hinhthuclam nvarchar(50),
 ChucVu nvarchar(50),/*Co 2 loai chuc vu : Nhan vien quan ly, Nhan vien quay*/
+NgayTao datetime,
+NgaySua datetime
 );
 go
 create table Luong
@@ -50,7 +51,8 @@ HinhThucTT nvarchar(50),
 TrangThai nvarchar(50),
 HoTenNguoiNhan nvarchar(50),
 DiaChiNhanHang nvarchar(50),
-ThoiGianLapDon datetime,
+NgayTao datetime,
+NgaySua datetime
 );
 go
 
@@ -67,6 +69,7 @@ create table ChiTietDonDichVu
 (
 MaDonDatHang int not null,
 MaDV int not null,
+MaNV int ,
 NgayDat datetime ,
 GioDat datetime ,
 Primary key(MaDonDatHang,MaDV)
@@ -83,6 +86,8 @@ Gia float,
 HinhAnh nvarchar(255),
 MoTa ntext ,
 DanhGia ntext,
+NgayTao datetime,
+NgaySua datetime
 );
 
 go
@@ -91,8 +96,6 @@ create table DanhMuc
 MaDanhMuc int not null identity primary key,
 TenDanhMuc nvarchar(50),
 )
-
-
 go
 create table DichVu
 (
@@ -100,12 +103,15 @@ MaDV int not null identity primary key,
 TenDV ntext,
 Gia float,
 HoatDong ntext,
+NgayTao datetime,
+NgaySua datetime
 );
 go
 create table Chitietdichvu
 (
 MaCTDV int not null identity primary key,
 MaDV int ,
+
 Buoc ntext,
 ChiTietBuoc ntext
 
@@ -117,6 +123,11 @@ alter table ChiTietDichVu
 add constraint FK_ChiTietDichVu_DichVu
 foreign key(MaDV)
 references DichVu(MaDV)
+go
+alter table ChiTietDonDichVu
+add constraint FK_ChiTietDonDichVu_NhanVien
+foreign key (MaNV)
+references NhanVien(MaNV)
 
 alter table DonDatHang
 add constraint FK_DonDatHang_KhachHang
