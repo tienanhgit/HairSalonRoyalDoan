@@ -48,7 +48,8 @@ MaNV int,
 MaKH int,
 SoDTGiaoHang int,
 HinhThucTT nvarchar(50),
-TrangThai nvarchar(50),
+TrangThaiDonSanPham int ,/*1 chờ xác nhận , 2 xác nhận ,3 thành công */
+TrangThaiDonDichVu int,/*1 chờ xác nhận , 2 xác nhận ,3 thành công */
 HoTenNguoiNhan nvarchar(50),
 DiaChiNhanHang nvarchar(50),
 NgayTao datetime,
