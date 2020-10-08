@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using HairSalonRoyalDoan.Repository;
-using HairSalonRoyalDoan.Models.Dictionary;
-using System.Text;
 
 namespace HairSalonRoyalDoan.Controllers.Admin
 {
-    public class LoginController : Controller
+    public class CreateAccountController : Controller
     {
+
         public static string CreateMD5(string input)
         {
             // Use input string to calculate MD5 hash
@@ -28,39 +27,11 @@ namespace HairSalonRoyalDoan.Controllers.Admin
                 return sb.ToString();
             }
         }
-        // GET: Login
-        [HttpGet]
+        // GET: CreateAccount
         public ActionResult Index()
         {
+           
             return View();
         }
-        //Set login
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public  ActionResult Index(string Email,string PassWord)
-        {
-            
-            var Passhash = CreateMD5(PassWord);
-            NhanVienModel nhanVienModel = new NhanVienModel();
-            var result =nhanVienModel.DangNhap(Email,PassWord);
-            
-            if(!String.IsNullOrEmpty(result))
-            {
-
-                SessionHelper.SetSession(new UserSession() { UserName = Email });   
-               return RedirectToAction("Index","UserHome");
-
-            }
-            return View();
-
-        }
-
-
-
-
-
-
-
-
     }
 }

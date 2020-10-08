@@ -114,7 +114,11 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Admin\CreateAccountController.cs" />
     <Compile Include="Controllers\Admin\LoginController.cs" />
+    <Compile Include="Models\Dictionary\NhanVienModel.cs" />
+    <Compile Include="Repository\Khachhang.cs" />
+    <Compile Include="Repository\NhanVien.cs" />
     <Compile Include="Repository\SessionHelper.cs" />
     <Compile Include="Repository\UserSession.cs" />
     <Compile Include="Controllers\User\UserHomeController.cs" />
@@ -218,6 +222,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Font\" />
     <Folder Include="Content\Icon\" />
+    <Folder Include="Views\CreateAccount\" />
     <Folder Include="Views\SessionHelper\" />
   </ItemGroup>
   <ItemGroup>

@@ -296,6 +296,14 @@ select * from SanPham
 end
 go
 
+/*Proc login*/
+Create Proc Proc_NhanVien_DangNhap @Email NVARCHAR(50), @MatKhau NVARCHAR(255)
+AS
+BEGIN
+	SELECT MaNV  FROM NhanVien WHERE Email = @Email AND MatKhau = @MatKhau
+
+END;
+
 
 
 select * from NhanVien

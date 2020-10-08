@@ -16,5 +16,11 @@ namespace HairSalonRoyalDoan.Controllers
 
 
 
+
+
+
+
+
+
     }
 }
