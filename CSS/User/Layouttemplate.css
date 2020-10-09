@@ -1,9 +1,9 @@
 ﻿.header {
     overflow: hidden;
-    background-color: #f1f1f1;
+    background-color: white;
     padding: 8px 8px;
     border-bottom:1px solid grey;
-    min-height:70px;
+    min-height:60px;
 }
 
     .header div a {
@@ -29,12 +29,12 @@
         }
 
         .header a:hover {
-            background-color: #ddd;
+            background-color: gold;
             color: black;
         }
 
         .header a.active {
-            background-color: dodgerblue;
+            background-color:gold;
             color: white;
         }
 
