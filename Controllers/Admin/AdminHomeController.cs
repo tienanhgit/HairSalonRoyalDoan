@@ -14,6 +14,20 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
             return View();
         }
+        public ActionResult SanPham()
+        {
+            return View();
+
+        }
+        public ActionResult ThemSanPham()
+        {
+            return View();
+
+        }
+        public ActionResult SuaSanPham()
+        {
+            return View();
+        }
 
 
 

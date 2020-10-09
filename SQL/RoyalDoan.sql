@@ -418,8 +418,118 @@ AS BEGIN
 							 '
 	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaNV
 END
+/*Bang dich vu*/
+/*Thêm Nhan Vien */
+create Proc Proc_NhanVien_Insert @HoTenNV nvarchar(50),
+								@Email nvarchar(50)='',
+								@MatKhau nvarchar(255)='',
+								@SoDTNV INT='',
+								@QueQuan nvarchar(50)='',
+								@CMND int='',
+								@NgaySinh datetime='',
+								@HinhThucLam nvarchar(50)='',
+								@ChucVu nvarchar(50)='',
+								@NgayTao datetime='',
+								@NgaySua datetime=''
 
-exec Proc_NhanVien_GetData  ''
+						
+AS BEGIN 
+	INSERT INTO NhanVien
+	        (				HoTenNV ,
+								Email,
+								MatKhau ,
+								SoDTNV ,
+								QueQuan ,
+								CMND ,
+								NgaySinh ,
+								HinhThucLam ,
+								ChucVu ,
+								NgayTao ,
+								NgaySua 
+	        )
+	VALUES  (					@HoTenNV ,
+								@Email ,
+								@MatKhau ,
+								@SoDTNV ,
+								@QueQuan ,
+								@CMND ,
+								@NgaySinh ,
+								@HinhThucLam ,
+								@ChucVu ,
+								@NgayTao ,
+								@NgaySua 
+
+	        )
+END;
+
+
+Go
+
+/*Sửa Nhan Vien*/
+create Proc Proc_NhanVien_Update @MaNV int,
+								@HoTenNV nvarchar(50),
+								@Email nvarchar(50),
+								@MatKhau nvarchar(255),
+								@SoDTNV INT,
+								@QueQuan nvarchar(50),
+								@CMND int,
+								@NgaySinh datetime,
+								@HinhThucLam nvarchar(50),
+								@ChucVu nvarchar(50),
+								@NgayTao datetime,
+								@NgaySua datetime
+
+							
+AS BEGIN 
+	UPDATE NhanVien SET		HoTenNV=@HoTenNV ,
+								Email=@Email,
+								MatKhau=@MatKhau ,
+								SoDTNV=@SoDTNV ,
+								QueQuan=@QueQuan ,
+								CMND=@CMND ,
+								NgaySinh =@NgaySinh,
+								HinhThucLam=@HinhThucLam ,
+								ChucVu=@ChucVu ,
+								NgayTao=@NgayTao ,
+								NgaySua=@NgaySua 
+							
+	WHERE MaNV = @MaNV
+END
+
+GO
+
+/* Get data Nhan Vien */
+create Procedure Proc_NhanVien_GetData 
+								@MaNV int ='' ,
+								@HoTenNV nvarchar(50)='',
+								@Email nvarchar(50)='',
+								@MatKhau nvarchar(255)='',
+								@SoDTNV INT='',
+								@QueQuan nvarchar(50)='',
+								@CMND int='',
+								@NgaySinh datetime='',
+								@HinhThucLam nvarchar(50)='',
+								@ChucVu nvarchar(50)='',
+								@NgayTao datetime='',
+								@NgaySua datetime=''
+							
+AS BEGIN
+	DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'Select * from NhanVien where (1=1) '
+	
+	SET @ParamList =		'@MaNV int
+								
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaNV
+END
+
+
+
+
+
+
+
 
 
 
