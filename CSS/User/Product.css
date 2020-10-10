@@ -1,0 +1,107 @@
+﻿
+.bloc_left_price {
+    color: #c01508;
+    text-align: center;
+    font-weight: bold;
+    font-size: 150%;
+}
+
+.category_block li:hover {
+    background-color: #007bff;
+}
+
+    .category_block li:hover a {
+        color: #ffffff;
+    }
+
+.category_block li a {
+    color: #343a40;
+}
+
+.add_to_cart_block .price {
+    color: #c01508;
+    text-align: center;
+    font-weight: bold;
+    font-size: 200%;
+    margin-bottom: 0;
+}
+
+.add_to_cart_block .price_discounted {
+    color: #343a40;
+    text-align: center;
+    text-decoration: line-through;
+    font-size: 140%;
+}
+
+.product_rassurance {
+    padding: 10px;
+    margin-top: 15px;
+    background: #ffffff;
+    border: 1px solid #6c757d;
+    color: #6c757d;
+}
+
+    .product_rassurance .list-inline {
+        margin-bottom: 0;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+        .product_rassurance .list-inline li:hover {
+            color: #343a40;
+        }
+
+.reviews_product .fa-star {
+    color: gold;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+
+footer {
+    background: #343a40;
+    padding: 40px;
+}
+
+    footer a {
+        color: #f8f9fa !important
+    }
+
+
+/*Css cho banner*/
+.swiper-main {
+    height: 100%;
+    max-height: 450px;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.swiper-main img {
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}

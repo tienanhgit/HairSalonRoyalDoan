@@ -1,9 +1,8 @@
 ﻿create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
-
-
-
+ 
+/*tesst*/
 
 go
 create table NhanVien
@@ -11,6 +10,7 @@ create table NhanVien
 MaNV int Identity primary key,
 HoTenNV nvarchar(50),
 Email nvarchar(50),
+MatKhau nvarchar(255),
 SoDTNV int,
 QueQuan nvarchar(50),
 CMND int,
@@ -49,12 +49,12 @@ MaNV int,
 MaKH int,
 SoDTGiaoHang int,
 HinhThucTT nvarchar(50),
-TrangThai nvarchar(50),
+TrangThaiDonSanPham int ,/*1 chờ xác nhận , 2 xác nhận ,3 thành công */
+TrangThaiDonDichVu int,/*1 chờ xác nhận , 2 xác nhận ,3 thành công */
 HoTenNguoiNhan nvarchar(50),
 DiaChiNhanHang nvarchar(50),
 NgayTao datetime,
 NgaySua datetime
-
 );
 go
 
@@ -71,6 +71,7 @@ create table ChiTietDonDichVu
 (
 MaDonDatHang int not null,
 MaDV int not null,
+MaNV int ,
 NgayDat datetime ,
 GioDat datetime ,
 Primary key(MaDonDatHang,MaDV)
@@ -97,8 +98,6 @@ create table DanhMuc
 MaDanhMuc int not null identity primary key,
 TenDanhMuc nvarchar(50),
 )
-
-
 go
 create table DichVu
 (
@@ -108,13 +107,13 @@ Gia float,
 HoatDong ntext,
 NgayTao datetime,
 NgaySua datetime
-
 );
 go
 create table Chitietdichvu
 (
 MaCTDV int not null identity primary key,
 MaDV int ,
+
 Buoc ntext,
 ChiTietBuoc ntext
 
@@ -126,6 +125,11 @@ alter table ChiTietDichVu
 add constraint FK_ChiTietDichVu_DichVu
 foreign key(MaDV)
 references DichVu(MaDV)
+go
+alter table ChiTietDonDichVu
+add constraint FK_ChiTietDonDichVu_NhanVien
+foreign key (MaNV)
+references NhanVien(MaNV)
 
 alter table DonDatHang
 add constraint FK_DonDatHang_KhachHang
@@ -290,8 +294,23 @@ as
 begin
 select * from SanPham
 end
+go
+
+/*Proc login*/
+Create Proc Proc_NhanVien_DangNhap @Email NVARCHAR(50), @MatKhau NVARCHAR(255)
+AS
+BEGIN
+	SELECT MaNV  FROM NhanVien WHERE Email = @Email AND MatKhau = @MatKhau
+
+END;
 
 
+
+select * from NhanVien
+/*Them du lieu demo*/
+insert into NhanVien 
+values (N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','0902087097',N'Hải Dương',142987653,'09/02/1978','Fulltime','Chủ cửa hàng','10/7/2020','10/7/2020')
+select * from NhanVien
 
 
 
