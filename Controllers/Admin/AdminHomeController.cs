@@ -30,8 +30,5 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         }
 
 
-
-
-
     }
 }

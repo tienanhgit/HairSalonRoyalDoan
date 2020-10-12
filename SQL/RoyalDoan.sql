@@ -537,9 +537,32 @@ END;
 insert into NhanVien 
 values (N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','0902087097',N'Hải Dương',142987653,'09/02/1978','Fulltime','Chủ cửa hàng','10/7/2020','10/7/2020')
 
+insert into ThuongHieu
+values ('L’Oréal','','')
+
+select * from ThuongHieu
 
 
 
+/*Bang thuong hiệu*/
+
+create proc Proc_ThuongHieu_Get
+as
+begin 
+
+select * from ThuongHieu
+
+end
+
+/*Bang danh muc*/
+
+create proc Proc_DanhMuc_Get
+as
+begin 
+
+select * from DanhMuc
+
+end
 
 
 
