@@ -96,7 +96,7 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-12 col-sm-3">
+            <div class="col-2 col-sm-3">
                 <div class="card bg-light mb-3">
                     <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Loại sản phẩm</div>
                     <ul class="list-group category_block">
@@ -107,11 +107,22 @@
                         <li class="list-group-item"><a href="category.html">Khác</a></li>
                     </ul>
                 </div>
+                <div class="card bg-light mb-3">
+                    <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Thương Hiệu</div>
+                    <ul class="list-group category_block">
+                        <li class="list-group-item"><a href="category.html">Chăm sóc tóc</a></li>
+                        <li class="list-group-item"><a href="category.html">Chăm sóc da</a></li>
+                        <li class="list-group-item"><a href="category.html">Chăm sóc cơ thể</a></li>
+                        <li class="list-group-item"><a href="category.html">Chăm sóc râu</a></li>
+                        <li class="list-group-item"><a href="category.html">Khác</a></li>
+                    </ul>
+                </div>
+
 
             </div>
-            <div class="col">
-                <div class="row">
 
+            <div class="col-9">
+                <div class="row">
                     @foreach (var ItemProduct in Model)
                         {
                             <div class="col-12 col-md-6 col-lg-4">
@@ -150,11 +161,6 @@
                             </ul>
                         </nav>
                     </div>
-
-
-
-
-
                 </div>
             </div>
 

@@ -19,7 +19,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             try
             {
                 List<SanPham> dsSanPham = new List<SanPham>();
-                DataTable dt = dataProvider.ExecuteQuery("Proc_SanPham_GetData1", null, null);
+                DataTable dt = dataProvider.ExecuteQuery("Proc_SanPham_GetData", null, null);
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     foreach (DataRow row in dt.Rows)
