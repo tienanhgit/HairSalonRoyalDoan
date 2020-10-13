@@ -1,16 +1,13 @@
-﻿create database HairSalonRoyalDoan
+﻿
+create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
 
 
 
-
- 
-
-
 /*chuan*/
-go
+
 create table NhanVien
 (
 MaNV int Identity primary key,
@@ -257,16 +254,17 @@ values (2,N'Xịt dưỡng khóa biểu bì tóc',450000,'/Content/Images/Images
 
 
 /*Proceduce */
+/*Bang San Pham*/
 go
-/*Thêm sản phẩm */
+
 create Proc Proc_SanPham_Insert @MaDanhMuc int,
 							@TenSanPham DATETIME, 
 							@Gia float, 
 							@HinhAnh NVARCHAR(255), 
 							@MoTa ntext, 
 							@DanhGia ntext,
-							@NgayTao DateTime,
-							@NgaySua datetime
+							@NgayTao DateTime
+					
 						
 AS BEGIN 
 	INSERT INTO dbo.SanPham
@@ -276,8 +274,8 @@ AS BEGIN
 	          HinhAnh ,
 			  MoTa,
 	          DanhGia ,
-			  NgayTao,
-			  NgaySua    
+			  NgayTao
+			  
 	        )
 	VALUES  ( @MaDanhMuc , 
 	          @TenSanPham , 
@@ -285,13 +283,13 @@ AS BEGIN
 	          @HinhAnh , 
 	          @MoTa, 
 			  @DanhGia,
-			  @NgayTao,
-			  @NgaySua
+			  @NgayTao
+		
 	        )
 END;
 Go
 
-/*Sửa sản phẩm*/
+
 create Proc Proc_SanPham_Update @MaSanPham int, 
 							@MaDanhMuc int, 
 							@TenSanPham nvarchar(50), 
@@ -299,7 +297,7 @@ create Proc Proc_SanPham_Update @MaSanPham int,
 							@HinhAnh NVARCHAR(255), 
 							@MoTa ntext, 
 							@DanhGia ntext ,
-							@NgayTao DateTime,
+						
 							@NgaySua datetime
 
 							
@@ -309,7 +307,7 @@ AS BEGIN
 							HinhAnh = @HinhAnh,
 							MoTa = @MoTa,
 							DanhGia = @DanhGia,
-							NgayTao=@NgayTao,
+							
 							NgaySua=@NgaySua
 							
 	WHERE MaSanPham = @MaSanPham
@@ -317,7 +315,7 @@ END
 
 GO
 
-/* Get data Sản Phẩm */
+
 create Procedure Proc_SanPham_GetData 
 							@MaSanPham INT = '',
 							@MaDanhMuc INT='',
@@ -358,11 +356,9 @@ exec Proc_SanPham_GetData  null
 
 					
 go
-
+/*End*/
 
 /*Bảng nhân viên*/
-
-/*Thêm Nhan Vien */
 create Proc Proc_NhanVien_Insert @HoTenNV nvarchar(50),
 								@Email nvarchar(50)='',
 								@MatKhau nvarchar(255)='',
@@ -372,8 +368,8 @@ create Proc Proc_NhanVien_Insert @HoTenNV nvarchar(50),
 								@NgaySinh datetime='',
 								@HinhThucLam nvarchar(50)='',
 								@ChucVu nvarchar(50)='',
-								@NgayTao datetime='',
-								@NgaySua datetime=''
+								@NgayTao datetime=''
+						
 
 						
 AS BEGIN 
@@ -387,8 +383,8 @@ AS BEGIN
 								NgaySinh ,
 								HinhThucLam ,
 								ChucVu ,
-								NgayTao ,
-								NgaySua 
+								NgayTao 
+								
 	        )
 	VALUES  (					@HoTenNV ,
 								@Email ,
@@ -399,8 +395,8 @@ AS BEGIN
 								@NgaySinh ,
 								@HinhThucLam ,
 								@ChucVu ,
-								@NgayTao ,
-								@NgaySua 
+								@NgayTao 
+							
 
 	        )
 END;
@@ -408,7 +404,6 @@ END;
 
 Go
 
-/*Sửa Nhan Vien*/
 create Proc Proc_NhanVien_Update @MaNV int,
 								@HoTenNV nvarchar(50),
 								@Email nvarchar(50),
@@ -419,7 +414,7 @@ create Proc Proc_NhanVien_Update @MaNV int,
 								@NgaySinh datetime,
 								@HinhThucLam nvarchar(50),
 								@ChucVu nvarchar(50),
-								@NgayTao datetime,
+							
 								@NgaySua datetime
 
 							
@@ -433,15 +428,14 @@ AS BEGIN
 								NgaySinh =@NgaySinh,
 								HinhThucLam=@HinhThucLam ,
 								ChucVu=@ChucVu ,
-								NgayTao=@NgayTao ,
+								
 								NgaySua=@NgaySua 
 							
 	WHERE MaNV = @MaNV
 END
 
-GO
+go
 
-/* Get data Nhan Vien */
 create Procedure Proc_NhanVien_GetData 
 								@MaNV int ='' ,
 								@HoTenNV nvarchar(50)='',
@@ -461,35 +455,34 @@ AS BEGIN
 	DECLARE @ParamList AS NVARCHAR(max)
 	SET @Query = 'Select * from NhanVien where (1=1) '
 	
-	SET @ParamList =		'@MaNV int
-								
+	SET @ParamList =		'@MaNV int						
 							 '
 	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaNV
 END
 go
+/*End*/
+
 /*Bang dich vu*/
-/*Thêm Dich vu */
 
 create Proc Proc_Dichvu_Insert @TenDV nvarchar(50),
 								@Gia nvarchar(50)='',
 								@HoatDong nvarchar(255)='',					
-								@NgayTao datetime='',
-								@NgaySua datetime=''
+								@NgayTao datetime=''
+						
 						
 AS BEGIN 
 	INSERT INTO DichVu
 	        (					TenDV ,
 								Gia,
 								HoatDong ,			
-								NgayTao ,
-								NgaySua 
+								NgayTao 
+							
 	        )
 	VALUES  (					 @TenDV ,
 								@Gia,
 								@HoatDong,					
-								@NgayTao,
-								@NgaySua							
-
+								@NgayTao
+													
 	        )
 END;
 
@@ -500,9 +493,7 @@ create Proc Proc_DichVu_Update @MaDV int,
 								@Gia nvarchar(50)='',
 								@HoatDong nvarchar(255)='',											
 								@NgaySua datetime=''
-							
-
-							
+														
 AS BEGIN 
 	UPDATE DichVu SET TenDV=@TenDV,
 	Gia=@Gia,
@@ -519,9 +510,95 @@ create Procedure Proc_DichVu_GetData
 AS BEGIN
 select * from DichVu where 1=1
 END
+go
+/*END*/
 
+
+/*Bang thuong hiệu*/
+create proc Proc_ThuongHieu_Get
+as
+begin 
+select * from ThuongHieu
+end
 go
 
+create Proc Proc_ThuongHieu_Insert @TenThuongHieu nvarchar(255),
+@NgayTao datetime
+						
+AS BEGIN 
+	INSERT INTO ThuongHieu
+	        (				TenThuongHieu,
+							 NgayTao
+	        )
+	VALUES  (					@TenThuongHieu,
+									@NgayTao
+	        )
+END;
+
+
+Go
+
+create Proc Proc_ThuongHieu_Update 
+@MaThuongHieu int,
+@TenThuongHieu nvarchar(255),
+@NgaySua datetime						
+AS BEGIN 
+	UPDATE ThuongHieu SET TenThuongHieu=@TenThuongHieu,
+	NgaySua=@NgaySua		
+							
+	WHERE MaThuongHieu = @MaThuongHieu
+END
+GO
+
+/*Bang Bai Viet*/
+create proc Proc_BaiViet_Get
+as
+begin 
+select * from BaiViet
+end
+go
+
+create Proc Proc_BaiViet_Insert 
+@MaNV int,
+@TenBaiViet nvarchar(255),
+@NoiDung ntext,
+@NgayTao datetime
+						
+AS BEGIN 
+	INSERT INTO BaiViet
+	        (	
+			MaNV,
+			TenBaiViet,
+			NoiDung,
+							 NgayTao
+	        )
+	VALUES  (					@MaNV,
+							 @TenBaiViet,
+							 @NoiDung,
+							 @NgayTao
+	        )
+END;
+
+
+Go
+
+create Proc Proc_BaiViet_Update 
+@MaBaiViet int,
+	@MaNV int,
+@TenBaiViet nvarchar(255),
+@NoiDung ntext,
+@NgayTao datetime				
+AS BEGIN 
+	UPDATE BaiViet SET 
+	MaNV=@MaNV,
+	TenBaiViet=@TenBaiViet,
+	NoiDung=@NoiDung,
+	NgayTao=@NgayTao
+	
+							
+	WHERE MaBaiViet = @MaBaiViet
+END
+GO
 
 /*Proc login*/
 Create Proc Proc_NhanVien_DangNhap
@@ -531,38 +608,26 @@ AS
 BEGIN
 	SELECT MaNV  FROM NhanVien WHERE Email = @Email AND MatKhau = @MatKhau
 END;
-
+go
 
 /*Them du lieu demo*/
 insert into NhanVien 
 values (N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','0902087097',N'Hải Dương',142987653,'09/02/1978','Fulltime','Chủ cửa hàng','10/7/2020','10/7/2020')
-
+go
 insert into ThuongHieu
 values ('L’Oréal','','')
-
-select * from ThuongHieu
-
+go
 
 
-/*Bang thuong hiệu*/
 
-create proc Proc_ThuongHieu_Get
-as
-begin 
 
-select * from ThuongHieu
 
-end
 
-/*Bang danh muc*/
 
-create proc Proc_DanhMuc_Get
-as
-begin 
 
-select * from DanhMuc
 
-end
+
+
 
 
 

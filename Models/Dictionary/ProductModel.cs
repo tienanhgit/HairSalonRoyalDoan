@@ -32,8 +32,6 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         sanpham.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : float.Parse(row["Gia"].ToString());
                         sanpham.MoTa = String.IsNullOrEmpty(row["MoTa"].ToString()) ? "" : row["MoTa"].ToString();
                         sanpham.DanhGia = String.IsNullOrEmpty(row["DanhGia"].ToString()) ? "" : row["DanhGia"].ToString();
-
-
                         dsSanPham.Add(sanpham);
                     }
                     return dsSanPham;
@@ -44,7 +42,48 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             {
                 return new List<SanPham>();
             }
+        }
 
+        public string ThemSanPham(SanPham sanPham)
+        {
+            try
+            {
+                string rs = "";           
+                rs = dataProvider.ExecuteScalar("Proc_SanPham_Insert", new object[] { sanPham.MaDanhMuc,sanPham.TenSanPham,sanPham.Gia,sanPham.HinhAnh,sanPham.MoTa,sanPham.DanhGia,sanPham.NgayTao },
+                  new List<string>() { "@MaDanhMuc" ,
+              "@TenSanPham" ,
+              "@Gia" ,
+              "@HinhAnh" ,
+              "@MoTa",
+              "@DanhGia",
+              "@NgayTao" });
+                return rs;
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
+
+        public string CapNhatSanPham(SanPham sanPham)
+        {
+            try
+            {
+               
+                int kq = dataProvider.ExecuteNonQuery("Proc_SanPham_Update", new object[] { sanPham.MaDanhMuc, sanPham.TenSanPham, sanPham.Gia, sanPham.HinhAnh, sanPham.MoTa, sanPham.DanhGia, sanPham.NgaySua },
+                  new List<string>() {"@MaDanhMuc" ,
+              "@TenSanPham" ,
+              "@Gia" ,
+              "@HinhAnh" ,
+              "@MoTa",
+              "@DanhGia",
+              "@NgaySua"  });
+                return kq.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
         }
 
 
