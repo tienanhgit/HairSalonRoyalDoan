@@ -3,6 +3,8 @@
 
     ViewBag.Title = "Them San Pham";
     Layout = "~/Views/Shared/_AdminHome.cshtml";
+
+
 }
 
 <!DOCTYPE html>
@@ -14,16 +16,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Them San Pham</title>
+    <script src="~/Content/plugins/ckeditor/ckeditor.js"></script>
 
-    <script src="~/Content/plugins/ckeditor/_Samples/ckeditor/ckeditor.js"></script>
+
     <script src="~/Content/plugins/ckfinder/ckfinder.js"></script>
 
 
 </head>
 <body>
-
     <div class="clearfix">
-
         <div id="main">
             <ol class="breadcrumb">
                 <li><a href="index.html"><i class="fa fa-home"></i> Trang quản trị</a></li>
@@ -43,6 +44,19 @@
                                 <option value="">Loại sản phẩm 3</option>
                             </select>
                         </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="type_product" class="col-sm-3 control-label required">Thương hiệu</label>
+                        <div class="col-sm-9">
+                            <select name="type_product" id="type_product" class="form-control">
+                                <option value="">Chọn thương hiệu</option>
+                                <option value="">Loại sản phẩm 1</option>
+                                <option value="">Loại sản phẩm 2</option>
+                                <option value="">Loại sản phẩm 3</option>
+                            </select>
+                        </div>
+
                     </div>
                     <div class="form-group">
                         <label for="masp" class="col-sm-3 control-label required">Mã sản phẩm</label>
@@ -99,24 +113,6 @@
                         </div>
                     </div>
 
-                    @Html.TextArea("Detail")
-
-                    @using (Html.BeginForm("Detail", "Home", FormMethod.Post))
-                    {
-                        <div>
-                            Hinh anh : @Html.TextBox("Picture")
-                            <input type="button" id="Browse" value="Duyet Anh" />
-
-                        </div>
-                        <div>
-
-                            <script type="text/javascript">
-                                CKEDITOR.replace("Detail");
-                            </script><br />
-
-
-                        </div>
-                    }
 
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
