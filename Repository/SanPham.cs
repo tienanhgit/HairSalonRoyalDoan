@@ -67,7 +67,6 @@ namespace HairSalonRoyalDoan.Repository
             HinhAnh = hinhAnh;
             MoTa = moTa;
             DanhGia = danhGia;
-        
             NgayTao = ngayTao;
 
         }

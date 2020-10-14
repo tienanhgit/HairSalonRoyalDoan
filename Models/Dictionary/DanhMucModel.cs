@@ -36,8 +36,30 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             }
         }
 
-        
-    
+        public DanhMuc GetDanhMucByMa(int MaDanhMuc)
+        {
+            try
+            {
+                DanhMuc danhMuc = null;
+                DataTable dt = dataProvider.ExecuteQuery("Proc_DanhMuc_GetData", new object[] { MaDanhMuc }, new List<string>() { "MaDanhMuc" });
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    var row = dt.Rows[0];
+                    danhMuc = new DanhMuc();
+                    danhMuc.MaDanhMuc = String.IsNullOrEmpty(row["MaDanhMuc"].ToString()) ? 0 : int.Parse(row["MaDanhMuc"].ToString());
+                    danhMuc.TenDanhMuc = String.IsNullOrEmpty(row["TenDanhMuc"].ToString()) ? "" : row["TenDanhMuc"].ToString();
 
-}
+                }
+                return danhMuc;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+
+
+    }
 }

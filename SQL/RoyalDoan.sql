@@ -256,9 +256,10 @@ values (2,N'Xịt dưỡng khóa biểu bì tóc',450000,'/Content/Images/Images
 /*Proceduce */
 /*Bang San Pham*/
 go
-select * from ThuongHieu
-exec Proc_SanPham_Insert 1,1,'2'
+
+
 select *from SanPham
+
 go
 alter Proc Proc_SanPham_Insert @MaDanhMuc int ='',
 								@MaThuongHieu int='',
@@ -321,7 +322,6 @@ END
 
 GO
 
-
 create Procedure Proc_SanPham_GetData 
 							@MaSanPham INT = '',
 							@MaDanhMuc INT='',
@@ -332,7 +332,7 @@ create Procedure Proc_SanPham_GetData
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
-	SET @Query = 'Select * from SanPham where (1=1) '
+	SET @Query = 'Select * from SanPham where (1=1)'
 	IF(@MaSanPham !='')
 	begin
 		SET @Query += ' AND (MaSanPham = @MaSanPham) '
@@ -350,7 +350,9 @@ AS BEGIN
 	IF (@Gia != '')
 	begin
 		SET @Query += ' AND (Gia = @Gia) '
+	
 	end
+	set @query +='order by MaSanPham';
 	SET @ParamList =		'@MaSanPham int,
 								@MaDanhMuc int,
 								@TenSanPham NVARCHAR(255),
@@ -521,11 +523,34 @@ go
 
 
 /*Bang thuong hiệu*/
+
 create proc Proc_ThuongHieu_GetData
-as
-begin 
-select * from ThuongHieu
-end
+							@MaThuongHieu INT = '',
+							@TenThuongHieu nvarchar(50)=''
+						
+						
+							
+AS BEGIN
+	DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'Select * from ThuongHieu where (1=1)'
+	IF(@MaThuongHieu !='')
+	begin	
+		set @Query += ' AND (MaThuongHieu = @MaThuongHieu) '
+		end
+	IF(@TenThuongHieu != '')
+		BEGIN
+			SET @TenThuongHieu = '%'+@TenThuongHieu+'%'
+			SET @Query += ' AND (TenThuongHieu like @TenThuongHieu) '
+		END	
+	set @query +='order by MaThuongHieu';
+	SET @ParamList =		'
+							@MaThuongHieu int,
+								@TenThuongHieu NVARCHAR(50)
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaThuongHieu,@TenThuongHieu
+END
+
 go
 
 create Proc Proc_ThuongHieu_Insert @TenThuongHieu nvarchar(255),
@@ -559,10 +584,32 @@ GO
 
 /*Bang danh muc*/
 create proc Proc_DanhMuc_GetData
-as
-begin 
-select * from DanhMuc
-end
+							@MaDanhMuc INT = '',
+							@TenDanhMuc nvarchar(50)=''
+						
+						
+							
+AS BEGIN
+	DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'Select * from DanhMuc where (1=1)'
+	IF(@MaDanhMuc !='')
+	begin	
+		set @Query += ' AND (MaDanhMuc = @MaDanhMuc) '
+		end
+	IF(@TenDanhMuc != '')
+		BEGIN
+			SET @TenDanhMuc = '%'+@TenDanhMuc+'%'
+			SET @Query += ' AND (TenDanhMuc like @TenDanhMuc) '
+		END	
+	set @query +='order by MaDanhMuc';
+	SET @ParamList =		'
+							@MaDanhMuc int,
+								@TenDanhMuc NVARCHAR(50)
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDanhMuc,@TenDanhMuc
+END
+
 go
 
 /*End*/

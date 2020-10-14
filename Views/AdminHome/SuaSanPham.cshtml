@@ -1,9 +1,9 @@
 ﻿
 @{
-
-    ViewBag.Title = "Them San Pham";
+    ViewBag.Title = "San Pham";
     Layout = "~/Views/Shared/_AdminHome.cshtml";
 
+    var ThuongHieu = ViewBag.ListThuongHieu as HairSalonRoyalDoan.Repository.ThuongHieu;
 
 }
 
@@ -38,11 +38,9 @@
                         <div class="col-sm-9">
                             <select name="type_product" id="MaThuongHieu" class="form-control">
                                 <option value="" disabled>Chọn thương hiệu</option>
-                                @{ foreach (var thuonghieu in ViewBag.ListThuongHieu)
-                                    {
-
-                                        <option value="@thuonghieu.MaThuongHieu">@thuonghieu.TenThuongHieu</option>
-                                    }
+                           
+                                <option value="">@ThuongHieu.TenThuongHieu</option>
+                                    
                                 }
                             </select>
                         </div>
@@ -53,14 +51,11 @@
                         <div class="col-sm-9">
                             <select name="type_product" id="MaDanhMuc" class="form-control">
                                 <option value="" disabled>Chọn danh mục</option>
-                                @{
-                                    foreach (var danhmuc in ViewBag.ListDanhMuc)
-                                    {
+                            
+                                    
+                                                                <option value=""></option>
+                                    
 
-                                        <option value="@danhmuc.MaDanhMuc">@danhmuc.TenDanhMuc</option>
-                                    }
-
-                                }
 
 
                             </select>
@@ -171,25 +166,23 @@
                 type: "POST",
                 url: '@Url.Action("/ThemSanPham")',
                 data: '{std: ' + JSON.stringify(std) + '}',
-                dataType: "json",           
+                dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function () {
                     console.log(std);
-                    alert("Thêm sản phẩm thành công");            
+                    alert("Thêm sản phẩm thành công");
                 },
                 error: function () {
                     alert("Thêm sản phẩm thất bại");
                 }
             });
-         
+
         });
     });
 
 
     </script>
 
-
-
-
 </body>
 </html>
+
