@@ -529,7 +529,7 @@ create proc Proc_ThuongHieu_GetData
 							@TenThuongHieu nvarchar(50)=''
 						
 						
-							
+					
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)

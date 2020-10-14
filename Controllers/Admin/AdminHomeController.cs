@@ -54,14 +54,21 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         {
             int MaDanhMuc = Convert.ToInt32(Request.QueryString["MaDanhMuc"]);
             int MaThuongHieu = Convert.ToInt32(Request.QueryString["MaThuongHieu"]);
+            if (MaThuongHieu != 0)
+            {
+                ViewBag.ListDanhMuc = new DanhMucModel().GetDanhMucByMa(MaDanhMuc);
+            }
+            else
+            {
+                ViewBag.ListDanhMuc ="";
 
-            ViewBag.ListDanhMuc = new DanhMucModel().GetDanhMucByMa(MaDanhMuc);
-          ThuongHieu listThuongHieu = new ThuongHieuModel().GetDanhThuongHieuByMa(MaThuongHieu);
+            }
+          ThuongHieu listThuongHieu = new ThuongHieuModel().GetThuongHieuByMa(MaThuongHieu);
             ViewBag.ListThuongHieu = listThuongHieu;
 
             List<SanPham> listsp = new ProductModel().GetData();
             ViewBag.ListSanPham = listsp;
-            return View();
+            return View(listThuongHieu);
         }
        
 

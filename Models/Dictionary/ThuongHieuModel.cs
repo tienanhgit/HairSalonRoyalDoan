@@ -37,7 +37,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 return new List<ThuongHieu>();
             }
         }
-        public ThuongHieu GetDanhThuongHieuByMa(int MaThuongHieu)
+        public ThuongHieu GetThuongHieuByMa(int MaThuongHieu)
         {
             try
             {

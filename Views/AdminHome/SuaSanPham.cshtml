@@ -1,11 +1,17 @@
-﻿
+﻿@model HairSalonRoyalDoan.Repository.ThuongHieu
 @{
     ViewBag.Title = "San Pham";
     Layout = "~/Views/Shared/_AdminHome.cshtml";
+ 
 
-    var ThuongHieu = ViewBag.ListThuongHieu as HairSalonRoyalDoan.Repository.ThuongHieu;
+    var ThuongHieu =Model as HairSalonRoyalDoan.Repository.ThuongHieu;
+
 
 }
+<script >
+    console.log(@Model.TenThuongHieu);
+
+</script>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -39,7 +45,7 @@
                             <select name="type_product" id="MaThuongHieu" class="form-control">
                                 <option value="" disabled>Chọn thương hiệu</option>
                            
-                                <option value="">@ThuongHieu.TenThuongHieu</option>
+                                <option value=""></option>
                                     
                                 }
                             </select>
