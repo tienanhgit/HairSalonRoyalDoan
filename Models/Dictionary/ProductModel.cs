@@ -32,6 +32,8 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         sanpham.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : float.Parse(row["Gia"].ToString());
                         sanpham.MoTa = String.IsNullOrEmpty(row["MoTa"].ToString()) ? "" : row["MoTa"].ToString();
                         sanpham.DanhGia = String.IsNullOrEmpty(row["DanhGia"].ToString()) ? "" : row["DanhGia"].ToString();
+                        sanpham.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"].ToString());
+                        sanpham.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"].ToString());
                         dsSanPham.Add(sanpham);
                     }
                     return dsSanPham;
@@ -48,14 +50,17 @@ namespace HairSalonRoyalDoan.Models.Dictionary
         {
             try
             {
+                
                 string rs = "";           
-                rs = dataProvider.ExecuteScalar("Proc_SanPham_Insert", new object[] { sanPham.MaDanhMuc,sanPham.TenSanPham,sanPham.Gia,sanPham.HinhAnh,sanPham.MoTa,sanPham.DanhGia,sanPham.NgayTao },
-                  new List<string>() { "@MaDanhMuc" ,
-              "@TenSanPham" ,
-              "@Gia" ,
-              "@HinhAnh" ,
-              "@MoTa",
-              "@DanhGia",
+                rs = dataProvider.ExecuteScalar("Proc_SanPham_Insert", new object[] {sanPham.MaThuongHieu, sanPham.MaDanhMuc, sanPham.TenSanPham, sanPham.Gia, sanPham.HinhAnh, sanPham.MoTa, sanPham.DanhGia, sanPham.NgayTao },
+                  new List<string>() {
+                      "@MaThuongHieu",
+                      "@MaDanhMuc",
+                       "@TenSanPham" ,
+                      "@Gia" ,
+                         "@HinhAnh" ,
+                        "@MoTa",
+                         "@DanhGia",
               "@NgayTao" });
                 return rs;
             }

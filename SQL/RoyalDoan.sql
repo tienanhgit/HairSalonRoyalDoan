@@ -256,19 +256,24 @@ values (2,N'Xịt dưỡng khóa biểu bì tóc',450000,'/Content/Images/Images
 /*Proceduce */
 /*Bang San Pham*/
 go
-
-create Proc Proc_SanPham_Insert @MaDanhMuc int,
-							@TenSanPham DATETIME, 
-							@Gia float, 
-							@HinhAnh NVARCHAR(255), 
-							@MoTa ntext, 
-							@DanhGia ntext,
-							@NgayTao DateTime
+select * from ThuongHieu
+exec Proc_SanPham_Insert 1,1,'2'
+select *from SanPham
+go
+alter Proc Proc_SanPham_Insert @MaDanhMuc int ='',
+								@MaThuongHieu int='',
+							   @TenSanPham nvarchar(50)='', 
+							   @Gia float='', 
+							  @HinhAnh NVARCHAR(255)='', 
+							  @MoTa ntext='', 
+							  @DanhGia ntext='',
+							  @NgayTao DateTime=''
 					
 						
 AS BEGIN 
 	INSERT INTO dbo.SanPham
 	        ( MaDanhMuc ,
+			MaThuongHieu,
 	          TenSanPham ,
 	          Gia ,
 	          HinhAnh ,
@@ -278,6 +283,7 @@ AS BEGIN
 			  
 	        )
 	VALUES  ( @MaDanhMuc , 
+				@MaThuongHieu,
 	          @TenSanPham , 
 	          @Gia , 
 	          @HinhAnh , 
@@ -515,7 +521,7 @@ go
 
 
 /*Bang thuong hiệu*/
-create proc Proc_ThuongHieu_Get
+create proc Proc_ThuongHieu_GetData
 as
 begin 
 select * from ThuongHieu
@@ -549,6 +555,20 @@ AS BEGIN
 	WHERE MaThuongHieu = @MaThuongHieu
 END
 GO
+/*End*/
+
+/*Bang danh muc*/
+create proc Proc_DanhMuc_GetData
+as
+begin 
+select * from DanhMuc
+end
+go
+
+/*End*/
+
+
+
 
 /*Bang Bai Viet*/
 create proc Proc_BaiViet_Get
