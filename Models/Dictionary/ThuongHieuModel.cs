@@ -45,6 +45,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 DataTable dt = dataProvider.ExecuteQuery("Proc_ThuongHieu_GetData", new object[] { MaThuongHieu }, new List<string>() { "MaThuongHieu" });
                 if (dt != null && dt.Rows.Count > 0)
                 {
+                    thuongHieu = new ThuongHieu();
                     var row = dt.Rows[0];
                     thuongHieu.MaThuongHieu = String.IsNullOrEmpty(row["MaThuongHieu"].ToString()) ? 0 : int.Parse(row["MaThuongHieu"].ToString());
                     thuongHieu.TenThuongHieu = String.IsNullOrEmpty(row["TenThuongHieu"].ToString()) ? "" : row["TenThuongHieu"].ToString();

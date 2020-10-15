@@ -52,23 +52,30 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         [HttpGet]
         public ActionResult SuaSanPham()
         {
+            int MaSanPham = Convert.ToInt32(Request.QueryString["MaSanPham"]);
             int MaDanhMuc = Convert.ToInt32(Request.QueryString["MaDanhMuc"]);
             int MaThuongHieu = Convert.ToInt32(Request.QueryString["MaThuongHieu"]);
-            if (MaThuongHieu != 0)
-            {
-                ViewBag.ListDanhMuc = new DanhMucModel().GetDanhMucByMa(MaDanhMuc);
-            }
-            else
-            {
-                ViewBag.ListDanhMuc ="";
 
-            }
-          ThuongHieu listThuongHieu = new ThuongHieuModel().GetThuongHieuByMa(MaThuongHieu);
+            ViewBag.MaDanhMuc = MaDanhMuc;
+            ViewBag.MaThuongHieu = MaThuongHieu;
+
+            List<ThuongHieu> listThuongHieu = new ThuongHieuModel().GetData();
             ViewBag.ListThuongHieu = listThuongHieu;
 
-            List<SanPham> listsp = new ProductModel().GetData();
-            ViewBag.ListSanPham = listsp;
-            return View(listThuongHieu);
+            List<DanhMuc> listDanhMuc = new DanhMucModel().GetData();
+            ViewBag.ListDanhMuc = listDanhMuc;
+
+            SanPham sp = new ProductModel().GetSanPhamByMa(MaSanPham);
+            ViewBag.SanPham = sp;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult SuaSanPham(SanPham std)
+        {
+            std.NgaySua = DateTime.Now;
+            productModel.CapNhatSanPham(std);
+            string message = "";
+            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
        
 

@@ -111,8 +111,10 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             try
             {
                
-                int kq = dataProvider.ExecuteNonQuery("Proc_SanPham_Update", new object[] { sanPham.MaDanhMuc, sanPham.TenSanPham, sanPham.Gia, sanPham.HinhAnh, sanPham.MoTa, sanPham.DanhGia, sanPham.NgaySua },
-                  new List<string>() {"@MaDanhMuc" ,
+                int kq = dataProvider.ExecuteNonQuery("Proc_SanPham_Update", new object[] { sanPham.MaSanPham,sanPham.MaDanhMuc, sanPham.TenSanPham, sanPham.Gia, sanPham.HinhAnh, sanPham.MoTa, sanPham.DanhGia, sanPham.NgaySua },
+                  new List<string>() {
+                      "@MaSanPham",
+                      "@MaDanhMuc" ,
               "@TenSanPham" ,
               "@Gia" ,
               "@HinhAnh" ,

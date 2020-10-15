@@ -19,10 +19,11 @@ QueQuan nvarchar(50),
 CMND int,
 NgaySinh datetime,
 Hinhthuclam nvarchar(50),
-ChucVu nvarchar(50),/*Co 2 loai chuc vu : Nhan vien quan ly, Nhan vien quay*/
+ChucVu int,/*Co 2 loai chuc vu : 1 :Admin , 2 :User*/
 NgayTao datetime,
 NgaySua datetime
 );
+
 go
 create table Luong
 (
@@ -297,15 +298,15 @@ END;
 Go
 
 
-create Proc Proc_SanPham_Update @MaSanPham int, 
-							@MaDanhMuc int, 
-							@TenSanPham nvarchar(50), 
-							@Gia FLOAT, 
-							@HinhAnh NVARCHAR(255), 
-							@MoTa ntext, 
-							@DanhGia ntext ,
-						
-							@NgaySua datetime
+alter Proc Proc_SanPham_Update 
+							@MaSanPham int, 
+							@MaDanhMuc int='', 
+							@TenSanPham nvarchar(50)='', 
+							@Gia FLOAT='', 
+							@HinhAnh NVARCHAR(255)='', 
+							@MoTa ntext='', 
+							@DanhGia ntext='' ,						
+							@NgaySua datetime=''
 
 							
 AS BEGIN 
@@ -523,7 +524,7 @@ go
 
 
 /*Bang thuong hiệu*/
-
+exec Proc_ThuongHieu_GetData 1 
 create proc Proc_ThuongHieu_GetData
 							@MaThuongHieu INT = '',
 							@TenThuongHieu nvarchar(50)=''
@@ -667,6 +668,7 @@ AS BEGIN
 END
 GO
 
+
 /*Proc login*/
 Create Proc Proc_NhanVien_DangNhap
  @Email NVARCHAR(50), 
@@ -677,13 +679,28 @@ BEGIN
 END;
 go
 
+----Trả ra 0: Thì thêm. Trả ra >0: Trùng -> k thêm
+create  PROC Proc_NhanVien_CheckTK  @Email NVARCHAR(50)=''
+AS 
+BEGIN
+	SELECT Count (MaNV) FROM NhanVien WHERE Email = @Email
+END
+
+
+
+/*END*/
+
+
 /*Them du lieu demo*/
+
+
 insert into NhanVien 
-values (N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','0902087097',N'Hải Dương',142987653,'09/02/1978','Fulltime','Chủ cửa hàng','10/7/2020','10/7/2020')
+values (N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','0902087097',N'Hải Dương',142987653,'09/02/1978','Fulltime',1,'10/7/2020','10/7/2020')
 go
 insert into ThuongHieu
-values ('L’Oréal','','')
+values ('Enchenter','','')
 go
+
 
 
 
