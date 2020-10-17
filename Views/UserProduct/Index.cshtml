@@ -1,4 +1,5 @@
 ﻿@using PagedList.Mvc
+@using PagedList;
 @model PagedList.IPagedList<HairSalonRoyalDoan.Repository.SanPham>
 
 @{
@@ -176,8 +177,10 @@
                     }
                 <div class="col-12" style="margin-top:12px; font-size:40px">
                     <div class="text-right" style="font-size:30px !important">
+                        Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+    
                         @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
