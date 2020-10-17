@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -37,7 +38,11 @@ namespace HairSalonRoyalDoan.Repository
 
 
         public string HoTenNV { get => _HoTenNV; set => _HoTenNV = value; }
+        [Required]
+        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}")]
         public string Email { get => _Email; set => _Email = value; }
+        [Required]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
         public string MatKhau { get => _MatKhau; set => _MatKhau = value; }
         public int SDTNV { get => _SDTNV; set => _SDTNV = value; }
         public string QueQuan { get => _QueQuan; set => _QueQuan = value; }

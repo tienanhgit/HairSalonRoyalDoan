@@ -1,11 +1,17 @@
 ﻿
 @{
-
-    ViewBag.Title = "Them San Pham";
+    ViewBag.Title = "San Pham";
     Layout = "~/Views/Shared/_AdminHome.cshtml";
+ 
+
+  
 
 
 }
+<script >
+    
+
+</script>
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -20,7 +26,7 @@
     <script src="~/Content/plugins/ckeditor/ckeditor.js"></script>
     <script src="~/Content/plugins/ckfinder/ckfinder.js"></script>
 
-
+   
 </head>
 <body>
     <div class="clearfix">
@@ -28,7 +34,7 @@
             <ol class="breadcrumb">
                 <li><a href="/AdminHome"><i class="fa fa-home"></i> Trang quản trị</a></li>
                 <li class="active"><a href="SanPham">Sản phẩm</a></li>
-                <li class="active"><a href="ThemSanPham">Thêm sản phẩm mới</a></li>
+                <li class="active"><a href="SuaSanPham">Sửa sản phẩm</a></li>
             </ol>
             <div class="col-xs-12">
                 <form id="admin-form" class="form-horizontal col-xl-9 col-lg-10 col-md-12 col-sm-12" enctype="multipart/form-data" role="form">
@@ -38,12 +44,20 @@
                         <div class="col-sm-9">
                             <select name="type_product" id="MaThuongHieu" class="form-control">
                                 <option value="" disabled>Chọn thương hiệu</option>
+
                                 @{ foreach (var thuonghieu in ViewBag.ListThuongHieu)
                                     {
-
+                                        if (thuonghieu.MaThuongHieu == ViewBag.MaThuongHieu)
+                                        {
+                                            <option value="@thuonghieu.MaThuongHieu" selected="selected">@thuonghieu.MaThuongHieu</option>
+                                        }
+                                        else
+                                        {
                                         <option value="@thuonghieu.MaThuongHieu">@thuonghieu.TenThuongHieu</option>
+                                            }
+                                        }
                                     }
-                                }
+
                             </select>
                         </div>
 
@@ -53,15 +67,21 @@
                         <div class="col-sm-9">
                             <select name="type_product" id="MaDanhMuc" class="form-control">
                                 <option value="" disabled>Chọn danh mục</option>
+
                                 @{
                                     foreach (var danhmuc in ViewBag.ListDanhMuc)
                                     {
-
-                                        <option value="@danhmuc.MaDanhMuc">@danhmuc.TenDanhMuc</option>
+                                        if (danhmuc.MaDanhMuc == ViewBag.MaDanhMuc)
+                                        {
+                                            <option value="@danhmuc.MaDanhMuc" selected="selected">@danhmuc.TenDanhMuc</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@danhmuc.MaDanhMuc">@danhmuc.TenDanhMuc</option>
+                                        }
                                     }
 
                                 }
-
 
                             </select>
                         </div>
@@ -70,26 +90,26 @@
                     <div class="form-group">
                         <label for="masp" class="col-sm-3 control-label required">Mã sản phẩm</label>
                         <div class="col-sm-9">
-                            <input id="masp" disabled type="text" value="" class="form-control" placeholder="Mã sản phẩm" required="" maxlength="100">
+                            <input id="masp" disabled type="text" value=" @ViewBag.SanPham.MaSanPham" class="form-control" placeholder="Mã sản phẩm" required="" maxlength="100">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="title" class="col-sm-3 control-label required">Tên sản phẩm</label>
                         <div class="col-sm-9">
-                            <input id="TenSanPham" type="text" value="" class="form-control" placeholder="Tên sản phẩm " required="" maxlength="100">
+                            <input id="TenSanPham" type="text" value="@ViewBag.SanPham.TenSanPham" class="form-control"  placeholder="Tên sản phẩm " required="" maxlength="100">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="description" class="col-sm-3 control-label">Mô tả</label>
                         <div class="col-sm-9">
-                            <textarea id="MoTa" class="form-control" placeholder="meta description ( ~ 160 ký tự )" maxlength="255"></textarea>
+                            <textarea id="MoTa" class="form-control" placeholder="meta description ( ~ 160 ký tự )" maxlength="255">@ViewBag.SanPham.MoTa</textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="price" class="col-sm-3 control-label required">Giá</label>
                         <div class="col-sm-9">
-                            <input id="Gia" type="text" value="" class="form-control" placeholder="Giá sản phẩm (đơn vị: VNĐ)" maxlength="255">
+                            <input id="Gia" type="text" value="@ViewBag.SanPham.Gia" class="form-control" placeholder="Giá sản phẩm (đơn vị: VNĐ)" maxlength="255">
                         </div>
                     </div>
                     <div class="form-group">
@@ -136,9 +156,6 @@
         </div>
         <!--END #main-->
     </div>
-
-
-
     <script>
         $("#HinhAnh").click(function () {
             var finder = new CKFinder();
@@ -150,10 +167,11 @@
         })
     </script>
     <script type="text/javascript">
-
-     $(function () {
+        $(function () {     
+         
         $("#btnAdd").click(function () {
             var std = {};
+            std.MaSanPham=@ViewBag.SanPham.MaSanPham;
             std.MaThuongHieu = $("#MaThuongHieu option:selected").val();
             std.MaDanhMuc = $("#MaDanhMuc option:selected").val();
             std.TenSanPham = $("#TenSanPham").val();
@@ -169,27 +187,25 @@
 
             $.ajax({
                 type: "POST",
-                url: '@Url.Action("/ThemSanPham")',
+                url: '@Url.Action("/SuaSanPham")',
                 data: '{std: ' + JSON.stringify(std) + '}',
-                dataType: "json",           
+                dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function () {
                     console.log(std);
-                    alert("Thêm sản phẩm thành công");            
+                    alert("Sửa sản phẩm thành công");
                 },
                 error: function () {
-                    alert("Thêm sản phẩm thất bại");
+                    alert("Sửa sản phẩm thất bại");
                 }
             });
-         
+
         });
     });
 
 
     </script>
 
-
-
-
 </body>
 </html>
+
