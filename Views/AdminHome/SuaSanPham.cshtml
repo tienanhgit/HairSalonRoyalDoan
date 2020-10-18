@@ -167,8 +167,12 @@
         })
     </script>
     <script type="text/javascript">
-        $(function () {     
+        $(function () {
          
+            var html = "@Html.Raw(@ViewBag.SanPham.DanhGia)";
+       
+
+            CKEDITOR.instances.DanhGia.setData(html);
         $("#btnAdd").click(function () {
             var std = {};
             std.MaSanPham=@ViewBag.SanPham.MaSanPham;

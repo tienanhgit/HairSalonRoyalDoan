@@ -128,15 +128,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Admin\AdminHomeController.cs" />
-    <Compile Include="Controllers\Admin\CreateAccountController.cs" />
     <Compile Include="Controllers\Admin\NhanVienController.cs" />
+    <Compile Include="Controllers\Common\SessionHelper.cs" />
+    <Compile Include="Controllers\User\KhachHangController.cs" />
     <Compile Include="Models\Dictionary\DanhMucModel.cs" />
+    <Compile Include="Models\Dictionary\KhachHangModel.cs" />
     <Compile Include="Models\Dictionary\NhanVienModel.cs" />
     <Compile Include="Models\Dictionary\ThuongHieuModel.cs" />
     <Compile Include="Repository\DanhMuc.cs" />
     <Compile Include="Repository\Khachhang.cs" />
     <Compile Include="Repository\NhanVien.cs" />
-    <Compile Include="Repository\SessionHelper.cs" />
     <Compile Include="Repository\ThuongHieu.cs" />
     <Compile Include="Controllers\User\UserHomeController.cs" />
     <Compile Include="Controllers\User\UserProductController.cs" />
@@ -1166,6 +1167,7 @@
     <Content Include="Scripts\Common\Library\modernizr-2.8.3.js" />
     <Content Include="Scripts\Common\Library\swiper-bundle.js" />
     <Content Include="Scripts\User\UserHome.js" />
+    <Content Include="SQL\RoyalDoan.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1188,13 +1190,12 @@
     <Content Include="Views\AdminHome\SuaSanPham.cshtml" />
     <Content Include="Views\UserProduct\GioHang.cshtml" />
     <Content Include="Views\NhanVien\DangNhap.cshtml" />
-    <Content Include="Views\NhanVien\DangKy.cshtml" />
+    <Content Include="Views\KhachHang\DangNhap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Font\" />
     <Folder Include="Content\Icon\" />
-    <Folder Include="SQL\" />
     <Folder Include="Views\SessionHelper\" />
   </ItemGroup>
   <ItemGroup>

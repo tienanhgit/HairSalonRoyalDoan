@@ -368,6 +368,15 @@ go
 /*End*/
 
 /*Bảng nhân viên*/
+
+create proc Nhanvien_GetChucVu @Email nvarchar(50)=''
+as 
+begin
+select NhanVien.ChucVu from NhanVien where NhanVien.Email=@Email
+
+end
+
+go
 create Proc Proc_NhanVien_Insert @HoTenNV nvarchar(50),
 								@Email nvarchar(50)='',
 								@MatKhau nvarchar(255)='',
@@ -524,7 +533,7 @@ go
 
 
 /*Bang thuong hiệu*/
-exec Proc_ThuongHieu_GetData 1 
+
 create proc Proc_ThuongHieu_GetData
 							@MaThuongHieu INT = '',
 							@TenThuongHieu nvarchar(50)=''
@@ -669,6 +678,90 @@ END
 GO
 
 
+/*Bang Luong*/
+select * from NhanVien
+/*Bang khach hang*/
+create proc Proc_KhachHang_CheckTk @SDT int
+as
+begin
+
+select COUNT(MaKH) from KhachHang where KhachHang.SoDTKH=@SDT
+end
+go
+
+create Proc Proc_KhachHang_Insert @HoTenKH nvarchar(50),
+@SoDTKH nvarchar(50),
+@Email nvarchar(50),
+@DiaChi ntext,
+@MatKhau nvarchar(50)
+						
+AS BEGIN 
+	INSERT INTO KhachHang
+	        (				HoTenKH,
+			SoDTKH,
+			Email,
+			DiaChi,
+			MatKhau
+							
+	        )
+	VALUES  (					@HoTenKH,
+	@SoDTKH,
+	@Email,
+	@DiaChi,
+	@MatKhau
+							        )
+END;
+
+
+Go
+
+create Proc Proc_KhachHang_Update @MaKH int,
+	 @HoTenKH nvarchar(50),
+	@SoDTKH nvarchar(50),
+	@DiaChi ntext,
+	@MatKhau nvarchar(50)
+							
+AS BEGIN 
+	UPDATE KhachHang SET HoTenKH=@HoTenKH,
+	SoDTKH=@SoDTKH,
+	DiaChi=@DiaChi,
+	MatKhau=MatKhau		
+							
+	WHERE MaKH = @MaKH
+END
+
+go
+
+create Procedure Proc_KhachHang_GetData @MaKH int,
+@HoTenKH nvarchar(50),
+@SoDTKH nvarchar(50),
+@Email nvarchar(50),
+@DiaChi ntext,
+@MatKhau nvarchar(50)
+								
+AS BEGIN
+	DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'Select * from KhachHang where (1=1) '
+	
+	SET @ParamList =		'@MaKH int						
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaNV
+END
+go
+
+/*end*/
+select * from SanPham
+
+
+
+
+
+
+
+
+
+
 /*Proc login*/
 Create Proc Proc_NhanVien_DangNhap
  @Email NVARCHAR(50), 
@@ -685,7 +778,13 @@ AS
 BEGIN
 	SELECT Count (MaNV) FROM NhanVien WHERE Email = @Email
 END
+create proc Proc_KhachHang_CheckTk @SDT int
+as
+begin
 
+select COUNT(MaKH) from KhachHang where KhachHang.SoDTKH=@SDT
+end
+go
 
 
 /*END*/

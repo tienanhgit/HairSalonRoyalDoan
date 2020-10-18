@@ -24,7 +24,6 @@ namespace HairSalonRoyalDoan.Models.Common
         }
    
 
-
         public string ExecuteScalar(string procName, object[] para = null, List<string> listpara = null)
         {
             string kq = "";
