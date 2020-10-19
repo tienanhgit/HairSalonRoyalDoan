@@ -736,6 +736,7 @@ END
 
 go
 
+select * from KhachHang
 create Procedure Proc_KhachHang_GetData
  @MaKH int,
 @HoTenKH nvarchar(50),
