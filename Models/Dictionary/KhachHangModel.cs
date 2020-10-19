@@ -32,7 +32,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
         public string DangNhap(string SDTKH, string MatKhau)
         {
 
-            DataTable dt = dataProvider.ExecuteQuery("Proc_NhanVien_DangNhap ", new object[] { SDTKH, MatKhau }, new List<string>() { "@Email", "@MatKhau" });
+            DataTable dt = dataProvider.ExecuteQuery("Proc_KhachHang_DangNhap ", new object[] { SDTKH, MatKhau }, new List<string>() { "@SDTKH", "@MatKhau" });
             if (dt != null && dt.Rows.Count > 0)
             {
                 return dt.Rows[0][0].ToString();
@@ -40,10 +40,10 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             else
                 return "";
         }
-
-        public string CheckInsert(string Email)
+       
+        public string CheckInsert(string SDT)
         {
-            string result = dataProvider.ExecuteScalar("Nhanvien_GetChucVu", new object[] { Email }, new List<string>() { "@Email" });
+            string result = dataProvider.ExecuteScalar("Proc_KhachHang_CheckTk", new object[] { SDT }, new List<string>() { "@SDT" });
             if (result != null)
             {
 
@@ -117,29 +117,25 @@ namespace HairSalonRoyalDoan.Models.Dictionary
         //}
 
 
-        //public string ThemSanPham(SanPham sanPham)
-        //{
-        //    try
-        //    {
-
-        //        string rs = "";
-        //        rs = dataProvider.ExecuteScalar("Proc_SanPham_Insert", new object[] { sanPham.MaThuongHieu, sanPham.MaDanhMuc, sanPham.TenSanPham, sanPham.Gia, sanPham.HinhAnh, sanPham.MoTa, sanPham.DanhGia, sanPham.NgayTao },
-        //          new List<string>() {
-        //              "@MaThuongHieu",
-        //              "@MaDanhMuc",
-        //               "@TenSanPham" ,
-        //              "@Gia" ,
-        //              "@HinhAnh" ,
-        //                "@MoTa",
-        //                 "@DanhGia",
-        //                "@NgayTao" });
-        //        return rs;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return "";
-        //    }
-        //}
+        public string ThemKhachHang(Khachhang khachhang)
+        {
+            try
+            {
+                string rs = "";
+                rs = dataProvider.ExecuteScalar("Proc_KhachHang_Insert", new object[] { khachhang.HoTenKH,khachhang.SDTKH,khachhang.Email,khachhang.DiaChi,khachhang.MatKhau },
+                  new List<string>() {
+                  "@HoTenKH",
+                  "@SoDTKH",
+                   "@Email",
+                   "@DiaChi",
+                    "@MatKhau" });
+                return rs;
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
 
         //public string CapNhatSanPham(SanPham sanPham)
         //{

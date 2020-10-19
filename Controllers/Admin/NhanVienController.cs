@@ -28,9 +28,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             TempData["chucvu"]=chucvu;
            
             if(!String.IsNullOrEmpty(result))
-            {
-              
-               
+            {          
                 return RedirectToAction("Index", "AdminHome");
             }
             else

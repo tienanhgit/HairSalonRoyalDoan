@@ -6,13 +6,22 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using HairSalonRoyalDoan.Models.Dictionary;
+using HairSalonRoyalDoan.Controllers.Common;
 
 namespace HairSalonRoyalDoan.Controllers.User
 {
     public class KhachHangController : Controller
     {
+        KhachHangModel khachHangModel = new KhachHangModel();
+         public ActionResult Index()
+            {
+                return View();
+            }
+
         public static string CreateMD5(string input)
         {
+            // GET: KhachHang
+           
             // Use input string to calculate MD5 hash
             using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
             {
@@ -28,45 +37,70 @@ namespace HairSalonRoyalDoan.Controllers.User
                 return sb.ToString();
             }
         }
-        public ActionResult DangNhap()
+        public ActionResult DangNhap(string SDTDN, string MatKhauDN)
         {
             if (ModelState.IsValid)
             {
 
+                var MKHash = "";
 
 
-
-
+                if (MatKhauDN!=null)
+                {MKHash= CreateMD5(MatKhauDN.ToString());
+                }    
+                var result = khachHangModel.DangNhap(SDTDN, MKHash);
+                if (!String.IsNullOrEmpty(result))
+                {
+                    Session.Add(SessionHelper.USER_SESSION,SDTDN);
+                    return RedirectToAction("Index", "UserHome");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng");
+                }
+                return View();
             }
 
 
 
             return View();
         }
+        [HttpGet]
+        public ActionResult DangKy()
+        {
+            return View("DangNhap");
+        }
+
+        public ActionResult DangXuat()
+        {
+
+            Session.Remove(SessionHelper.USER_SESSION);
+            return RedirectToAction("Index", "UserHome"); 
+        }
+
+
+
+
         [HttpPost]
-        public ActionResult DangKy(Khachhang khachhang)
+        public ActionResult DangKy(Khachhang std)
         {
-            if(ModelState.IsValid)
+            string message = std.SDTKH.ToString();
+            std.MatKhau = CreateMD5(std.MatKhau.ToString());
+           
+          string check = new KhachHangModel().CheckInsert(std.SDTKH.ToString());
+             
+                int cvcheck = Convert.ToInt32(check);
+            if (cvcheck == 0)
             {
-                var matkhauhas = CreateMD5(khachhang.MatKhau);
-                var check = new KhachHangModel().CheckInsert(Convert.ToString(khachhang.SDTKH));
 
-
+                khachHangModel.ThemKhachHang(std);
             }
-            else
-            {
+            
+            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
 
-                ModelState.AddModelError("","Thêm khách hàng không thành công !");
-            }
-
-            return View();
         }
 
-        // GET: KhachHang
-        public ActionResult Index()
-        {
-            return View();
-        }
+       
 
 
 

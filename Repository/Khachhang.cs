@@ -14,6 +14,13 @@ namespace HairSalonRoyalDoan.Repository
         private string _DiaChi;
         private string _MatKhau;
 
+        public int MaKH { get => _MaKH; set => _MaKH = value; }
+        public string HoTenKH { get => _HoTenKH; set => _HoTenKH = value; }
+        public int SDTKH { get => _SDTKH; set => _SDTKH = value; }
+        public string Email { get => _Email; set => _Email = value; }
+        public string DiaChi { get => _DiaChi; set => _DiaChi = value; }
+        public string MatKhau { get => _MatKhau; set => _MatKhau = value; }
+
         public Khachhang()
         {
         }
@@ -27,11 +34,15 @@ namespace HairSalonRoyalDoan.Repository
             _MatKhau = matKhau;
         }
 
-        public int MaKH { get => _MaKH; set => _MaKH = value; }
-        public string HoTenKH { get => _HoTenKH; set => _HoTenKH = value; }
-        public int SDTKH { get => _SDTKH; set => _SDTKH = value; }
-        public string Email { get => _Email; set => _Email = value; }
-        public string DiaChi { get => _DiaChi; set => _DiaChi = value; }
-        public string MatKhau { get => _MatKhau; set => _MatKhau = value; }
+        public Khachhang(string hoTenKH, int sDTKH, string email, string diaChi, string matKhau)
+        {
+            _HoTenKH = hoTenKH;
+            _SDTKH = sDTKH;
+            _Email = email;
+            _DiaChi = diaChi;
+            _MatKhau = matKhau;
+        }
+
+
     }
 }

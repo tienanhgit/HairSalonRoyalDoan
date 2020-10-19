@@ -679,32 +679,35 @@ GO
 
 
 /*Bang Luong*/
-select * from NhanVien
+select * from KhachHang
 /*Bang khach hang*/
+exec 
 create proc Proc_KhachHang_CheckTk @SDT int
 as
 begin
-
 select COUNT(MaKH) from KhachHang where KhachHang.SoDTKH=@SDT
 end
 go
 
-create Proc Proc_KhachHang_Insert @HoTenKH nvarchar(50),
-@SoDTKH nvarchar(50),
-@Email nvarchar(50),
-@DiaChi ntext,
-@MatKhau nvarchar(50)
+
+create Proc Proc_KhachHang_Insert
+ @HoTenKH nvarchar(50)='',
+@SoDTKH nvarchar(50)='',
+@Email nvarchar(50)='',
+@DiaChi ntext='',
+@MatKhau nvarchar(50)=''
 						
 AS BEGIN 
 	INSERT INTO KhachHang
-	        (				HoTenKH,
+	        (
+			HoTenKH,
 			SoDTKH,
 			Email,
 			DiaChi,
-			MatKhau
-							
+			MatKhau						
 	        )
-	VALUES  (					@HoTenKH,
+	VALUES  (
+	@HoTenKH,
 	@SoDTKH,
 	@Email,
 	@DiaChi,
@@ -717,13 +720,14 @@ Go
 
 create Proc Proc_KhachHang_Update @MaKH int,
 	 @HoTenKH nvarchar(50),
-	@SoDTKH nvarchar(50),
+	@Email nvarchar(50),
 	@DiaChi ntext,
 	@MatKhau nvarchar(50)
 							
 AS BEGIN 
-	UPDATE KhachHang SET HoTenKH=@HoTenKH,
-	SoDTKH=@SoDTKH,
+	UPDATE KhachHang SET 
+	HoTenKH=@HoTenKH,
+	Email=@Email,
 	DiaChi=@DiaChi,
 	MatKhau=MatKhau		
 							
@@ -732,7 +736,8 @@ END
 
 go
 
-create Procedure Proc_KhachHang_GetData @MaKH int,
+create Procedure Proc_KhachHang_GetData
+ @MaKH int,
 @HoTenKH nvarchar(50),
 @SoDTKH nvarchar(50),
 @Email nvarchar(50),
@@ -746,12 +751,20 @@ AS BEGIN
 	
 	SET @ParamList =		'@MaKH int						
 							 '
-	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaNV
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaKH
 END
+go
+Create Proc Proc_KhachHang_DangNhap
+ @SDTKH NVARCHAR(50), 
+ @MatKhau NVARCHAR(255)
+AS
+BEGIN
+	SELECT MaKH  FROM KhachHang WHERE  SoDTKH= @SDTKH AND MatKhau = @MatKhau
+END;
 go
 
 /*end*/
-select * from SanPham
+
 
 
 
@@ -778,12 +791,6 @@ AS
 BEGIN
 	SELECT Count (MaNV) FROM NhanVien WHERE Email = @Email
 END
-create proc Proc_KhachHang_CheckTk @SDT int
-as
-begin
-
-select COUNT(MaKH) from KhachHang where KhachHang.SoDTKH=@SDT
-end
 go
 
 
