@@ -115,7 +115,12 @@
                     <div class="form-group">
                         <label for="content" class="col-sm-3 control-label">Đánh giá</label>
                         <div class="col-sm-9">
-                            <textarea id="DanhGia" rows="5" class="form-control ckeditor" placeholder="Danh Gia Cho San Pham"></textarea>
+                            <textarea id="DanhGia" rows="5" class="form-control ckeditor" placeholder="Danh Gia Cho San Pham">
+
+
+     @Html.Raw(@ViewBag.SanPham.DanhGia)
+
+</textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -155,6 +160,7 @@
             </div>
         </div>
         <!--END #main-->
+     
     </div>
     <script>
         $("#HinhAnh").click(function () {
@@ -167,41 +173,43 @@
         })
     </script>
     <script type="text/javascript">
-        $(function () {     
-         
+        $(function () {
+       
+
+            CKEDITOR.instances.DanhGia.setData(html);
         $("#btnAdd").click(function () {
-            var std = {};
-            std.MaSanPham=@ViewBag.SanPham.MaSanPham;
-            std.MaThuongHieu = $("#MaThuongHieu option:selected").val();
-            std.MaDanhMuc = $("#MaDanhMuc option:selected").val();
-            std.TenSanPham = $("#TenSanPham").val();
-            std.MoTa = $("#MoTa").val();
-            std.Gia = $("#Gia").val();
-            std.DanhGia = CKEDITOR.instances['DanhGia'].getData();
-            if ($("#Picture").val()!="") {
-                std.HinhAnh = $("#Picture").val();
-            }
+                    var std = {};
+                    std.MaSanPham=@ViewBag.SanPham.MaSanPham;
+                    std.MaThuongHieu = $("#MaThuongHieu option:selected").val();
+                    std.MaDanhMuc = $("#MaDanhMuc option:selected").val();
+                    std.TenSanPham = $("#TenSanPham").val();
+                    std.MoTa = $("#MoTa").val();
+                    std.Gia = $("#Gia").val();
+                    std.DanhGia = CKEDITOR.instances['DanhGia'].getData();
+                    if ($("#Picture").val()!="") {
+                        std.HinhAnh = $("#Picture").val();
+                    }
             else {
-                std.HinhAnh = $("#HinhAnhUrl").val();
-            }
+                        std.HinhAnh = $("#HinhAnhUrl").val();
+                    }
 
             $.ajax({
-                type: "POST",
+                    type: "POST",
                 url: '@Url.Action("/SuaSanPham")',
                 data: '{std: ' + JSON.stringify(std) + '}',
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function () {
-                    console.log(std);
-                    alert("Sửa sản phẩm thành công");
-                },
+                            console.log(std);
+                            alert("Sửa sản phẩm thành công");
+                        },
                 error: function () {
-                    alert("Sửa sản phẩm thất bại");
-                }
-            });
+                            alert("Sửa sản phẩm thất bại");
+                        }
+                    });
 
-        });
-    });
+                });
+            });
 
 
     </script>

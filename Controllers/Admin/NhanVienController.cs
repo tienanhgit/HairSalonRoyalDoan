@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using HairSalonRoyalDoan.Repository;
+using HairSalonRoyalDoan.Controllers.Common;
 
 namespace HairSalonRoyalDoan.Controllers.Admin
 {
@@ -23,34 +24,20 @@ namespace HairSalonRoyalDoan.Controllers.Admin
              NhanVienModel nhanVienModel = new NhanVienModel();
             //string em = Uri.EscapeUriString(Email);
             var result = nhanVienModel.DangNhap(Email, MatKhau);
-        
+            var chucvu = nhanVienModel.GetQuyen(Email);
+            TempData["chucvu"]=chucvu;
+           
             if(!String.IsNullOrEmpty(result))
+            {          
+                return RedirectToAction("Index", "AdminHome");
+            }
+            else
             {
-               
-               return RedirectToAction("Index","UserHome");
-        }
+                ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng");
+            }
             return View();
 
     }
-        [HttpGet]
-        public ActionResult DangKy()
-        {
-
-
-
-
-            return View("DangNhap");
-        }
-
-        [HttpPost]
-        public ActionResult DangKy (NhanVien nhanVien)
-        {
-
-
-
-
-            return View("DangNhap");
-        }
       
 
 

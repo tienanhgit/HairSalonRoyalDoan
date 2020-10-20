@@ -119,21 +119,25 @@
       <Private>True</Private>
       <HintPath>packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="X.PagedList, Version=8.0.7.0, Culture=neutral, PublicKeyToken=525ccaa9023f010c, processorArchitecture=MSIL">
+      <HintPath>packages\X.PagedList.8.0.7\lib\netstandard2.0\X.PagedList.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Admin\AdminHomeController.cs" />
-    <Compile Include="Controllers\Admin\CreateAccountController.cs" />
     <Compile Include="Controllers\Admin\NhanVienController.cs" />
+    <Compile Include="Controllers\Common\SessionHelper.cs" />
+    <Compile Include="Controllers\User\KhachHangController.cs" />
     <Compile Include="Models\Dictionary\DanhMucModel.cs" />
+    <Compile Include="Models\Dictionary\KhachHangModel.cs" />
     <Compile Include="Models\Dictionary\NhanVienModel.cs" />
     <Compile Include="Models\Dictionary\ThuongHieuModel.cs" />
     <Compile Include="Repository\DanhMuc.cs" />
     <Compile Include="Repository\Khachhang.cs" />
     <Compile Include="Repository\NhanVien.cs" />
-    <Compile Include="Repository\SessionHelper.cs" />
     <Compile Include="Repository\ThuongHieu.cs" />
     <Compile Include="Controllers\User\UserHomeController.cs" />
     <Compile Include="Controllers\User\UserProductController.cs" />
@@ -1185,7 +1189,7 @@
     <Content Include="Views\AdminHome\SuaSanPham.cshtml" />
     <Content Include="Views\UserProduct\GioHang.cshtml" />
     <Content Include="Views\NhanVien\DangNhap.cshtml" />
-    <Content Include="Views\NhanVien\DangKy.cshtml" />
+    <Content Include="Views\KhachHang\DangNhap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

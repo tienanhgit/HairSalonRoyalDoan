@@ -24,7 +24,8 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             ViewBag.ListSanPham = listsp;
             var links = listsp;
 
-            return Request.IsAjaxRequest()
+            return 
+                Request.IsAjaxRequest()
                    ? (ActionResult)PartialView("SanPham", listsp.ToPagedList(page, pagesize))
                    : View(listsp.ToPagedList(page, pagesize));
         }

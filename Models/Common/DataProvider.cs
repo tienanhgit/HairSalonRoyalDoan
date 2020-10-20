@@ -11,9 +11,9 @@ namespace HairSalonRoyalDoan.Models.Common
     public class DataProvider
     {
         //desktop viettel
-        string chuoikn = @"Data Source=DESKTOP-C5LNGFV\SQLEXPRESS;Initial Catalog=HairSalonRoyalDoan;Integrated Security=True";
+        //string chuoikn = @"Data Source=DESKTOP-C5LNGFV\SQLEXPRESS;Initial Catalog=HairSalonRoyalDoan;Integrated Security=True";
         //desktop btanh
-        //string chuoikn = @"Data Source=DESKTOP-2FL7VEI;Initial Catalog=HairSalonRoyalDoan;Integrated Security=True";
+        string chuoikn = @"Data Source=DESKTOP-2FL7VEI;Initial Catalog=HairSalonRoyalDoan;Integrated Security=True";
         //macbook btanh
 
         public SqlConnection conn = new SqlConnection();
@@ -23,7 +23,6 @@ namespace HairSalonRoyalDoan.Models.Common
             conn.Open();
         }
    
-
 
         public string ExecuteScalar(string procName, object[] para = null, List<string> listpara = null)
         {

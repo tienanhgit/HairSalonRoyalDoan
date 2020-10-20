@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Web;
 using HairSalonRoyalDoan.Models.Common;
+using HairSalonRoyalDoan.Repository;
 
 namespace HairSalonRoyalDoan.Models.Dictionary
 {
@@ -41,24 +42,34 @@ namespace HairSalonRoyalDoan.Models.Dictionary
         }
 
 
+        public string GetQuyen(string Email)
+        {
+            DataTable dt = dataProvider.ExecuteQuery("Nhanvien_GetChucVu", new object[] { Email }, new List<string>() { "@Email"});
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                var result = "";
+                foreach (DataRow row in dt.Rows)
+                {
+                    result += row[nameof(NhanVien.ChucVu)];
+                }
+                return result;
+            }
+            else
+                return "";
+        }
 
+        public string CheckInsert(string Email)
+        {
+            string result = dataProvider.ExecuteScalar("Nhanvien_GetChucVu", new object[] { Email }, new List<string>() { "@Email" });
+            if (result != null)
+            {
 
+                return result;
+            }
+            else
+                return "";
+        }
 
-        //public string GetQuyen(string MaNhanVien)
-        //{
-        //    DataTable dt = dataProvider.ExecuteQuery("Proc_NhanVien_GetData", new object[] { MaNhanVien }, new List<string>() { "@MaNV" });
-        //    if (dt != null && dt.Rows.Count > 0)
-        //    {
-        //        var result = "";
-        //        foreach (DataRow row in dt.Rows)
-        //        {
-        //            result += row[nameof(BoPhan.TenVietTat)] + ";";
-        //        }
-        //        return result;
-        //    }
-        //    else
-        //        return "";
-        //}
 
 
 
