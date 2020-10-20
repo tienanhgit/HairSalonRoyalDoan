@@ -21,7 +21,7 @@ namespace HairSalonRoyalDoan.Controllers.User
             {
                 list = (List<GioHangItem>)cart;
             }
-        
+      
             return View(list);
         }
 
@@ -65,15 +65,42 @@ namespace HairSalonRoyalDoan.Controllers.User
                 list.Add(item);
                 //Gán vào session
                 Session["CART_SESSION"] = list;
-
-
             }
             return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+        }
+
+        [HttpPost]
+        public JsonResult XoaSanPhamGioHang(int SanPhamID)
+        {
+           
+            var sessionCart = (List<GioHangItem>)Session["CART_SESSION"];
+            sessionCart.RemoveAll(x => x.sanpham.MaSanPham == SanPhamID);
+            Session["CART_SESSION"] = sessionCart;
+            return Json(new
+            {
+                status = true
+            });
+        }
+        public ActionResult ThanhToanGioHang()
+        {
+            var cart = Session["CART_SESSION"];
+            var list = new List<GioHangItem>();
+            if (cart != null)
+            {
+                list = (List<GioHangItem>)cart;
+            }
+
+            return View(list);
 
         }
 
 
 
 
-    }
+
+
+
+
+
+        }
 }

@@ -74,7 +74,9 @@ namespace HairSalonRoyalDoan.Controllers.User
         public ActionResult DangXuat()
         {
 
-            Session.Remove(SessionHelper.USER_SESSION);
+          
+            Session[SessionHelper.CART_SESSION] = null;
+            Session[SessionHelper.USER_SESSION] = null;
             return RedirectToAction("Index", "UserHome"); 
         }
 

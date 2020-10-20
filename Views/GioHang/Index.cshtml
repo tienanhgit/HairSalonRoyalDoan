@@ -14,6 +14,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <!------ Include the above in your HEAD tag ---------->
 
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -31,7 +32,7 @@
                             <tr>
                                 <th scope="col"> </th>
                                 <th scope="col">Sản phẩm</th>
-                                <th scope="col">Thương Hiệu</th>
+                       
                                 <th scope="col" class="text-center">Số lượng</th>
                                 <th scope="col" class="text-right">Giá</th>
                                 <th> </th>
@@ -41,47 +42,24 @@
 
                             @foreach (var item in Model)
                             {
-                                <tr>
-                                    <td>
-                                        <img src="~/Content/Images/ImagesProduct/anhsanpham1.jpg" style="width:50px;height:50px" />
+                                
+                                <tr id="myList" class="sp_@item.sanpham.MaSanPham">
+                                    <td >
+                                        <img src="@item.sanpham.HinhAnh" style="width:50px;height:50px" />
                                     </td>
                                     <td>@item.sanpham.TenSanPham</td>
-                                    <td>@item.sanpham.</td>
+                                
                                     <td><input class="form-control" type="text" value="@item.SoLuong" /></td>
                                     <td class="text-right">@item.sanpham.Gia</td>
-                                    <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                                    <td  class="text-right card" id="@item.sanpham.MaSanPham">
+                                     
+                                        <button class="btn btn-sm btn-danger" id="removeItemCart" onclick="cartAction('@item.sanpham.MaSanPham')"><i class="fa fa-trash"></i></button>
+                                    </td>
                                 </tr>
 
 
-                            }
-
-
-
-
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Sub-Total</td>
-                                <td class="text-right">255,90 €</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>Shipping</td>
-                                <td class="text-right">6,90 €</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td><strong>Total</strong></td>
-                                <td class="text-right"><strong>346,90 €</strong></td>
-                            </tr>
+                            }         
+                           
                         </tbody>
                     </table>
                 </div>
@@ -93,7 +71,7 @@
 
                     </div>
                     <div class="col-sm-12 col-md-6 text-right">
-                        <button class="btn btn-lg btn-block btn-success text-uppercase">Thanh toán</button>
+                        <button class="btn btn-lg btn-block btn-success text-uppercase" onclick="ThanhToan()">Mua hàng</button>
                     </div>
                 </div>
             </div>
@@ -103,6 +81,61 @@
     <script>
         function pageRedirect() {
             window.location.href = "/UserProduct/Index";
+        };
+        function ThanhToan() {
+            var listProduct = $('.txtQuantity');
+            var cartList = [];
+            $.each(listProduct, function (i, item) {
+                cartList.push({
+                    Quantity: $(item).val(),
+                    Product: {
+                        ID: $(item).data('id')
+                    }
+                });
+            });
+
+            $.ajax({
+                url: '/Cart/Update',
+                data: { cartModel: JSON.stringify(cartList) },
+                dataType: 'json',
+                type: 'POST',
+                success: function (res) {
+                    if (res.status == true) {
+                        window.location.href = "/gio-hang";
+                    }
+                }
+            })
+
+
+
+            window.location.href = "/GioHang/ThanhToanGioHang";
+        };
+     
+
+
+        function cartAction(product_code) {
+
+            var getItemId = product_code;
+                          $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    url: '/GioHang/XoaSanPhamGioHang',
+                    data: "{ 'SanPhamID':' " + getItemId + "' }",
+                    dataType: "json",
+                    success: function (data) {
+
+
+                    },
+                    error: function (data) {
+
+                        alert(data);
+                    }
+
+
+                });
+        $(".sp_" + product_code).remove();
+
+
         }
 
 

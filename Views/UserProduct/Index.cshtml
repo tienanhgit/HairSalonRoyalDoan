@@ -9,10 +9,7 @@
 }
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <script src="~/Scripts/Common/Library/jquery-3.4.1.min.js"></script>
-    <link href="~/CSS/Common/Library.css" rel="stylesheet" />
-    <link href="~/CSS/Library/font-awesome.min.css" rel="stylesheet" />
-    <link href="~/CSS/User/Product.css" rel="stylesheet" />
+   
 
 <style>
     .pagination{
@@ -152,8 +149,16 @@
   
 
     <script type="text/javascript">
+
         $(document).ready(function () {
+
+            let slsp = 0;
             $('.themgiohang').on('click', function () {
+               
+                slsp = slsp + 1;
+              
+                $("#soluongspgh").text(slsp);
+
                 var getItemId = parseInt($(this).closest('.card').prop('id'));
 
                 $.ajax({
@@ -164,7 +169,7 @@
                     dataType: "json", 
                     success: function (data) {
                         //$('#spnCart').html(data);
-                        alert("Thêm sản phẩm vào giỏ hàng thah cong");
+                        alert("Thêm sản phẩm vào giỏ hàng thành công");
                         console.log(data);
                     },
                     error: function (data) {
