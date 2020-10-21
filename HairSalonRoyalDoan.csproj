@@ -172,7 +172,6 @@
     <Content Include="Scripts\Common\Library\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Common\Library\modernizr-2.8.3.js" />
     <Content Include="Scripts\Common\Library\swiper-bundle.js" />
-    <Content Include="SQL\RoyalDoan.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -193,6 +192,7 @@
     <Folder Include="Content\Font\" />
     <Folder Include="Content\Icon\" />
     <Folder Include="Controllers\Admin\" />
+    <Folder Include="SQL\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
