@@ -8,6 +8,7 @@
 
     <link href="~/CSS/User/Layouttemplate.css" rel="stylesheet" />
     <link href="~/CSS/Common/Library.css" rel="stylesheet" />
+    <script src="~/Scripts/Common/Library/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 
@@ -16,18 +17,16 @@
         <a href="#default" class="logo">
             <img src="~/Content/Images/UserHomeImg/logo.jpg" />
         </a>
-        <div class="header-right">
+        <div class="header-right" id="header-right">
             <a href="#home">GIỚI THIỆU</a>
-            <a href="#contact">ROYAL ĐOÀN STORE</a>
+            <a href="/UserProduct/Index">ROYAL ĐOÀN STORE</a>
             <a href="#about">ĐẶT LỊCH</a>
             <a href="#about">XEM LỊCH ĐẶT</a>
             <a href="#about">DỊCH VỤ</a>
-            <a class="active">ĐĂNG NHẬP</a>
+            <a href="/KhachHang/DangNhap" id="usdn">ĐĂNG NHẬP</a>
         </div>
     </div>
-
     @RenderBody()
-
     <div class="footer-main">
         <footer style="margin-top:10px;">
             <div class="footer" id="footer">
@@ -41,7 +40,7 @@
                             <h3> GIỜ PHỤC VỤ </h3>
                             <ul>
                                 <li><a class="email" href="#"> 8.30-21.30</a></li>
-                                <br />
+
                                 <li> <p> </p> </li>
                                 <li> <p> Hotline : 0902087097 </p> </li>
                             </ul>
@@ -73,6 +72,23 @@
     <script src="~/Scripts/Common/Library/jquery-3.4.1.js"></script>
     <script src="~/Scripts/Common/Library/bootstrap.js"></script>
     <script src="~/Scripts/Common/Library/swiper-bundle.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            var session = "@Session["USER_SESSION"]";
+            var usdn = $("#usdn").val();
+            if (session != "") {
+                $("#usdn").remove();
+                $("#header-right").append("<a>@Session["USER_SESSION"]<a/>")
+                $("#header-right").append("<a href='/KhachHang/DangXuat'>Đăng xuất</a>")
+            }
+
+
+        });
+        
+
+    </script>
 
 </body>
 </html>

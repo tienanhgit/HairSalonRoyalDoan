@@ -22,6 +22,8 @@ namespace HairSalonRoyalDoan.Models.Common
             conn.ConnectionString = chuoikn;
             conn.Open();
         }
+   
+
         public string ExecuteScalar(string procName, object[] para = null, List<string> listpara = null)
         {
             string kq = "";
@@ -79,6 +81,30 @@ namespace HairSalonRoyalDoan.Models.Common
 
             return bangdulieu;
         }
+        public int DataProcessing(string query)
+        {
+            int kq = 0;
+            try
+            {
+                kn_csdl();
+                SqlCommand lenh = new SqlCommand(query, conn);
+                kq = lenh.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                //Thông báo lỗi ra!
+
+                kq = 0;
+            }
+            finally
+            {
+                dongketnoi();
+            }
+            return kq;
+
+        }
+
+      
         public DataTable ExecuteQuery(string procName, object[] para = null, List<string> listpara = null)
         {
             
@@ -113,6 +139,44 @@ namespace HairSalonRoyalDoan.Models.Common
                 return table;
             }
         }
+
+        public int ExecuteNonQuery(string procName, object[] para = null, List<string> listpara = null)
+        {
+          
+            using (SqlConnection conn = new SqlConnection(chuoikn))
+            {
+                int kq = 0;
+                try
+                {
+                    conn.Open();
+                    DataTable table = new DataTable();
+                    SqlCommand command = new SqlCommand(procName, conn);
+                    command.CommandType = CommandType.StoredProcedure;
+
+
+                    if (para != null)
+                    {
+                        for (int i = 0; i < para.Length; i++)
+                        {
+                            command.Parameters.AddWithValue(listpara[i], para[i]);
+                        }
+
+
+                    }
+                    kq = command.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    kq = 0;
+                }
+
+                return kq;
+            }
+        }
+
+
+
+
 
 
 

@@ -1,0 +1,96 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<HairSalonRoyalDoan.Repository.SanPham>
+@{
+    ViewBag.Title = "San Pham";
+    Layout = "~/Views/Shared/_AdminHome.cshtml";
+ 
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <base href=".">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Quản trị hệ thống</title>
+
+
+
+</head>
+<body>
+    <div class="clearfix">
+        <div id="main">
+            <ol class="breadcrumb">
+                <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
+                <li class="active"><a href="/AdminHome/SanPham">Sản phẩm</a></li>
+            </ol>
+            <div class="col-xs-12">
+                <form id="post_form" method="post" action="" role="form">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <!-- Single button -->
+
+                            <a href="ThemSanPham" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Thêm mới</a>
+                            <div class="btn-group pull-right hidden-xs" id="div-search">
+                                <input id="search" name="search" type="text" value="" class="form-control" placeholder="Tìm kiếm">
+                                <span class="fa fa-search"></span>
+                            </div>
+                        </div>
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+
+
+                                    <th class="hidden-xs">Mã</th>
+                                    <th>Sản phẩm</th>
+                                    <th class="hidden-sm hidden-xs">Giá</th>
+
+                                    <th class="hidden-sm hidden-xs">Ngày thêm</th>
+                                    <th>Ngày Sửa</th>
+                                    <th>Sửa Sản Phẩm</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach (var sp in Model)
+                                {
+                                    <tr>
+
+
+                                        <td class="hidden-xs">@sp.MaSanPham </td>
+                                        <td>
+                                            <p>@sp.TenSanPham</p>
+                                        </td>
+                                        <td class="hidden-sm hidden-xs">@sp.Gia</td>
+                                        <td class="hidden-sm hidden-xs">@String.Format("{0:dd/MM/yyyy}", @sp.NgayTao)</td>
+                                        <td class="hidden-sm hidden-xs">@String.Format("{0:dd/MM/yyyy}", @sp.NgaySua)</td>
+                                        <td>
+                                            <a href="/AdminHome/SuaSanPham?MaSanPham=@sp.MaSanPham&MaThuongHieu=@sp.MaThuongHieu&MaDanhMuc=@sp.MaDanhMuc"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Sửa sản phẩm"></i></a>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="text-right">
+
+                            @Html.PagedListPager(Model, page => Url.Action("SanPham", new { page }))
+
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--END #main-->
+    </div>
+
+
+
+
+</body>
+</html>
+
