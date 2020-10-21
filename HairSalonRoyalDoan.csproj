@@ -114,6 +114,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Admin\LoginController.cs" />
     <Compile Include="Controllers\User\UserHomeController.cs" />
     <Compile Include="Controllers\User\UserProductController.cs" />
     <Compile Include="Global.asax.cs">
@@ -132,6 +133,10 @@
     <Content Include="Content\Images\UserHomeImg\banggiadichvu2.jpg" />
     <Content Include="Content\Images\UserHomeImg\Banggiadichvu3.gif" />
     <Content Include="Content\Images\UserHomeImg\bannerdichvu.PNG" />
+    <Content Include="Content\Library\bootstrap-grid.css" />
+    <Content Include="Content\Library\bootstrap-grid.min.css" />
+    <Content Include="Content\Library\bootstrap-reboot.css" />
+    <Content Include="Content\Library\bootstrap-reboot.min.css" />
     <Content Include="Content\Library\bootstrap-theme.css" />
     <Content Include="Content\Library\bootstrap-theme.min.css" />
     <Content Include="Content\Library\bootstrap.css" />
@@ -146,11 +151,14 @@
     <Content Include="Content\Images\UserHomeImg\banner4.png" />
     <Content Include="Content\Images\UserHomeImg\hoinghetocvietnam.png" />
     <Content Include="Content\Library\swiper-bundle.css" />
+    <Content Include="CSS\User\Product.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Library\Site.css" />
     <Content Include="Scripts\Common\Library.js" />
+    <Content Include="Scripts\Common\Library\bootstrap.bundle.js" />
+    <Content Include="Scripts\Common\Library\bootstrap.bundle.min.js" />
     <Content Include="Scripts\Common\Library\bootstrap.js" />
     <Content Include="Scripts\Common\Library\bootstrap.min.js" />
     <Content Include="fonts\Oswald-Bold.ttf" />
@@ -159,7 +167,17 @@
     <Content Include="fonts\Oswald-Medium.ttf" />
     <Content Include="fonts\Oswald-Regular.ttf" />
     <Content Include="fonts\Oswald-SemiBold.ttf" />
+    <Content Include="Content\Library\bootstrapcdn.less" />
+    <Content Include="Content\Library\bootstrap-grid.css.map" />
+    <Content Include="Content\Library\bootstrap-grid.min.css.map" />
+    <Content Include="Content\Library\bootstrap-reboot.css.map" />
+    <Content Include="Content\Library\bootstrap-reboot.min.css.map" />
+    <Content Include="Scripts\Common\Library\bootstrap.bundle.js.map" />
+    <Content Include="Scripts\Common\Library\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\Common\Library\bootstrap.js.map" />
+    <Content Include="Scripts\Common\Library\bootstrap.min.js.map" />
     <None Include="Scripts\Common\Library\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\Common\Library\bootstrap4.js" />
     <Content Include="Scripts\User\UserHome.js" />
     <Content Include="Scripts\Common\Library\jquery-3.4.1.js" />
     <Content Include="Scripts\Common\Library\jquery-3.4.1.min.js" />
@@ -172,6 +190,7 @@
     <Content Include="Scripts\Common\Library\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Common\Library\modernizr-2.8.3.js" />
     <Content Include="Scripts\Common\Library\swiper-bundle.js" />
+    <Content Include="SQL\RoyalDoan.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -191,8 +210,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Font\" />
     <Folder Include="Content\Icon\" />
-    <Folder Include="Controllers\Admin\" />
-    <Folder Include="SQL\" />
+    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
