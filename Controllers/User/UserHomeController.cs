@@ -17,6 +17,7 @@ namespace HairSalonRoyalDoan.Controllers
 
         public ActionResult Index()
         {
+
             List<SanPham> listsp = new ProductModel().GetData();
             ViewBag.ListSanPham = listsp;
    
