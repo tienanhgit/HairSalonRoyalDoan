@@ -73,22 +73,20 @@
     <script src="~/Scripts/Common/Library/bootstrap.js"></script>
     <script src="~/Scripts/Common/Library/swiper-bundle.js"></script>
     <script>
-        if (@Session["USER_SESSION"]!= null) {
 
+        $(document).ready(function () {
 
-            var session =@Session["USER_SESSION"];
+            var session = "@Session["USER_SESSION"]";
             var usdn = $("#usdn").val();
-            if (session != null) {
+            if (session != "") {
                 $("#usdn").remove();
                 $("#header-right").append("<a>@Session["USER_SESSION"]<a/>")
                 $("#header-right").append("<a href='/KhachHang/DangXuat'>Đăng xuất</a>")
             }
 
-            else {
 
-                $("#usdn").remove();
-            }
-        }
+        });
+        
 
     </script>
 

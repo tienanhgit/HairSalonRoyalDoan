@@ -118,16 +118,17 @@
 
     <script>
         $(document).ready(function () {
-            if (@Session["USER_SESSION"]!= null) {
-                var session =@Session["USER_SESSION"];
 
+            
+           
+                var session ="@Session["USER_SESSION"]";
                 var usdn = $("#usdn").val();
-                if (session != null) {
+                if (session !="") {
                     $("#usdnstore").remove();
                     $("#store-dn").append("<li class='nav - item'><a class='nav-link'>@Session["USER_SESSION"]<a/></li>")
                     $("#store-dn").append("<li class='nav - item'><a class='nav-link' href='/KhachHang/DangXuat'>Đăng xuất</a></li>")
                 }
-            }
+            
         });
 
 

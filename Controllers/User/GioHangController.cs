@@ -11,7 +11,8 @@ namespace HairSalonRoyalDoan.Controllers.User
 {
     public class GioHangController : Controller
     {
-        
+    
+
         // GET: GioHang
         public ActionResult Index()
         {
@@ -28,6 +29,7 @@ namespace HairSalonRoyalDoan.Controllers.User
         [HttpPost]
         public ActionResult ThemSanPhamGioHang(int SanPhamID)
         {
+            //Bắt đầu khởi tạo session
             var message = ""; 
             var Soluong = 1;
             var sanpham = new ProductModel().GetSanPhamByMa(SanPhamID);
@@ -69,11 +71,20 @@ namespace HairSalonRoyalDoan.Controllers.User
             return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
 
-        [HttpPost]
+        //[HttpPost]
+        //public ActionResult SuaSoluong(int SanPhamID)
+        //{
+        //}
+
+
+
+
+            [HttpPost]
         public JsonResult XoaSanPhamGioHang(int SanPhamID)
         {
            
             var sessionCart = (List<GioHangItem>)Session["CART_SESSION"];
+            
             sessionCart.RemoveAll(x => x.sanpham.MaSanPham == SanPhamID);
             Session["CART_SESSION"] = sessionCart;
             return Json(new

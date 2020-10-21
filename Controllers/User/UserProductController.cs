@@ -28,8 +28,6 @@ namespace HairSalonRoyalDoan.Controllers
         public ActionResult ProductDetail()
         {
             ViewBag.IdSanPham = Request.QueryString["id"];
-
-
             return View();
         }
 
