@@ -19,16 +19,14 @@
         </a>
         <div class="header-right" id="header-right">
             <a href="#home">GIỚI THIỆU</a>
-            <a href="#contact">ROYAL ĐOÀN STORE</a>
+            <a href="/UserProduct/Index">ROYAL ĐOÀN STORE</a>
             <a href="#about">ĐẶT LỊCH</a>
             <a href="#about">XEM LỊCH ĐẶT</a>
             <a href="#about">DỊCH VỤ</a>
             <a href="/KhachHang/DangNhap" id="usdn">ĐĂNG NHẬP</a>
         </div>
     </div>
-
     @RenderBody()
-
     <div class="footer-main">
         <footer style="margin-top:10px;">
             <div class="footer" id="footer">
@@ -75,18 +73,20 @@
     <script src="~/Scripts/Common/Library/bootstrap.js"></script>
     <script src="~/Scripts/Common/Library/swiper-bundle.js"></script>
     <script>
-        var session =@Session["USER_SESSION"];
-        var usdn = $("#usdn").val();
-        if (session != null) {
-            $("#usdn").remove();
-            $("#header-right").append("<a>@Session["USER_SESSION"]<a/>")
-            $("#header-right").append("<a href='/KhachHang/DangXuat'>Đăng xuất</a>")
-        }
 
-        else {
+        $(document).ready(function () {
 
-            $("#usdn").remove();
-        }
+            var session = "@Session["USER_SESSION"]";
+            var usdn = $("#usdn").val();
+            if (session != "") {
+                $("#usdn").remove();
+                $("#header-right").append("<a>@Session["USER_SESSION"]<a/>")
+                $("#header-right").append("<a href='/KhachHang/DangXuat'>Đăng xuất</a>")
+            }
+
+
+        });
+        
 
     </script>
 

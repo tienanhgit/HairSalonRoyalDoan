@@ -71,10 +71,10 @@ namespace HairSalonRoyalDoan.Controllers.User
             return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
 
-        //[HttpPost]
-        //public ActionResult Update(int soluong)
-        //{
-        //}
+        [HttpPost]
+        public ActionResult Update(int soluong)
+        {
+        }
 
 
 

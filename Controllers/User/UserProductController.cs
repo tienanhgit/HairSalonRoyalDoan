@@ -13,7 +13,7 @@ namespace HairSalonRoyalDoan.Controllers
     public class UserProductController : Controller
     {
 
-        public ActionResult Index(int page = 1, int pagesize = 8)
+        public ActionResult Index(int page = 1, int pagesize = 6)
         {
 
             ProductModel productModel = new ProductModel();
@@ -21,21 +21,13 @@ namespace HairSalonRoyalDoan.Controllers
             var ls = listsp.ToPagedList(page, pagesize);
             return View(ls);
         }
-        public ActionResult GioHang ()
-        {
-
-
-            return View();
-        }
-
+     
 
 
 
         public ActionResult ProductDetail()
         {
             ViewBag.IdSanPham = Request.QueryString["id"];
-
-
             return View();
         }
 

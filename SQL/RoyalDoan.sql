@@ -262,7 +262,7 @@ go
 select *from SanPham
 
 go
-alter Proc Proc_SanPham_Insert @MaDanhMuc int ='',
+create Proc Proc_SanPham_Insert @MaDanhMuc int ='',
 								@MaThuongHieu int='',
 							   @TenSanPham nvarchar(50)='', 
 							   @Gia float='', 
@@ -298,7 +298,7 @@ END;
 Go
 
 
-alter Proc Proc_SanPham_Update 
+create Proc Proc_SanPham_Update 
 							@MaSanPham int, 
 							@MaDanhMuc int='', 
 							@TenSanPham nvarchar(50)='', 
@@ -679,9 +679,10 @@ GO
 
 
 /*Bang Luong*/
-select * from KhachHang
+
+
 /*Bang khach hang*/
-exec 
+ 
 create proc Proc_KhachHang_CheckTk @SDT int
 as
 begin
@@ -736,7 +737,6 @@ END
 
 go
 
-select * from KhachHang
 create Procedure Proc_KhachHang_GetData
  @MaKH int,
 @HoTenKH nvarchar(50),
