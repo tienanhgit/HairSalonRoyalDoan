@@ -1,0 +1,289 @@
+﻿@model List<HairSalonRoyalDoan.Repository.GioHangItem>
+
+@{
+
+    Layout = "~/Views/Shared/_UserProduct.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GioHang</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+     
+         .cart-info.action {
+                width: 5%;
+                vertical-align: middle;
+                float: right;
+            }
+
+        .cart-item-container {
+            padding: 5px 10px;
+            border-bottom: #e2e2e2 1px solid;
+        }
+
+        .cart-status {
+            color: #666;
+            float: right;
+            font-size: 0.8em;
+            padding: 0px 10px;
+            line-height: 18px;
+        }
+
+        #btnEmpty img {
+            margin-top: 6px;
+            cursor: pointer;
+        }
+
+        .cart-item-container.header {
+            background: #CCC;
+            border-bottom: #b9b8b8 1px solid;
+        }
+
+        .btn-increment-decrement {
+            display: inline-block;
+            padding: 5px 0px;
+            background: #e2e2e2;
+            width: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .input-quantity {
+            border: 0px;
+            width: 30px;
+            display: inline-block;
+            margin: 0;
+            box-sizing: border-box;
+            text-align: center;
+        }
+    </style>
+
+    <!------ Include the above in your HEAD tag ---------->
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+
+
+</head>
+<body>
+    <div class="container mb-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col"> </th>
+                                <th scope="col"  class="text-center">Sản phẩm</th>
+                                <th scope="col" class="text-center">Số lượng</th>
+                                <th scope="col" class="text-center">Giá</th>
+                                <th scope="col" class="text-right">Thành tiền</th>
+                                <th scope="col" class="text-right">Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+
+                                <tr id="myList" class="sp_@item.sanpham.MaSanPham">
+                                    <td>
+                                        <img src="@item.sanpham.HinhAnh" style="width:50px;height:50px" />
+                                    </td>
+                                    <td>@item.sanpham.TenSanPham</td>
+                                    <td class="cart-info quantity">
+
+                                        <div class="btn-increment-decrement" onClick="decrement_quantity(@item.sanpham.MaSanPham,@item.sanpham.Gia)">-</div>
+                                        <input class="input-quantity" id="input-quantity-@item.sanpham.MaSanPham" value="@item.SoLuong" onblur="myFunction(@item.sanpham.MaSanPham,@item.sanpham.Gia)">
+                                        <div class="btn-increment-decrement" onClick="increment_quantity(@item.sanpham.MaSanPham,@item.sanpham.Gia)">+</div>
+
+
+                                    </td>
+                                    @*gia*@
+                                    <td>@item.sanpham.Gia</td>
+                                    
+                                    @*thanh tien*@
+                                    <td class="text-right " >
+                                        <span class="cart-info price" id="cart-price-@item.sanpham.MaSanPham">
+                                            @(item.sanpham.Gia*item.SoLuong)
+                                        </span>
+                                      
+                                    </td>
+                                    <td class="text-right card">
+                                        <button class="btn btn-sm btn-danger" id="removeItemCart" onclick="cartAction(@item.sanpham.MaSanPham,@item.sanpham.Gia)"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            }
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Tổng tiền : <span id="total-price"></span></strong></td>
+                            <td class="text-right"><strong></strong></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col mb-2">
+                <div class="row">
+                    <div class="col-sm-12  col-md-6">
+                        <button class="btn btn-block btn-light" id="ContinueBuy" onclick="pageRedirect()">Tiếp tục mua</button>
+
+                    </div>
+                    <div class="col-sm-12 col-md-6 text-right">
+                        <button class="btn btn-lg btn-block btn-success text-uppercase" onclick="ThanhToan()">Mua hàng</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    
+            function pageRedirect() {
+                window.location.href = "/UserProduct/Index";
+        }
+        //ajax cho gio hang
+        //<input id="title" val="hello" type="text" />
+
+   
+        function myFunction(cart_id, price) {
+            var inputQuantityElement = $("#input-quantity-" + cart_id);
+            var newQuantity = parseInt($(inputQuantityElement).val());
+            var newPrice = newQuantity * price;
+            save_to_db(cart_id, newQuantity, newPrice);
+        }
+
+
+
+        function increment_quantity(cart_id, price) {
+            var inputQuantityElement = $("#input-quantity-" + cart_id);
+            var newQuantity = parseInt($(inputQuantityElement).val()) + 1;
+            var newPrice = newQuantity * price;
+            save_to_db(cart_id, newQuantity, newPrice);
+        }
+
+        function decrement_quantity(cart_id, price) {
+            var inputQuantityElement = $("#input-quantity-" + cart_id);
+            if ($(inputQuantityElement).val() > 1) {
+                var newQuantity = parseInt($(inputQuantityElement).val()) - 1;
+                var newPrice = newQuantity * price;
+                save_to_db(cart_id, newQuantity, newPrice);
+            }
+        }
+        //ajax done
+
+
+        function save_to_db(cart_id, new_quantity, newPrice) {
+            var inputQuantityElement = $("#input-quantity-" + cart_id);
+          
+            var priceElement = $("#cart-price-" + cart_id);
+           
+            $(inputQuantityElement).val(new_quantity);
+            $(priceElement).text (newPrice);
+
+            var totalQuantity = 0;
+
+            $("input[id*='input-quantity-']").each(function () {
+                var cart_quantity = $(this).val();
+
+                totalQuantity = parseInt(totalQuantity) + parseInt(cart_quantity);
+             
+            });
+            $("#total-quantity").text(totalQuantity);
+            var totalItemPrice = 0;
+
+            $("span[id*='cart-price-']").each(function () {
+                var cart_price = $(this).text();
+                totalItemPrice = parseInt(totalItemPrice) + parseInt(cart_price);
+            });
+
+            $("#total-price").text(totalItemPrice);
+
+            $.ajax({
+                url: "GioHang/Update",
+                data: "cart_id=" + cart_id + "&new_quantity=" + new_quantity,
+                type: 'post',
+                success: function (response) {
+                    $(inputQuantityElement).val(new_quantity);
+                }
+            });
+        }
+
+
+    
+
+
+            function ThanhToan() {
+                var slsp = $("#SoLuongSP").val();
+                //$.ajax({
+                //    type: 'POST',
+                //    contentType: 'application/json; charset=utf-8',
+                //    url: '/GioHang/SuaSoLuong',
+                //    data: "{ 'Soluongsp':' " + slsp + "' }",
+                //    dataType: "json",
+                //    success: function (data) {
+                //    },
+                //    error: function (data) {
+
+                //        alert(data);
+                //    }
+                //});
+             
+  
+                window.location.href = "/GioHang/ThanhToanGioHang";
+            }
+
+
+
+        function cartAction(product_code, price) {
+                var getItemId = product_code;
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    url: '/GioHang/XoaSanPhamGioHang',
+                    data: "{ 'SanPhamID':' " + getItemId + "' }",
+                    dataType: "json",
+                    success: function (data) {
+                    },
+                    error: function (data) {
+
+                        alert(data);
+                    }
+                });
+            $(".sp_" + product_code).remove();
+
+            var totalItemPrice = 0
+            $("span[id*='cart-price-']").each(function () {
+                var cart_price = $(this).text();
+                totalItemPrice = parseInt(totalItemPrice) + parseInt(cart_price);
+            });
+            $("#total-price").text(totalItemPrice);
+
+            }
+
+        $(document).ready(function () {
+            var totalItemPrice = 0
+            $("span[id*='cart-price-']").each(function () {
+                var cart_price = $(this).text();
+                totalItemPrice = parseInt(totalItemPrice) + parseInt(cart_price);
+            });
+
+            $("#total-price").text(totalItemPrice);
+        });
+
+
+    </script>
+
+
+</body>
+</html>
