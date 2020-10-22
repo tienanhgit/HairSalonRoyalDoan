@@ -799,8 +799,8 @@ go
 go
 select *from NhanVien
 select * from DonDatHang
-exec Proc_DonDatHang_Insert 1,1
-create Proc Proc_DonDatHang_Insert
+exec Proc_DonDatHang_Insert 1,1,''
+alter Proc Proc_DonDatHang_Insert
  @MaNV int =null,
  @MaKH int=null,
  @SoDTGiaoHang int='',
