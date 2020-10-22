@@ -3,9 +3,6 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
-
-
-
 /*chuan*/
 
 create table NhanVien
@@ -257,11 +254,6 @@ values (2,N'Xịt dưỡng khóa biểu bì tóc',450000,'/Content/Images/Images
 /*Proceduce */
 /*Bang San Pham*/
 go
-
-
-select *from SanPham
-
-go
 create Proc Proc_SanPham_Insert @MaDanhMuc int ='',
 								@MaThuongHieu int='',
 							   @TenSanPham nvarchar(50)='', 
@@ -368,6 +360,17 @@ go
 /*End*/
 
 /*Bảng nhân viên*/
+/*Proc login*/
+Create Proc Proc_NhanVien_DangNhap
+ @Email NVARCHAR(50), 
+ @MatKhau NVARCHAR(255)
+AS
+BEGIN
+	SELECT MaNV  FROM NhanVien WHERE Email = @Email AND MatKhau = @MatKhau
+END;
+go
+
+/*END*/
 
 create proc Nhanvien_GetChucVu @Email nvarchar(50)=''
 as 
@@ -377,6 +380,7 @@ select NhanVien.ChucVu from NhanVien where NhanVien.Email=@Email
 end
 
 go
+
 create Proc Proc_NhanVien_Insert @HoTenNV nvarchar(50),
 								@Email nvarchar(50)='',
 								@MatKhau nvarchar(255)='',
@@ -417,10 +421,18 @@ AS BEGIN
 							
 
 	        )
+				Select scope_identity()
 END;
 
 
 Go
+----Trả ra 0: Thì thêm. Trả ra >0: Trùng -> k thêm
+create  PROC Proc_NhanVien_CheckTK  @Email NVARCHAR(50)=''
+AS 
+BEGIN
+	SELECT Count (MaNV) FROM NhanVien WHERE Email = @Email
+END
+go
 
 create Proc Proc_NhanVien_Update @MaNV int,
 								@HoTenNV nvarchar(50),
@@ -502,6 +514,7 @@ AS BEGIN
 								@NgayTao
 													
 	        )
+			Select scope_identity()
 END;
 
 Go
@@ -737,22 +750,38 @@ END
 
 go
 
-create Procedure Proc_KhachHang_GetData
- @MaKH int,
-@HoTenKH nvarchar(50),
-@SoDTKH nvarchar(50),
-@Email nvarchar(50),
-@DiaChi ntext,
-@MatKhau nvarchar(50)
+exec Proc_KhachHang_GetData '','','1'
+alter   proc Proc_KhachHang_GetData
+@MaKH int='',
+@HoTenKH int='',
+@SoDTKH nvarchar(50)='',
+@Email nvarchar(50)='',
+@DiaChi ntext='',
+@MatKhau nvarchar(50)=''
 								
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
 	SET @Query = 'Select * from KhachHang where (1=1) '
 	
-	SET @ParamList =		'@MaKH int						
+	IF(@MaKH !='')
+	begin	
+		set @Query += ' AND (MaKH=@MaKH) '
+		end
+	
+
+	IF(@SoDTKH !='')
+	begin	
+		set @Query += ' AND (SoDTKH = @SoDTKH) '
+		end
+	
+
+	SET @ParamList =		'@MaKH int,
+					@HoTenKH nvarchar(50),
+								@SoDTKH int	
+													
 							 '
-	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaKH
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaKH,@HoTenKH,@SoDTKH
 END
 go
 Create Proc Proc_KhachHang_DangNhap
@@ -766,28 +795,165 @@ go
 
 /*end*/
 
-
-
-/*Proc login*/
-Create Proc Proc_NhanVien_DangNhap
- @Email NVARCHAR(50), 
- @MatKhau NVARCHAR(255)
-AS
-BEGIN
-	SELECT MaNV  FROM NhanVien WHERE Email = @Email AND MatKhau = @MatKhau
-END;
+/*Bang Đơn đặt hàng*/
 go
-
-----Trả ra 0: Thì thêm. Trả ra >0: Trùng -> k thêm
-create  PROC Proc_NhanVien_CheckTK  @Email NVARCHAR(50)=''
-AS 
-BEGIN
-	SELECT Count (MaNV) FROM NhanVien WHERE Email = @Email
+select *from NhanVien
+select * from DonDatHang
+exec Proc_DonDatHang_Insert 1,1
+create Proc Proc_DonDatHang_Insert
+ @MaNV int =null,
+ @MaKH int=null,
+ @SoDTGiaoHang int='',
+ @HinhThucTT nvarchar(50)='',
+ @TrangThaiDonSanPham int='',
+ @TrangThaiDonDichVu int='',
+ @HoTenNguoiNhan nvarchar(50)='',
+ @DiaChiNhanHang nvarchar(50)='',
+ @NgayTao datetime=''
+						
+AS BEGIN 
+	INSERT INTO DonDatHang
+	        ( MaNV,
+			MaKH,
+			SoDTGiaoHang,
+			HinhThucTT,
+			TrangThaiDonSanPham,
+			TrangThaiDonDichVu,
+			HoTenNguoiNhan,
+			DiaChiNhanHang,
+			NgayTao
+					  
+	        )
+	VALUES  ( 
+	 @MaNV ,
+ @MaKH ,
+ @SoDTGiaoHang ,
+ @HinhThucTT ,
+ @TrangThaiDonSanPham ,
+ @TrangThaiDonDichVu ,
+ @HoTenNguoiNhan ,
+ @DiaChiNhanHang ,
+ @NgayTao 	
+	        )
+Select scope_identity()
 END
+Go
+
+
+create Proc Proc_DonDatHang_Update 
+@MaDonDatHang int='',
+@MaNV int ='',
+ @MaKH int='',
+ @SoDTGiaoHang int='',
+ @HinhThucTT nvarchar(50)='',
+ @TrangThaiDonSanPham int='',
+ @TrangThaiDonDichVu int='',
+ @HoTenNguoiNhan nvarchar(50)='',
+ @DiaChiNhanHang nvarchar(50)='',
+ @NgayTao datetime=''
+
+							
+AS BEGIN 
+	UPDATE DonDatHang SET
+			 MaNV=@MaNV,
+			MaKH=@MaKH,
+			SoDTGiaoHang=@SoDTGiaoHang,
+			HinhThucTT=@HinhThucTT,
+			TrangThaiDonSanPham=@TrangThaiDonSanPham,
+			TrangThaiDonDichVu=@TrangThaiDonDichVu,
+			HoTenNguoiNhan=@HoTenNguoiNhan,
+			DiaChiNhanHang=@DiaChiNhanHang,
+			NgayTao=@NgayTao		
+	WHERE MaDonDatHang = @MaDonDatHang
+	Select scope_identity()
+
+END
+
+GO
+
+create Procedure Proc_DonDatHang_GetData 
+@MaDonDatHang int='',
+@MaNV int ='',
+ @MaKH int='',
+ @SoDTGiaoHang int='',
+ @HinhThucTT nvarchar(50)='',
+ @TrangThaiDonSanPham int='',
+ @TrangThaiDonDichVu int='',
+ @HoTenNguoiNhan nvarchar(50)='',
+ @DiaChiNhanHang nvarchar(50)='',
+ @NgayTao datetime='',
+ @NgaySua datetime=''
+						
+							
+AS BEGIN
+	DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'Select * from DonDatHang where (1=1)'
+	IF(@MaDonDatHang !='')
+	begin
+		SET @Query += ' AND (MaDonDatHang = @MaDonDatHang) '
+		end
+
+	SET @ParamList =		'@MaDonDatHang int
+							  
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDonDatHang
+END
+				
 go
+/*End*/
 
 
-/*END*/
+/*Bang Chi Tiet Don Dat*/
+go
+create Proc Proc_ChiTietDonDat_Insert
+@MaDonDatHang int='',
+@MaSanPham int='',
+@Soluong int=''					
+AS BEGIN 
+	INSERT INTO ChiTietDonDat
+	        (			
+			MaDonDatHang,
+			MaSanPham,
+			Soluong					  
+	        )
+	VALUES  ( 
+@MaDonDatHang,
+@MaSanPham,
+@Soluong
+	        )
+Select scope_identity()
+END;
+Go
+
+
+
+
+GO
+
+create Procedure Proc_ChiTietDonDat_GetData 
+@MaDonDatHang int=''							
+AS BEGIN
+	DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'Select * from ChiTietDonDat where (1=1)'
+	IF(@MaDonDatHang!='')
+	begin
+		SET @Query += ' AND (M = @MaDonDatHang) '
+		end
+
+	SET @ParamList =		'@MaDonDatHang int
+							  
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDonDatHang
+END
+				
+go
+/*End*/
+
+
+
+
 
 
 /*Them du lieu demo*/

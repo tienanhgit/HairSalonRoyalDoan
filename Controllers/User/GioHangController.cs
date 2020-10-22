@@ -11,7 +11,8 @@ namespace HairSalonRoyalDoan.Controllers.User
 {
     public class GioHangController : Controller
     {
-    
+        DonDatHangModel donDatHangModel = new DonDatHangModel();
+        ChiTietDonDatModel chiTietDonDatModel = new ChiTietDonDatModel();
 
         // GET: GioHang
         public ActionResult Index()
@@ -100,8 +101,6 @@ namespace HairSalonRoyalDoan.Controllers.User
         }
 
 
-
-
         [HttpPost]
         public JsonResult XoaSanPhamGioHang(int SanPhamID)
         {
@@ -124,6 +123,70 @@ namespace HairSalonRoyalDoan.Controllers.User
             }
 
             return View(list);
+            
+
+        }
+        public ActionResult DatHang()
+        {
+            //string makh="-1";
+
+            //if (Session["USER_SESSION"] != null)
+            //{
+            //    var sdtkh = Session["USER_SESSION"].ToString();
+            //    int sdtkhc = Convert.ToInt32(sdtkh);
+            //    Khachhang kh = new KhachHangModel().GetKhachHangBySDT(sdtkhc);
+            //   makh = kh.MaKH.ToString();
+            //}
+
+            //var cart = Session["CART_SESSION"];
+            //var list = new List<GioHangItem>();
+            //if (cart != null)
+            //{
+            //    list = (List<GioHangItem>)cart;
+            //}
+
+            //if(makh!="-1"&makh!=null)
+            //{
+            //    donDatHang.MaKH = Convert.ToInt32(makh);
+
+            //}
+            //else
+            //{
+            //    donDatHang.MaKH =2;
+            //}
+            DonDatHang donDatHang = new DonDatHang();
+
+            donDatHang.MaKH = 1;            
+            donDatHang.MaNV = 1;
+            donDatHang.DiaChiNhanHang = "";
+            donDatHang.HinhThucThanhToan = "";
+            donDatHang.MaDonDatHang = 100;
+            donDatHang.NgaySua = DateTime.Now;
+            donDatHang.NgayTao = DateTime.Now;
+            donDatHang.TrangThaiDonDichVu = 1;
+            donDatHang.TrangThaiDonSanPham = 1;
+            donDatHang.SoDTGiaoHang = 1;
+            
+             donDatHangModel.ThemDonDatHang(donDatHang);
+           List<DonDatHang> dd = donDatHangModel.GetData();
+
+            //if (madondathang != null)
+            //{
+            //    foreach (var item in list)
+            //    {
+            //        ChiTietDonDat chiTietDonDat = new ChiTietDonDat();
+
+            //        chiTietDonDat.MaDonDatHang = Convert.ToInt32(madondathang);
+            //        chiTietDonDat.SoLuong = item.SoLuong;
+            //        chiTietDonDat.MaSanPham = item.sanpham.MaSanPham;
+
+            //        chiTietDonDatModel.ThemChiTietDonDat(chiTietDonDat);
+
+            //    }
+            //}
+            //ViewBag.MaDonDatHang ="a"+ madondathang;
+
+            return View(dd);
 
         }
 

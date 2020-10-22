@@ -1,0 +1,22 @@
+﻿@model List<HairSalonRoyalDoan.Repository.DonDatHang>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Dat Hang Thanh Cong</title>
+</head>
+<body>
+    <div>
+        @foreach (var item in Model)
+        {
+            <h1>@item.MaNV</h1>
+        }
+
+    </div>
+</body>
+</html>
