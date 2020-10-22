@@ -181,6 +181,8 @@
             }
         }
         //ajax done
+        /*"{ 'SanPhamID':' " + cart_id + "','SoLuongMoi':' " + new_quantity + "' }"*/
+        //"SanPhamID=" + cart_id + "&SoLuongMoi=" + new_quantity
 
 
         function save_to_db(cart_id, new_quantity, newPrice) {
@@ -208,15 +210,23 @@
             });
 
             $("#total-price").text(totalItemPrice);
-
             $.ajax({
-                url: "GioHang/Update",
-                data: "cart_id=" + cart_id + "&new_quantity=" + new_quantity,
+                url: "/GioHang/Update",
+                contentType: 'application/json; charset=utf-8',
+                data: "{ 'SanPhamID':' " + cart_id + "','SoLuongMoi':' " + new_quantity + "' }", 
                 type: 'post',
                 success: function (response) {
-                    $(inputQuantityElement).val(new_quantity);
+                    if (response == true) {
+                        alert("ok");
+                    }
+                },
+                error: function () {
+
+                    alert("not oke");
                 }
             });
+
+
         }
 
 
@@ -243,10 +253,9 @@
                 window.location.href = "/GioHang/ThanhToanGioHang";
             }
 
-
-
         function cartAction(product_code, price) {
-                var getItemId = product_code;
+            var getItemId = product_code;
+
                 $.ajax({
                     type: 'POST',
                     contentType: 'application/json; charset=utf-8',

@@ -37,6 +37,7 @@ namespace HairSalonRoyalDoan.Controllers.User
             if (cart != null)
             {
                 var list = (List<GioHangItem>)cart;
+                
                 if (list.Exists(x => x.sanpham.MaSanPham == SanPhamID))
                 {
                     foreach (var item in list)
@@ -71,9 +72,31 @@ namespace HairSalonRoyalDoan.Controllers.User
             return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
 
+
+
         [HttpPost]
-        public ActionResult Update(int soluong)
+        public JsonResult Update(string SanPhamID,string SoLuongMoi)
         {
+                var cart = Session["CART_SESSION"]; 
+                int spid = Convert.ToInt32(SanPhamID);
+                int slm = Convert.ToInt32(SoLuongMoi);  
+                var list = (List<GioHangItem>)cart;
+           
+           
+                foreach (var item in list)
+                {
+
+                    if (item.sanpham.MaSanPham == spid)
+                    {
+                        item.SoLuong = slm;
+                    }
+                }
+                Session["CART_SESSION"] = list;
+
+                return Json(new
+                {
+                    status = true
+                }); 
         }
 
 
@@ -83,8 +106,7 @@ namespace HairSalonRoyalDoan.Controllers.User
         public JsonResult XoaSanPhamGioHang(int SanPhamID)
         {
            
-            var sessionCart = (List<GioHangItem>)Session["CART_SESSION"];
-            
+            var sessionCart = (List<GioHangItem>)Session["CART_SESSION"]; 
             sessionCart.RemoveAll(x => x.sanpham.MaSanPham == SanPhamID);
             Session["CART_SESSION"] = sessionCart;
             return Json(new

@@ -14,6 +14,19 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<style>
+
+    
+
+
+
+
+
+
+
+</style>
+
+
 </head>
 <body>
     <div class="section group">
@@ -25,12 +38,11 @@
                             <thead>
                                 <tr>
                                     <th scope="col"> </th>
-                                    <th scope="col">Sản phẩm</th>
-
+                                    <th scope="col" class="text-center">Sản phẩm</th>
                                     <th scope="col" class="text-center">Số lượng</th>
-                                    <th scope="col" class="text-right">Giá</th>
+                                    <th scope="col" class="text-center">Giá</th>
                                     <th scope="col" class="text-right">Thành tiền</th>
-                                    <th>Xóa</th>
+                           
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,28 +50,47 @@
                                 @foreach (var item in Model)
                                 {
 
-                                <tr id="myList" class="sp_@item.sanpham.MaSanPham">
-                                    <td>
-                                        <img src="@item.sanpham.HinhAnh" style="width:50px;height:50px" />
-                                    </td>
-                                    <td>@item.sanpham.TenSanPham</td>
+                                    <tr id="myList" class="sp_@item.sanpham.MaSanPham">
+                                        <td>
+                                            <img src="@item.sanpham.HinhAnh" style="width:50px;height:50px" />
+                                        </td>
+                                        <td>@item.sanpham.TenSanPham</td>
+                                        <td class="cart-info quantity text-center">
 
-                                    <td><input class="form-control" type="text" disabled value="@item.SoLuong" /></td>
-                                    <td class="text-right">@item.sanpham.Gia</td>
-                                    <td class="text-right">@(item.SoLuong*item.sanpham.Gia)</td>
-                                </tr>
+                                            
+                                            <input class="input-quantity" disabled id="input-quantity-@item.sanpham.MaSanPham" value="@item.SoLuong" onblur="myFunction(@item.sanpham.MaSanPham,@item.sanpham.Gia)">
 
+                                        </td>
+                                        @*gia*@
+                                        <td>@item.sanpham.Gia</td>
 
+                                        @*thanh tien*@
+                                        <td class="text-right ">
+                                            <span class="cart-info price" id="cart-price-@item.sanpham.MaSanPham">
+                                                @(item.sanpham.Gia*item.SoLuong)
+                                            </span>
+
+                                        </td>
+                                  
+                                    </tr>
                                 }
-                                     <tr>
-                                    <td></td>
-                                    <td></td>           
-                                    <td><strong>Tổng tiền : </strong></td>
-                                    <td class="text-right"><strong></strong></td>
-                                     </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td><strong>Tổng tiền : <span id="total-price"></span></strong></td>
+                                <td></td>
+                                <td class="text-right"><strong></strong></td>
+                            </tr>
 
                             </tbody>
                         </table>
+
+
+
+
+
+
+
                         <div class="col-md-12">
                             @using (Html.BeginForm("ThanhToanGioHang", "GioHang", FormMethod.Post))
                             {
@@ -78,7 +109,7 @@
                                 <div class="form-group">
                                     <label>Email</label>
                                     <input name="email" class="form-control" />
-                                </div>                       
+                                </div>
                             }
                         </div>
                     </div>
@@ -86,7 +117,7 @@
                 <div class="col mb-2">
                     <div class="row">
                         <div class="col-sm-12  col-md-6">
-                            <button class="btn btn-block btn-light" id="ContinueBuy" onclick="pageRedirect()">Tiếp tục mua</button>
+                            <button class="btn btn-block btn-light" id="ContinueBuy" onclick="pageRedirect()">Trở lại</button>
 
                         </div>
                         <div class="col-sm-12 col-md-6 text-right">
@@ -96,10 +127,21 @@
                 </div>
             </div>
         </div>
-
-
-    
-
     </div>
+<script>
+    $(document).ready(function () {
+        var totalItemPrice = 0
+        $("span[id*='cart-price-']").each(function () {
+            var cart_price = $(this).text();
+            totalItemPrice = parseInt(totalItemPrice) + parseInt(cart_price);
+        });
+
+        $("#total-price").text(totalItemPrice);
+    });
+    function pageRedirect() {
+        window.location.href = "/GioHang/Index";
+    }
+
+</script>
 </body>
 </html>

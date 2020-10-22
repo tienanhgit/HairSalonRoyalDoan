@@ -768,14 +768,6 @@ go
 
 
 
-
-
-
-
-
-
-
-
 /*Proc login*/
 Create Proc Proc_NhanVien_DangNhap
  @Email NVARCHAR(50), 
