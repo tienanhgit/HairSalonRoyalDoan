@@ -79,15 +79,13 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             }
         }
 
-
         public string ThemDonDatHang(DonDatHang donDatHang)
         {
             try
             {
-                  string rs = "";
-                rs = dataProvider.ExecuteScalar("Proc_DonDatHang_Insert", new object[] {1,1},
-                   //rs = dataProvider.ExecuteScalar("Proc_DonDatHang_Insert", new object[] { 1, 1, donDatHang.SoDTGiaoHang, donDatHang.HinhThucThanhToan, donDatHang.TrangThaiDonSanPham, donDatHang.TrangThaiDonDichVu, donDatHang.HoTenNguoiNhan, donDatHang.DiaChiNhanHang, donDatHang.NgayTao },
-                    new List<string>() {
+                string rs = "";
+           rs = dataProvider.ExecuteScalar("Proc_DonDatHang_Insert", new object[] { donDatHang.MaNV, donDatHang.MaKH, donDatHang.SoDTGiaoHang, donDatHang.HinhThucThanhToan, donDatHang.TrangThaiDonSanPham, donDatHang.TrangThaiDonDichVu, donDatHang.HoTenNguoiNhan, donDatHang.DiaChiNhanHang, donDatHang.NgayTao },
+               new List<string>() {
             "@MaNV",
             "@MaKH" ,
             "@SoDTGiaoHang",
@@ -95,10 +93,10 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             "@TrangThaiDonSanPham" ,
             "@TrangThaiDonDichVu" ,
             "@HoTenNguoiNhan" ,
-            " @DiaChiNhanHang" ,
-                "@NgayTao" 
+            "@DiaChiNhanHang" ,
+                "@NgayTao"
 
-             });
+                       });
                 return rs;
             }
             catch (Exception ex)
@@ -106,8 +104,6 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 return ex.Message;
             }
         }
-
-
         public string CapNhatDonDatHang(DonDatHang donDatHang)
         {
             try
@@ -124,7 +120,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             "@TrangThaiDonSanPham" ,
             "@TrangThaiDonDichVu" ,
             "@HoTenNguoiNhan" ,
-            " @DiaChiNhanHang" ,
+            "@DiaChiNhanHang" ,
                 "@NgayTao"
                    });
                 return kq.ToString();

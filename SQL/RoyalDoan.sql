@@ -3,6 +3,7 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
+
 /*chuan*/
 
 create table NhanVien
@@ -750,8 +751,8 @@ END
 
 go
 
-exec Proc_KhachHang_GetData '','','1'
-alter   proc Proc_KhachHang_GetData
+
+create   proc Proc_KhachHang_GetData
 @MaKH int='',
 @HoTenKH int='',
 @SoDTKH nvarchar(50)='',
@@ -797,10 +798,8 @@ go
 
 /*Bang Đơn đặt hàng*/
 go
-select *from NhanVien
-select * from DonDatHang
-exec Proc_DonDatHang_Insert 1,1,''
-alter Proc Proc_DonDatHang_Insert
+
+create proc Proc_DonDatHang_Insert
  @MaNV int =null,
  @MaKH int=null,
  @SoDTGiaoHang int='',
@@ -809,9 +808,21 @@ alter Proc Proc_DonDatHang_Insert
  @TrangThaiDonDichVu int='',
  @HoTenNguoiNhan nvarchar(50)='',
  @DiaChiNhanHang nvarchar(50)='',
- @NgayTao datetime=''
-						
+ @NgayTao datetime=''						
 AS BEGIN 
+IF(@MaNV ='')
+	begin
+		SET @MaNV=NULL
+		end
+		IF(@MaKH ='')
+	begin
+		SET @MaKH=NULL
+		end
+			IF(@MaKH ='')
+	begin
+		SET @MaKH=NULL
+		end
+
 	INSERT INTO DonDatHang
 	        ( MaNV,
 			MaKH,
@@ -821,8 +832,7 @@ AS BEGIN
 			TrangThaiDonDichVu,
 			HoTenNguoiNhan,
 			DiaChiNhanHang,
-			NgayTao
-					  
+			NgayTao				  
 	        )
 	VALUES  ( 
 	 @MaNV ,
@@ -833,16 +843,16 @@ AS BEGIN
  @TrangThaiDonDichVu ,
  @HoTenNguoiNhan ,
  @DiaChiNhanHang ,
- @NgayTao 	
-	        )
+ @NgayTao 
+ )
 Select scope_identity()
 END
 Go
 
 
 create Proc Proc_DonDatHang_Update 
-@MaDonDatHang int='',
-@MaNV int ='',
+	@MaDonDatHang int='',
+	@MaNV int ='',
  @MaKH int='',
  @SoDTGiaoHang int='',
  @HinhThucTT nvarchar(50)='',
@@ -955,10 +965,7 @@ go
 
 
 
-
 /*Them du lieu demo*/
-
-
 insert into NhanVien 
 values (N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','0902087097',N'Hải Dương',142987653,'09/02/1978','Fulltime',1,'10/7/2020','10/7/2020')
 go
