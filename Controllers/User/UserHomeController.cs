@@ -12,18 +12,24 @@ namespace HairSalonRoyalDoan.Controllers
     {
         ProductModel productModel = new ProductModel();
         // GET: UserHome
-      
+
 
 
         public ActionResult Index()
         {
             List<SanPham> listsp = new ProductModel().GetData();
             ViewBag.ListSanPham = listsp;
-   
+
             return View();
         }
+        public ActionResult DatLichCat()
+        {
 
 
+
+
+            return View();
+        }
 
 
 
