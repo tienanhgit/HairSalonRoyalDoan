@@ -72,7 +72,7 @@
 
 </head>
 <body>
-    <div class="container mb-4">
+    <div class="container mb-4" style="min-height:650px">
         <div class="row">
             <div class="col-12">
                 <div class="table-responsive">
@@ -152,10 +152,10 @@
             function pageRedirect() {
                 window.location.href = "/UserProduct/Index";
         }
+
         //ajax cho gio hang
         //<input id="title" val="hello" type="text" />
 
-   
         function myFunction(cart_id, price) {
             var inputQuantityElement = $("#input-quantity-" + cart_id);
             var newQuantity = parseInt($(inputQuantityElement).val());
@@ -181,6 +181,8 @@
             }
         }
         //ajax done
+        /*"{ 'SanPhamID':' " + cart_id + "','SoLuongMoi':' " + new_quantity + "' }"*/
+        //"SanPhamID=" + cart_id + "&SoLuongMoi=" + new_quantity
 
 
         function save_to_db(cart_id, new_quantity, newPrice) {
@@ -208,45 +210,32 @@
             });
 
             $("#total-price").text(totalItemPrice);
-
             $.ajax({
-                url: "GioHang/Update",
-                data: "cart_id=" + cart_id + "&new_quantity=" + new_quantity,
+                url: "/GioHang/Update",
+                contentType: 'application/json; charset=utf-8',
+                data: "{ 'SanPhamID':' " + cart_id + "','SoLuongMoi':' " + new_quantity + "' }", 
                 type: 'post',
                 success: function (response) {
-                    $(inputQuantityElement).val(new_quantity);
+                    if (response == true) {
+                        alert("ok");
+                    }
+                },
+                error: function () {
+
+                    alert("not oke");
                 }
             });
+
+
         }
 
-
-    
-
-
-            function ThanhToan() {
-                var slsp = $("#SoLuongSP").val();
-                //$.ajax({
-                //    type: 'POST',
-                //    contentType: 'application/json; charset=utf-8',
-                //    url: '/GioHang/SuaSoLuong',
-                //    data: "{ 'Soluongsp':' " + slsp + "' }",
-                //    dataType: "json",
-                //    success: function (data) {
-                //    },
-                //    error: function (data) {
-
-                //        alert(data);
-                //    }
-                //});
-             
-  
+            function ThanhToan() {            
                 window.location.href = "/GioHang/ThanhToanGioHang";
             }
 
-
-
         function cartAction(product_code, price) {
-                var getItemId = product_code;
+            var getItemId = product_code;
+
                 $.ajax({
                     type: 'POST',
                     contentType: 'application/json; charset=utf-8',

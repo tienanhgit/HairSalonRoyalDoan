@@ -115,12 +115,9 @@
                     <div class="form-group">
                         <label for="content" class="col-sm-3 control-label">Đánh giá</label>
                         <div class="col-sm-9">
-                            <textarea id="DanhGia" rows="5" class="form-control ckeditor" placeholder="Danh Gia Cho San Pham">
-
-
-     @Html.Raw(@ViewBag.SanPham.DanhGia)
-
-</textarea>
+                                     <textarea id="DanhGia" rows="5" class="form-control ckeditor" placeholder="Danh Gia Cho San Pham">
+                                @Html.Raw(@ViewBag.SanPham.DanhGia)
+                                </textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -151,7 +148,7 @@
 
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button type="button" id="btnAdd" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Thêm mới</button>
+                            <button type="button" id="btnAdd" class="btn btn-submit"><small><i class="fa fa-plus"></i></small>Sửa sản phẩm</button>
 
                             <a class="btn btn-warning" href="#"><small><i class="fa fa-reply"></i></small> Trở về</a>
                         </div>
@@ -174,9 +171,7 @@
     </script>
     <script type="text/javascript">
         $(function () {
-       
-
-            CKEDITOR.instances.DanhGia.setData(html);
+      
         $("#btnAdd").click(function () {
                     var std = {};
                     std.MaSanPham=@ViewBag.SanPham.MaSanPham;

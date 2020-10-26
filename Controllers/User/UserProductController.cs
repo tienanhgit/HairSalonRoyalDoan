@@ -30,6 +30,12 @@ namespace HairSalonRoyalDoan.Controllers
             ViewBag.IdSanPham = Request.QueryString["id"];
             return View();
         }
+        public ActionResult QuanLyDonHang()
+        {
+
+
+            return View();
+        }
 
 
     }

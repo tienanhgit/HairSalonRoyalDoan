@@ -29,16 +29,14 @@ namespace HairSalonRoyalDoan.Controllers.Admin
                    ? (ActionResult)PartialView("SanPham", listsp.ToPagedList(page, pagesize))
                    : View(listsp.ToPagedList(page, pagesize));
         }
+
         [HttpGet]
         public ActionResult ThemSanPham()
         {
-           
             ViewBag.ListDanhMuc = new DanhMucModel().GetData();
             List<ThuongHieu> listThuongHieu = new ThuongHieuModel().GetData();
             ViewBag.ListThuongHieu = listThuongHieu;
             return View();
-
-
         }
         [HttpPost]
         public ActionResult ThemSanPham(SanPham std)

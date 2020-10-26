@@ -1,0 +1,144 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_UserProduct.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>QuanLyDonHang</title>
+    <style>
+        .main-donhang {
+            min-height: 650px;
+            background-color: #f1f1f1;
+
+        }
+
+
+ #wrapper {
+    overflow-x: hidden;
+ }
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  margin-left: -15rem;
+  -webkit-transition: margin .25s ease-out;
+  -moz-transition: margin .25s ease-out;
+  -o-transition: margin .25s ease-out;
+  transition: margin .25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+  padding: 0.875rem 1.25rem;
+  font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+  width: 15rem;
+}
+
+#page-content-wrapper {
+  min-width: 100vw;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: 0;
+}
+
+@@media (min-width: 768px) {
+  #sidebar-wrapper {
+    margin-left: 0;
+  }
+
+  #page-content-wrapper {
+    min-width: 0;
+    width: 100%;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    margin-left: -15rem;
+  }
+}
+
+
+    </style>
+
+</head>
+<body>
+    <div class="main-donhang">
+
+        <div class="d-flex" id="wrapper">
+
+            <!-- Sidebar -->
+            <div class="bg-light border-right" id="sidebar-wrapper">
+           
+                <div class="list-group list-group-flush">
+                    <a href="#" class="list-group-item list-group-item-action bg-light">Thông tin tài khoản</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light">Đơn đặt hàng</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light">Lịch sử mua hàng</a>
+                    <a href="#" class="list-group-item list-group-item-action bg-light">Hỏi đáp ?</a>
+                
+                </div>
+            </div>
+            <!-- /#sidebar-wrapper -->
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4>Đơn đặt hàng</h4>
+                                <div class="table-responsive">
+                                    <table id="mytable" class="table table-bordred table-striped">
+                                        <thead>
+                                            <tr>
+                                        <th>Mã đơn hàng</th>
+                                        <th>Ngày mua</th>
+                                        <th>Sản phẩm </th>
+                                        <th>Tổng tiền</th>
+                                        <th>Trạng thái</th>
+                           
+                                        </tr>
+                                        </thead>
+
+                                        <tbody>
+                                              <tr>
+                                               <td>Mã đơn hàng</td>
+                                                <td>Ngày mua</td>
+                                                <td>Sản phẩm 1234124123423</td>
+                                                <td></td>
+                                                <td>isometric.mohsin@gmail.com</td>
+                                        
+                                              
+                                              </tr>                      
+                                        </tbody>
+
+                                    </table>
+
+                                    <div class="clearfix"></div>
+                                
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+     
+
+        </div>
+      
+   
+
+    </div>
+</body>
+</html>

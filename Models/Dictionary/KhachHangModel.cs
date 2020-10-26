@@ -54,68 +54,84 @@ namespace HairSalonRoyalDoan.Models.Dictionary
         }
 
 
-        //public List<Khachhang> GetData()
-        //{
-        //    try
-        //    {
-        //        List<SanPham> dsSanPham = new List<SanPham>();
-        //        DataTable dt = dataProvider.ExecuteQuery("Proc_SanPham_GetData", null, null);
-        //        if (dt != null && dt.Rows.Count > 0)
-        //        {
-        //            foreach (DataRow row in dt.Rows)
-        //            {
-        //                SanPham sanpham = new SanPham();
-        //                sanpham.MaSanPham = String.IsNullOrEmpty(row["MaSanPham"].ToString()) ? 0 : int.Parse(row["MaSanPham"].ToString());
-        //                sanpham.MaDanhMuc = String.IsNullOrEmpty(row["MaDanhMuc"].ToString()) ? 0 : int.Parse(row["MaDanhMuc"].ToString());
-        //                sanpham.MaThuongHieu = String.IsNullOrEmpty(row["MaThuongHieu"].ToString()) ? 0 : int.Parse(row["MaThuongHieu"].ToString());
-        //                sanpham.TenSanPham = String.IsNullOrEmpty(row["TenSanPham"].ToString()) ? "" : row["TenSanPham"].ToString();
-        //                sanpham.HinhAnh = String.IsNullOrEmpty(row["HinhAnh"].ToString()) ? "" : row["HinhAnh"].ToString();
-        //                sanpham.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : float.Parse(row["Gia"].ToString());
-        //                sanpham.MoTa = String.IsNullOrEmpty(row["MoTa"].ToString()) ? "" : row["MoTa"].ToString();
-        //                sanpham.DanhGia = String.IsNullOrEmpty(row["DanhGia"].ToString()) ? "" : row["DanhGia"].ToString();
-        //                sanpham.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
-        //                sanpham.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
-        //                dsSanPham.Add(sanpham);
+        public List<Khachhang> GetData()
+        {
+            try
+            {
+                List<Khachhang> dsKhachHang = new List<Khachhang>();
+                DataTable dt = dataProvider.ExecuteQuery("Proc_KhachHang_GetData", null, null);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        Khachhang khachhang = new Khachhang();
+                        khachhang.MaKH = String.IsNullOrEmpty(row["MaKhachHang"].ToString()) ? 0 : int.Parse(row["MaKH"].ToString());
+                        khachhang.HoTenKH = String.IsNullOrEmpty(row["HoTenKH"].ToString()) ? "" : row["HoTenKH"].ToString();
+                        khachhang.SDTKH = String.IsNullOrEmpty(row["SoSTKH"].ToString()) ? 0 : int.Parse(row["SoDTKH"].ToString());
+                        khachhang.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
+                        khachhang.DiaChi = String.IsNullOrEmpty(row["DiaChi"].ToString()) ? "" : row["DiaChi"].ToString();
+                        khachhang.MatKhau= String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString();
+                        dsKhachHang.Add(khachhang);
+                    }
+                    return dsKhachHang;
+                }
+                return new List<Khachhang>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Khachhang>();
+            }
+        }
 
-        //            }
-        //            return dsSanPham;
-        //        }
-        //        return new List<Khachhang>();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return new List<SanPham>();
-        //    }
-        //}
+        public Khachhang GetKhachHangByMa(int MaKhachHang)
+        {
+            try
+            {
+                Khachhang khachhang= null;
+                DataTable dt = dataProvider.ExecuteQuery("Proc_KhachHang_GetData", new object[] { MaKhachHang }, new List<string>() { "MaKH" });
+                {
+                    var row = dt.Rows[0];
+                    khachhang = new Khachhang();
+                    khachhang.MaKH = String.IsNullOrEmpty(row["MaKH"].ToString()) ? 0 : int.Parse(row["MaKH"].ToString());
+                    khachhang.HoTenKH = String.IsNullOrEmpty(row["HoTenKH"].ToString()) ? "" : row["HoTenKH"].ToString();
+                    khachhang.SDTKH = String.IsNullOrEmpty(row["SoDTKH"].ToString()) ? 0 : int.Parse(row["SoDTKH"].ToString());
+                    khachhang.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
+                    khachhang.DiaChi = String.IsNullOrEmpty(row["DiaChi"].ToString()) ? "" : row["DiaChi"].ToString();
+                    khachhang.MatKhau = String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString();
 
-        //public SanPham GetSanPhamByMa(int MaSanPham)
-        //{
-        //    try
-        //    {
-        //        SanPham sanpham = null;
-        //        DataTable dt = dataProvider.ExecuteQuery("Proc_SanPham_GetData", new object[] { MaSanPham }, new List<string>() { "MaSanPham" });
-        //        if (dt != null && dt.Rows.Count > 0)
-        //        {
-        //            var row = dt.Rows[0];
-        //            sanpham = new SanPham();
-        //            sanpham.MaSanPham = String.IsNullOrEmpty(row["MaSanPham"].ToString()) ? 0 : int.Parse(row["MaSanPham"].ToString());
-        //            sanpham.MaDanhMuc = String.IsNullOrEmpty(row["MaDanhMuc"].ToString()) ? 0 : int.Parse(row["MaDanhMuc"].ToString());
-        //            sanpham.TenSanPham = String.IsNullOrEmpty(row["TenSanPham"].ToString()) ? "" : row["TenSanPham"].ToString();
-        //            sanpham.HinhAnh = String.IsNullOrEmpty(row["HinhAnh"].ToString()) ? "" : row["HinhAnh"].ToString();
-        //            sanpham.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : float.Parse(row["Gia"].ToString());
-        //            sanpham.MoTa = String.IsNullOrEmpty(row["MoTa"].ToString()) ? "" : row["MoTa"].ToString();
-        //            sanpham.DanhGia = String.IsNullOrEmpty(row["DanhGia"].ToString()) ? "" : row["DanhGia"].ToString();
-        //            sanpham.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
-        //            sanpham.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
-        //        }
-        //        return sanpham;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return null;
-        //    }
-        //}
+                }
+                return khachhang;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public Khachhang GetKhachHangBySDT(int SDTKH)
+        {
+            try
+            {
+                Khachhang khachhang = null;
+                DataTable dt = dataProvider.ExecuteQuery("Proc_KhachHang_GetData", new object[] {"","", SDTKH }, new List<string>() {"MaKH","HoTenKH","SoDTKH"});
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    var row = dt.Rows[0];
+                    khachhang = new Khachhang();
+                    khachhang.MaKH = String.IsNullOrEmpty(row["MaKH"].ToString()) ? 0 : int.Parse(row["MaKH"].ToString());
+                    khachhang.HoTenKH = String.IsNullOrEmpty(row["HoTenKH"].ToString()) ? "" : row["HoTenKH"].ToString();
+                    khachhang.SDTKH = String.IsNullOrEmpty(row["SoDTKH"].ToString()) ? 0 : int.Parse(row["SoDTKH"].ToString());
+                    khachhang.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
+                    khachhang.DiaChi = String.IsNullOrEmpty(row["DiaChi"].ToString()) ? "" : row["DiaChi"].ToString();
+                    khachhang.MatKhau = String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString();
 
+                }
+                return khachhang;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
 
         public string ThemKhachHang(Khachhang khachhang)
         {
@@ -137,28 +153,27 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             }
         }
 
-        //public string CapNhatSanPham(SanPham sanPham)
-        //{
-        //    try
-        //    {
+        public string CapNhatKhachHang(Khachhang khachhang)
+        {
+            try
+            {
 
-        //        int kq = dataProvider.ExecuteNonQuery("Proc_SanPham_Update", new object[] { sanPham.MaSanPham, sanPham.MaDanhMuc, sanPham.TenSanPham, sanPham.Gia, sanPham.HinhAnh, sanPham.MoTa, sanPham.DanhGia, sanPham.NgaySua },
-        //          new List<string>() {
-        //              "@MaSanPham",
-        //              "@MaDanhMuc" ,
-        //      "@TenSanPham" ,
-        //      "@Gia" ,
-        //      "@HinhAnh" ,
-        //      "@MoTa",
-        //      "@DanhGia",
-        //      "@NgaySua"  });
-        //        return kq.ToString();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return "";
-        //    }
-        //}
+              int kq = dataProvider.ExecuteNonQuery("Proc_KhachHang_Update", new object[] {khachhang.MaKH, khachhang.HoTenKH, khachhang.SDTKH, khachhang.Email, khachhang.DiaChi, khachhang.MatKhau },
+                  new List<string>() {
+                      "@MaKH",
+                           "@HoTenKH",
+                  "@SoDTKH",
+                   "@Email",
+                   "@DiaChi",
+                    "@MatKhau"
+                    });
+                return kq.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
 
 
 

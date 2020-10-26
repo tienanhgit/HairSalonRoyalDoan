@@ -13,6 +13,7 @@
     <link href="~/CSS/Common/Library.css" rel="stylesheet" />
     <link href="~/CSS/Library/font-awesome.min.css" rel="stylesheet" />
     <link href="~/CSS/User/Product.css" rel="stylesheet" />
+
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -118,17 +119,16 @@
 
     <script>
         $(document).ready(function () {
-
-            
-           
                 var session ="@Session["USER_SESSION"]";
                 var usdn = $("#usdn").val();
                 if (session !="") {
                     $("#usdnstore").remove();
+                             $("#store-dn").append("<li class='nav - item'><a class='nav-link' href='/UserProduct/QuanLyDonHang'>Lịch sử mua<a/></li>")
                     $("#store-dn").append("<li class='nav - item'><a class='nav-link'>@Session["USER_SESSION"]<a/></li>")
+
                     $("#store-dn").append("<li class='nav - item'><a class='nav-link' href='/KhachHang/DangXuat'>Đăng xuất</a></li>")
                 }
-            
+
         });
 
 
