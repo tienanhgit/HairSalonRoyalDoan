@@ -3,6 +3,7 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
+
 /*chuan*/
 
 create table NhanVien
@@ -90,6 +91,7 @@ Gia float,
 HinhAnh nvarchar(255),
 MoTa ntext ,
 DanhGia ntext,
+TrangThaiHienThi int,
 NgayTao datetime,
 NgaySua datetime
 );
@@ -99,6 +101,7 @@ create table DanhMuc
 (
 MaDanhMuc int not null identity primary key,
 TenDanhMuc nvarchar(50),
+TrangThaiHienThi int
 )
 go
 create table DichVu
@@ -107,6 +110,7 @@ MaDV int not null identity primary key,
 TenDV ntext,
 Gia float,
 HoatDong ntext,
+TrangThaiHienThi int,
 NgayTao datetime,
 NgaySua datetime
 )
@@ -127,6 +131,7 @@ create table ThuongHieu
 (
 MaThuongHieu int not null identity primary key, 
 TenThuongHieu nvarchar(255),
+TrangThaiHienThi int,
 NgayTao datetime,
 NgaySua datetime
 );
@@ -137,6 +142,7 @@ MaBaiViet int not null identity primary key,
 MaNV int,
 TenBaiViet nvarchar(255),
 NoiDung ntext,
+TrangThaiHienThi int,
 NgayTao datetime,
 NgaySua datetime
 
@@ -148,6 +154,7 @@ MaBanner int not null identity primary key,
 MaNV int,
 AnhBanner nvarchar(255),
 ViTri int,
+TrangThaiHienThi int,
 NgayTao datetime,
 NgaySua datetime
 )
@@ -969,13 +976,12 @@ insert into NhanVien
 values (N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','0902087097',N'Hải Dương',142987653,'09/02/1978','Fulltime',1,'10/7/2020','10/7/2020')
 go
 insert into ThuongHieu
-values ('Enchenter','','')
+values ('Enchenter','','','')
 go
 
 
 
 
-select * from DonDatHang
 
 
 

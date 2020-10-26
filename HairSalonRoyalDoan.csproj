@@ -157,6 +157,35 @@
     <Compile Include="Repository\SanPham.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Antlr3.Runtime.pdb" />
+    <Content Include="bin\CKFinder.dll" />
+    <Content Include="bin\CKFinder.pdb" />
+    <Content Include="bin\HairSalonRoyalDoan.dll" />
+    <Content Include="bin\HairSalonRoyalDoan.pdb" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="bin\PagedList.dll" />
+    <Content Include="bin\PagedList.Mvc.dll" />
+    <Content Include="bin\PagedList.Mvc.xml" />
+    <Content Include="bin\PagedList.xml" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Optimization.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\System.Web.WebPages.xml" />
+    <Content Include="bin\WebGrease.dll" />
+    <Content Include="bin\X.PagedList.dll" />
     <Content Include="Content\Images\ImagesProduct\anhsanpham1.jpg" />
     <Content Include="Content\Images\ImagesProduct\anhsanphan2.jpg" />
     <Content Include="Content\Images\ImagesProduct\dauduongtocdiva.jpg" />
@@ -1180,6 +1209,7 @@
     <Content Include="Content\plugins\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <Content Include="Content\plugins\ckfinder\userfiles\.htaccess" />
     <Content Include="CSS\Library\jquery-ui-1.12.1\package.json" />
+    <Content Include="bin\HairSalonRoyalDoan.dll.config" />
     <None Include="Scripts\Common\Library\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Common\Library\jquery-3.4.1.js" />
     <Content Include="Scripts\Common\Library\jquery-3.4.1.min.js" />
@@ -1223,6 +1253,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\roslyn\" />
     <Folder Include="Content\Font\" />
     <Folder Include="Content\Icon\" />
   </ItemGroup>
