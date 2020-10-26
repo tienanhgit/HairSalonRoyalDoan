@@ -132,15 +132,13 @@
             <a href="#home">GIỚI THIỆU</a>
             <a href="/UserProduct/Index">ROYAL ĐOÀN STORE</a>
             <a  class="buttondatlich">ĐẶT LỊCH</a>
-            <a href="#about">XEM LỊCH ĐẶT</a>
             <a href="#about">DỊCH VỤ</a>
             <a href="/KhachHang/DangNhap" id="usdn">ĐĂNG NHẬP</a>
         </div>
     </div>
     <div class="dialog-datlich" title="ĐẶT LỊCH ONLINE">
 
-       
-        <h1>Register:</h1>
+          <h1>Register:</h1>
         <!-- One "tab" for each step in the form: -->
         <div class="tab">
             Name:
@@ -308,13 +306,13 @@
         $(document).ready(function () {
 
             $(".buttondatlich").click(function () {
-         
+
                 $(".dialog-datlich").dialog('open');
 
 
             });
 
-           
+
 
             $(".dialog-datlich").dialog({
                 modal: true,
@@ -329,7 +327,8 @@
             var usdn = $("#usdn").val();
             if (session != "") {
                 $("#usdn").remove();
-                $("#header-right").append("<a>@Session["USER_SESSION"]<a/>")
+                $("#header-right").append("<a>Chào: @Session["USER_SESSION"]<a/>")
+                    $("#header-right").append("<a>Xem lịch đặt<a/>")
                 $("#header-right").append("<a href='/KhachHang/DangXuat'>Đăng xuất</a>")
             }
 

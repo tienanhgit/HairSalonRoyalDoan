@@ -24,7 +24,7 @@ namespace HairSalonRoyalDoan.Controllers
         }
         public ActionResult DatLichCat()
         {
-
+            List<DonDatHang> listdondathang = new DonDatHangModel().GetData();
 
 
 

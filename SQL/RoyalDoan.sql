@@ -4,6 +4,8 @@ go
 use HairSalonRoyalDoan
 
 
+
+
 /*chuan*/
 
 create table NhanVien
@@ -966,6 +968,8 @@ END
 				
 go
 /*End*/
+/*Proc lay data tu 2 bang*/
+
 
 
 
@@ -979,8 +983,9 @@ insert into ThuongHieu
 values ('Enchenter','','','')
 go
 
+--create proc proc_getdata_dondathang_sanpham
 
-
+select * from DonDatHang
 
 
 

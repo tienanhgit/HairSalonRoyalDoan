@@ -1250,6 +1250,7 @@
     <Content Include="Views\Shared\_UserProduct.cshtml" />
     <Content Include="Views\GioHang\ThanhToanGioHang.cshtml" />
     <Content Include="Views\GioHang\DatHang.cshtml" />
+    <Content Include="Views\UserProduct\QuanLyDonHang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
