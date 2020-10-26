@@ -216,14 +216,15 @@
 
                 @using (Html.BeginForm("DangNhap", "KhachHang", FormMethod.Post))
                 {
+                 
                     <div class="sign-in-htm">
                         <div class="group">
                             <label for="user" class="label">Số điện thoại :</label>
-                            <input id="SDTDN" name="SDTDN" type="text" class="input">
+                            <input id="SDTDN" required name="SDTDN" type="text" class="input">
                         </div>
                         <div class="group">
                             <label for="pass" class="label">Mật khẩu :</label>
-                            <input id="MatKhauDN" name="MatKhauDN" type="password" class="input" data-type="password">
+                            <input id="MatKhauDN" required name="MatKhauDN" type="password" class="input" data-type="password">
                         </div>
                         <div class="group">
                             <input id="check" type="checkbox" class="check" checked>
@@ -232,7 +233,7 @@
                         <div class="group">
                             <input type="submit" class="button" value="Sign In">
                         </div>
-                        @Html.ValidationSummary(true, null, new { @class = "alert alert-danger" })
+                @ViewBag.dangnhap
                         <div class="hr"></div>
                         <div class="foot-lnk">
                             <a href="#forgot">Forgot Password?</a>
@@ -245,11 +246,11 @@
             <div class="sign-up-htm">
                 <div class="group">
                     <label for="user" class="label">Số điện thoại</label>
-                    <input id="SoDTKH" name="SoDTKH" type="text" class="input">
+                    <input id="SoDTKH" required name="SoDTKH" type="text" class="input">
                 </div>
                 <div class="group">
                     <label for="pass" class="label">Mật Khẩu</label>
-                    <input id="MatKhauDK" name="MatKhauDK" type="password" class="input" data-type="password">
+                    <input id="MatKhauDK" required name="MatKhauDK" type="password" class="input" data-type="password">
                 </div>
                 <div class="group">
                     <label for="user" class="label">Email</label>
@@ -276,11 +277,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
     <script type="text/javascript">
 
      $(function () {

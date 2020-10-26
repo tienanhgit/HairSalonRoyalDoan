@@ -37,33 +37,52 @@ namespace HairSalonRoyalDoan.Controllers.User
                 return sb.ToString();
             }
         }
+
+
+        public ActionResult DangNhap()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
         public ActionResult DangNhap(string SDTDN, string MatKhauDN)
         {
-            if (ModelState.IsValid)
-            {
-
+            
                 var MKHash = "";
-
-
                 if (MatKhauDN!=null)
                 {MKHash= CreateMD5(MatKhauDN.ToString());
                 }    
                 var result = khachHangModel.DangNhap(SDTDN, MKHash);
-                if (!String.IsNullOrEmpty(result))
+            if (!String.IsNullOrEmpty(result))
+            {
+                Session.Add(SessionHelper.USER_SESSION, SDTDN);
+
+                string refere = Request.UrlReferrer.LocalPath.ToString();
+                if (refere == "/UserHome/Index")
                 {
-                    Session.Add(SessionHelper.USER_SESSION,SDTDN);
                     return RedirectToAction("Index", "UserHome");
                 }
                 else
+
                 {
-                    ModelState.AddModelError("", "Tên đăng nhập hoặc mật khẩu không đúng");
+
+                    return RedirectToAction("Index", "UserProduct");
                 }
-                return View();
+            }
+            else
+            {
+              
+                    ViewBag.dangnhap = "Tên đăng nhập và mật khẩu không đúng";
+
+                
             }
 
-
-
+            
+           
+              
             return View();
+
         }
         [HttpGet]
         public ActionResult DangKy()
@@ -76,10 +95,21 @@ namespace HairSalonRoyalDoan.Controllers.User
      
             Session[SessionHelper.CART_SESSION] = null;
             Session[SessionHelper.USER_SESSION] = null;
-            return RedirectToAction("Index", "UserHome"); 
+            string refere = Request.UrlReferrer.LocalPath.ToString();
+            if(refere=="/UserHome/Index")
+            {
+                
+                return RedirectToAction("Index", "UserHome");
+            }
+            else
+            {
+            
+                return RedirectToAction("Index", "UserProduct");
+            }
+         
         }
 
-
+        
 
 
         [HttpPost]

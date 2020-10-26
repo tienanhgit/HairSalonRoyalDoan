@@ -11,7 +11,8 @@ namespace HairSalonRoyalDoan.Controllers.User
 {
     public class GioHangController : Controller
     {
-    
+        DonDatHangModel donDatHangModel = new DonDatHangModel();
+        ChiTietDonDatModel chiTietDonDatModel = new ChiTietDonDatModel();
 
         // GET: GioHang
         public ActionResult Index()
@@ -37,6 +38,7 @@ namespace HairSalonRoyalDoan.Controllers.User
             if (cart != null)
             {
                 var list = (List<GioHangItem>)cart;
+                
                 if (list.Exists(x => x.sanpham.MaSanPham == SanPhamID))
                 {
                     foreach (var item in list)
@@ -71,20 +73,39 @@ namespace HairSalonRoyalDoan.Controllers.User
             return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
 
+
+
         [HttpPost]
-        public ActionResult Update(int soluong)
+        public JsonResult Update(string SanPhamID,string SoLuongMoi)
         {
+                var cart = Session["CART_SESSION"]; 
+                int spid = Convert.ToInt32(SanPhamID);
+                int slm = Convert.ToInt32(SoLuongMoi);  
+                var list = (List<GioHangItem>)cart;
+           
+           
+                foreach (var item in list)
+                {
+
+                    if (item.sanpham.MaSanPham == spid)
+                    {
+                        item.SoLuong = slm;
+                    }
+                }
+                Session["CART_SESSION"] = list;
+
+                return Json(new
+                {
+                    status = true
+                }); 
         }
-
-
 
 
         [HttpPost]
         public JsonResult XoaSanPhamGioHang(int SanPhamID)
         {
            
-            var sessionCart = (List<GioHangItem>)Session["CART_SESSION"];
-            
+            var sessionCart = (List<GioHangItem>)Session["CART_SESSION"]; 
             sessionCart.RemoveAll(x => x.sanpham.MaSanPham == SanPhamID);
             Session["CART_SESSION"] = sessionCart;
             return Json(new
@@ -103,10 +124,71 @@ namespace HairSalonRoyalDoan.Controllers.User
 
             return View(list);
 
+            
+
         }
+        [HttpPost]
+        public ActionResult DatHang()
+        {
+            string makh = "";
+            string tennguoinhan = Request.Form["shipName"];
+            string sodienthoainhanhang = Request.Form["mobile"];
+            string diachi = Request.Form["address"];
+            string email = Request.Form["email"];
 
 
+            DonDatHang donDatHang = new DonDatHang();
+            donDatHang.DiaChiNhanHang = diachi;
+            donDatHang.SoDTGiaoHang = Convert.ToInt32(sodienthoainhanhang);
+            donDatHang.HoTenNguoiNhan = tennguoinhan;
 
+            if (Session["CART_SESSION"] != null)
+            {
+                if (Session["USER_SESSION"] != null)
+                {
+                    var sdtkh = Session["USER_SESSION"].ToString();
+
+                    int sdtkhnhan = Convert.ToInt32(sdtkh);
+
+
+                    Khachhang kh = new KhachHangModel().GetKhachHangBySDT(sdtkhnhan);
+                    makh = kh.MaKH.ToString();
+                }
+                var cart = Session["CART_SESSION"];
+
+                var list = new List<GioHangItem>();
+                if (cart != null)
+                {
+                    list = (List<GioHangItem>)cart;
+                }
+                if (makh != "" & makh != null)
+                {
+                    donDatHang.MaKH = Convert.ToInt32(makh);
+
+                }
+
+                donDatHang.NgayTao = DateTime.Now;
+
+                string madondathang = donDatHangModel.ThemDonDatHang(donDatHang);
+
+
+                if (madondathang != null)
+                {
+                    foreach (var item in list)
+                    {
+                        ChiTietDonDat chiTietDonDat = new ChiTietDonDat();
+
+                        chiTietDonDat.MaDonDatHang = Convert.ToInt32(madondathang);
+                        chiTietDonDat.SoLuong = item.SoLuong;
+                        chiTietDonDat.MaSanPham = item.sanpham.MaSanPham;
+                        chiTietDonDatModel.ThemChiTietDonDat(chiTietDonDat);
+                    }
+                }
+            }
+            Session["CART_SESSION"] = null;
+            return View();
+
+        }
 
 
 
