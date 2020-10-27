@@ -157,8 +157,6 @@
     <Compile Include="Repository\SanPham.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Images\Banner\Banner-Bo-ready-2-white.jpg" />
-    <Content Include="Content\Images\Banner\Davines-banner.jpg" />
     <Content Include="Content\Images\ImagesProduct\anhsanpham1.jpg" />
     <Content Include="Content\Images\ImagesProduct\anhsanphan2.jpg" />
     <Content Include="Content\Images\ImagesProduct\dauduongtocdiva.jpg" />
@@ -1182,7 +1180,6 @@
     <Content Include="Content\plugins\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
     <Content Include="Content\plugins\ckfinder\userfiles\.htaccess" />
     <Content Include="CSS\Library\jquery-ui-1.12.1\package.json" />
-    <Content Include="fonts\CAFETA__.TTF" />
     <None Include="Scripts\Common\Library\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\Common\Library\jquery-3.4.1.js" />
     <Content Include="Scripts\Common\Library\jquery-3.4.1.min.js" />
