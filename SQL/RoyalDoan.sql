@@ -4,8 +4,6 @@ go
 use HairSalonRoyalDoan
 
 
-
-
 /*chuan*/
 
 create table NhanVien
@@ -103,7 +101,9 @@ create table DanhMuc
 (
 MaDanhMuc int not null identity primary key,
 TenDanhMuc nvarchar(50),
-TrangThaiHienThi int
+TrangThaiHienThi int,
+NgayTao datetime,
+NgaySua datetime
 )
 go
 create table DichVu
@@ -975,6 +975,7 @@ go
 
 
 
+
 /*Them du lieu demo*/
 insert into NhanVien 
 values (N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','0902087097',N'Hải Dương',142987653,'09/02/1978','Fulltime',1,'10/7/2020','10/7/2020')
@@ -986,6 +987,7 @@ go
 --create proc proc_getdata_dondathang_sanpham
 
 select * from DonDatHang
+
 
 
 

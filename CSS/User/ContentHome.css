@@ -1,25 +1,17 @@
-﻿* {
-    margin: 0px;
-    padding: 0px;
-    font-family:Arial, Helvetica, sans-serif
-   
+﻿@font-face {
+    font-family: 'CAFETA__';
+    src: url('../../fonts/CAFETA__.TTF') format('truetype');
 }
 
-@font-face {
-    font-family: 'Montserrat-Black';
-    src: url('../../fonts/Montserrat-Black.ttf') format('truetype');
+.cafeta-font {
+    font-family: CAFETA__;
 }
-@font-face {
-    font-family: 'Montserrat-BlackItalic';
-    src: url('../../fonts/Montserrat-BlackItalic.ttf') format('truetype');
-}
-@font-face {
-    font-family: 'Montserrat-ExtraBold';
-    src: url('../../fonts/Montserrat-ExtraBold.ttf') format('truetype');
-}
-@font-face {
-    font-family: 'Montserrat-ExtraLight';
-    src: url('../../fonts/Montserrat-ExtraLight.ttf') format('truetype');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    text-transform:uppercase;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 
@@ -74,6 +66,7 @@ max-height:450px;
     align-items: center;
 }
 .sub-content {
+    margin-top:8px;
     width: 100%;
     background-color: #eee;
 
