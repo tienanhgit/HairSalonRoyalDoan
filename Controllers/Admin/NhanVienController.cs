@@ -14,6 +14,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         [HttpGet]
         public ActionResult DangNhap()
         {
+
             return View("DangNhap");
         }
 
@@ -25,10 +26,11 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             //string em = Uri.EscapeUriString(Email);
             var result = nhanVienModel.DangNhap(Email, MatKhau);
             var chucvu = nhanVienModel.GetQuyen(Email);
-            TempData["chucvu"]=chucvu;
-           
+            
             if(!String.IsNullOrEmpty(result))
-            {          
+            {
+                Session.Add(SessionHelper.ADMIN_SESSION,Email);
+
                 return RedirectToAction("Index", "AdminHome");
             }
             else
@@ -38,7 +40,20 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             return View();
 
     }
-      
+
+
+        public ActionResult DangXuat()
+        {
+
+            Session[SessionHelper.ADMIN_SESSION] = null;
+           
+
+                return RedirectToAction("DangNhap", "NhanVien");
+           
+       
+
+        }
+
 
 
 
