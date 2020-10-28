@@ -607,6 +607,7 @@ create Proc Proc_ThuongHieu_Update
 @TenThuongHieu nvarchar(255),
 @NgaySua datetime						
 AS BEGIN 
+
 	UPDATE ThuongHieu SET TenThuongHieu=@TenThuongHieu,
 	NgaySua=@NgaySua		
 							
