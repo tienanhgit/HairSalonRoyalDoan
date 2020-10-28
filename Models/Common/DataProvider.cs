@@ -14,6 +14,8 @@ namespace HairSalonRoyalDoan.Models.Common
         //string chuoikn = @"Data Source=DESKTOP-C5LNGFV\SQLEXPRESS;Initial Catalog=HairSalonRoyalDoan;Integrated Security=True";
         //desktop btanh
         string chuoikn = @"Data Source=DESKTOP-2FL7VEI;Initial Catalog=HairSalonRoyalDoan;Integrated Security=True";
+        //Chuỗi kết nối của Hoa
+        //string chuoikn = @"Data Source=DESKTOP9X\THANHHOA;Initial Catalog=HairSalonRoyalDoan;Integrated Security=True";
         //macbook btanh
         public SqlConnection conn = new SqlConnection();
         public void kn_csdl()
