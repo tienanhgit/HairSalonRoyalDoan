@@ -136,6 +136,7 @@
     <Compile Include="Models\Dictionary\DanhMucModel.cs" />
     <Compile Include="Models\Dictionary\DonDatHangModel.cs" />
     <Compile Include="Models\Dictionary\KhachHangModel.cs" />
+    <Compile Include="Models\Dictionary\MultipleDonDat.cs" />
     <Compile Include="Models\Dictionary\NhanVienModel.cs" />
     <Compile Include="Models\Dictionary\ThuongHieuModel.cs" />
     <Compile Include="Repository\ChiTietDonDat.cs" />
@@ -1099,6 +1100,7 @@
     <Content Include="CSS\Library\bootstrap.min.css" />
     <Content Include="CSS\Admin\Login.css" />
     <Content Include="CSS\Common\Library.css" />
+    <Content Include="CSS\Library\font-awesome.css" />
     <Content Include="CSS\Library\font-awesome.min.css" />
     <Content Include="CSS\Library\introjs.min.css" />
     <Content Include="CSS\Library\jquery-ui-1.12.1\AUTHORS.txt" />

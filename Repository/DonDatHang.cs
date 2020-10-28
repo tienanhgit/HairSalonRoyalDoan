@@ -18,6 +18,7 @@ namespace HairSalonRoyalDoan.Repository
         private string _DiaChiNhanHang;
         private DateTime _NgayTao;
         private DateTime _NgaySua;
+
         public DonDatHang()
         {
 
@@ -37,7 +38,6 @@ namespace HairSalonRoyalDoan.Repository
             _NgayTao = ngayTao;
             _NgaySua = ngaySua;
         }
-
         public int MaDonDatHang { get => _MaDonDatHang; set => _MaDonDatHang = value; }
         public int MaNV { get => _MaNhanVien; set => _MaNhanVien = value; }
         public int MaKH { get => _MaKH; set => _MaKH = value; }

@@ -25,7 +25,36 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         ChiTietDonDat chiTietDonDat = new ChiTietDonDat();
                         chiTietDonDat.MaDonDatHang = String.IsNullOrEmpty(row["MaDonDatHang"].ToString()) ? 0 : int.Parse(row["MaDonDatHang"].ToString());
                         chiTietDonDat.MaSanPham = String.IsNullOrEmpty(row["MaSanPham"].ToString()) ? 0 : int.Parse(row["MaSanPham"].ToString());
-                        chiTietDonDat.SoLuong = String.IsNullOrEmpty(row["SoLuong"].ToString()) ? 0 : int.Parse(row["SoLuong"].ToString()); 
+                        chiTietDonDat.SoLuong = String.IsNullOrEmpty(row["SoLuong"].ToString()) ? 0 : int.Parse(row["SoLuong"].ToString());          
+                        dsChiTietDonDat.Add(chiTietDonDat);
+                    }
+                    return dsChiTietDonDat;
+                }
+                return new List<ChiTietDonDat>();
+            }
+            catch (Exception ex)
+            {
+                return new List<ChiTietDonDat>();
+            }
+        }
+        public List<ChiTietDonDat> GetDataSanPham(int MaDonDatHang)
+        {
+            try
+            {
+                List<ChiTietDonDat> dsChiTietDonDat = new List<ChiTietDonDat>();
+                DataTable dt = dataProvider.ExecuteQuery("proc_getdata_chitietdondat_sanpham", new object[] { MaDonDatHang }, new List<string>() { "MaDonDatHang" });
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        ChiTietDonDat chiTietDonDat = new ChiTietDonDat();
+                        chiTietDonDat.MaDonDatHang = String.IsNullOrEmpty(row["MaDonDatHang"].ToString()) ? 0 : int.Parse(row["MaDonDatHang"].ToString());
+                        chiTietDonDat.MaSanPham = String.IsNullOrEmpty(row["MaSanPham"].ToString()) ? 0 : int.Parse(row["MaSanPham"].ToString());
+                        chiTietDonDat.SoLuong = String.IsNullOrEmpty(row["SoLuong"].ToString()) ? 0 : int.Parse(row["SoLuong"].ToString());              
+                        chiTietDonDat.TenSanPham = String.IsNullOrEmpty(row["TenSanPham"].ToString()) ? "" : row["TenSanPham"].ToString();
+                        chiTietDonDat.HinhAnh = String.IsNullOrEmpty(row["HinhAnh"].ToString()) ? "" : row["HinhAnh"].ToString();
+                        chiTietDonDat.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : float.Parse(row["Gia"].ToString());
+
                         dsChiTietDonDat.Add(chiTietDonDat);
 
                     }

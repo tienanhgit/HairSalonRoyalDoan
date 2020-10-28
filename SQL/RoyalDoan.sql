@@ -55,6 +55,7 @@ TrangThaiDonSanPham int ,/*1 chờ xác nhận , 2 xác nhận ,3 thành công *
 TrangThaiDonDichVu int,/*1 chờ xác nhận , 2 xác nhận ,3 thành công */
 HoTenNguoiNhan nvarchar(50),
 DiaChiNhanHang nvarchar(50),
+TongTien 
 NgayTao datetime,
 NgaySua datetime
 );
@@ -606,6 +607,7 @@ create Proc Proc_ThuongHieu_Update
 @TenThuongHieu nvarchar(255),
 @NgaySua datetime						
 AS BEGIN 
+
 	UPDATE ThuongHieu SET TenThuongHieu=@TenThuongHieu,
 	NgaySua=@NgaySua		
 							
@@ -760,7 +762,7 @@ END
 go
 
 
-create   proc Proc_KhachHang_GetData
+create proc Proc_KhachHang_GetData
 @MaKH int='',
 @HoTenKH int='',
 @SoDTKH nvarchar(50)='',
@@ -901,8 +903,7 @@ create Procedure Proc_DonDatHang_GetData
  @DiaChiNhanHang nvarchar(50)='',
  @NgayTao datetime='',
  @NgaySua datetime=''
-						
-							
+												
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
@@ -911,14 +912,28 @@ AS BEGIN
 	begin
 		SET @Query += ' AND (MaDonDatHang = @MaDonDatHang) '
 		end
+		IF(@MaNV !='')
+	begin
+		SET @Query += ' AND (MaNV = @MaNV) '
+		end
+		IF(@MaKH !='')
+	begin
+		SET @Query += ' AND (MaKH = @MaKH) '
+		end
 
-	SET @ParamList =		'@MaDonDatHang int
+	SET @ParamList =		'@MaDonDatHang int,
+							@MaKH int,
+							@MaNV int
 							  
 							 '
-	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDonDatHang
-END
-				
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDonDatHang,@MaKH,@MaNV
+END				
 go
+
+
+
+
+
 /*End*/
 
 
@@ -987,15 +1002,36 @@ go
 --create proc proc_getdata_dondathang_sanpham
 
 select * from DonDatHang
+select DonDatHang.MaDonDatHang from DonDatHang 
+join ChiTietDonDat on 
+ChiTietDonDat.MaDonDatHang=DonDatHang.MaDonDatHang
+join SanPham on ChiTietDonDat.MaSanPham=SanPham.MaSanPham 
+group by(DonDatHang.MaDonDatHang)
+
+go
+
+create proc proc_getdata_chitietdondat_sanpham
+@MaDonDatHang int=''
+as
+begin
+select ChiTietDonDat.MaDonDatHang,ChiTietDonDat.MaSanPham,ChiTietDonDat.Soluong,SanPham.TenSanPham,SanPham.HinhAnh,SanPham.Gia
+from SanPham join ChiTietDonDat on ChiTietDonDat.MaSanPham=SanPham.MaSanPham
+where MaDonDatHang=@MaDonDatHang
+end
+go
 
 
+/*Tinh tong tien*/
 
-
-
-
-
-
-
+create proc proc_getdata_tongtien
+@MaDonDatHang int=''
+as
+begin
+select SUM(ChiTietDonDat.Soluong*SanPham.Gia)
+from ChiTietDonDat join SanPham on ChiTietDonDat.MaSanPham=SanPham.MaSanPham
+where MaDonDatHang=@MaDonDatHang
+group by (MaDonDatHang)
+end
 
 
 
