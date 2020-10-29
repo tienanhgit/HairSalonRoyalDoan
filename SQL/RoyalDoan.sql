@@ -3,7 +3,6 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
-
 /*chuan*/
 
 create table NhanVien
@@ -55,7 +54,6 @@ TrangThaiDonSanPham int ,/*1 chờ xác nhận , 2 xác nhận ,3 thành công *
 TrangThaiDonDichVu int,/*1 chờ xác nhận , 2 xác nhận ,3 thành công */
 HoTenNguoiNhan nvarchar(50),
 DiaChiNhanHang nvarchar(50),
-TongTien 
 NgayTao datetime,
 NgaySua datetime
 );
@@ -557,12 +555,9 @@ go
 
 /*Bang thuong hiệu*/
 
-create proc Proc_ThuongHieu_GetData
-							@MaThuongHieu INT = '',
-							@TenThuongHieu nvarchar(50)=''
-						
-						
-					
+create proc Proc_ThuongHieu_GetData						
+@MaThuongHieu INT = '',						
+@TenThuongHieu nvarchar(50)=''									
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
@@ -713,8 +708,6 @@ begin
 select COUNT(MaKH) from KhachHang where KhachHang.SoDTKH=@SDT
 end
 go
-
-
 create Proc Proc_KhachHang_Insert
  @HoTenKH nvarchar(50)='',
 @SoDTKH nvarchar(50)='',
@@ -983,7 +976,84 @@ END
 				
 go
 /*End*/
-/*Proc lay data tu 2 bang*/
+
+/*Bang Banner*/
+create proc Proc_Banner_Get
+as
+begin 
+select * from Banner
+end
+go
+
+create Proc Proc_Banner_Insert 
+@MaNV int,
+@ViTri int,
+@TrangThaiHienThi int,
+@AnhBanner nvarchar(255),
+@NgayTao datetime					
+AS BEGIN 
+	INSERT INTO Banner
+	        (	
+			MaNV,
+			ViTri,
+			TrangThaiHienThi,
+			AnhBanner,
+			NgayTao
+			
+						
+	        )
+	VALUES  (				@MaNV,
+	@ViTri,
+	@TrangThaiHienThi,
+	@AnhBanner,
+	@NgayTao
+		        )
+END;
+
+
+Go
+
+create Proc Proc_Banner_Update 
+@MaBanner int,
+@MaNV int,
+@ViTri int,
+@TrangThaiHienThi int,
+@AnhBanner nvarchar(255),
+@NgaySua datetime				
+AS BEGIN 
+	UPDATE Banner SET 
+	MaNV=@MaNV,
+	TenBaiViet=@TenBaiViet,
+	NoiDung=@NoiDung,
+	NgayTao=@NgayTao
+	
+							
+	WHERE MaBaiViet = @MaBaiViet
+END
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
