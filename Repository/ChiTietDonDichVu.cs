@@ -11,13 +11,13 @@ namespace HairSalonRoyalDoan.Repository
         private int _MaDV;
         private int _MaNV;
         private DateTime _NgayDat;
-        private DateTime _GioDat;
+        private int _GioDat;
         public ChiTietDonDichVu()
         {
 
         }
 
-        public ChiTietDonDichVu(int maDonDatHang, int maDV, int maNV, DateTime ngayDat, DateTime gioDat)
+        public ChiTietDonDichVu(int maDonDatHang, int maDV, int maNV, DateTime ngayDat, int gioDat)
         {
             MaDonDatHang = maDonDatHang;
             MaDV = maDV;
@@ -30,6 +30,6 @@ namespace HairSalonRoyalDoan.Repository
         public int MaDV { get => _MaDV; set => _MaDV = value; }
         public int MaNV { get => _MaNV; set => _MaNV = value; }
         public DateTime NgayDat { get => _NgayDat; set => _NgayDat = value; }
-        public DateTime GioDat { get => _GioDat; set => _GioDat = value; }
+        public int GioDat { get => _GioDat; set => _GioDat = value; }
     }
 }

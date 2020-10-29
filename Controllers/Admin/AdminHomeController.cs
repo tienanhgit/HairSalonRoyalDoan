@@ -15,19 +15,35 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         ProductModel productModel = new ProductModel();
         public ActionResult Index()
         {
+            if (Session["ADMIN_SESSION"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
 
-            return View();
+            }
         }
-        public ActionResult SanPham(int page=1,int pagesize=9)
+        public ActionResult SanPham(int page = 1, int pagesize = 9)
         {
             List<SanPham> listsp = new ProductModel().GetData();
             ViewBag.ListSanPham = listsp;
             var links = listsp;
 
-            return 
-                Request.IsAjaxRequest()
-                   ? (ActionResult)PartialView("SanPham", listsp.ToPagedList(page, pagesize))
-                   : View(listsp.ToPagedList(page, pagesize));
+            if (Session["ADMIN_SESSION"] != null)
+            {
+                return
+                 Request.IsAjaxRequest()
+                ? (ActionResult)PartialView("SanPham", listsp.ToPagedList(page, pagesize))
+                : View(listsp.ToPagedList(page, pagesize));
+            }
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
+
+
+            }
         }
 
         [HttpGet]
@@ -63,10 +79,17 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
             List<DanhMuc> listDanhMuc = new DanhMucModel().GetData();
             ViewBag.ListDanhMuc = listDanhMuc;
-
             SanPham sp = new ProductModel().GetSanPhamByMa(MaSanPham);
             ViewBag.SanPham = sp;
-            return View();
+            if (Session["ADMIN_SESSION"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
+
+            }
         }
         [HttpPost]
         public ActionResult SuaSanPham(SanPham std)

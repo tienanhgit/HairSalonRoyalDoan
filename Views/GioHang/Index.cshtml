@@ -1,26 +1,26 @@
 ﻿@model List<HairSalonRoyalDoan.Repository.GioHangItem>
-
 @{
 
     Layout = "~/Views/Shared/_UserProduct.cshtml";
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>GioHang</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
     <style>
-     
-         .cart-info.action {
-                width: 5%;
-                vertical-align: middle;
-                float: right;
-            }
+
+        .cart-info.action {
+            width: 5%;
+            vertical-align: middle;
+            float: right;
+        }
 
         .cart-item-container {
             padding: 5px 10px;
@@ -64,9 +64,7 @@
         }
     </style>
 
-    <!------ Include the above in your HEAD tag ---------->
 
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 
 
@@ -147,14 +145,12 @@
         </div>
     </div>
 
-    <script>
+    <script type="text/javascript">
     
             function pageRedirect() {
                 window.location.href = "/UserProduct/Index";
         }
 
-        //ajax cho gio hang
-        //<input id="title" val="hello" type="text" />
 
         function myFunction(cart_id, price) {
             var inputQuantityElement = $("#input-quantity-" + cart_id);

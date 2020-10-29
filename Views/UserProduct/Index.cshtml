@@ -31,35 +31,36 @@
         border: 1px solid #ddd;
         margin-left: -1px;
     }
+    .banner-sp{
+        padding:10px;
+    }
 </style>
 
 </head>
 <body>
-  <h1>@TempData["refere"]</h1>
-    <section class="jumbotron text-center">
-        <div class="container">
-            @*banner*@
-            <div class="swiper-main">
-                <div class="swiper-container swp1">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img src="~/Content/Images/UserHomeImg/hoinghetocvietnam.png" />
-                        </div>
-                        <div class="swiper-slide">
-                            <img src="~/Content/Images/UserHomeImg/banner4.png" />
-                        </div>
-                        <div class="swiper-slide"><img src="~/Content/Images/UserHomeImg/banner2.jpg" /></div>
-                        <div class="swiper-slide"><img src="~/Content/Images/UserHomeImg/banner.jpg" /></div>
-                        <div class="swiper-slide">
-                            <img src="~/Content/Images/UserHomeImg/banner3.jpg" />
-                        </div>
+
+    <div class="container banner-sp">
+        @*banner*@
+        <div class="swiper-main">
+            <div class="swiper-container swp1">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide">
+                        <img src="~/Content/Images/Banner/Davines-banner.jpg" />
                     </div>
-                    <div class="swiper-button-next"></div>
-                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-slide">
+                        <img src="~/Content/Images/Banner/Banner-Bo-ready-2-white.jpg" />
+                    </div>     
+                    <div class="swiper-slide">
+                        <img src="~/Content/Images/UserHomeImg/banner3.jpg" />
+                    </div>
                 </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
-    </section>
+
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col">

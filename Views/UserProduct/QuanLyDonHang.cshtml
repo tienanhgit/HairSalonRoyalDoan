@@ -1,4 +1,5 @@
-﻿
+﻿@model List<HairSalonRoyalDoan.Repository.DonDatHang>
+
 @{
     Layout = "~/Views/Shared/_UserProduct.cshtml";
 }
@@ -9,77 +10,153 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>QuanLyDonHang</title>
-    <style>
-        .main-donhang {
-            min-height: 650px;
-            background-color: #f1f1f1;
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link href="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/Common/Library/jquery-3.4.1.js"></script>
+    <script src="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 
+
+    <style>
+        /*        css cho dialog*/
+        .ui-dialog-title {
+        }
+
+        .ui-widget-overlay {
+            background: rgba(0,0,0,0.5);
+            opacity: 1;
+        }
+
+        .ui-dialog .ui-dialog-title {
+            height: 30px;
+            display: flex;
+            font-size: 16px;
+            font-weight: bold;
+            align-items: center;
+        }
+
+        .ui-dialog {
+            padding: 0px;
+        }
+
+            .ui-dialog .ui-dialog-content {
+                padding: 8px;
+            }
+        /*Đây là css cho phần chung của content dialog*/
+        .container-dialog-main {
+            padding: 8px;
+        }
+
+        .container-dialog-main {
+            white-space: nowrap;
         }
 
 
- #wrapper {
-    overflow-x: hidden;
- }
-
-#sidebar-wrapper {
-  min-height: 100vh;
-  margin-left: -15rem;
-  -webkit-transition: margin .25s ease-out;
-  -moz-transition: margin .25s ease-out;
-  -o-transition: margin .25s ease-out;
-  transition: margin .25s ease-out;
-}
-
-#sidebar-wrapper .sidebar-heading {
-  padding: 0.875rem 1.25rem;
-  font-size: 1.2rem;
-}
-
-#sidebar-wrapper .list-group {
-  width: 15rem;
-}
-
-#page-content-wrapper {
-  min-width: 100vw;
-}
-
-#wrapper.toggled #sidebar-wrapper {
-  margin-left: 0;
-}
-
-@@media (min-width: 768px) {
-  #sidebar-wrapper {
-    margin-left: 0;
-  }
-
-  #page-content-wrapper {
-    min-width: 0;
-    width: 100%;
-  }
-
-  #wrapper.toggled #sidebar-wrapper {
-    margin-left: -15rem;
-  }
-}
 
 
+        .main-donhang {
+            min-height: 650px;
+            background-color: #f1f1f1;
+        }
+
+
+        #wrapper {
+            overflow-x: hidden;
+        }
+
+        #sidebar-wrapper {
+            min-height: 100vh;
+            margin-left: -15rem;
+            -webkit-transition: margin .25s ease-out;
+            -moz-transition: margin .25s ease-out;
+            -o-transition: margin .25s ease-out;
+            transition: margin .25s ease-out;
+        }
+
+            #sidebar-wrapper .sidebar-heading {
+                padding: 0.875rem 1.25rem;
+                font-size: 1.2rem;
+            }
+
+            #sidebar-wrapper .list-group {
+                width: 15rem;
+            }
+
+        #page-content-wrapper {
+            min-width: 100vw;
+        }
+
+        #wrapper.toggled #sidebar-wrapper {
+            margin-left: 0;
+        }
+        .anhspct{
+            width:100px;
+            height:100px;
+
+        }
+
+        @@media (min-width: 768px) {
+            #sidebar-wrapper {
+                margin-left: 0;
+            }
+
+            #page-content-wrapper {
+                min-width: 0;
+                width: 100%;
+            }
+
+            #wrapper.toggled #sidebar-wrapper {
+                margin-left: -15rem;
+            }
+        }
     </style>
 
 </head>
 <body>
+    @*Day la dialog*@
+    <div class="dialog-datlich" title="CHI TIẾT ĐƠN ĐẶT">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Hình Ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+              
+                </tr>
+             
+            </thead>
+            <tbody class="chitietspbd">
+
+            
+
+
+            </tbody>
+        
+        </table>
+
+
+
+    </div>
+
+
+
     <div class="main-donhang">
 
         <div class="d-flex" id="wrapper">
 
             <!-- Sidebar -->
             <div class="bg-light border-right" id="sidebar-wrapper">
-           
+
                 <div class="list-group list-group-flush">
                     <a href="#" class="list-group-item list-group-item-action bg-light">Thông tin tài khoản</a>
                     <a href="#" class="list-group-item list-group-item-action bg-light">Đơn đặt hàng</a>
                     <a href="#" class="list-group-item list-group-item-action bg-light">Lịch sử mua hàng</a>
                     <a href="#" class="list-group-item list-group-item-action bg-light">Hỏi đáp ?</a>
-                
+
                 </div>
             </div>
             <!-- /#sidebar-wrapper -->
@@ -95,31 +172,58 @@
                                     <table id="mytable" class="table table-bordred table-striped">
                                         <thead>
                                             <tr>
-                                        <th>Mã đơn hàng</th>
-                                        <th>Ngày mua</th>
-                                        <th>Sản phẩm </th>
-                                        <th>Tổng tiền</th>
-                                        <th>Trạng thái</th>
-                           
-                                        </tr>
+                                                <th>Mã đơn hàng</th>
+                                                <th>Ngày mua</th>
+                                                <th>Tên người nhận </th>
+                                                <th>Số điện thoại</th>
+                                                <th>Trạng thái</th>
+                                                <th>Chức năng</th>
+                                                <th>Hủy đơn đặt</th>
+
+                                            </tr>
                                         </thead>
 
                                         <tbody>
-                                              <tr>
-                                               <td>Mã đơn hàng</td>
-                                                <td>Ngày mua</td>
-                                                <td>Sản phẩm 1234124123423</td>
-                                                <td></td>
-                                                <td>isometric.mohsin@gmail.com</td>
-                                        
-                                              
-                                              </tr>                      
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td>@item.MaDonDatHang</td>
+
+                                                    <td>@String.Format("{0:dd/MM/yyyy}", item.NgayTao)</td>
+                                                    <td>@item.HoTenNguoiNhan</td>
+                                                    <td>@item.SoDTGiaoHang</td>
+
+                                                    @if (item.TrangThaiDonSanPham == 0)
+                                                    {
+                                                        <td>Chờ xác nhận</td>
+                                                    }
+                                                    @if (item.TrangThaiDonSanPham == 1)
+                                                    {
+                                                        <td>Đã xác nhận</td>
+                                                    }
+                                                    @if (item.TrangThaiDonSanPham == 2)
+                                                    {
+                                                        <td>Đang giao hàng</td>
+                                                    }
+                                                    @if (item.TrangThaiDonSanPham == 3)
+                                                    {
+                                                        <td>Hoàn thành</td>
+                                                    }
+                                                    <td>
+                                                        <a href="#" class="buttonxemchitiet " data-toggle="tooltip" onclick="XemChiTietDon(@item.MaDonDatHang)">Xem chi tiết</a>
+                                                    </td>
+
+                                                    <td>
+                                                        <button class="btn btn-sm btn-danger" id="removeItemCart"><i class="fa fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                            }
                                         </tbody>
 
                                     </table>
 
                                     <div class="clearfix"></div>
-                                
+
 
                                 </div>
 
@@ -133,12 +237,81 @@
 
                 </div>
             </div>
-     
+
 
         </div>
-      
-   
-
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+          
+
+            $(".dialog-datlich").dialog({
+                modal: true,
+                autoOpen: false,
+                width: 960, height: 600,
+                resizable: true,
+            });
+
+        });
+
+        function XemChiTietDon(MaDonDatHang) {
+            
+
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                url: '/UserProduct/QuanLyDonHang',
+                data: "{ 'MaDonDatHang':' "+MaDonDatHang +"' }",
+                dataType: "json",
+                success: function (result) {
+                 
+                    let html = ''; 
+                    $.each(result, function (key, item) {
+                     
+                        html += '<tr>';
+                        html += '<td><img class="anhspct" src=' +item.HinhAnh + '></img></td>';
+                        html += '<td>' + item.TenSanPham + '</td>';
+                        html += '<td>' + item.Gia + '</td>';
+                        html += '<td>' + item.SoLuong + '</td>';
+                        html += '<td id="cart-price-">' + item.Gia * item.SoLuong + '<td/>';
+                        html += '</tr>';
+                        
+                 
+                    });
+                    html += '<tr><td>Tổng tiền :' + '<span id="ttongtien"></span>' + '<td/><tr/>';
+                    $('.chitietspbd').html(html); 
+                    var totalItemPrice = 0
+                    $("td[id='cart-price-']").each(function () {
+                        var cart_price = $(this).text();
+                        totalItemPrice = parseInt(totalItemPrice) + parseInt(cart_price);
+                    });
+
+                    $("#ttongtien").text(totalItemPrice);
+                             
+                },
+                error: function (data) {
+
+                    alert(data);
+                }
+            });
+         
+
+       
+
+           
+           
+
+            $(".dialog-datlich").dialog('open');
+        }
+
+
+
+
+
+
+
+    </script>
+ 
+
 </body>
 </html>

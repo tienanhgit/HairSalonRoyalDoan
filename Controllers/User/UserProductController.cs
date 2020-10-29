@@ -30,13 +30,32 @@ namespace HairSalonRoyalDoan.Controllers
             ViewBag.IdSanPham = Request.QueryString["id"];
             return View();
         }
+        [HttpGet]
         public ActionResult QuanLyDonHang()
         {
+            if (Session["USER_SESSION"] != null)
+            {
+                var sdtkh = Session["USER_SESSION"];
 
+                Khachhang kh = new KhachHangModel().GetKhachHangBySDT(Convert.ToInt32(sdtkh));
+                List<DonDatHang> ddh = new DonDatHangModel().GetDataByMaKH(kh.MaKH);
+                List<ChiTietDonDat> listchitietdondat = new ChiTietDonDatModel().GetData();
+                List<SanPham> listsanpham = new ProductModel().GetData();
 
-            return View();
+                return View(ddh);
+            }
+            return Redirect("/KhachHang/DangNhap");
+        }
+        [HttpPost]
+        public JsonResult QuanLyDonHang(string MaDonDatHang)
+        {
+           
+            List<ChiTietDonDat> listctdd = new ChiTietDonDatModel().GetData();
+            List<ChiTietDonDat> listchitietdondat = new ChiTietDonDatModel().GetDataSanPham(Convert.ToInt32(MaDonDatHang));     
+            return Json(listchitietdondat,JsonRequestBehavior.AllowGet);
         }
 
 
-    }
+
+        }
 }

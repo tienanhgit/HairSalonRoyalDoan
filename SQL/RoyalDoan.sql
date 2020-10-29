@@ -3,9 +3,6 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
-
-
-
 /*chuan*/
 
 create table NhanVien
@@ -77,7 +74,7 @@ MaDonDatHang int not null,
 MaDV int not null,
 MaNV int,
 NgayDat datetime ,
-GioDat datetime ,
+GioDat int ,
 Primary key(MaDonDatHang,MaDV)
 );
 
@@ -103,7 +100,9 @@ create table DanhMuc
 (
 MaDanhMuc int not null identity primary key,
 TenDanhMuc nvarchar(50),
-TrangThaiHienThi int
+TrangThaiHienThi int,
+NgayTao datetime,
+NgaySua datetime
 )
 go
 create table DichVu
@@ -111,7 +110,6 @@ create table DichVu
 MaDV int not null identity primary key,
 TenDV ntext,
 Gia float,
-HoatDong ntext,
 TrangThaiHienThi int,
 NgayTao datetime,
 NgaySua datetime
@@ -501,11 +499,121 @@ END
 go
 /*End*/
 
+/*Bang Chi Tiet Don Dich Vu*/
+
+
+create Proc Proc_ChiTietDonDichVu_Insert
+@MaDonDatHang int='',
+@MaDichVu int='',
+@MaNV int='',
+@NgayDat datetime='',
+@GioDat int=''			
+AS BEGIN 
+	INSERT INTO ChiTietDonDichVu
+	        (			
+			MaDonDatHang,
+			MaDV,
+			MaNV,
+			NgayDat,
+			GioDat
+							  
+	        )
+	VALUES  ( 
+	@MaDonDatHang,
+	@MaDichVu,
+	@MaNV,
+	@NgayDat,
+	@GioDat
+	        )
+Select scope_identity()
+END;
+Go
+
+create Procedure Proc_ChiTietDonDichVu_GetData 
+@MaDonDatHang int='',
+@MaDV int='',
+@MaNV int='',
+@NgayDat datetime='',
+@GioDat int=''							
+AS BEGIN
+	DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'Select * from ChiTietDonDichVu where (1=1)'
+	IF(@MaDonDatHang!='')
+	begin
+		SET @Query += ' AND (M = @MaDonDatHang) '
+		end
+
+	SET @ParamList =		'@MaDonDatHang int
+							  
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDonDatHang
+END
+				
+go
+/*End*/
+
+
+
+/*Bang chi tiet dich vu*/
+
+create Proc Proc_ChiTietDichVu_Insert
+								 @MaDV nvarchar(50),
+								@Buoc nvarchar(50)='',
+								@ChiTietBuoc nvarchar(255)=''				
+																
+AS BEGIN 
+	INSERT INTO Chitietdichvu
+	        (					
+			MaDV,
+			Buoc,
+			ChiTietBuoc
+								
+	        )
+	VALUES  (					@MaDV,
+								@Buoc,
+								@ChiTietBuoc
+													
+	        )
+			Select scope_identity()
+END;
+
+Go
+
+create Proc Proc_ChiTietDichVu_Update 
+@MaCTDV int='',
+ @MaDV nvarchar(50)='',
+								@Buoc nvarchar(50)='',
+								@ChiTietBuoc nvarchar(255)=''
+														
+AS BEGIN 
+	UPDATE Chitietdichvu SET 
+MaDV=@MaDV,
+Buoc=@Buoc,
+ChiTietBuoc=@ChiTietBuoc
+							
+	WHERE MaCTDV=@MaCTDV
+END
+
+GO
+
+create Procedure Proc_ChiTietDichVu_GetData 						
+AS BEGIN
+select * from Chitietdichvu where 1=1
+END
+go
+/*END*/
+
+
+
+
+
+
 /*Bang dich vu*/
 
 create Proc Proc_Dichvu_Insert @TenDV nvarchar(50),
 								@Gia nvarchar(50)='',
-								@HoatDong nvarchar(255)='',					
+								@TrangThaiHienThi int='',				
 								@NgayTao datetime=''
 						
 						
@@ -513,13 +621,13 @@ AS BEGIN
 	INSERT INTO DichVu
 	        (					TenDV ,
 								Gia,
-								HoatDong ,			
+									TrangThaiHienThi,	
 								NgayTao 
 							
 	        )
 	VALUES  (					 @TenDV ,
 								@Gia,
-								@HoatDong,					
+									@TrangThaiHienThi,				
 								@NgayTao
 													
 	        )
@@ -535,10 +643,9 @@ create Proc Proc_DichVu_Update @MaDV int,
 								@NgaySua datetime=''
 														
 AS BEGIN 
-	UPDATE DichVu SET TenDV=@TenDV,
+	UPDATE DichVu SET 
+	TenDV=@TenDV,
 	Gia=@Gia,
-	HoatDong=@HoatDong,
-
 	NgaySua=@NgaySua	
 							
 	WHERE MaDV = @MaDV
@@ -556,12 +663,9 @@ go
 
 /*Bang thuong hiệu*/
 
-create proc Proc_ThuongHieu_GetData
-							@MaThuongHieu INT = '',
-							@TenThuongHieu nvarchar(50)=''
-						
-						
-					
+create proc Proc_ThuongHieu_GetData						
+@MaThuongHieu INT = '',						
+@TenThuongHieu nvarchar(50)=''									
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
@@ -606,6 +710,7 @@ create Proc Proc_ThuongHieu_Update
 @TenThuongHieu nvarchar(255),
 @NgaySua datetime						
 AS BEGIN 
+
 	UPDATE ThuongHieu SET TenThuongHieu=@TenThuongHieu,
 	NgaySua=@NgaySua		
 							
@@ -711,8 +816,6 @@ begin
 select COUNT(MaKH) from KhachHang where KhachHang.SoDTKH=@SDT
 end
 go
-
-
 create Proc Proc_KhachHang_Insert
  @HoTenKH nvarchar(50)='',
 @SoDTKH nvarchar(50)='',
@@ -760,7 +863,7 @@ END
 go
 
 
-create   proc Proc_KhachHang_GetData
+create proc Proc_KhachHang_GetData
 @MaKH int='',
 @HoTenKH int='',
 @SoDTKH nvarchar(50)='',
@@ -901,8 +1004,7 @@ create Procedure Proc_DonDatHang_GetData
  @DiaChiNhanHang nvarchar(50)='',
  @NgayTao datetime='',
  @NgaySua datetime=''
-						
-							
+												
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
@@ -911,14 +1013,28 @@ AS BEGIN
 	begin
 		SET @Query += ' AND (MaDonDatHang = @MaDonDatHang) '
 		end
+		IF(@MaNV !='')
+	begin
+		SET @Query += ' AND (MaNV = @MaNV) '
+		end
+		IF(@MaKH !='')
+	begin
+		SET @Query += ' AND (MaKH = @MaKH) '
+		end
 
-	SET @ParamList =		'@MaDonDatHang int
+	SET @ParamList =		'@MaDonDatHang int,
+							@MaKH int,
+							@MaNV int
 							  
 							 '
-	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDonDatHang
-END
-				
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDonDatHang,@MaKH,@MaNV
+END				
 go
+
+
+
+
+
 /*End*/
 
 
@@ -968,7 +1084,74 @@ END
 				
 go
 /*End*/
-/*Proc lay data tu 2 bang*/
+
+/*Bang Banner*/
+create proc Proc_Banner_Get
+as
+begin 
+select * from Banner
+end
+go
+
+create Proc Proc_Banner_Insert 
+@MaNV int,
+@ViTri int,
+@TrangThaiHienThi int,
+@AnhBanner nvarchar(255),
+@NgayTao datetime					
+AS BEGIN 
+	INSERT INTO Banner
+	        (	
+			MaNV,
+			ViTri,
+			TrangThaiHienThi,
+			AnhBanner,
+			NgayTao					
+	        )
+	VALUES  (				@MaNV,
+	@ViTri,
+	@TrangThaiHienThi,
+	@AnhBanner,
+	@NgayTao
+		        )
+END;
+
+Go
+
+create Proc Proc_Banner_Update 
+@MaBanner int,
+@MaNV int='',
+@ViTri int='',
+@TrangThaiHienThi int='',
+@AnhBanner nvarchar(255)='',
+@NgaySua datetime=''				
+AS BEGIN 
+	UPDATE Banner SET 
+
+	MaNV=@MaNV,
+	ViTri=@ViTri,
+	TrangThaiHienThi=@TrangThaiHienThi,
+	NgaySua=@NgaySua
+WHERE MaBanner=@MaBanner
+END
+GO
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -976,23 +1159,103 @@ go
 
 
 /*Them du lieu demo*/
+
 insert into NhanVien 
 values (N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','0902087097',N'Hải Dương',142987653,'09/02/1978','Fulltime',1,'10/7/2020','10/7/2020')
 go
 insert into ThuongHieu
 values ('Enchenter','','','')
 go
+INSERT INTO dichvu 
+ VALUES
+( N'Combo cắt 7 bước', 70000, '','',''),
+( N'Combo cắt 12 bước', 100000, '','',''),
+( N'Uốn Xoăn', 250000, 1,'',''),
+( N'Tẩy màu tóc', 100000,'', '',''),
+( N'Nhuộm tóc', 200000, '','',''),
+(N'Uốn phồng', 300000, '','','')
+;
+
+
+go
+
+INSERT INTO Chitietdichvu
+values
+(4,'', N'Thay đổi phong cách của bạn với mái tóc xoăn bồng bềnh.'),
+( 2,'', N'Hỗ trợ cho những bạn muốn nhuộm mái tóc sáng màu.'),
+(3,'',N'Thay đổi diện mạo với hàng trăm màu tóc thời trang với mức giá khó tin chỉ 200000. Sử dụng màu nhuộm cao cấp, tư vấn giữ màu tốt nhất.'),
+(1, N'Bước 1: Massage chân muối Himalaya -', N'Cải thiện sức khỏe'),
+(1, N'Bước 2: Rửa mặt -', N'Tút lại vẻ đẹp trai của bạn'),
+(1, N'Bước 3: Đắp Mặt Nạ Dưỡng Da, Sạch Mụn - ', N'Mặt nạ tinh chất than hoạt tính giúp sạch sâu từng lỗ chân lông'),
+(1, N'Bước 4: Gội đầu bấm huyệt - ', N'Một cảm giác sảng khoái nhất mà bạn từng biết đến'),
+(1, N'Bước 5: Massage Thư Giãn Da Mặt, Vai Gáy - ', N'Cảm nhận sự thư thái từ đôi bàn tay mướt mịn của các Spa Girl'),
+(1, N'Bước 6: Chăm sóc da mặt bằng công nghệ cao - ', N'Hút sạch bã nhờn, mụn đầu đen, xịt khoáng chất'),
+(1, N'Bước 7: Massage Vitamin E & Đá cẩm thạch -', N' Trắng da, mờ nếp nhăn')
+
+go
+
+
+-- Lay data Dich Vu
+
+
+
+
+
+
+
 
 --create proc proc_getdata_dondathang_sanpham
 
 select * from DonDatHang
+select DonDatHang.MaDonDatHang from DonDatHang 
+join ChiTietDonDat on 
+ChiTietDonDat.MaDonDatHang=DonDatHang.MaDonDatHang
+join SanPham on ChiTietDonDat.MaSanPham=SanPham.MaSanPham 
+group by(DonDatHang.MaDonDatHang)
+
+go
+
+create proc proc_getdata_chitietdondat_sanpham
+@MaDonDatHang int=''
+as
+begin
+select ChiTietDonDat.MaDonDatHang,ChiTietDonDat.MaSanPham,ChiTietDonDat.Soluong,SanPham.TenSanPham,SanPham.HinhAnh,SanPham.Gia
+from SanPham join ChiTietDonDat on ChiTietDonDat.MaSanPham=SanPham.MaSanPham
+where MaDonDatHang=@MaDonDatHang
+end
+go
+
+/*Tinh so nguoi dat lich tren gio */
+create proc Proc_SoNguoiDat
+@GioDat int='',
+@NgayDat datetime=''
+as
+begin
+select count(MaDonDatHang)
+from ChiTietDonDichVu
+where @GioDat=GioDat and @NgayDat=NgayDat
 
 
+ end
+ /*Bang khung gio*/
+ create table KhungGio
+ (
+MaKhungGio int,
+GioBatDat int
+)
+ /*end*/
 
-
-
-
-
+/*Tinh tong tien*/
+go
+create proc proc_getdata_tongtien
+@MaDonDatHang int=''
+as
+begin
+select SUM(ChiTietDonDat.Soluong*SanPham.Gia)
+from ChiTietDonDat join SanPham on ChiTietDonDat.MaSanPham=SanPham.MaSanPham
+where MaDonDatHang=@MaDonDatHang
+group by (MaDonDatHang)
+end
 
 
 
