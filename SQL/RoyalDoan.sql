@@ -3,7 +3,6 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
-
 /*chuan*/
 
 create table NhanVien
@@ -1247,7 +1246,7 @@ GioBatDat int
  /*end*/
 
 /*Tinh tong tien*/
-
+go
 create proc proc_getdata_tongtien
 @MaDonDatHang int=''
 as
