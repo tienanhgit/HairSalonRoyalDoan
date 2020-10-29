@@ -42,31 +42,16 @@ namespace HairSalonRoyalDoan.Controllers
                 List<ChiTietDonDat> listchitietdondat = new ChiTietDonDatModel().GetData();
                 List<SanPham> listsanpham = new ProductModel().GetData();
 
-
-                //ViewBag.TongTienHang = new DonDatHangModel().TinhTongTienDonDathang(madondathang);
-
-                //var multipletable = from ddh in listdondathang
-                //                    join ctdd in listchitietdondat on ddh.MaDonDatHang equals ctdd.MaDonDatHang into table1
-                //                    from ctdd in table1.DefaultIfEmpty()
-                //                    join sp in listsanpham on ctdd.MaSanPham equals sp.MaSanPham into table2
-                //                    from sp in table2.DefaultIfEmpty()
-                //                    select new MultipleDonDatHang { donDatHangdetail = ddh, ChiTietDonDatdetail = ctdd, sanPhamdetail = sp };
-
-
-
                 return View(ddh);
             }
-            return View();
+            return Redirect("/KhachHang/DangNhap");
         }
         [HttpPost]
         public JsonResult QuanLyDonHang(string MaDonDatHang)
         {
+           
             List<ChiTietDonDat> listctdd = new ChiTietDonDatModel().GetData();
-
-
-
-            List<ChiTietDonDat> listchitietdondat = new ChiTietDonDatModel().GetDataSanPham(Convert.ToInt32(MaDonDatHang));
-            
+            List<ChiTietDonDat> listchitietdondat = new ChiTietDonDatModel().GetDataSanPham(Convert.ToInt32(MaDonDatHang));     
             return Json(listchitietdondat,JsonRequestBehavior.AllowGet);
         }
 

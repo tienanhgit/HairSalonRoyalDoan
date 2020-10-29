@@ -10,6 +10,9 @@
     <link href="~/CSS/Common/Library.css" rel="stylesheet" />
     <link href="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
     <style>
+        .dialog-datlich  {
+      background-image: url('../../Content/Images/UserHomeImg/banner.jpg');
+        }
         .ui-dialog-title {
          
         }
@@ -32,6 +35,7 @@
         }
 
             .ui-dialog .ui-dialog-content {
+                background-image: url('../../Content/Images/UserHomeImg/background.jpg');
                 padding: 0px;
             }
         /*Đây là css cho phần chung của content dialog*/
@@ -138,17 +142,113 @@
     </div>
     <div class="dialog-datlich" title="ĐẶT LỊCH ONLINE">
 
-          <h1>Register:</h1>
+
         <!-- One "tab" for each step in the form: -->
         <div class="tab">
-            Name:
-            <p><input placeholder="First name..." oninput="this.className = ''" name="fname"></p>
-            <p><input placeholder="Last name..." oninput="this.className = ''" name="lname"></p>
+            <form >
+                <div class="container">
+                    <div class="row mt-12">
+                        <div class="col-md-4 col-lg-3"></div>
+                        <div class="col-md-4 col-lg-6" style="background:gray;">
+                            <h3 class="mt-3">CHỌN NGÀY CẮT</h3>
+                        </div>
+                        <div class="col-md-4 col-lg-3"></div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 col-lg-3"></div>
+                        <div class="col-md-4 col-lg-6" style="background:gray;">
+                            <div>
+                                <select name="ngayhen" class="form-control mb-3">
+                                    <option value="@String.Format("{0:dd/MM/yyyy}", DateTime.Now)">
+                                        Hôm nay (@String.Format("{0:dd/MM/yyyy}", DateTime.Now))
+                                    </option>
+                                    <option>
+                                        Ngày mai (@String.Format("{0:dd/MM/yyyy}", DateTime.Now.AddDays(1)))
+
+                                    </option>
+                                    <option value="20/10 ">
+
+                                        Ngày kia (@String.Format("{0:dd/MM/yyyy}", DateTime.Now.AddDays(2)))
+
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-3"></div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4 col-lg-3"></div>
+                        <div class="col-md-4 col-lg-6" style="background:gray;">
+                            <h3 class="mt-3">CHỌN GIỜ CẮT</h3>
+                        </div>
+                        <div class="col-md-4 col-lg-3"></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-lg-3"></div>
+                        <div class="col-md-4 col-lg-6" style="background:gray;">
+                            <div>
+                                <select name="giohen" class="form-control mb-3">
+                   
+                                    <option value="9">
+                                        9h-10h
+                                        
+                                    </option>
+                                    <option value="10">
+                                        10h-11h
+
+                                    </option>
+                                   
+                                </select>
+                            </div>
+                      
+                        </div>
+                    </div>         
+                </div>
+               
+            </form>
         </div>
+
+
+
+
+
+   
         <div class="tab">
-            Contact Info:
-            <p><input placeholder="E-mail..." oninput="this.className = ''" name="email"></p>
-            <p><input placeholder="Phone..." oninput="this.className = ''" name="phone"></p>
+            <div class="row mt-12">
+                <div class="col-md-4 col-lg-3"></div>
+                <div class="col-md-4 col-lg-6" style="background:gray;">
+                    <h3 class="mt-3">CHỌN DỊCH VỤ</h3>
+                </div>
+                <div class="col-md-4 col-lg-3"></div>
+            </div>
+
+
+            <div class="row mb-3">
+                <div class="col-md-4 col-lg-3"></div>
+                <div class="col-md-4 col-lg-6" style="background:gray;">
+                    <div>
+                        <select name="ngayhen" class="form-control mb-3">
+                            <option value="@String.Format("{0:dd/MM/yyyy}", DateTime.Now)">
+                                Hôm nay (@String.Format("{0:dd/MM/yyyy}", DateTime.Now))
+                            </option>
+                            <option>
+                                Ngày mai (@String.Format("{0:dd/MM/yyyy}", DateTime.Now.AddDays(1)))
+
+                            </option>
+                            <option value="20/10 ">
+
+                                Ngày kia (@String.Format("{0:dd/MM/yyyy}", DateTime.Now.AddDays(2)))
+
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 col-lg-3"></div>
+            </div>>
+        </div>
+   
+
+
 
         </div>
         <div class="tab">
@@ -317,8 +417,9 @@
             $(".dialog-datlich").dialog({
                 modal: true,
                 autoOpen: false,
-                width: 960, height: 600,
-                resizable: true,
+                width: 900,
+                height: 410,
+                resizable: false,
             });
 
 
