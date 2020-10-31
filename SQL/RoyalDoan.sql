@@ -3,6 +3,7 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
+
 /*chuan*/
 
 create table NhanVien
@@ -20,7 +21,13 @@ ChucVu int,/*Co 2 loai chuc vu : 1 :Admin , 2 :User*/
 NgayTao datetime,
 NgaySua datetime
 );
+create table KhungThoiGian
+(
+MaKhungThoiGian int Identity primary key,
+ThoiGianBatDau int,
+ThoiGianKetThuc int,
 
+)
 go
 create table Luong
 (
@@ -48,8 +55,11 @@ create table DonDatHang
 MaDonDatHang int not null identity primary key,
 MaNV int,
 MaKH int,
+MaKhungThoiGian int,
 SoDTGiaoHang int,
 HinhThucTT nvarchar(50),
+GhiChu ntext,
+NgayCat datetime,
 TrangThaiDonSanPham int ,/*1 chờ xác nhận , 2 xác nhận ,3 thành công */
 TrangThaiDonDichVu int,/*1 chờ xác nhận , 2 xác nhận ,3 thành công */
 HoTenNguoiNhan nvarchar(50),
@@ -72,9 +82,6 @@ create table ChiTietDonDichVu
 (
 MaDonDatHang int not null,
 MaDV int not null,
-MaNV int,
-NgayDat datetime ,
-GioDat int ,
 Primary key(MaDonDatHang,MaDV)
 );
 
@@ -182,8 +189,11 @@ add constraint FK_ChiTietDichVu_DichVu
 foreign key(MaDV)
 references DichVu(MaDV)
 go
-
-
+alter table DonDatHang
+add constraint FK_DonDatHang_KhungThoiGian
+foreign key (MaKhungThoiGian)
+references KhungThoiGian(MaKhungThoiGian)
+go
 alter table DonDatHang
 add constraint FK_DonDatHang_KhachHang
 foreign key (MaKH)
@@ -211,11 +221,6 @@ add constraint FK_DonDatHang_NhanVien
 foreign key (MaNV)
 references NhanVien(MaNV)
 go
-alter table ChiTietDonDichVu
-add constraint FK_ChitietDonDichVu_NhanVien
-foreign key (MaNV)
-references NhanVien(MaNV)
-
 
 alter table ChiTietDonDichVu
 add constraint FK_ChiTietDonDichVu_DonDatHang
@@ -499,31 +504,21 @@ END
 go
 /*End*/
 
-/*Bang Chi Tiet Don Dich Vu*/
 
+/*Bang Chi Tiet Don Dich Vu*/
 
 create Proc Proc_ChiTietDonDichVu_Insert
 @MaDonDatHang int='',
-@MaDichVu int='',
-@MaNV int='',
-@NgayDat datetime='',
-@GioDat int=''			
+@MaDV int=''			
 AS BEGIN 
 	INSERT INTO ChiTietDonDichVu
 	        (			
 			MaDonDatHang,
-			MaDV,
-			MaNV,
-			NgayDat,
-			GioDat
-							  
+			MaDV								  
 	        )
 	VALUES  ( 
 	@MaDonDatHang,
-	@MaDichVu,
-	@MaNV,
-	@NgayDat,
-	@GioDat
+	@MaDV
 	        )
 Select scope_identity()
 END;
@@ -541,7 +536,7 @@ AS BEGIN
 	SET @Query = 'Select * from ChiTietDonDichVu where (1=1)'
 	IF(@MaDonDatHang!='')
 	begin
-		SET @Query += ' AND (M = @MaDonDatHang) '
+		SET @Query += ' AND (MaChiTietDonDichVu= @MaDonDatHang) '
 		end
 
 	SET @ParamList =		'@MaDonDatHang int
@@ -597,20 +592,42 @@ END
 
 GO
 
-create Procedure Proc_ChiTietDichVu_GetData 						
+create Procedure Proc_ChiTietDichVu_GetData						
+@MaDV int=''							
 AS BEGIN
-select * from Chitietdichvu where 1=1
+	DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'Select * from ChiTietDichVu where (1=1)'
+	IF(@MaDV!='')
+	begin
+		SET @Query += ' AND (MaDV = @MaDV) '
+		end
+
+	SET @ParamList =		'@MaDV int
+							  
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDV
 END
 go
+
 /*END*/
 
 
-
-
-
-
 /*Bang dich vu*/
+/*Lay data toan bo dich vu*/
 
+create proc proc_GetData_DichVu_ChiTietDichVu
+
+as
+begin
+select Dichvu.MaDV,TenDV,Gia,Buoc,ChiTietBuoc
+ from DichVu join Chitietdichvu
+on DichVu.MaDV=Chitietdichvu.MaDV
+
+
+
+end
+go
 create Proc Proc_Dichvu_Insert @TenDV nvarchar(50),
 								@Gia nvarchar(50)='',
 								@TrangThaiHienThi int='',				
@@ -653,11 +670,13 @@ END
 
 GO
 
+
 create Procedure Proc_DichVu_GetData 						
 AS BEGIN
 select * from DichVu where 1=1
 END
 go
+
 /*END*/
 
 
@@ -909,16 +928,22 @@ go
 
 /*Bang Đơn đặt hàng*/
 go
-
-create proc Proc_DonDatHang_Insert
+ select * from DonDatHang
+ select * from ChiTietDonDichVu
+ select * from ChiTietDonDichVu
+ exec  Proc_DonDatHang_Insert '',2,1,'','','','','','','','','31/10/2020'
+alter proc Proc_DonDatHang_Insert
  @MaNV int =null,
  @MaKH int=null,
+ @MaKhungThoiGian int=null,
  @SoDTGiaoHang int='',
  @HinhThucTT nvarchar(50)='',
+ @GhiChu ntext='',
  @TrangThaiDonSanPham int='',
  @TrangThaiDonDichVu int='',
  @HoTenNguoiNhan nvarchar(50)='',
  @DiaChiNhanHang nvarchar(50)='',
+ @NgayCat datetime='',
  @NgayTao datetime=''						
 AS BEGIN 
 IF(@MaNV ='')
@@ -933,27 +958,45 @@ IF(@MaNV ='')
 	begin
 		SET @MaKH=NULL
 		end
+				IF(@MaKhungThoiGian ='')
+	begin
+		SET @MaKhungThoiGian=NULL
+		end
+	IF(@NgayTao='1900-01-01 00:00:00.000')
+	begin
+		SET @NgayTao=''
+		end
+			IF(@NgayCat='1900-01-01 00:00:00.000')
+	begin
+		SET @NgayCat=''
+		end			
 
 	INSERT INTO DonDatHang
 	        ( MaNV,
 			MaKH,
+			MaKhungThoiGian,
 			SoDTGiaoHang,
 			HinhThucTT,
 			TrangThaiDonSanPham,
 			TrangThaiDonDichVu,
+			GhiChu,
 			HoTenNguoiNhan,
 			DiaChiNhanHang,
-			NgayTao				  
+			NgayCat,
+			NgayTao						  
 	        )
 	VALUES  ( 
 	 @MaNV ,
  @MaKH ,
+ @MaKhungThoiGian,
  @SoDTGiaoHang ,
  @HinhThucTT ,
  @TrangThaiDonSanPham ,
  @TrangThaiDonDichVu ,
+ @GhiChu,
  @HoTenNguoiNhan ,
  @DiaChiNhanHang ,
+ @NgayCat,
  @NgayTao 
  )
 Select scope_identity()
@@ -1135,7 +1178,15 @@ AS BEGIN
 WHERE MaBanner=@MaBanner
 END
 GO
-
+/*End*/
+/*Bang Khung Thoi Gian*/
+create proc Proc_KhungThoiGian_GetData
+as
+begin 
+select * from KhungThoiGian
+end
+go
+/*End*/
 
 
 
@@ -1159,6 +1210,20 @@ GO
 
 
 /*Them du lieu demo*/
+insert into KhungThoiGian
+values(7,8),
+(8,9),
+(9,10),
+(10,11),
+(13,14),
+(14,15),
+(15,16),
+(16,17),
+(17,18),
+(18,19),
+(19,20),
+(20,21)
+
 
 insert into NhanVien 
 values (N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','0902087097',N'Hải Dương',142987653,'09/02/1978','Fulltime',1,'10/7/2020','10/7/2020')
@@ -1191,6 +1256,7 @@ values
 (1, N'Bước 5: Massage Thư Giãn Da Mặt, Vai Gáy - ', N'Cảm nhận sự thư thái từ đôi bàn tay mướt mịn của các Spa Girl'),
 (1, N'Bước 6: Chăm sóc da mặt bằng công nghệ cao - ', N'Hút sạch bã nhờn, mụn đầu đen, xịt khoáng chất'),
 (1, N'Bước 7: Massage Vitamin E & Đá cẩm thạch -', N' Trắng da, mờ nếp nhăn')
+
 
 go
 
@@ -1225,24 +1291,13 @@ where MaDonDatHang=@MaDonDatHang
 end
 go
 
+
 /*Tinh so nguoi dat lich tren gio */
-create proc Proc_SoNguoiDat
-@GioDat int='',
-@NgayDat datetime=''
-as
-begin
-select count(MaDonDatHang)
-from ChiTietDonDichVu
-where @GioDat=GioDat and @NgayDat=NgayDat
 
 
- end
- /*Bang khung gio*/
- create table KhungGio
- (
-MaKhungGio int,
-GioBatDat int
-)
+
+
+
  /*end*/
 
 /*Tinh tong tien*/
@@ -1256,6 +1311,8 @@ from ChiTietDonDat join SanPham on ChiTietDonDat.MaSanPham=SanPham.MaSanPham
 where MaDonDatHang=@MaDonDatHang
 group by (MaDonDatHang)
 end
+
+select * from KhungThoiGian
 
 
 

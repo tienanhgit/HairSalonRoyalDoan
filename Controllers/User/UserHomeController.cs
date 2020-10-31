@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -25,6 +26,8 @@ namespace HairSalonRoyalDoan.Controllers
         public ActionResult DatLichCat()
         {
             List<DonDatHang> listdondathang = new DonDatHangModel().GetData();
+            ViewBag.listKhungThoiGian = new KhungThoiGianModel().GetData();
+
 
 
 
@@ -32,6 +35,62 @@ namespace HairSalonRoyalDoan.Controllers
 
             return View();
         }
+        public ActionResult XemDichVu()
+        {
+
+            List<DichVu> listdv = new DichVuModel().GetData();
+            ViewBag.listdv = listdv;
+
+            return View(listdv);
+        }
+
+      [HttpPost]
+        public JsonResult DatDichVu(string NgayCat,string IdKhungThoiGian,string GhiChu,string[] ListIdDichVu)
+        {
+            if (Session["USER_SESSION"] != null)
+            {
+                var makh = "";
+            if (IdKhungThoiGian != null && GhiChu != null && ListIdDichVu != null)
+            {
+                    var sdtkh = Session["USER_SESSION"].ToString();
+                    Khachhang khachhang = new KhachHangModel().GetKhachHangBySDT(Convert.ToInt32(sdtkh));
+                    makh = khachhang.MaKH.ToString();
+                   
+                    DonDatHang donDatHang = new DonDatHang();
+                    DonDatHangModel donDatHangModel = new DonDatHangModel();
+                    ChiTietDonDichVu chiTietDonDichVu = new ChiTietDonDichVu();
+                     ChiTietDonDichVuModel chiTietDonDichVuModel = new ChiTietDonDichVuModel();
+                    donDatHang.MaKH = Convert.ToInt32(makh);
+                    donDatHang.MaKhungThoiGian = Convert.ToInt32(IdKhungThoiGian);
+                     donDatHang.GhiChu = GhiChu;
+                    donDatHang.NgayTao = DateTime.Now;
+                    donDatHang.NgayCat = Convert.ToDateTime(NgayCat);
+                    
+                    string MaDonDatHang = donDatHangModel.ThemDonDatHang(donDatHang);
+                    if (MaDonDatHang != null)
+                    {
+                        foreach (var item in ListIdDichVu)
+                        {
+                            chiTietDonDichVu.MaDV = Convert.ToInt32(item);
+                            chiTietDonDichVu.MaDonDatHang = Convert.ToInt32(MaDonDatHang);
+                            chiTietDonDichVuModel.ThemChiTietDonDichVu(chiTietDonDichVu);
+
+                        }
+
+                    }
+
+
+                }
+
+
+
+
+            }
+
+
+            return Json(new { Message = NgayCat, JsonRequestBehavior.AllowGet });
+        }
+  
 
 
 

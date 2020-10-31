@@ -139,6 +139,7 @@
     <Compile Include="Models\Dictionary\DichVuModel.cs" />
     <Compile Include="Models\Dictionary\DonDatHangModel.cs" />
     <Compile Include="Models\Dictionary\KhachHangModel.cs" />
+    <Compile Include="Models\Dictionary\KhungThoiGianModel.cs" />
     <Compile Include="Models\Dictionary\NhanVienModel.cs" />
     <Compile Include="Models\Dictionary\ThuongHieuModel.cs" />
     <Compile Include="Repository\ChiTietDichVu.cs" />
@@ -149,6 +150,7 @@
     <Compile Include="Repository\DonDatHang.cs" />
     <Compile Include="Repository\GioHangItem.cs" />
     <Compile Include="Repository\Khachhang.cs" />
+    <Compile Include="Repository\KhungThoiGian.cs" />
     <Compile Include="Repository\NhanVien.cs" />
     <Compile Include="Repository\ThuongHieu.cs" />
     <Compile Include="Controllers\User\UserHomeController.cs" />
@@ -162,6 +164,10 @@
     <Compile Include="Repository\SanPham.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\Banner\Banner-Bo-ready-2-white.jpg" />
+    <Content Include="Content\Images\Banner\category-banner-davines.jpg" />
+    <Content Include="Content\Images\Banner\Davines-banner.jpg" />
+    <Content Include="Content\Images\Banner\Hair_car.gif" />
     <Content Include="Content\Images\ImagesProduct\anhsanpham1.jpg" />
     <Content Include="Content\Images\ImagesProduct\anhsanphan2.jpg" />
     <Content Include="Content\Images\ImagesProduct\dauduongtocdiva.jpg" />
@@ -1228,6 +1234,7 @@
     <Content Include="Views\GioHang\ThanhToanGioHang.cshtml" />
     <Content Include="Views\GioHang\DatHang.cshtml" />
     <Content Include="Views\UserProduct\QuanLyDonHang.cshtml" />
+    <Content Include="Views\UserHome\XemDichVu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
