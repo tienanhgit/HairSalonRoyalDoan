@@ -1296,7 +1296,7 @@ select * from KhungThoiGian
 
 select * from DonDatHang
 /*Tinh so nguoi dat lich tren gio */
-exec  SoNguoiDatTrenKhung 3,'2020-11-01 16:44:40.000'
+exec  SoNguoiDatTrenKhung 2,'2020-11-01 16:44:40.000'
 alter proc SoNguoiDatTrenKhung
 @MaKhungThoiGian int='',
 @NgayCat datetime=''
