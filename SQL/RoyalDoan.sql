@@ -1292,11 +1292,26 @@ end
 go
 
 
+select * from KhungThoiGian
+
+select * from DonDatHang
 /*Tinh so nguoi dat lich tren gio */
+exec  SoNguoiDatTrenKhung 3,'2020-11-01 16:44:40.000'
+alter proc SoNguoiDatTrenKhung
+@MaKhungThoiGian int='',
+@NgayCat datetime=''
+as
+begin
 
+select count(MaKhungThoiGian)
+from DonDatHang
+where MaKhungThoiGian=@MaKhungThoiGian and DAY(NgayCat)=DAY(@NgayCat) 
+and MONTH(NgayCat)=MONTH(@NgayCat) and YEAR(NgayCat)=YEAR(@NgayCat)
+group by (MaKhungThoiGian)
 
+end
 
-
+select * from DonDatHang
 
  /*end*/
 

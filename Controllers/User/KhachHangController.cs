@@ -37,11 +37,10 @@ namespace HairSalonRoyalDoan.Controllers.User
                 return sb.ToString();
             }
         }
-
-
+        public static string refere="1";
         public ActionResult DangNhap()
         {
-
+            refere = Request.UrlReferrer.LocalPath.ToString();
             return View();
         }
 
@@ -54,12 +53,13 @@ namespace HairSalonRoyalDoan.Controllers.User
                 {MKHash= CreateMD5(MatKhauDN.ToString());
                 }    
                 var result = khachHangModel.DangNhap(SDTDN, MKHash);
+          
             if (!String.IsNullOrEmpty(result))
             {
                 Session.Add(SessionHelper.USER_SESSION, SDTDN);
-
-                string refere = Request.UrlReferrer.LocalPath.ToString();
-                if (refere == "/UserHome/Index")
+          
+          
+                if (refere =="/UserHome/Index")
                 {
                     return RedirectToAction("Index", "UserHome");
                 }

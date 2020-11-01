@@ -12,6 +12,24 @@ namespace HairSalonRoyalDoan.Models.Dictionary
     {
 
         DataProvider dataProvider = new DataProvider();
+        public string CheckSoNguoiDatTrenKhung(int MaKhungThoiGian,DateTime NgayCat)
+        {
+            string result = dataProvider.ExecuteScalar("SoNguoiDatTrenKhung", new object[] { MaKhungThoiGian,NgayCat}, new List<string>() { "@MaKhungThoiGian","@NgayCat"});
+            if (result != null)
+            {
+
+                return result;
+            }
+            else
+                return "";
+        }
+
+
+
+
+
+
+
 
         public List<DonDatHang> GetData()
         {
@@ -116,7 +134,6 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 return new List<DonDatHang>();
             }
         }
-
 
 
         public string ThemDonDatHang(DonDatHang donDatHang)

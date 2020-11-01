@@ -3,6 +3,7 @@
     ViewBag.Title = "_UserHome";
     KhungThoiGianModel khungThoiGianModel = new KhungThoiGianModel();
     DichVuModel dichVuModel = new DichVuModel();
+    DonDatHangModel donDatHangModel = new DonDatHangModel();
 
 
 
@@ -271,13 +272,32 @@
                                 <select name="giohen" id="GioHen" class="form-control mb-3">
                                     @foreach (var item in khungThoiGianModel.GetData())
                                     {
-                                        int hournow = Convert.ToInt32(DateTime.Now.Hour);
+                                        string check = donDatHangModel.CheckSoNguoiDatTrenKhung(item.MaKhungThoiGian, DateTime.Now);
+                                        int ck;
+                                        if (check == "" || check == null)
+                                        {
+                                            ck = 0;
+                                        }
+                                        else
+                                        {
+                                            ck = Convert.ToInt32(check);
 
-                                        <option value="@item.MaKhungThoiGian">
-                                            
-                                            @item.ThoiGianBatDau h- @item.ThoiGianKetThuc h
 
-                                        </option>
+                                        }
+                                        if (ck < 4)
+                                        {
+                                            <option value="@item.MaKhungThoiGian">
+
+                                                @item.ThoiGianBatDau h- @item.ThoiGianKetThuc h 
+                                            </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.MaKhungThoiGian" disabled>
+
+                                                @item.ThoiGianBatDau h- @item.ThoiGianKetThuc h_ FULL
+                                            </option>
+                                        }
                                     }
 
 
@@ -399,6 +419,8 @@
     </div>
 
     <script>
+
+
         var currentTab = 0; // Current tab is set to be the first tab (0)
        // Display the current tab
 
