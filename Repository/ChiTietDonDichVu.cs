@@ -9,27 +9,21 @@ namespace HairSalonRoyalDoan.Repository
     {
         private int _MaDonDatHang;
         private int _MaDV;
-        private int _MaNV;
-        private DateTime _NgayDat;
-        private int _GioDat;
+
         public ChiTietDonDichVu()
         {
 
         }
 
-        public ChiTietDonDichVu(int maDonDatHang, int maDV, int maNV, DateTime ngayDat, int gioDat)
+        public ChiTietDonDichVu(int maDonDatHang, int maDV)
         {
             MaDonDatHang = maDonDatHang;
             MaDV = maDV;
-            MaNV = maNV;
-            NgayDat = ngayDat;
-            GioDat = gioDat;
+      
         }
 
         public int MaDonDatHang { get => _MaDonDatHang; set => _MaDonDatHang = value; }
         public int MaDV { get => _MaDV; set => _MaDV = value; }
-        public int MaNV { get => _MaNV; set => _MaNV = value; }
-        public DateTime NgayDat { get => _NgayDat; set => _NgayDat = value; }
-        public int GioDat { get => _GioDat; set => _GioDat = value; }
+
     }
 }

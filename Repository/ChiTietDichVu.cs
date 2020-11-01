@@ -10,24 +10,24 @@ namespace HairSalonRoyalDoan.Repository
         private int _MaCTDV;
         private int _MaDV;
         private string _Buoc;
-        private string _ChiTietCacBuoc;
+        private string _ChiTietBuoc;
 
         public ChiTietDichVu()
         {
 
         }
-        public ChiTietDichVu(int maCTDV, int maDV, string buoc, string chiTietCacBuoc)
+        public ChiTietDichVu(int maCTDV, int maDV, string buoc, string chiTietBuoc)
         {
             MaCTDV = maCTDV;
             MaDV = maDV;
             Buoc = buoc;
-            ChiTietCacBuoc = chiTietCacBuoc;
+            ChiTietBuoc = chiTietBuoc;
         
        }
 
         public int MaCTDV { get => _MaCTDV; set => _MaCTDV = value; }
         public int MaDV { get => _MaDV; set => _MaDV = value; }
         public string Buoc { get => _Buoc; set => _Buoc = value; }
-        public string ChiTietCacBuoc { get => _ChiTietCacBuoc; set => _ChiTietCacBuoc = value; }
+        public string ChiTietBuoc { get => _ChiTietBuoc; set => _ChiTietBuoc = value; }
     }
 }

@@ -168,6 +168,7 @@ namespace HairSalonRoyalDoan.Controllers.User
                 }
 
                 donDatHang.NgayTao = DateTime.Now;
+                donDatHang.NgayCat = Convert.ToDateTime("1900-01-01 00:00:00.000");
 
                 string madondathang = donDatHangModel.ThemDonDatHang(donDatHang);
 

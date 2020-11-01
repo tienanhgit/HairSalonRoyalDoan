@@ -1,6 +1,13 @@
-﻿
+﻿@using HairSalonRoyalDoan.Models.Dictionary
 @{
     ViewBag.Title = "_UserHome";
+    KhungThoiGianModel khungThoiGianModel = new KhungThoiGianModel();
+    DichVuModel dichVuModel = new DichVuModel();
+    DonDatHangModel donDatHangModel = new DonDatHangModel();
+
+
+
+
 }
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -8,13 +15,20 @@
 
     <link href="~/CSS/User/Layouttemplate.css" rel="stylesheet" />
     <link href="~/CSS/Common/Library.css" rel="stylesheet" />
+
     <link href="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/Common/Library/jquery-3.4.1.js"></script>
+
+
+
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <style>
-        .dialog-datlich  {
-      background-image: url('../../Content/Images/UserHomeImg/banner.jpg');
+        .dialog-datlich {
+            background-image: url('../../Content/Images/UserHomeImg/banner.jpg');
         }
+
         .ui-dialog-title {
-         
         }
 
         .ui-widget-overlay {
@@ -47,8 +61,8 @@
             white-space: nowrap;
         }
 
- 
- 
+
+
         body {
             background-color: #f1f1f1;
         }
@@ -123,19 +137,89 @@
                 background-color: #4CAF50;
             }
 
+
+
+
+/*custom lai check box*/
+        .container-ckbox {
+            display: block;
+            position: relative;
+            padding-left: 35px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            font-size: 22px;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            /* Hide the browser's default checkbox */
+            .container-ckbox input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+            }
+
+        /* Create a custom checkbox */
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 25px;
+            width: 25px;
+            background-color: #eee;
+        }
+
+        /* On mouse-over, add a grey background color */
+        .container-ckbox:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        /* When the checkbox is checked, add a blue background */
+        .container-ckbox input:checked ~ .checkmark {
+            background-color: #2196F3;
+        }
+
+        /* Create the checkmark/indicator (hidden when not checked) */
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        /* Show the checkmark when checked */
+        .container-ckbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        /* Style the checkmark/indicator */
+        .container-ckbox .checkmark:after {
+            left: 9px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
     </style>
 </head>
 <body>
 
 
     <div class="header">
-        <a href="#default" class="logo">
+        <a href="/UserHome/Index" class="logo">
             <img src="~/Content/Images/UserHomeImg/logo.jpg" />
         </a>
         <div class="header-right" id="header-right">
             <a href="#home">GIỚI THIỆU</a>
             <a href="/UserProduct/Index">ROYAL ĐOÀN STORE</a>
-            <a  class="buttondatlich">ĐẶT LỊCH</a>
+            <a class="buttondatlich">ĐẶT LỊCH</a>
             <a href="#about">DỊCH VỤ</a>
             <a href="/KhachHang/DangNhap" id="usdn">ĐĂNG NHẬP</a>
         </div>
@@ -145,7 +229,7 @@
 
         <!-- One "tab" for each step in the form: -->
         <div class="tab">
-            <form >
+            <form>
                 <div class="container">
                     <div class="row mt-12">
                         <div class="col-md-4 col-lg-3"></div>
@@ -158,18 +242,16 @@
                         <div class="col-md-4 col-lg-3"></div>
                         <div class="col-md-4 col-lg-6" style="background:gray;">
                             <div>
-                                <select name="ngayhen" class="form-control mb-3">
-                                    <option value="@String.Format("{0:dd/MM/yyyy}", DateTime.Now)">
+                                <select name="ngayhen" id="ngayhenlich" class="form-control mb-3">
+                                    <option value="@DateTime.Now">
                                         Hôm nay (@String.Format("{0:dd/MM/yyyy}", DateTime.Now))
                                     </option>
-                                    <option>
+                                    <option value="@DateTime.Now.AddDays(1)">
                                         Ngày mai (@String.Format("{0:dd/MM/yyyy}", DateTime.Now.AddDays(1)))
 
                                     </option>
-                                    <option value="20/10 ">
-
+                                    <option value="@DateTime.Now.AddDays(2)">
                                         Ngày kia (@String.Format("{0:dd/MM/yyyy}", DateTime.Now.AddDays(2)))
-
                                     </option>
                                 </select>
                             </div>
@@ -187,103 +269,109 @@
                         <div class="col-md-4 col-lg-3"></div>
                         <div class="col-md-4 col-lg-6" style="background:gray;">
                             <div>
-                                <select name="giohen" class="form-control mb-3">
-                   
-                                    <option value="9">
-                                        9h-10h
-                                        
-                                    </option>
-                                    <option value="10">
-                                        10h-11h
+                                <select name="giohen" id="GioHen" class="form-control mb-3">
+                                    @foreach (var item in khungThoiGianModel.GetData())
+                                    {
+                                        string check = donDatHangModel.CheckSoNguoiDatTrenKhung(item.MaKhungThoiGian, DateTime.Now);
+                                        int ck;
+                                        if (check == "" || check == null)
+                                        {
+                                            ck = 0;
+                                        }
+                                        else
+                                        {
+                                            ck = Convert.ToInt32(check);
 
-                                    </option>
-                                   
+
+                                        }
+                                        if (ck < 4)
+                                        {
+                                            <option value="@item.MaKhungThoiGian">
+
+                                                @item.ThoiGianBatDau h- @item.ThoiGianKetThuc h 
+                                            </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.MaKhungThoiGian" disabled>
+
+                                                @item.ThoiGianBatDau h- @item.ThoiGianKetThuc h_ FULL
+                                            </option>
+                                        }
+                                    }
+
+
                                 </select>
                             </div>
-                      
+
                         </div>
-                    </div>         
+                    </div>
                 </div>
-               
+
             </form>
         </div>
 
 
-
-
-
-   
         <div class="tab">
-            <div class="row mt-12">
-                <div class="col-md-4 col-lg-3"></div>
-                <div class="col-md-4 col-lg-6" style="background:gray;">
-                    <h3 class="mt-3">CHỌN DỊCH VỤ</h3>
-                </div>
-                <div class="col-md-4 col-lg-3"></div>
-            </div>
+
 
 
             <div class="row mb-3">
-                <div class="col-md-4 col-lg-3"></div>
-                <div class="col-md-4 col-lg-6" style="background:gray;">
-                    <div>
-                        <select name="ngayhen" class="form-control mb-3">
-                            <option value="@String.Format("{0:dd/MM/yyyy}", DateTime.Now)">
-                                Hôm nay (@String.Format("{0:dd/MM/yyyy}", DateTime.Now))
-                            </option>
-                            <option>
-                                Ngày mai (@String.Format("{0:dd/MM/yyyy}", DateTime.Now.AddDays(1)))
 
-                            </option>
-                            <option value="20/10 ">
+                <div class="col-lg-7 mx-auto">
+                    <div class="card shadow border-0 mb-5">
+                        <div class="card-body p-5">
+                            <h2 class="h4 mb-1">Chọn dịch vụ</h2>
 
-                                Ngày kia (@String.Format("{0:dd/MM/yyyy}", DateTime.Now.AddDays(2)))
-
-                            </option>
-                        </select>
+                            <ul class="list-group">
+                                @foreach (var itemdv in dichVuModel.GetData())
+                                { 
+                                <li class="list-group-item rounded-0">                           
+                                    <label class="container-ckbox">
+                                        @itemdv.TenDichVu
+                                        <input type="checkbox" class="MaDV" value="@itemdv.MaDV">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                 
+                                </li>
+                                }
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-4 col-lg-3"></div>
-            </div>>
-        </div>
-   
 
-
-
-        </div>
-        <div class="tab">
-            Birthday:
-            <p><input placeholder="dd" oninput="this.className = ''" name="dd"></p>
-            <p><input placeholder="mm" oninput="this.className = ''" name="nn"></p>
-            <p><input placeholder="yyyy" oninput="this.className = ''" name="yyyy"></p>
-        </div>
-        <div class="tab">
-            Login Info:
-            <p><input placeholder="Username..." oninput="this.className = ''" name="uname"></p>
-            <p><input placeholder="Password..." oninput="this.className = ''" name="pword" type="password"></p>
-        </div>
-        <div style="overflow:auto;">
-            <div style="float:right;">
-                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                </div>>
             </div>
         </div>
+
+        <div class="tab">
+            <div class="md-form amber-textarea active-amber-textarea">
+                <label for="form22">Ghi chú</label>
+                <textarea id="ghichudondathang" class="md-textarea form-control" rows="8"></textarea>
+
+            </div>
+        </div>
+
+      
+
+        <div style="overflow:auto;">
+            <div style="float:right;" class="addbtn">
+                <button type="button" id="prevBtn" onclick="nextPrev(-1)">Trở lại</button>
+                <button type="button" class="hidden" id="nextBtn" onclick="nextPrev(1)">Tiếp tục</button>
+          
+            </div>
+        </div>
+
         <!-- Circles which indicates the steps of the form: -->
         <div style="text-align:center;margin-top:40px;">
             <span class="step"></span>
             <span class="step"></span>
             <span class="step"></span>
-            <span class="step"></span>
+     
         </div>
-  
-
-
 
 
 
     </div>
-
-
 
 
     @RenderBody()
@@ -299,7 +387,7 @@
                         <div class="col-lg-3 col-sm-2 col-xs-3">
                             <h3> GIỜ PHỤC VỤ </h3>
                             <ul>
-                                <li><a class="email" href="#"> 8.30-21.30</a></li>
+                                <li><a class="email" href="#"> 7h-21h</a></li>
 
                                 <li> <p> </p> </li>
                                 <li> <p> Hotline : 0902087097 </p> </li>
@@ -331,9 +419,12 @@
     </div>
 
     <script>
-        var currentTab = 0; // Current tab is set to be the first tab (0)
-        showTab(currentTab); // Display the current tab
 
+
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+       // Display the current tab
+
+        showTab(currentTab); 
         function showTab(n) {
             // This function will display the specified tab of the form...
             var x = document.getElementsByClassName("tab");
@@ -343,11 +434,17 @@
                 document.getElementById("prevBtn").style.display = "none";
             } else {
                 document.getElementById("prevBtn").style.display = "inline";
+
+                $("#submitdatlich").remove();
+           
+
             }
             if (n == (x.length - 1)) {
-                document.getElementById("nextBtn").innerHTML = "Submit";
+           
+               
+
             } else {
-                document.getElementById("nextBtn").innerHTML = "Next";
+ 
             }
             //... and run a function that will display the correct step indicator:
             fixStepIndicator(n)
@@ -365,11 +462,15 @@
             // if you have reached the end of the form...
             if (currentTab >= x.length) {
                 // ... the form gets submitted:
-                document.getElementById("regForm").submit();
+                $(".addbtn").append('<button type="button" id="submitdatlich" onclick="DatLich()">Đặt Lịch</button>');
+                $("#nextBtn").remove();
+                $("#prevBtn").remove();
+
                 return false;
             }
             // Otherwise, display the correct tab:
             showTab(currentTab);
+
         }
 
         function validateForm() {
@@ -407,12 +508,18 @@
 
             $(".buttondatlich").click(function () {
 
+                
+
+
+
                 $(".dialog-datlich").dialog('open');
 
 
+
+
+
+               
             });
-
-
 
             $(".dialog-datlich").dialog({
                 modal: true,
@@ -436,12 +543,67 @@
 
         });
 
+        function DatLich() {
+            var NgayCat = $("#ngayhenlich option:selected").val();
+            var IdKhungThoiGian = $("#GioHen option:selected").val();
+            var GhiChu = $("#ghichudondathang").val();
+            var checkedValue = null;
+
+            var ListIdDichVu = [];
+            $("input:checkbox[class=MaDV]:checked").each(function () {
+                ListIdDichVu.push($(this).val());
+            });
+       
+
+
+
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                url: '/UserHome/DatDichVu',
+                data: "{ 'NgayCat':'"+NgayCat +"','IdKhungThoiGian':' "+IdKhungThoiGian+"','GhiChu':' " + GhiChu + "','ListIdDichVu':"+JSON.stringify(ListIdDichVu) +" }",
+                dataType: "json",
+                success: function (data) {
+                    console.log('oke' + JSON.stringify(data));
+                },
+                error: function (data) {
+
+                    alert(data);
+                }
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+            alert("Đặt lịch thành công !");
+  
+            $(".dialog-datlich").dialog('close');
+           
+
+           
+
+        };
+
+
+
+
+
 
     </script>
-    <script src="~/Scripts/Common/Library/jquery-3.4.1.js"></script>
+
+
     <script src="~/Scripts/Common/Library/bootstrap.js"></script>
     <script src="~/Scripts/Common/Library/swiper-bundle.js"></script>
     <script src="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <script src="~/Scripts/User/UserHome.js"></script>
 
 </body>
 </html>

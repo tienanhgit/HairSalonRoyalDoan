@@ -46,8 +46,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         {
 
             Session[SessionHelper.ADMIN_SESSION] = null;
-           
-
+          
                 return RedirectToAction("DangNhap", "NhanVien");
            
        

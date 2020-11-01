@@ -25,9 +25,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         ChiTietDonDichVu chiTietDonDichVu = new ChiTietDonDichVu();
                         chiTietDonDichVu.MaDonDatHang = String.IsNullOrEmpty(row["MaDonDatHang"].ToString()) ? 0 : int.Parse(row["MaDonDatHang"].ToString());
                         chiTietDonDichVu.MaDV = String.IsNullOrEmpty(row["MaDV"].ToString()) ? 0 : int.Parse(row["MaDV"].ToString()); ;
-                        chiTietDonDichVu.MaNV = String.IsNullOrEmpty(row["MaNV"].ToString()) ? 0 : int.Parse(row["MaNV"].ToString()); ;
-                        chiTietDonDichVu.NgayDat = String.IsNullOrEmpty(row["NgayDat"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayDat"]);
-                        chiTietDonDichVu.GioDat = String.IsNullOrEmpty(row["GioDat"].ToString()) ? 0 : int.Parse(row["GioDat"].ToString());
+                             
                         dsChiTietDonDichVu.Add(chiTietDonDichVu);
                     }
                     return dsChiTietDonDichVu;
@@ -41,19 +39,17 @@ namespace HairSalonRoyalDoan.Models.Dictionary
         }
 
 
-        public string ThemDichVu(ChiTietDonDichVu chiTietDonDichVu)
+        public string ThemChiTietDonDichVu(ChiTietDonDichVu chiTietDonDichVu)
         {
             try
             {
 
                 string rs = "";
-                rs = dataProvider.ExecuteScalar("Proc_ChiTietDonDichVu_Insert", new object[] {chiTietDonDichVu.MaDonDatHang, chiTietDonDichVu.MaDV,chiTietDonDichVu.MaNV,chiTietDonDichVu.NgayDat,chiTietDonDichVu.GioDat},
+                rs = dataProvider.ExecuteScalar("Proc_ChiTietDonDichVu_Insert", new object[] {chiTietDonDichVu.MaDonDatHang, chiTietDonDichVu.MaDV},
                   new List<string>() {
                       "@MaDonDatHang",
-                      "@MaDichVu",
-                      "@MaNV",
-                      "@NgayDat",
-                      "@GioDat"
+                      "@MaDV"
+                              
                    });
                 return rs;
             }
