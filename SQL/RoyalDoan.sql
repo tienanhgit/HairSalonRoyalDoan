@@ -4,6 +4,7 @@ go
 use HairSalonRoyalDoan
 
 
+
 /*chuan*/
 
 create table NhanVien
@@ -928,11 +929,7 @@ go
 
 /*Bang Đơn đặt hàng*/
 go
- select * from DonDatHang
- select * from ChiTietDonDichVu
- select * from ChiTietDonDichVu
- exec  Proc_DonDatHang_Insert '',2,1,'','','','','','','','','31/10/2020'
-alter proc Proc_DonDatHang_Insert
+create proc Proc_DonDatHang_Insert
  @MaNV int =null,
  @MaKH int=null,
  @MaKhungThoiGian int=null,
@@ -1292,12 +1289,8 @@ end
 go
 
 
-select * from KhungThoiGian
-
-select * from DonDatHang
 /*Tinh so nguoi dat lich tren gio */
-exec  SoNguoiDatTrenKhung 2,'2020-11-01 16:44:40.000'
-alter proc SoNguoiDatTrenKhung
+create proc SoNguoiDatTrenKhung
 @MaKhungThoiGian int='',
 @NgayCat datetime=''
 as
