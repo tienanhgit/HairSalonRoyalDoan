@@ -5,6 +5,8 @@ use HairSalonRoyalDoan
 
 
 
+
+
 /*chuan*/
 
 create table NhanVien
@@ -249,19 +251,26 @@ values (N'Chăm sóc tóc'),
 (N'Chăm sóc râu')
 go
 insert into SanPham(MaDanhMuc,TenSanPham,Gia,HinhAnh,MoTa,DanhGia)
-values (2,N'Xịt dưỡng khóa biểu bì tóc',450000,'/Content/Images/ImagesProduct/dauduongtocdiva.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
-(2,N'Xịt dưỡng khóa biểu bì tóc 1',450000,'/Content/Images/ImagesProduct/dauduongtoctigi.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
-(3,N'Xịt dưỡng khóa biểu bì tóc2',460000,'/Content/Images/ImagesProduct/dauduongtoctigi.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
-(4,N'Xịt dưỡng khóa biểu bì tóc 3',440000,'/Content/Images/ImagesProduct/dauduongtocp&m.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
-(2,N'Xịt dưỡng khóa biểu bì tóc 4',450000,'/Content/Images/ImagesProduct/dauduongtocp&m.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
-(4,N'Xịt dưỡng khóa biểu bì tóc 5',435000,'/Content/Images/ImagesProduct/dauduongtocp&m.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
-(3,N'Xịt dưỡng khóa biểu bì tóc 6',250000,'/Content/Images/ImagesProduct/dauduongtocp&m.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
-(3,N'Xịt dưỡng khóa biểu bì tóc 7',150000,'/Content/Images/ImagesProduct/anhsanpham1.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao')
+values (2,N'Xịt dưỡng khóa biểu bì tóc',450000,'/Content/Images/ImagesProduct/dauduongtocdiva.jpg',N'Sản phẩm chính hãng',N'Uu diem :tốt , nhược :giá cao'),
+(2,N'Dầu dưỡng spa Aura',450000,'/Content/images/ImagesProduct/dau_duong_spa_aura.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao'),
+(3,N'Dầu gội aurane',460000,'/Content/images/ImagesProduct/dau_goi_aurane.jpg',N'Sản phẩm độc quyền',N'Uu diem :tốt , nhược :giá cao'),
+(4,N'Dầu gội tăng phồng tóc',440000,'/Content/images/ImagesProduct/dau_goi_tang_phong_toc.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao'),
+(2,N'Dầu hấp deangello',450000,'/Content/images/ImagesProduct/dau_hap_dangello.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao'),
+(4,N'Dầu xả phục hồi prosee',435000,'/Content/images/ImagesProduct/dau_xa_phuc_hoi_prosee.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
+(3,N'Dầu gội dưỡng tóc',250000,'/Content/Images/ImagesProduct/dauduongtocp&m.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
+(3,N'Dầu hấp oil hair',150000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
+(3,N'Dầu hấp oil hair',150000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
+(3,N'Wax tạo kiểu tóc',150000,'/Content/images/ImagesProduct/wax_tao_kieu_aurane.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao')
 
+insert into ThuongHieu
+values
+('Aurane',1,'',''),
+('L.oreal',1,'',''),
+('Posay',1,'',''),
+('Avène',1,'','')
 
 /*Reset identity*/
 --DBCC CHECKIDENT ('SanPham', RESEED, 0)
-
 
 
 /*Proceduce */
@@ -929,6 +938,7 @@ go
 
 /*Bang Đơn đặt hàng*/
 go
+
 create proc Proc_DonDatHang_Insert
  @MaNV int =null,
  @MaKH int=null,
@@ -1189,23 +1199,6 @@ go
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*Them du lieu demo*/
 insert into KhungThoiGian
 values(7,8),
@@ -1290,6 +1283,7 @@ go
 
 
 /*Tinh so nguoi dat lich tren gio */
+
 create proc SoNguoiDatTrenKhung
 @MaKhungThoiGian int='',
 @NgayCat datetime=''
@@ -1303,13 +1297,11 @@ and MONTH(NgayCat)=MONTH(@NgayCat) and YEAR(NgayCat)=YEAR(@NgayCat)
 group by (MaKhungThoiGian)
 
 end
-
-select * from DonDatHang
-
+go
  /*end*/
 
 /*Tinh tong tien*/
-go
+
 create proc proc_getdata_tongtien
 @MaDonDatHang int=''
 as
@@ -1320,7 +1312,6 @@ where MaDonDatHang=@MaDonDatHang
 group by (MaDonDatHang)
 end
 
-select * from KhungThoiGian
 
 
 

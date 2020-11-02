@@ -31,9 +31,6 @@ namespace HairSalonRoyalDoan.Controllers
 
 
 
-
-
-
             return View();
         }
         public ActionResult XemDichVu()
@@ -44,6 +41,16 @@ namespace HairSalonRoyalDoan.Controllers
 
             return View(listdv);
         }
+
+        public ActionResult BaiViet()
+        {
+
+
+
+            return View();
+        }
+
+
 
       [HttpPost]
         public JsonResult DatDichVu(string NgayCat,string IdKhungThoiGian,string GhiChu,string[] ListIdDichVu)
