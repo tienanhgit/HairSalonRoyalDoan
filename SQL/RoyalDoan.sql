@@ -6,6 +6,7 @@ use HairSalonRoyalDoan
 
 
 
+
 /*chuan*/
 
 create table NhanVien
