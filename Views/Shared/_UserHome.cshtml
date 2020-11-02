@@ -217,10 +217,10 @@
             <img src="~/Content/Images/UserHomeImg/logo.jpg" />
         </a>
         <div class="header-right" id="header-right">
-            <a href="#home">GIỚI THIỆU</a>
+            <a href="/UserHome/BaiViet">GIỚI THIỆU</a>
             <a href="/UserProduct/Index">ROYAL ĐOÀN STORE</a>
             <a class="buttondatlich">ĐẶT LỊCH</a>
-            <a href="#about">DỊCH VỤ</a>
+            <a href="/UserHome/XemDichVu">DỊCH VỤ</a>
             <a href="/KhachHang/DangNhap" id="usdn">ĐĂNG NHẬP</a>
         </div>
     </div>
@@ -424,7 +424,7 @@
         var currentTab = 0; // Current tab is set to be the first tab (0)
        // Display the current tab
 
-        showTab(currentTab); 
+        showTab(currentTab);
         function showTab(n) {
             // This function will display the specified tab of the form...
             var x = document.getElementsByClassName("tab");
@@ -436,15 +436,15 @@
                 document.getElementById("prevBtn").style.display = "inline";
 
                 $("#submitdatlich").remove();
-           
+
 
             }
             if (n == (x.length - 1)) {
-           
-               
+
+
 
             } else {
- 
+
             }
             //... and run a function that will display the correct step indicator:
             fixStepIndicator(n)
@@ -508,17 +508,20 @@
 
             $(".buttondatlich").click(function () {
 
-                
+
+                var session = "@Session["USER_SESSION"]";
+                if (session != "") {
+
+
+                    $(".dialog-datlich").dialog('open');
+                }
+                else {
+                    window.location.href = "/KhachHang/DangNhap";
+
+                }
 
 
 
-                $(".dialog-datlich").dialog('open');
-
-
-
-
-
-               
             });
 
             $(".dialog-datlich").dialog({
@@ -553,7 +556,7 @@
             $("input:checkbox[class=MaDV]:checked").each(function () {
                 ListIdDichVu.push($(this).val());
             });
-       
+
 
 
 
@@ -584,11 +587,11 @@
 
 
             alert("Đặt lịch thành công !");
-  
-            $(".dialog-datlich").dialog('close');
-           
 
-           
+            $(".dialog-datlich").dialog('close');
+            location.reload();
+
+
 
         };
 
