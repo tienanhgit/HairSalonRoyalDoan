@@ -116,15 +116,22 @@ namespace HairSalonRoyalDoan.Controllers.User
         public ActionResult ThanhToanGioHang()
         {
             var cart = Session["CART_SESSION"];
-            var list = new List<GioHangItem>();
-            if (cart != null)
+            if (Session["CART_SESSION"] == null || Session["USER_SESSION"] == null)
             {
-                list = (List<GioHangItem>)cart;
+                return Redirect("/GioHang/Index");
+
+            }
+            else
+            {
+                var list = new List<GioHangItem>();
+                if (cart != null)
+                {
+                    list = (List<GioHangItem>)cart;
+                }
+
+                return View(list);
             }
 
-            return View(list);
-
-            
 
         }
         [HttpPost]
@@ -134,13 +141,14 @@ namespace HairSalonRoyalDoan.Controllers.User
             string tennguoinhan = Request.Form["shipName"];
             string sodienthoainhanhang = Request.Form["mobile"];
             string diachi = Request.Form["address"];
-            string email = Request.Form["email"];
-
+            string TongTien = Request.Form["total-price-send"];
 
             DonDatHang donDatHang = new DonDatHang();
             donDatHang.DiaChiNhanHang = diachi;
             donDatHang.SoDTGiaoHang = Convert.ToInt32(sodienthoainhanhang);
             donDatHang.HoTenNguoiNhan = tennguoinhan;
+            
+            donDatHang.TongTien = Convert.ToDouble(TongTien);
 
             if (Session["CART_SESSION"] != null)
             {
@@ -168,7 +176,7 @@ namespace HairSalonRoyalDoan.Controllers.User
                 }
 
                 donDatHang.NgayTao = DateTime.Now;
-                donDatHang.NgayCat = Convert.ToDateTime("1900-01-01 00:00:00.000");
+          
 
                 string madondathang = donDatHangModel.ThemDonDatHang(donDatHang);
 

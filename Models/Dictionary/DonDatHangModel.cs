@@ -12,20 +12,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
     {
 
         DataProvider dataProvider = new DataProvider();
-        public string CheckSoNguoiDatTrenKhung(int MaKhungThoiGian,DateTime NgayCat)
-        {
-            string result = dataProvider.ExecuteScalar("SoNguoiDatTrenKhung", new object[] { MaKhungThoiGian,NgayCat}, new List<string>() { "@MaKhungThoiGian","@NgayCat"});
-            if (result != null)
-            {
-
-                return result;
-            }
-            else
-                return "";
-        }
-
-
-
+    
 
 
 
@@ -42,7 +29,6 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                     foreach (DataRow row in dt.Rows)
                     {
                         DonDatHang donDatHang = new DonDatHang();
-
                         donDatHang.MaDonDatHang = String.IsNullOrEmpty(row["MaDonDatHang"].ToString()) ? 0 : int.Parse(row["MaDonDatHang"].ToString());
                         donDatHang.MaNV = String.IsNullOrEmpty(row["MaNV"].ToString()) ? 0 : int.Parse(row["MaNV"].ToString());
                         donDatHang.MaKH = String.IsNullOrEmpty(row["MaKH"].ToString()) ? 0 : int.Parse(row["MaKH"].ToString());
@@ -52,8 +38,8 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         donDatHang.TrangThaiDonDichVu = String.IsNullOrEmpty(row["TrangThaiDonDichVu"].ToString()) ? 0 : int.Parse(row["TrangThaiDonDichVu"].ToString());
                         donDatHang.HoTenNguoiNhan = String.IsNullOrEmpty(row["HoTenNguoiNhan"].ToString()) ? "" : row["HoTenNguoiNhan"].ToString();
                         donDatHang.DiaChiNhanHang = String.IsNullOrEmpty(row["DiaChiNhanHang"].ToString()) ? "" : row["DiaChiNhanHang"].ToString();
+                        donDatHang.TongTien = String.IsNullOrEmpty(row["TongTien"].ToString()) ? 0 : float.Parse(row["TongTien"].ToString());
                         donDatHang.NgayTao= String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
-                        donDatHang.NgaySua= String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
                         dsDonDatHang.Add(donDatHang);
                     }
                     return dsDonDatHang;
@@ -76,7 +62,6 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 {
                     var row = dt.Rows[0];
                     donDatHang = new DonDatHang();
-
                     donDatHang.MaDonDatHang = String.IsNullOrEmpty(row["MaDonDatHang"].ToString()) ? 0 : int.Parse(row["MaDonDatHang"].ToString());
                     donDatHang.MaNV = String.IsNullOrEmpty(row["MaNV"].ToString()) ? 0 : int.Parse(row["MaNV"].ToString());
                     donDatHang.MaKH = String.IsNullOrEmpty(row["MaKH"].ToString()) ? 0 : int.Parse(row["MaKH"].ToString());
@@ -86,9 +71,9 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                     donDatHang.TrangThaiDonDichVu = String.IsNullOrEmpty(row["TrangThaiDonDichVu"].ToString()) ? 0 : int.Parse(row["TrangThaiDonDichVu"].ToString());
                     donDatHang.HoTenNguoiNhan = String.IsNullOrEmpty(row["HoTenNguoiNhan"].ToString()) ? "" : row["HoTenNguoiNhan"].ToString();
                     donDatHang.DiaChiNhanHang = String.IsNullOrEmpty(row["DiaChiNhanHang"].ToString()) ? "" : row["DiaChiNhanHang"].ToString();
-                    donDatHang.NgayTao = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
-                    donDatHang.NgaySua = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
-                  
+                    donDatHang.TongTien = String.IsNullOrEmpty(row["TongTien"].ToString()) ? 0 : float.Parse(row["TongTien"].ToString());
+                    donDatHang.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
+                   
                 }
                 return donDatHang;
             }
@@ -111,18 +96,15 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         DonDatHang donDatHang = new DonDatHang();
                         donDatHang.MaDonDatHang = String.IsNullOrEmpty(row["MaDonDatHang"].ToString()) ? 0 : int.Parse(row["MaDonDatHang"].ToString());
                         donDatHang.MaNV = String.IsNullOrEmpty(row["MaNV"].ToString()) ? 0 : int.Parse(row["MaNV"].ToString());
-                        donDatHang.MaKH = String.IsNullOrEmpty(row["MaKH"].ToString()) ? 0 : int.Parse(row["MaKH"].ToString());
-                        donDatHang.MaKhungThoiGian= String.IsNullOrEmpty(row["MaKhungThoiGian"].ToString()) ? 0 : int.Parse(row["MaKhungThoiGian"].ToString());
+                        donDatHang.MaKH = String.IsNullOrEmpty(row["MaKH"].ToString()) ? 0 : int.Parse(row["MaKH"].ToString());                       
                         donDatHang.SoDTGiaoHang = String.IsNullOrEmpty(row["SoDTGiaoHang"].ToString()) ? 0 : int.Parse(row["SoDTGiaoHang"].ToString());
                         donDatHang.HinhThucThanhToan = String.IsNullOrEmpty(row["HinhThucTT"].ToString()) ? "" : row["HinhThucTT"].ToString();
                         donDatHang.TrangThaiDonSanPham = String.IsNullOrEmpty(row["TrangThaiDonSanPham"].ToString()) ? 0 : int.Parse(row["TrangThaiDonSanPham"].ToString());
-                        donDatHang.TrangThaiDonDichVu = String.IsNullOrEmpty(row["TrangThaiDonDichVu"].ToString()) ? 0 : int.Parse(row["TrangThaiDonDichVu"].ToString());
-                        donDatHang.GhiChu= String.IsNullOrEmpty(row["GhiChu"].ToString()) ? "" : row["GhiChu"].ToString();
+                        donDatHang.TrangThaiDonDichVu = String.IsNullOrEmpty(row["TrangThaiDonDichVu"].ToString()) ? 0 : int.Parse(row["TrangThaiDonDichVu"].ToString());             
                         donDatHang.HoTenNguoiNhan = String.IsNullOrEmpty(row["HoTenNguoiNhan"].ToString()) ? "" : row["HoTenNguoiNhan"].ToString();
                         donDatHang.DiaChiNhanHang = String.IsNullOrEmpty(row["DiaChiNhanHang"].ToString()) ? "" : row["DiaChiNhanHang"].ToString();
-                        donDatHang.NgayCat= String.IsNullOrEmpty(row["NgayCat"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayCat"]);
-                        donDatHang.NgayTao = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
-                        donDatHang.NgaySua = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
+                        donDatHang.TongTien = String.IsNullOrEmpty(row["TongTien"].ToString()) ? 0 : float.Parse(row["TongTien"].ToString());
+                        donDatHang.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);  
                         dsDonDatHang.Add(donDatHang);
                     }
                     return dsDonDatHang;
@@ -141,19 +123,17 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             try
             {
                 string rs = "";
-           rs = dataProvider.ExecuteScalar("Proc_DonDatHang_Insert", new object[] { donDatHang.MaNV, donDatHang.MaKH,donDatHang.MaKhungThoiGian,donDatHang.SoDTGiaoHang, donDatHang.HinhThucThanhToan, donDatHang.TrangThaiDonSanPham, donDatHang.TrangThaiDonDichVu,donDatHang.GhiChu, donDatHang.HoTenNguoiNhan, donDatHang.DiaChiNhanHang,donDatHang.NgayCat,donDatHang.NgayTao },
+           rs = dataProvider.ExecuteScalar("Proc_DonDatHang_Insert", new object[] { donDatHang.MaNV, donDatHang.MaKH,donDatHang.SoDTGiaoHang, donDatHang.HinhThucThanhToan, donDatHang.TrangThaiDonSanPham, donDatHang.TrangThaiDonDichVu, donDatHang.HoTenNguoiNhan, donDatHang.DiaChiNhanHang,donDatHang.TongTien,donDatHang.NgayTao },
                new List<string>() {
             "@MaNV",
-            "@MaKH" ,
-            "@MaKhungThoiGian",
+            "@MaKH" ,    
             "@SoDTGiaoHang",
             "@HinhThucTT" ,
             "@TrangThaiDonSanPham" ,
             "@TrangThaiDonDichVu",
-            "@GhiChu",
             "@HoTenNguoiNhan" ,
             "@DiaChiNhanHang" ,
-            "@NgayCat",
+            "@TongTien",
                 "@NgayTao"
                        });
                 return rs;

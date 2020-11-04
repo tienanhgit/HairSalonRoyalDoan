@@ -21,10 +21,7 @@ namespace HairSalonRoyalDoan.Controllers
             var ls = listsp.ToPagedList(page, pagesize);
             return View(ls);
         }
-     
-
-
-
+    
         public ActionResult ProductDetail()
         {
             ViewBag.IdSanPham = Request.QueryString["id"];

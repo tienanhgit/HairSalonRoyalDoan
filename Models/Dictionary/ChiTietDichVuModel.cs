@@ -26,8 +26,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         chitietdichvu.MaCTDV= String.IsNullOrEmpty(row["MaCTDV"].ToString()) ? 0 : int.Parse(row["MaCTDV"].ToString());
                         chitietdichvu.MaDV= String.IsNullOrEmpty(row["MaDV"].ToString()) ? 0 : int.Parse(row["MaDV"].ToString());
                         chitietdichvu.Buoc = String.IsNullOrEmpty(row["Buoc"].ToString()) ? "" : row["Buoc"].ToString();
-                        chitietdichvu.ChiTietBuoc = String.IsNullOrEmpty(row["ChiTietBuoc"].ToString()) ? "" : row["ChiTietBuoc"].ToString();
-        
+                           
                         dsDichVu.Add(chitietdichvu);
 
                     }
@@ -54,7 +53,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         chitietdichvu.MaCTDV = String.IsNullOrEmpty(row["MaCTDV"].ToString()) ? 0 : int.Parse(row["MaCTDV"].ToString());
                         chitietdichvu.MaDV = String.IsNullOrEmpty(row["MaDV"].ToString()) ? 0 : int.Parse(row["MaDV"].ToString());
                         chitietdichvu.Buoc = String.IsNullOrEmpty(row["Buoc"].ToString()) ? "" : row["Buoc"].ToString();
-                        chitietdichvu.ChiTietBuoc = String.IsNullOrEmpty(row["ChiTietBuoc"].ToString()) ? "" : row["ChiTietBuoc"].ToString();
+        
                         dsDichVu.Add(chitietdichvu);
 
                     }
@@ -78,11 +77,11 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             {
 
                 string rs = "";
-                rs = dataProvider.ExecuteScalar("Proc_ChiTietDichVu_Insert", new object[] {chiTietDichVu.MaDV,chiTietDichVu.Buoc,chiTietDichVu.ChiTietBuoc },
+                rs = dataProvider.ExecuteScalar("Proc_ChiTietDichVu_Insert", new object[] {chiTietDichVu.MaDV,chiTietDichVu.Buoc },
                   new List<string>() {
                       "@MaDV",
-                      "@Buoc",
-                      "@ChiTietBuoc"         
+                      "@Buoc"
+                           
                    });
                 return rs;
             }
@@ -97,12 +96,12 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             try
             {
 
-                int kq = dataProvider.ExecuteNonQuery("Proc_ChiTietDichVu_Update", new object[] { chiTietDichVu.MaCTDV,chiTietDichVu.MaDV, chiTietDichVu.Buoc, chiTietDichVu.ChiTietBuoc },
+                int kq = dataProvider.ExecuteNonQuery("Proc_ChiTietDichVu_Update", new object[] { chiTietDichVu.MaCTDV,chiTietDichVu.MaDV, chiTietDichVu.Buoc },
                   new List<string>() {
                       "@MaCTDV",
                       "@MaDV",
-                      "@Buoc",
-                      "@ChiTietBuoc"
+                      "@Buoc"
+                    
                   });
                 return kq.ToString();
             }

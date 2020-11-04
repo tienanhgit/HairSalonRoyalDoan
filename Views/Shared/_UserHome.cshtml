@@ -1,9 +1,10 @@
 ﻿@using HairSalonRoyalDoan.Models.Dictionary
 @{
     ViewBag.Title = "_UserHome";
-    KhungThoiGianModel khungThoiGianModel = new KhungThoiGianModel();
+
     DichVuModel dichVuModel = new DichVuModel();
     DonDatHangModel donDatHangModel = new DonDatHangModel();
+    NhanVienModel nhanVienModel = new NhanVienModel();
 
 
 
@@ -269,39 +270,15 @@
                         <div class="col-md-4 col-lg-3"></div>
                         <div class="col-md-4 col-lg-6" style="background:gray;">
                             <div>
-                                <select name="giohen" id="GioHen" class="form-control mb-3">
-                                    @foreach (var item in khungThoiGianModel.GetData())
-                                    {
-                                        string check = donDatHangModel.CheckSoNguoiDatTrenKhung(item.MaKhungThoiGian, DateTime.Now);
-                                        int ck;
-                                        if (check == "" || check == null)
-                                        {
-                                            ck = 0;
-                                        }
-                                        else
-                                        {
-                                            ck = Convert.ToInt32(check);
-
-
-                                        }
-                                        if (ck < 4)
-                                        {
-                                            <option value="@item.MaKhungThoiGian">
-
-                                                @item.ThoiGianBatDau h- @item.ThoiGianKetThuc h 
-                                            </option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@item.MaKhungThoiGian" disabled>
-
-                                                @item.ThoiGianBatDau h- @item.ThoiGianKetThuc h_ FULL
-                                            </option>
-                                        }
-                                    }
-
-
-                                </select>
+                                @for(int=7,int<21)
+                                {
+                                <option value="<?php echo $h;?>:00">
+                                    <?php echo $h;?>:00
+                                </option>
+                                <option value="<?php echo $h;?>:30">
+                                    <?php echo $h;?>:30
+                                </option>
+                                }
                             </div>
 
                         </div>
@@ -324,12 +301,12 @@
                             <h2 class="h4 mb-1">Chọn dịch vụ</h2>
 
                             <ul class="list-group">
-                                @foreach (var itemdv in dichVuModel.GetData())
+                                @foreach (var itemnv in nhanVienModel.GetData())
                                 { 
                                 <li class="list-group-item rounded-0">                           
                                     <label class="container-ckbox">
-                                        @itemdv.TenDichVu
-                                        <input type="checkbox" class="MaDV" value="@itemdv.MaDV">
+                                        @itemnv.HoTenNV
+                                        <input type="checkbox" class="MaDV" value="@itemnv.HoTenNV">
                                         <span class="checkmark"></span>
                                     </label>
                                  
@@ -343,13 +320,7 @@
             </div>
         </div>
 
-        <div class="tab">
-            <div class="md-form amber-textarea active-amber-textarea">
-                <label for="form22">Ghi chú</label>
-                <textarea id="ghichudondathang" class="md-textarea form-control" rows="8"></textarea>
-
-            </div>
-        </div>
+ 
 
       
 
@@ -434,15 +405,9 @@
                 document.getElementById("prevBtn").style.display = "none";
             } else {
                 document.getElementById("prevBtn").style.display = "inline";
-
                 $("#submitdatlich").remove();
-
-
             }
             if (n == (x.length - 1)) {
-
-
-
             } else {
 
             }

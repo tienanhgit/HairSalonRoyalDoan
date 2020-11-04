@@ -26,7 +26,7 @@ namespace HairSalonRoyalDoan.Controllers
         public ActionResult DatLichCat()
         {
             List<DonDatHang> listdondathang = new DonDatHangModel().GetData();
-            ViewBag.listKhungThoiGian = new KhungThoiGianModel().GetData();
+          
 
 
 
@@ -68,10 +68,9 @@ namespace HairSalonRoyalDoan.Controllers
                     ChiTietDonDichVu chiTietDonDichVu = new ChiTietDonDichVu();
                      ChiTietDonDichVuModel chiTietDonDichVuModel = new ChiTietDonDichVuModel();
                     donDatHang.MaKH = Convert.ToInt32(makh);
-                    donDatHang.MaKhungThoiGian = Convert.ToInt32(IdKhungThoiGian);
-                     donDatHang.GhiChu = GhiChu;
+                
                     donDatHang.NgayTao = DateTime.Now;
-                    donDatHang.NgayCat = Convert.ToDateTime(NgayCat);
+    
                     
                     string MaDonDatHang = donDatHangModel.ThemDonDatHang(donDatHang);
                     if (MaDonDatHang != null)
