@@ -249,6 +249,113 @@ references DichVu(MaDV)
 /*Reset identity*/
 --DBCC CHECKIDENT ('SanPham', RESEED, 0)
 
+/*Bang Lich Hen*/
+go
+create Proc Proc_LichHen_Insert
+@MaKH int=null,
+@MaNV int=null,
+@NgayHen date=null,
+@GioHen time =null,
+@TrangThai int =0
+											
+AS BEGIN 
+	INSERT INTO LichHen
+	        ( 
+			MaKH,
+			MaNV,
+			NgayHen,
+			GioHen,
+			TrangThai			  
+	        )
+	VALUES  ( 
+	@MaKH,
+	@MaNV,
+	@NgayHen,
+	@GioHen,
+	@TrangThai		
+	        )
+END;
+Go
+
+
+create Proc Proc_LichHen_Update 
+@MaLichHen int=null,
+@MaKH int=null,
+@MaNV int=null,
+@NgayHen date=null,
+@GioHen time =null,
+@TrangThai int =0
+										
+AS BEGIN 
+	UPDATE LichHen SET		MaKH=@MaKH,
+	MaNV=@MaNV,
+	NgayHen=@NgayHen,
+	GioHen=@GioHen,
+	TrangThai=@TrangThai
+							
+	WHERE MaLichHen=@MaLichHen
+END
+
+GO
+
+create Procedure Proc_LichHen_GetData 
+							@MaLichHen INT = '',
+							@MaKH INT='',
+							@MaNV int='',  
+							@NgayHen Date = '',
+							@GioHen Time='',
+							@TrangThai int=''
+						
+							
+AS BEGIN
+	DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'Select * from LichHen where (1=1)'
+	IF(@MaLichHen !='')
+	begin
+		SET @Query += ' AND (MaLichHen = @MaLichHen) '
+		end
+		if(@MaKH!='')
+		begin
+		set @Query += ' AND (MaKH = @MaKH) '
+		end
+	IF(@MaNV != '')
+		BEGIN
+			set @Query += ' AND (MaNV = @MaNV) '
+		END
+		
+	IF (@NgayHen != '')
+	begin
+		SET @Query += ' AND (NgayHen = @NgayHen) '
+	
+	end
+		IF (@GioHen != '')
+	begin
+		SET @Query += ' AND (GioHen = @GioHen) '
+	
+	end
+		IF (@TrangThai != '')
+	begin
+		SET @Query += ' AND (TrangThai=@TrangThai) '
+	
+	end
+	
+	SET @ParamList =		' @MaLichHen INT,
+							@MaKH INT,
+							@MaNV int,  
+							@NgayHen Date ,
+							@GioHen Time=,
+							@TrangThai int=
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaLichHen,@MaKH,@MaNV,@NgayHen,@GioHen,@TrangThai
+END
+
+
+					
+go
+/*End*/
+
+
 
 /*Proceduce */
 /*Bang San Pham*/
@@ -266,7 +373,7 @@ create Proc Proc_SanPham_Insert @MaDanhMuc int ='',
 AS BEGIN 
 	INSERT INTO dbo.SanPham
 	        ( MaDanhMuc ,
-			MaThuongHieu,
+				MaThuongHieu,
 	          TenSanPham ,
 	          Gia ,
 	          HinhAnh ,
@@ -276,7 +383,7 @@ AS BEGIN
 			  
 	        )
 	VALUES  ( @MaDanhMuc , 
-				@MaThuongHieu,
+			@MaThuongHieu,
 	          @TenSanPham , 
 	          @Gia , 
 	          @HinhAnh , 
@@ -292,6 +399,7 @@ Go
 create Proc Proc_SanPham_Update 
 							@MaSanPham int, 
 							@MaDanhMuc int='', 
+							@MaThuongHieu int='',
 							@TenSanPham nvarchar(50)='', 					
 							@HinhAnh NVARCHAR(255)='', 
 							@MoTa ntext='', 
@@ -301,6 +409,7 @@ create Proc Proc_SanPham_Update
 							
 AS BEGIN 
 	UPDATE SanPham SET		MaDanhMuc = @MaDanhMuc,
+							MaThuongHieu=@MaThuongHieu,
 							TenSanPham = @TenSanPham,
 							HinhAnh = @HinhAnh,
 							MoTa = @MoTa,
@@ -312,9 +421,12 @@ END
 
 GO
 
+
+
 create Procedure Proc_SanPham_GetData 
-							@MaSanPham INT = '',
+							@MaSanPham INT = '',					
 							@MaDanhMuc INT='',
+							@MaThuongHieu int='',
 							@TenSanPham NVARCHAR(255)='',  
 							@Gia FLOAT = ''
 						
@@ -331,6 +443,10 @@ AS BEGIN
 		begin
 		set @Query += ' AND (MaDanhMuc = @MaDanhMuc) '
 		end
+			if(@MaThuongHieu!='')
+		begin
+		set @Query += ' AND (MaThuongHieu=@MaThuongHieu) '
+		end
 	IF(@TenSanPham != '')
 		BEGIN
 			SET @TenSanPham = '%'+@TenSanPham+'%'
@@ -343,12 +459,13 @@ AS BEGIN
 	
 	end
 	set @query +='order by MaSanPham';
-	SET @ParamList =		'@MaSanPham int,
+	SET @ParamList =		'  @MaSanPham int,
 								@MaDanhMuc int,
+								@MaThuongHieu int,
 								@TenSanPham NVARCHAR(255),
 								@Gia FLOAT  
 							 '
-	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaSanPham,@MaDanhMuc,@TenSanPham,@Gia
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaSanPham,@MaDanhMuc,@MaThuongHieu,@TenSanPham,@Gia
 END
 
 
@@ -1164,7 +1281,7 @@ values
 (N'Nhân viên cắt tóc'),
 (N'Nhân viên gội đầu')
 
-select * from ChucVu
+
 insert into NhanVien 
 values 
 (N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','090208707',N'Hải Dương',142987653,'09/02/1978','Fulltime',1,'10/7/2020','10/7/2020'),
