@@ -9,8 +9,7 @@ namespace HairSalonRoyalDoan.Repository
     {
         private int _MaDonDatHang;
         private int _MaSanPham;
-        private int _SoLuong;
-       
+        private int _SoLuong; 
         private string _TenSanPham;
         private string _HinhAnh;
         private float _Gia;

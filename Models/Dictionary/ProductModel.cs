@@ -52,6 +52,75 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 return new List<SanPham>();
             }
         }
+        //GetData Danh Muc
+        public List<SanPham> GetDataDVTH(string MaDanhMuc)
+        {
+            try
+            {
+                List<SanPham> dsSanPham = new List<SanPham>();
+                DataTable dt = dataProvider.ExecuteQuery("Proc_SanPham_GetData", new object[] { MaDanhMuc }, new List<string>() { "MaDanhMuc" });
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        SanPham sanpham = new SanPham();
+                        sanpham.MaSanPham = String.IsNullOrEmpty(row["MaSanPham"].ToString()) ? 0 : int.Parse(row["MaSanPham"].ToString());
+                        sanpham.MaDanhMuc = String.IsNullOrEmpty(row["MaDanhMuc"].ToString()) ? 0 : int.Parse(row["MaDanhMuc"].ToString());
+                        sanpham.MaThuongHieu = String.IsNullOrEmpty(row["MaThuongHieu"].ToString()) ? 0 : int.Parse(row["MaThuongHieu"].ToString());
+                        sanpham.TenSanPham = String.IsNullOrEmpty(row["TenSanPham"].ToString()) ? "" : row["TenSanPham"].ToString();
+                        sanpham.HinhAnh = String.IsNullOrEmpty(row["HinhAnh"].ToString()) ? "" : row["HinhAnh"].ToString();
+                        sanpham.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : float.Parse(row["Gia"].ToString());
+                        sanpham.MoTa = String.IsNullOrEmpty(row["MoTa"].ToString()) ? "" : row["MoTa"].ToString();
+                        sanpham.DanhGia = String.IsNullOrEmpty(row["DanhGia"].ToString()) ? "" : row["DanhGia"].ToString();
+                        sanpham.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
+                        sanpham.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
+                        dsSanPham.Add(sanpham);
+
+                    }
+                    return dsSanPham;
+                }
+                return new List<SanPham>();
+            }
+            catch (Exception ex)
+            {
+                return new List<SanPham>();
+            }
+        }
+        //GetData Thuong Hieu
+        public List<SanPham> GetDataTH(string MaThuongHieu)
+        {
+            try
+            {
+                List<SanPham> dsSanPham = new List<SanPham>();
+                DataTable dt = dataProvider.ExecuteQuery("Proc_SanPham_GetData", new object[] { MaThuongHieu }, new List<string>() { "MaThuongHieu" });
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        SanPham sanpham = new SanPham();
+                        sanpham.MaSanPham = String.IsNullOrEmpty(row["MaSanPham"].ToString()) ? 0 : int.Parse(row["MaSanPham"].ToString());
+                        sanpham.MaDanhMuc = String.IsNullOrEmpty(row["MaDanhMuc"].ToString()) ? 0 : int.Parse(row["MaDanhMuc"].ToString());
+                        sanpham.MaThuongHieu = String.IsNullOrEmpty(row["MaThuongHieu"].ToString()) ? 0 : int.Parse(row["MaThuongHieu"].ToString());
+                        sanpham.TenSanPham = String.IsNullOrEmpty(row["TenSanPham"].ToString()) ? "" : row["TenSanPham"].ToString();
+                        sanpham.HinhAnh = String.IsNullOrEmpty(row["HinhAnh"].ToString()) ? "" : row["HinhAnh"].ToString();
+                        sanpham.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : float.Parse(row["Gia"].ToString());
+                        sanpham.MoTa = String.IsNullOrEmpty(row["MoTa"].ToString()) ? "" : row["MoTa"].ToString();
+                        sanpham.DanhGia = String.IsNullOrEmpty(row["DanhGia"].ToString()) ? "" : row["DanhGia"].ToString();
+                        sanpham.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
+                        sanpham.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
+                        dsSanPham.Add(sanpham);
+
+                    }
+                    return dsSanPham;
+                }
+                return new List<SanPham>();
+            }
+            catch (Exception ex)
+            {
+                return new List<SanPham>();
+            }
+        }
+
 
         public SanPham GetSanPhamByMa(int MaSanPham)
         {
@@ -65,6 +134,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                     sanpham = new SanPham();
                     sanpham.MaSanPham = String.IsNullOrEmpty(row["MaSanPham"].ToString()) ? 0 : int.Parse(row["MaSanPham"].ToString());
                     sanpham.MaDanhMuc = String.IsNullOrEmpty(row["MaDanhMuc"].ToString()) ? 0 : int.Parse(row["MaDanhMuc"].ToString());
+                    sanpham.MaThuongHieu = String.IsNullOrEmpty(row["MaThuongHieu"].ToString()) ? 0 : int.Parse(row["MaThuongHieu"].ToString());
                     sanpham.TenSanPham = String.IsNullOrEmpty(row["TenSanPham"].ToString()) ? "" : row["TenSanPham"].ToString();
                     sanpham.HinhAnh = String.IsNullOrEmpty(row["HinhAnh"].ToString()) ? "" : row["HinhAnh"].ToString();
                     sanpham.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : float.Parse(row["Gia"].ToString());
@@ -111,12 +181,13 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             try
             {
                
-                int kq = dataProvider.ExecuteNonQuery("Proc_SanPham_Update", new object[] { sanPham.MaSanPham,sanPham.MaDanhMuc, sanPham.TenSanPham, sanPham.Gia, sanPham.HinhAnh, sanPham.MoTa, sanPham.DanhGia, sanPham.NgaySua },
+                int kq = dataProvider.ExecuteNonQuery("Proc_SanPham_Update", new object[] { sanPham.MaSanPham,sanPham.MaDanhMuc,sanPham.MaThuongHieu,sanPham.TenSanPham,sanPham.HinhAnh, sanPham.MoTa, sanPham.DanhGia, sanPham.NgaySua },
                   new List<string>() {
                       "@MaSanPham",
                       "@MaDanhMuc" ,
+                      "@MaThuongHieu",
               "@TenSanPham" ,
-              "@Gia" ,
+          
               "@HinhAnh" ,
               "@MoTa",
               "@DanhGia",

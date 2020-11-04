@@ -48,7 +48,7 @@
                                     {
                                         if (thuonghieu.MaThuongHieu == ViewBag.MaThuongHieu)
                                         {
-                                            <option value="@thuonghieu.MaThuongHieu" selected="selected">@thuonghieu.MaThuongHieu</option>
+                                            <option value="@thuonghieu.MaThuongHieu" selected="selected">@thuonghieu.TenThuongHieu</option>
                                         }
                                         else
                                         {
@@ -108,11 +108,11 @@
                     <div class="form-group">
                         <label for="price" class="col-sm-3 control-label required">Giá</label>
                         <div class="col-sm-9">
-                            <input id="Gia" type="text" value="@ViewBag.SanPham.Gia" class="form-control" placeholder="Giá sản phẩm (đơn vị: VNĐ)" maxlength="255">
+                            <input id="Gia" type="text" disabled value="@ViewBag.SanPham.Gia" class="form-control" placeholder="Giá sản phẩm (đơn vị: VNĐ)" maxlength="255">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="content" class="col-sm-3 control-label">Đánh giá</label>
+                        <label for="content" class="col-sm-3 control-label">Đánh giá  </label>
                         <div class="col-sm-9">
                                      <textarea id="DanhGia" rows="5" class="form-control ckeditor" placeholder="Danh Gia Cho San Pham">
                                 @Html.Raw(@ViewBag.SanPham.DanhGia)
@@ -129,8 +129,12 @@
                             <div class="tab-content" style="margin-top: 15px; min-height: 100px;">
                                 <div class="tab-pane active" id="img-file">
                                     <label for="image" class="col-sm-3 control-label">Từ máy tính</label>
+                                    <input  type="hidden" value="@ViewBag.SanPham.HinhAnh" id="hasp"/>
                                     <div class="col-sm-9">
-                                        Hinh anh : @Html.TextBox("Picture")
+                                        Hinh anh :
+                                     
+                                        @Html.TextBox("Picture")
+
                                         <input type="button" name="HinhAnh" id="HinhAnh" value="Duyet Anh" />
                                     </div>
                                 </div>
@@ -159,6 +163,13 @@
      
     </div>
     <script>
+        $(document).ready(function () {
+            var linkhaold = $("#hasp").val();
+            $("#Picture").val(linkhaold);
+
+
+        });
+
         $("#HinhAnh").click(function () {
             var finder = new CKFinder();
             finder.selectActionFunction = function (fileUrl) {

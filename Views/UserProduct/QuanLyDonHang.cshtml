@@ -188,7 +188,6 @@
                                             {
                                                 <tr>
                                                     <td>@item.MaDonDatHang</td>
-
                                                     <td>@String.Format("{0:dd/MM/yyyy}", item.NgayTao)</td>
                                                     <td>@item.HoTenNguoiNhan</td>
                                                     <td>@item.SoDTGiaoHang</td>
@@ -274,8 +273,7 @@
                         html += '<td>' + item.Gia + '</td>';
                         html += '<td>' + item.SoLuong + '</td>';
                         html += '<td id="cart-price-">' + item.Gia * item.SoLuong + '<td/>';
-                        html += '</tr>';
-                        
+                        html += '</tr>';         
                  
                     });
                     html += '<tr><td>Tổng tiền :' + '<span id="ttongtien"></span>' + '<td/><tr/>';

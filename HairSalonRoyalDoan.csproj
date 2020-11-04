@@ -139,18 +139,19 @@
     <Compile Include="Models\Dictionary\DichVuModel.cs" />
     <Compile Include="Models\Dictionary\DonDatHangModel.cs" />
     <Compile Include="Models\Dictionary\KhachHangModel.cs" />
-    <Compile Include="Models\Dictionary\KhungThoiGianModel.cs" />
+    <Compile Include="Models\Dictionary\LichHenModel.cs" />
     <Compile Include="Models\Dictionary\NhanVienModel.cs" />
     <Compile Include="Models\Dictionary\ThuongHieuModel.cs" />
     <Compile Include="Repository\ChiTietDichVu.cs" />
     <Compile Include="Repository\ChiTietDonDat.cs" />
     <Compile Include="Repository\ChiTietDonDichVu.cs" />
+    <Compile Include="Repository\ChucVu.cs" />
     <Compile Include="Repository\DanhMuc.cs" />
     <Compile Include="Repository\DichVu.cs" />
     <Compile Include="Repository\DonDatHang.cs" />
     <Compile Include="Repository\GioHangItem.cs" />
     <Compile Include="Repository\Khachhang.cs" />
-    <Compile Include="Repository\KhungThoiGian.cs" />
+    <Compile Include="Repository\LichHen.cs" />
     <Compile Include="Repository\NhanVien.cs" />
     <Compile Include="Repository\ThuongHieu.cs" />
     <Compile Include="Controllers\User\UserHomeController.cs" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\Banner\Banner-Bo-ready-2-white.jpg" />
+    <Content Include="Content\Images\Banner\bannerbooking.jpg" />
     <Content Include="Content\Images\Banner\category-banner-davines.jpg" />
     <Content Include="Content\Images\Banner\Davines-banner.jpg" />
     <Content Include="Content\Images\Banner\Hair_car.gif" />
