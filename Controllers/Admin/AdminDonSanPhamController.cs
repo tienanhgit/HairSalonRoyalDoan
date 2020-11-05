@@ -18,8 +18,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
           
                 List<DonDatHang> ddh = new DonDatHangModel().GetData();
                      return View(ddh.ToPagedList(page, pagesize));
-             
-              
+            
 
         }
         [HttpPost]
@@ -43,21 +42,28 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         }
 
 
-
+        [HttpGet]
         public ActionResult ThemDonDatSanPham()
         {
 
-
-
-
-
-
             return View();
+     
         }
+        [HttpPost]
+        public ActionResult ThemDonDatSanPham(string Prefix)
+        {
+            ProductModel productModel = new ProductModel();
+            List<SanPham> lsProduct = productModel.GetData();
+            var ProductList = (from N in lsProduct
+                               where N.TenSanPham.StartsWith(Prefix)
+                               select new { N.TenSanPham ,N.MaSanPham});
             
-            
-           
-      
+
+
+            return Json(ProductList, JsonRequestBehavior.AllowGet);
+
+
+        }
 
 
 
@@ -68,5 +74,9 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
 
 
-    }
+
+
+
+
+        }
 }
