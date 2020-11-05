@@ -99,6 +99,12 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             string message = "";
             return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
+
+        
+
+
+
+
        
 
     }

@@ -14,11 +14,30 @@ namespace HairSalonRoyalDoan.Models.Dictionary
         DataProvider dataProvider = new DataProvider();
     
 
+        public string UpdateTrangThai(string MaDonDathang,string TrangThaiDonSanPham,string TrangThaiDonDichVu)
+        {
+            try
+            {
+
+                int kq = dataProvider.ExecuteNonQuery("Proc_DonDatHang_UpdateTT", new object[] {MaDonDathang,TrangThaiDonSanPham,TrangThaiDonDichVu },
+                  new List<string>() {
+                      "@MaDonDatHang",
+                      "@TrangThaiDonSanPham" ,
+                      "@TrangThaiDonDichVu",
+             });
+                return kq.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
 
 
+    
 
 
-        public List<DonDatHang> GetData()
+    public List<DonDatHang> GetData()
         {
             try
             {
@@ -39,7 +58,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         donDatHang.HoTenNguoiNhan = String.IsNullOrEmpty(row["HoTenNguoiNhan"].ToString()) ? "" : row["HoTenNguoiNhan"].ToString();
                         donDatHang.DiaChiNhanHang = String.IsNullOrEmpty(row["DiaChiNhanHang"].ToString()) ? "" : row["DiaChiNhanHang"].ToString();
                         donDatHang.TongTien = String.IsNullOrEmpty(row["TongTien"].ToString()) ? 0 : float.Parse(row["TongTien"].ToString());
-                        donDatHang.NgayTao= String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
+                        donDatHang.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
                         dsDonDatHang.Add(donDatHang);
                     }
                     return dsDonDatHang;

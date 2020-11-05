@@ -127,6 +127,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Admin\AdminDonSanPhamController.cs" />
     <Compile Include="Controllers\Admin\AdminHomeController.cs" />
     <Compile Include="Controllers\Admin\NhanVienController.cs" />
     <Compile Include="Controllers\Common\SessionHelper.cs" />
@@ -1274,6 +1275,7 @@
     <Content Include="Views\UserProduct\QuanLyDonHang.cshtml" />
     <Content Include="Views\UserHome\XemDichVu.cshtml" />
     <Content Include="Views\UserHome\BaiViet.cshtml" />
+    <Content Include="Views\AdminDonSanPham\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

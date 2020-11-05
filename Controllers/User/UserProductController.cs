@@ -76,7 +76,7 @@ namespace HairSalonRoyalDoan.Controllers
         public JsonResult QuanLyDonHang(string MaDonDatHang)
         {
            
-            List<ChiTietDonDat> listctdd = new ChiTietDonDatModel().GetData();
+          
             List<ChiTietDonDat> listchitietdondat = new ChiTietDonDatModel().GetDataSanPham(Convert.ToInt32(MaDonDatHang));     
             return Json(listchitietdondat,JsonRequestBehavior.AllowGet);
         }

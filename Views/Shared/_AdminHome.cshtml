@@ -15,13 +15,15 @@
     <title>Quản trị hệ thống</title>
     <link href="~/CSS/LibraryAdmin/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/CSS/LibraryAdmin/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
     <link href="~/CSS/LibraryAdmin/css/admin.css" rel="stylesheet" />
-    <link href="~/CSS/LibraryAdmin/css/introjs.min.css" rel="stylesheet"/>
+    <link href="~/CSS/LibraryAdmin/css/introjs.min.css" rel="stylesheet" />
     <script src="~/CSS/LibraryAdmin/js/jquery-1.10.2.min.js"></script>
     <script src="~/CSS/LibraryAdmin/js/bootstrap.min.js"></script>
     <script src="~/CSS/LibraryAdmin/js/intro.min.js"></script>
     <script src="~/CSS/LibraryAdmin/js/admin.js"></script>
     <script src="~/Scripts/Common/Library/bootstrap.min.js"></script>
+
 
 
 
@@ -44,7 +46,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown ">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Session["ADMIN_SESSION"]<b class="caret"></b></a>
-                  
+
                     <ul class="dropdown-menu">
                         <li><a href="#"><i class="fa fa-user"></i> Chỉnh sửa tài khoản</a></li>
                         <li><a href="/NhanVien/DangXuat"><i class="fa fa-power-off"></i> Đăng xuất</a></li>
@@ -71,13 +73,23 @@
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="product.html">
+                        <a href="/AdminDonSanPham/Index">
+                            <i class="fa fa-edit"></i> <span>Đơn Sản Phẩm</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/AdminHome/DichVu">
                             <i class="fa fa-fire"></i><span>Dịch Vụ</span>
                         </a>
                     </li>
                     <li class="list-group-item">
-                        <a href="type_product.html">
-                            <i class="fa fa-bars"></i> <span>Lịch đặt</span>
+                        <a href="/AdminDonDichVu/Index">
+                            <i class="fa fa-fire"></i><span>Đon Dịch Vụ</span>
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="/AdminLichHen/Index">
+                            <i class="fa fa-bars"></i> <span>Lịch Hẹn</span>
                         </a>
                     </li>
                     <li class="list-group-item">
@@ -120,8 +132,8 @@
         </div>
         @RenderBody()
     </div>
-        
- 
-     
+
+
+    <script src="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 </body>
 </html>
