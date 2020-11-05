@@ -1,0 +1,330 @@
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<HairSalonRoyalDoan.Repository.DonDatHang>
+@{
+    Layout = null;
+    Layout = "~/Views/Shared/_AdminHome.cshtml";
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Đơn Sản Phẩm</title>
+    <style>
+        /*        css cho dialog*/
+        .ui-dialog-title {
+        }
+
+        .ui-widget-overlay {
+            background: rgba(0,0,0,0.5);
+            opacity: 1;
+        }
+
+        .ui-dialog .ui-dialog-title {
+            height: 30px;
+            display: flex;
+            font-size: 16px;
+            font-weight: bold;
+            align-items: center;
+        }
+
+        .ui-dialog {
+            padding: 0px;
+        }
+
+            .ui-dialog .ui-dialog-content {
+                padding: 8px;
+            }
+        /*Đây là css cho phần chung của content dialog*/
+        .container-dialog-main {
+            padding: 8px;
+        }
+
+        .container-dialog-main {
+            white-space: nowrap;
+        }
+
+
+
+
+        .main-donhang {
+            min-height: 650px;
+            background-color: #f1f1f1;
+        }
+
+
+        #wrapper {
+            overflow-x: hidden;
+        }
+
+        #sidebar-wrapper {
+            min-height: 100vh;
+            margin-left: -15rem;
+            -webkit-transition: margin .25s ease-out;
+            -moz-transition: margin .25s ease-out;
+            -o-transition: margin .25s ease-out;
+            transition: margin .25s ease-out;
+        }
+
+            #sidebar-wrapper .sidebar-heading {
+                padding: 0.875rem 1.25rem;
+                font-size: 1.2rem;
+            }
+
+            #sidebar-wrapper .list-group {
+                width: 15rem;
+            }
+
+        #page-content-wrapper {
+            min-width: 100vw;
+        }
+
+        #wrapper.toggled #sidebar-wrapper {
+            margin-left: 0;
+        }
+
+        .anhspct {
+            width: 100px;
+            height: 100px;
+        }
+
+        @@media (min-width: 768px) {
+            #sidebar-wrapper {
+                margin-left: 0;
+            }
+
+            #page-content-wrapper {
+                min-width: 0;
+                width: 100%;
+            }
+
+            #wrapper.toggled #sidebar-wrapper {
+                margin-left: -15rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    @*Day la dialog*@
+    <div class="dialog-chi-tiet-don-san-pham" title="CHI TIẾT ĐƠN ĐẶT">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Hình Ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+
+                </tr>
+
+            </thead>
+            <tbody class="chitietspbd">
+            </tbody>
+            
+
+        </table>
+   
+
+
+
+    </div>
+
+    <div id="main">
+        <ol class="breadcrumb">
+            <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
+            <li class="active"><a href="/AdminDonSanPham/Index">Đơn Sản Phẩm</a></li>
+        </ol>
+        <div class="col-xs-12">
+            <form id="post_form" method="post" action="" role="form">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <!-- Single button -->
+
+                        <a href="new-product.html" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Thêm mới đơn sản phẩm</a>
+                        <div class="btn-group pull-right hidden-xs" id="div-search">
+                            <input id="search" name="search" type="text" value="" class="form-control" placeholder="Tìm kiếm">
+                            <span class="fa fa-search"></span>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th class="hidden-xs">Mã</th>
+                                <th>Tên người nhận</th>
+                                <th>Thời Gian Đặt</th>
+                                <th class="hidden-sm hidden-xs">Số điện thoại giao hàng</th>
+                     
+                                <th>Hình Thức Thanh Toán</th>
+                                <th>Cập nhật</th>
+                                <th>Trạng Thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var itemddh in Model)
+                            {
+                                <tr>
+                                    <td class="hidden-xs">@itemddh.MaDonDatHang</td>
+                                    <td class="hidden-xs"><a href="/AdminDonSanPham/Index/#" onclick="opendialog(@itemddh.MaDonDatHang)">@itemddh.HoTenNguoiNhan  </a></td>
+                                    <td class="hidden-xs" style="text-align:center">
+                                        @String.Format("{0:dd/MM/yyyy}", itemddh.NgayTao) 
+                                    </td>
+                                    <td class="hidden-sm hidden-xs" style="text-align:center">@itemddh.SoDTGiaoHang</td>
+                                   
+                                    <td class="hidden-sm hidden-xs">@itemddh.HinhThucThanhToan
+                                    <input type="hidden" value="@itemddh.DiaChiNhanHang" id="diachinhanhang"/>
+                                    </td>
+                                    <td>
+                                        <div onclick="SuaTrangThai(@itemddh.MaDonDatHang)"><a><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Sửa sản phẩm"></i> </a>  </div>
+                                    </td>
+                                    <td style="padding:4px;margin:0px">
+                                        <select id="ttdondathang" class="ttdondathang-@itemddh.MaDonDatHang" style="width:100%;height:25px">
+                                            @if (@itemddh.TrangThaiDonSanPham == 0)
+                                            {
+                                                <option value="0" selected>Chờ Xác Nhận</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="0">Chờ Xác Nhận</option>
+                                            }
+
+                                            @if (@itemddh.TrangThaiDonSanPham == 1)
+                                            {
+                                                <option value="1" selected>Đã Xác Nhận</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="1">Đã Xác Nhận</option>
+                                            }
+                                            @if (@itemddh.TrangThaiDonSanPham == 2)
+                                            {
+                                                <option value="2" selected>Đang Giao Hàng</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="2">Đang Giao Hàng</option>
+                                            }
+
+                                            @if (@itemddh.TrangThaiDonSanPham == 3)
+                                            {
+                                                <option value="3" selected>Hoàn Tất</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="3">Hoàn Tất</option>
+                                            }
+                                            @if (@itemddh.TrangThaiDonSanPham == 4)
+                                            {
+                                                <option value="4" selected>Hủy</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="4">Hủy</option>
+                                            }
+                                        </select>
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <div class="text-right">
+                        <ul class="pagination" id="step5">
+
+                            @Html.PagedListPager(Model, page => Url.Action("DonDatHang", new { page }))
+
+                        </ul>
+                    </div>
+                    @*<p><strong><i class="fa fa-bookmark"></i>Ghi chú: </strong></p>
+                        <p class="note-items"><i class="fa fa-check text-success"></i> Hiển thị với người dùng.</p>
+                        <p class="note-items"><i class="fa fa-times text-danger"></i> Ẩn với người dùng</p>*@
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".dialog-chi-tiet-don-san-pham").dialog({
+                modal: true,
+                autoOpen: false,
+                width: 960, height: 600,
+                resizable: true,
+            });
+
+        });
+        function SuaTrangThai(MaDonDatHang) {
+            var TrangThaiDonSanPham = $(".ttdondathang-" + MaDonDatHang + " option:selected").val();
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                url: '/AdminDonSanPham/UpdateTrangThai',
+                data: "{ 'MaDonDatHang':' " + MaDonDatHang + "', 'TrangThaiDonSanPham':' " + TrangThaiDonSanPham + "'}",
+                dataType: "json",
+                success: function (data) {
+                },
+                error: function (data) {
+
+                    alert(data);
+                }
+            });
+            alert("Cập nhật trạng thái đơn đặt hàng thành công");
+        }
+        function opendialog(MaDonDatHang) {
+            var diachinh = $("#diachinhanhang").val();
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                url: '/AdminDonSanPham/ChiTietDonSanPham',
+                data: "{ 'MaDonDatHang':' " + MaDonDatHang + "' }",
+                dataType: "json",
+                success: function (result) {
+
+                    let html = '';
+                    $.each(result, function (key, item) {
+
+                        html += '<tr>';
+                        html += '<td><img class="anhspct" src=' + item.HinhAnh + '></img></td>';
+                        html += '<td>' + item.TenSanPham + '</td>';
+                        html += '<td>' + item.Gia + '</td>';
+                        html += '<td>' + item.SoLuong + '</td>';
+                        html += '<td id="cart-price-">' + item.Gia * item.SoLuong + '<td/>';
+                     
+
+                    });
+                    html += '<tr><td>Tổng tiền :' + '<span id="ttongtien"></span>' + '<td/><tr/>';
+                    html += '<td> Địa chỉ nhận hàng :' + diachinh + '</td>';
+                    $('.chitietspbd').html(html);
+                    var totalItemPrice = 0
+                    $("td[id='cart-price-']").each(function () {
+                        var cart_price = $(this).text();
+                        totalItemPrice = parseInt(totalItemPrice) + parseInt(cart_price);
+                    });
+
+                    $("#ttongtien").text(totalItemPrice);
+
+                },
+                error: function (data) {
+
+                    alert(data);
+                }
+            });
+
+
+            $(".dialog-chi-tiet-don-san-pham").dialog("open");
+        }
+
+
+
+
+    </script>
+
+
+
+</body>
+</html>

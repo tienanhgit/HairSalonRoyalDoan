@@ -1,0 +1,261 @@
+﻿@model HairSalonRoyalDoan.Repository.SanPham
+@{
+    Layout = "~/Views/Shared/_AdminHome.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ThemDonDatSanPham</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            max-height:20px;
+          
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+
+        .pane{
+            max-height:400px;
+        }
+    
+
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+    <div class="clearfix">
+        <div id="main">
+            <ol class="breadcrumb">
+                <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
+                <li class="active"><a href="/AdminDonSanPham/ThemDonDatSanPham">Đơn đặt sản phẩm</a></li>
+            </ol>
+            <div class="col-xs-12">
+                <h4>Thông tin vận khách hàng</h4>
+                <div class="row" style="padding:9px;">
+
+
+                    <div class="col-xs-5">
+
+
+                        <div class="form-group">
+
+                            <label for="usr">Họ Tên Người Nhận</label>
+                            <input type="text" class="form-control" id="usr">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Địa chỉ giao hàng</label>
+                            <input type="text" class="form-control" id="pwd">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Hình Thức Thanh Toán</label>
+                            <br />
+                            <select style="width:200px;height:25px">
+                                <option>Trực Tiếp</option>
+                                <option>Thẻ</option>
+                                <option>COD</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-5">
+
+                        <div class="form-group">
+
+                            <label for="usr">Số điện thoại giao hàng</label>
+                            <input type="text" class="form-control" id="usr">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Trạng thái</label>
+                            <br />
+                            <select style="width:200px;height:25px">
+                                <option>Chờ Xác Nhận</option>
+                                <option>Hoàn Thành</option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="row" style="padding:8px">
+                    <div class="themsp">
+                        <h4>Thông tin sản phẩm</h4>
+
+
+                        @using (Html.BeginForm())
+                        {
+
+
+                            <div class="form-horizontal">
+
+                                <hr />
+
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+                                        Mã sản phẩm :     <input type="text" name="TenSanPham" id="TenSanPham" atrr />
+                                        <input type="text" name="TenSanPham2" id="TenSanPham2" />
+                                        <button>Thêm</button>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        }
+
+
+                        <div class="pane" style="overflow-x:scroll; overflow-y:scroll">
+                            <table>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Points</th>
+                                    <th>Points</th>
+                                    <th>Points</th>
+                                    <th>Points</th>
+                                    <th>Points</th>
+                                    <th>Points</th>
+                                    <th>Points</th>
+                                    <th>Points</th>
+                                    <th>Points</th>
+                                    <th>Points</th>
+                                </tr>
+                                <tr>
+                                    <td>Jill</td>
+                                    <td>Smith</td>
+                                    <td>50</td>
+                                    <td>50</td>
+                                    <td>50</td>
+                                    <td>50</td>
+                                    <td>50</td>
+                                    <td>50</td>
+                                    <td>50</td>
+                                    <td>50</td>
+                                    <td>50</td>
+                                    <td>50</td>
+                                </tr>
+                                <tr>
+                                    <td>Eve</td>
+                                    <td>Jackson</td>
+                                    <td>94</td>
+                                    <td>94</td>
+                                    <td>94</td>
+                                    <td>94</td>
+                                    <td>94</td>
+                                    <td>94</td>
+                                    <td>94</td>
+                                    <td>94</td>
+                                    <td>94</td>
+                                    <td>94</td>
+                                </tr>
+                                <tr>
+                                    <td>Adam</td>
+                                    <td>Johnson</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                </tr>
+                                <tr>
+                                    <td>Adam</td>
+                                    <td>Johnson</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                    <td>67</td>
+                                </tr>
+                      
+                            </table>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+
+
+
+
+
+
+
+            </div>
+        </div>
+        <!--END #main-->
+    </div>
+
+
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#TenSanPham").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/AdminDonSanPham/ThemDonDatSanPham",
+                    type: "POST",
+                    dataType: "json",
+                    data: { Prefix: request.term },
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                       
+                            return { label: item.TenSanPham, value: item.MaSanPham };
+                           
+                     
+                        }))
+
+                      
+                    }
+                })
+            },
+            messages: {
+                noResults: "", results: ""
+            }
+        });
+    })
+    </script>
+
+</body>
+</html>

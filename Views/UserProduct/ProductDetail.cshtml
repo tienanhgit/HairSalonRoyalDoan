@@ -381,12 +381,13 @@
               
 
                     <div class="col-md-9">
-
+                        
                         <div class="row">
 
 
                             <div class="col-md-6">
                                 <img src="@ViewBag.SanPham.HinhAnh" />
+                                <input type="hidden" value="@ViewBag.SanPham.MaSanPham" id="idmasp" /> 
 
 
                             </div>
@@ -406,7 +407,7 @@
 
                                     <div class="product-count">
 
-                                        <a href="#" class="round-black-btn">Add to Cart</a>
+                                        <a href="#" class="round-black-btn themgiohang">Add to Cart</a>
                                     </div>
                                 </div>
                             </div>
@@ -478,6 +479,35 @@
                 
             </div>
 
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.themgiohang').on('click', function () {
+                $("#soluongspgh").text(slsp);
+                var getItemId = $("#idmasp").val();
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    url: '/GioHang/ThemSanPhamGioHang',
+                    data: "{ 'SanPhamID':' " + getItemId + "' }",
+                    dataType: "json",
+                    success: function (data) {
+                  
+                        alert("Thêm sản phẩm vào giỏ hàng thành công");
+                 
+                    },
+                    error: function (data) {
+
+                        alert(data);
+                    }
+                });
+            });
+        });
+
+
+
+
+    </script>
 
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>

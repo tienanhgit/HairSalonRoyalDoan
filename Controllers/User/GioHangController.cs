@@ -146,9 +146,9 @@ namespace HairSalonRoyalDoan.Controllers.User
             DonDatHang donDatHang = new DonDatHang();
             donDatHang.DiaChiNhanHang = diachi;
             donDatHang.SoDTGiaoHang = Convert.ToInt32(sodienthoainhanhang);
-            donDatHang.HoTenNguoiNhan = tennguoinhan;
-            
+            donDatHang.HoTenNguoiNhan = tennguoinhan;      
             donDatHang.TongTien = Convert.ToDouble(TongTien);
+            donDatHang.HinhThucThanhToan = "COD";
 
             if (Session["CART_SESSION"] != null)
             {
@@ -190,6 +190,7 @@ namespace HairSalonRoyalDoan.Controllers.User
                         chiTietDonDat.MaDonDatHang = Convert.ToInt32(madondathang);
                         chiTietDonDat.SoLuong = item.SoLuong;
                         chiTietDonDat.MaSanPham = item.sanpham.MaSanPham;
+                        chiTietDonDat.Gia = item.sanpham.Gia;
                         chiTietDonDatModel.ThemChiTietDonDat(chiTietDonDat);
                     }
                 }

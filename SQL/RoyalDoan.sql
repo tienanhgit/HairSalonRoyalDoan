@@ -3,7 +3,7 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
-
+select * from ChiTietDonDat
 
 
 /*chuan*/
@@ -23,6 +23,7 @@ NgayTao datetime,
 NgaySua datetime
 );
 go
+
 create table ChucVu
 (
 MaChucVu int identity primary key,
@@ -74,6 +75,7 @@ create table ChiTietDonDat
 (
 MaDonDatHang int not null ,
 MaSanPham int not null ,
+Gia float,
 Soluong int 
 Primary key (MaDonDatHang,MaSanPham)
 );
@@ -367,6 +369,7 @@ create Proc Proc_SanPham_Insert @MaDanhMuc int ='',
 							  @HinhAnh NVARCHAR(255)='', 
 							  @MoTa ntext='', 
 							  @DanhGia ntext='',
+							  @TrangThaiHienThi int =1,
 							  @NgayTao DateTime=''
 					
 						
@@ -379,31 +382,36 @@ AS BEGIN
 	          HinhAnh ,
 			  MoTa,
 	          DanhGia ,
+			  TrangThaiHienThi,
 			  NgayTao
 			  
 	        )
 	VALUES  ( @MaDanhMuc , 
-			@MaThuongHieu,
+			  @MaThuongHieu,
 	          @TenSanPham , 
 	          @Gia , 
 	          @HinhAnh , 
 	          @MoTa, 
 			  @DanhGia,
+			  @TrangThaiHienThi,
 			  @NgayTao
 		
 	        )
 END;
 Go
 
+select * from SanPham
 
-create Proc Proc_SanPham_Update 
+alter Proc Proc_SanPham_Update 
 							@MaSanPham int, 
 							@MaDanhMuc int='', 
 							@MaThuongHieu int='',
-							@TenSanPham nvarchar(50)='', 					
+							@TenSanPham nvarchar(50)='', 
+							@Gia float='',					
 							@HinhAnh NVARCHAR(255)='', 
 							@MoTa ntext='', 
-							@DanhGia ntext='' ,						
+							@DanhGia ntext='' ,
+							@TrangThaiHienThi int=1,						
 							@NgaySua datetime=''
 
 							
@@ -411,9 +419,11 @@ AS BEGIN
 	UPDATE SanPham SET		MaDanhMuc = @MaDanhMuc,
 							MaThuongHieu=@MaThuongHieu,
 							TenSanPham = @TenSanPham,
+							Gia=@Gia,
 							HinhAnh = @HinhAnh,
 							MoTa = @MoTa,
-							DanhGia = @DanhGia,		
+							DanhGia = @DanhGia,
+							TrangThaiHienThi=@TrangThaiHienThi,		
 							NgaySua=@NgaySua
 							
 	WHERE MaSanPham = @MaSanPham
@@ -423,18 +433,19 @@ GO
 
 
 
-create Procedure Proc_SanPham_GetData 
+alter Procedure Proc_SanPham_GetData 
 							@MaSanPham INT = '',					
 							@MaDanhMuc INT='',
 							@MaThuongHieu int='',
-							@TenSanPham NVARCHAR(255)='',  
+							@TenSanPham NVARCHAR(255)='', 
+							@TrangThaiHienThi int='', 
 							@Gia FLOAT = ''
 						
 							
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
-	SET @Query = 'Select * from SanPham where (1=1)'
+	SET @Query = 'Select * from SanPham where (TrangThaiHienThi=1)'
 	IF(@MaSanPham !='')
 	begin
 		SET @Query += ' AND (MaSanPham = @MaSanPham) '
@@ -447,11 +458,18 @@ AS BEGIN
 		begin
 		set @Query += ' AND (MaThuongHieu=@MaThuongHieu) '
 		end
+			if(@TrangThaiHienThi!='')
+		begin
+		set @Query += ' AND (TrangThaiHienThi=@TrangThaiHienThi) '
+		end
+
+
 	IF(@TenSanPham != '')
 		BEGIN
 			SET @TenSanPham = '%'+@TenSanPham+'%'
 			SET @Query += ' AND (TenSanPham like @TenSanPham) '
 		END
+			
 		
 	IF (@Gia != '')
 	begin
@@ -903,6 +921,7 @@ create Proc Proc_BaiViet_Insert
 @MaNV int,
 @TenBaiViet nvarchar(255),
 @NoiDung ntext,
+@TrangThaiHienThi int=1,
 @NgayTao datetime
 						
 AS BEGIN 
@@ -911,11 +930,13 @@ AS BEGIN
 			MaNV,
 			TenBaiViet,
 			NoiDung,
-							 NgayTao
+			TrangThaiHienThi,
+		    NgayTao
 	        )
 	VALUES  (					@MaNV,
 							 @TenBaiViet,
 							 @NoiDung,
+							 @TrangThaiHienThi,
 							 @NgayTao
 	        )
 END;
@@ -928,6 +949,7 @@ create Proc Proc_BaiViet_Update
 	@MaNV int,
 @TenBaiViet nvarchar(255),
 @NoiDung ntext,
+@TrangThaiHienThi int,
 @NgayTao datetime				
 AS BEGIN 
 	UPDATE BaiViet SET 
@@ -1045,8 +1067,31 @@ go
 /*end*/
 
 
-select * from ChiTietDonDat
+select * from DonDatHang
 /*Bang Đơn đặt hàng*/
+create proc Proc_DonDatHang_UpdateTT
+@MaDonDatHang int='',
+@TrangThaiDonSanPham int=0,
+@TrangThaiDonDichVu int=0
+as
+begin
+if(@TrangThaiDonSanPham!=0)
+begin 
+update DonDatHang
+set 
+TrangThaiDonSanPham=@TrangThaiDonSanPham
+where MaDonDatHang=@MaDonDatHang
+end
+
+if(@TrangThaiDonDichVu!=0)
+begin 
+update DonDatHang
+set 
+TrangThaiDonDichVu=@TrangThaiDonDichVu
+where MaDonDatHang=@MaDonDatHang
+end
+
+end
 go
 
 create proc Proc_DonDatHang_Insert
@@ -1104,7 +1149,7 @@ END
 
 GO
 
-
+ 
 create Procedure Proc_DonDatHang_GetData 
 @MaDonDatHang int='',
 @MaNV int ='',
@@ -1153,17 +1198,20 @@ go
 create Proc Proc_ChiTietDonDat_Insert
 @MaDonDatHang int='',
 @MaSanPham int='',
+@Gia float='',
 @Soluong int=''					
 AS BEGIN 
 	INSERT INTO ChiTietDonDat
 	        (			
 			MaDonDatHang,
 			MaSanPham,
+			Gia,
 			Soluong					  
 	        )
 	VALUES  ( 
 @MaDonDatHang,
 @MaSanPham,
+@Gia,
 @Soluong
 	        )
 Select scope_identity()
@@ -1201,11 +1249,11 @@ end
 go
 
 create Proc Proc_Banner_Insert 
-@MaNV int,
-@ViTri int,
-@TrangThaiHienThi int,
-@AnhBanner nvarchar(255),
-@NgayTao datetime					
+@MaNV int=null,
+@ViTri int='',
+@TrangThaiHienThi int=1,
+@AnhBanner nvarchar(255)='',
+@NgayTao datetime=''					
 AS BEGIN 
 	INSERT INTO Banner
 	        (	
@@ -1249,24 +1297,24 @@ GO
 /*Them data demo*/
 
 go
-insert into DanhMuc(TenDanhMuc)
-values (N'Chăm sóc tóc'),
-(N'Chăm sóc da'),
-(N'Chăm sóc cơ thể'),
-(N'Chăm sóc râu')
+insert into DanhMuc(TenDanhMuc,TrangThaiHienThi)
+values (N'Chăm sóc tóc',1),
+(N'Chăm sóc da',1),
+(N'Chăm sóc cơ thể',1),
+(N'Chăm sóc râu',1)
 go
-insert into SanPham(MaDanhMuc,TenSanPham,Gia,HinhAnh,MoTa,DanhGia)
-values (2,N'Xịt dưỡng khóa biểu bì tóc',450000,'/Content/Images/ImagesProduct/dauduongtocdiva.jpg',N'Sản phẩm chính hãng',N'Uu diem :tốt , nhược :giá cao'),
-(2,N'Dầu dưỡng spa Aura',450000,'/Content/images/ImagesProduct/dau_duong_spa_aura.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao'),
-(3,N'Dầu gội aurane',460000,'/Content/images/ImagesProduct/dau_goi_aurane.jpg',N'Sản phẩm độc quyền',N'Uu diem :tốt , nhược :giá cao'),
-(4,N'Dầu gội tăng phồng tóc',440000,'/Content/images/ImagesProduct/dau_goi_tang_phong_toc.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao'),
-(2,N'Dầu hấp deangello',450000,'/Content/images/ImagesProduct/dau_hap_dangello.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao'),
-(4,N'Dầu xả phục hồi prosee',435000,'/Content/images/ImagesProduct/dau_xa_phuc_hoi_prosee.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
-(3,N'Dầu gội dưỡng tóc',250000,'/Content/Images/ImagesProduct/dauduongtocp&m.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
-(3,N'Dầu hấp oil hair',150000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
-(3,N'Dầu hấp oil hair',150000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao'),
-(3,N'Wax tạo kiểu tóc',150000,'/Content/images/ImagesProduct/wax_tao_kieu_aurane.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao')
-
+insert into SanPham(MaDanhMuc,TenSanPham,Gia,HinhAnh,MoTa,DanhGia,TrangThaiHienThi)
+values (2,N'Xịt dưỡng khóa biểu bì tóc',450000,'/Content/Images/ImagesProduct/dauduongtocdiva.jpg',N'Sản phẩm chính hãng',N'Uu diem :tốt , nhược :giá cao',1),
+(2,N'Dầu dưỡng spa Aura',450000,'/Content/images/ImagesProduct/dau_duong_spa_aura.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Dầu gội aurane',460000,'/Content/images/ImagesProduct/dau_goi_aurane.jpg',N'Sản phẩm độc quyền',N'Uu diem :tốt , nhược :giá cao',1),
+(4,N'Dầu gội tăng phồng tóc',440000,'/Content/images/ImagesProduct/dau_goi_tang_phong_toc.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
+(2,N'Dầu hấp deangello',450000,'/Content/images/ImagesProduct/dau_hap_dangello.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
+(4,N'Dầu xả phục hồi prosee',435000,'/Content/images/ImagesProduct/dau_xa_phuc_hoi_prosee.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Dầu gội dưỡng tóc',250000,'/Content/Images/ImagesProduct/dauduongtocp&m.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Dầu hấp oil hair',150000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Dầu hấp oil hair',150000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Wax tạo kiểu tóc',150000,'/Content/images/ImagesProduct/wax_tao_kieu_aurane.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Wax tạo kiểu tóc',150000,'/Content/images/ImagesProduct/wax_tao_kieu_aurane.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',0)
 insert into ThuongHieu
 values
 ('Aurane',1,'',''),
@@ -1293,18 +1341,18 @@ values
 (N'Nguyễn Thị Ánh Ngọc','anhngoc@gmail.com','123456','0902087017',N'Hải Dương',142987677,'09/02/2000','Fulltime',4,'10/7/2020','10/7/2020'),
 (N'Nguyễn Thủy Tiên','tiennguyen@gmail.com','123456','0902087027',N'Hải Dương',142987632,'09/02/1999','PartTime',4,'10/7/2020','10/7/2020'),
 (N'Dương Thị Phương','phuongthanh@gmail.com','123456','0902087397',N'Hải Dương',142983453,'09/02/1999','PartTime',4,'10/7/2020','10/7/2020')
-go
-insert into ThuongHieu
-values ('Enchenter','','','')
+
+
+
 go
 INSERT INTO dichvu 
  VALUES
-( N'Combo cắt 7 bước', 70000, '','',''),
-( N'Combo cắt 12 bước', 100000, '','',''),
+( N'Combo cắt 7 bước', 70000, 1,'',''),
+( N'Combo cắt 12 bước', 100000, 1,'',''),
 ( N'Uốn Xoăn', 250000, 1,'',''),
-( N'Tẩy màu tóc', 100000,'', '',''),
-( N'Nhuộm tóc', 200000, '','',''),
-(N'Uốn phồng', 300000, '','','')
+( N'Tẩy màu tóc', 100000,1, '',''),
+( N'Nhuộm tóc', 200000, 1,'',''),
+(N'Uốn phồng', 300000, 1,'','')
 ;
 
 
@@ -1340,13 +1388,14 @@ group by(DonDatHang.MaDonDatHang)
 
 go
 
-create proc proc_getdata_chitietdondat_sanpham
+alter proc proc_getdata_chitietdondat_sanpham
 @MaDonDatHang int=''
 as
 begin
-select ChiTietDonDat.MaDonDatHang,ChiTietDonDat.MaSanPham,ChiTietDonDat.Soluong,SanPham.TenSanPham,SanPham.HinhAnh,SanPham.Gia
+select ChiTietDonDat.MaDonDatHang,ChiTietDonDat.MaSanPham,ChiTietDonDat.Soluong,SanPham.TenSanPham,SanPham.HinhAnh,ChiTietDonDat.Gia
 from SanPham join ChiTietDonDat on ChiTietDonDat.MaSanPham=SanPham.MaSanPham
-where MaDonDatHang=@MaDonDatHang
+
+where ChiTietDonDat.MaDonDatHang=@MaDonDatHang
 end
 go
 
