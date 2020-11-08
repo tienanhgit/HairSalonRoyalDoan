@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Services.Description;
 
 namespace HairSalonRoyalDoan.Controllers.Admin
 {
@@ -52,16 +53,35 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         [HttpPost]
         public ActionResult ThemDonDatSanPham(string Prefix)
         {
-            ProductModel productModel = new ProductModel();
-            List<SanPham> lsProduct = productModel.GetData();
-            var ProductList = (from N in lsProduct
-                               where N.TenSanPham.StartsWith(Prefix)
-                               select new { N.TenSanPham ,N.MaSanPham});
-            
+            if (Prefix != null)
+            {
+                ProductModel productModel = new ProductModel();
+                List<SanPham> lsProduct = productModel.GetData();
+                var ProductList = (from N in lsProduct
+                                   where N.TenSanPham.StartsWith(Prefix)
+                                   select new { N.TenSanPham, N.MaSanPham });
 
 
-            return Json(ProductList, JsonRequestBehavior.AllowGet);
 
+                return Json(ProductList, JsonRequestBehavior.AllowGet);
+
+            }
+
+            var Message = "Thêm sản phẩm thất bại";
+            return Json(Message, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult ThemSanPham(string MaSanPham)
+        {
+            if(MaSanPham!=null)
+            {
+                ProductModel productModel = new ProductModel();
+                SanPham Product = productModel.GetSanPhamByMa(Convert.ToInt32(MaSanPham));
+                return Json(Product, JsonRequestBehavior.AllowGet);
+
+            }
+            var Message = "Thêm sản phẩm thất bại";
+            return Json(Message, JsonRequestBehavior.AllowGet);
 
         }
 
@@ -78,5 +98,6 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
 
 
-        }
+
+    }
 }

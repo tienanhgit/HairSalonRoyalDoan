@@ -3,7 +3,7 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
-select * from ChiTietDonDat
+
 
 
 /*chuan*/
@@ -400,9 +400,9 @@ AS BEGIN
 END;
 Go
 
-select * from SanPham
 
-alter Proc Proc_SanPham_Update 
+
+create Proc Proc_SanPham_Update 
 							@MaSanPham int, 
 							@MaDanhMuc int='', 
 							@MaThuongHieu int='',
@@ -433,7 +433,7 @@ GO
 
 
 
-alter Procedure Proc_SanPham_GetData 
+create Procedure Proc_SanPham_GetData 
 							@MaSanPham INT = '',					
 							@MaDanhMuc INT='',
 							@MaThuongHieu int='',
@@ -1067,7 +1067,6 @@ go
 /*end*/
 
 
-select * from DonDatHang
 /*Bang Đơn đặt hàng*/
 create proc Proc_DonDatHang_UpdateTT
 @MaDonDatHang int='',
@@ -1388,7 +1387,7 @@ group by(DonDatHang.MaDonDatHang)
 
 go
 
-alter proc proc_getdata_chitietdondat_sanpham
+create proc proc_getdata_chitietdondat_sanpham
 @MaDonDatHang int=''
 as
 begin

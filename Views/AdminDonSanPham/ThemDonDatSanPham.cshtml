@@ -7,6 +7,7 @@
 
 <html>
 <head>
+
     <meta name="viewport" content="width=device-width" />
     <title>ThemDonDatSanPham</title>
     <style>
@@ -31,6 +32,11 @@
         .pane{
             max-height:400px;
         }
+        .anhspct {
+            width: 100px;
+            height: 100px;
+        }
+
     
 
     </style>
@@ -63,16 +69,16 @@
                         <div class="form-group">
 
                             <label for="usr">Họ Tên Người Nhận</label>
-                            <input type="text" class="form-control" id="usr">
+                            <input type="text" name="hotennguoinhan" class="form-control hotennguoinhan" id="usr">
                         </div>
                         <div class="form-group">
                             <label for="pwd">Địa chỉ giao hàng</label>
-                            <input type="text" class="form-control" id="pwd">
+                            <input type="text" class="form-control diachigiaohang" id="diachigiaohang">
                         </div>
                         <div class="form-group">
                             <label for="pwd">Hình Thức Thanh Toán</label>
                             <br />
-                            <select style="width:200px;height:25px">
+                            <select class="hinhthucthanhtoan" style="width:200px;height:25px">
                                 <option>Trực Tiếp</option>
                                 <option>Thẻ</option>
                                 <option>COD</option>
@@ -85,13 +91,13 @@
                         <div class="form-group">
 
                             <label for="usr">Số điện thoại giao hàng</label>
-                            <input type="text" class="form-control" id="usr">
+                            <input type="text" class="form-control sodienthoaigiaohang" id="usr">
                         </div>
                         <div class="form-group">
                             <label for="pwd">Trạng thái</label>
                             <br />
-                            <select style="width:200px;height:25px">
-                                <option>Chờ Xác Nhận</option>
+                            <select class="trangthai" style="width:200px;height:25px">
+                                <option>Xác nhận</option>
                                 <option>Hoàn Thành</option>
 
                             </select>
@@ -104,11 +110,7 @@
                 <div class="row" style="padding:8px">
                     <div class="themsp">
                         <h4>Thông tin sản phẩm</h4>
-
-
-                        @using (Html.BeginForm())
-                        {
-
+                      
 
                             <div class="form-horizontal">
 
@@ -117,95 +119,39 @@
                                 <div class="form-group">
 
                                     <div class="col-md-12">
-                                        Mã sản phẩm :     <input type="text" name="TenSanPham" id="TenSanPham" atrr />
-                                        <input type="text" name="TenSanPham2" id="TenSanPham2" />
-                                        <button>Thêm</button>
+                                        Mã sản phẩm :<input type="text" name="TenSanPham" id="TenSanPham" atrr />          
+                                        <button class="ThemSanPhamDH" >Thêm</button>
 
 
                                     </div>
                                 </div>
 
                             </div>
-                        }
+                        
 
 
-                        <div class="pane" style="overflow-x:scroll; overflow-y:scroll">
-                            <table>
-                                <tr>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Points</th>
-                                    <th>Points</th>
-                                    <th>Points</th>
-                                    <th>Points</th>
-                                    <th>Points</th>
-                                    <th>Points</th>
-                                    <th>Points</th>
-                                    <th>Points</th>
-                                    <th>Points</th>
-                                    <th>Points</th>
-                                </tr>
-                                <tr>
-                                    <td>Jill</td>
-                                    <td>Smith</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                    <td>50</td>
-                                </tr>
-                                <tr>
-                                    <td>Eve</td>
-                                    <td>Jackson</td>
-                                    <td>94</td>
-                                    <td>94</td>
-                                    <td>94</td>
-                                    <td>94</td>
-                                    <td>94</td>
-                                    <td>94</td>
-                                    <td>94</td>
-                                    <td>94</td>
-                                    <td>94</td>
-                                    <td>94</td>
-                                </tr>
-                                <tr>
-                                    <td>Adam</td>
-                                    <td>Johnson</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                </tr>
-                                <tr>
-                                    <td>Adam</td>
-                                    <td>Johnson</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                    <td>67</td>
-                                </tr>
+                        <div class="pane" style="overflow-x:auto; overflow-y:scroll; min-height:400px;">
+                            <table id="demotableloop">
+                                <thead>
+
+                                    <tr>
+                                        <th>Mã Sản Phẩm</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Giá</th>
+                                        <th>Số lượng</th>                                    
+                                        <th>Xóa</th>
+                                    </tr>
+                                </thead>
+                             
+                              <tbody class="lsspdh">
+
+
+
+                              </tbody>
+                             
                       
                             </table>
                         </div>
-
-
                     </div>
 
 
@@ -215,7 +161,9 @@
 
 
                 </div>
-
+                <div class="row">
+                    <div style="margin-left:50%"><button onclick="ThemHoaDon()">Lập hóa đơn</button></div>
+                </div>
 
 
 
@@ -229,8 +177,28 @@
 
 
     <script type="text/javascript">
+        function ThemHoaDon() {
+            var table = document.getElementById("demotableloop");
+            for (let i in table.rows) {
+                let row = table.rows[1]
+                //iterate through rows
+                //rows would be accessed using the "row" variable assigned in the for loop
+                for (let j in row.cells) {
+                 
+                    console.log(j);
 
-    $(document).ready(function () {
+                    //iterate through columns
+                    //columns would be accessed using the "col" variable assigned in the for loop
+                }
+            }
+
+
+
+
+        }
+
+        $(document).ready(function () {
+       
         $("#TenSanPham").autocomplete({
             source: function (request, response) {
                 $.ajax({
@@ -240,13 +208,10 @@
                     data: { Prefix: request.term },
                     success: function (data) {
                         response($.map(data, function (item) {
-                       
                             return { label: item.TenSanPham, value: item.MaSanPham };
-                           
-                     
+
                         }))
 
-                      
                     }
                 })
             },
@@ -255,6 +220,57 @@
             }
         });
     })
+
+        function removeItem(MaSanPham) {
+
+            $(".sp_" + MaSanPham).remove();
+        }
+        const  a = new Array();
+
+
+        $(".ThemSanPhamDH").click(function () {
+     
+
+            var MaSanPham = $("#TenSanPham").val();
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                url: '/AdminDonSanPham/ThemSanPham',
+                data: "{ 'MaSanPham':' " + MaSanPham + "' }",
+                dataType: "json",
+                success: function (result) {
+       
+                    let html = '';
+                    html += '<tr class=sp_' + result.MaSanPham+'>';
+                    html += '<td><img class="anhspct" src=' + result.HinhAnh + '></img></td>';
+                    html += '<td>' + result.TenSanPham + '</td>';
+                    html += '<td>' + result.Gia + '</td>';
+                    html += '<td>' + '<input type="number"/>' + '</td>';
+                    html += '<td><button class="btn btn-sm btn-danger" id="removeItemCart_' + result.MaSanPham + '"onclick="removeItem('+result.MaSanPham+')"><i class="fa fa-trash"></td> <tr/>';
+                    $('.lsspdh').append(html);
+
+                },
+                error: function (data) {
+
+                    alert("Thêm sản phẩm thất bại , hãy nhập đúng mã !");
+                }
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     </script>
 
 </body>
