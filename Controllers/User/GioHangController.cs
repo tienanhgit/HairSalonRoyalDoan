@@ -141,13 +141,13 @@ namespace HairSalonRoyalDoan.Controllers.User
             string tennguoinhan = Request.Form["shipName"];
             string sodienthoainhanhang = Request.Form["mobile"];
             string diachi = Request.Form["address"];
-            string TongTien = Request.Form["total-price-send"];
+ 
 
             DonDatHang donDatHang = new DonDatHang();
             donDatHang.DiaChiNhanHang = diachi;
             donDatHang.SoDTGiaoHang = Convert.ToInt32(sodienthoainhanhang);
             donDatHang.HoTenNguoiNhan = tennguoinhan;      
-            donDatHang.TongTien = Convert.ToDouble(TongTien);
+         
             donDatHang.HinhThucThanhToan = "COD";
 
             if (Session["CART_SESSION"] != null)
@@ -180,13 +180,12 @@ namespace HairSalonRoyalDoan.Controllers.User
 
                 string madondathang = donDatHangModel.ThemDonDatHang(donDatHang);
 
-
                 if (madondathang != null)
                 {
+                 
                     foreach (var item in list)
                     {
                         ChiTietDonDat chiTietDonDat = new ChiTietDonDat();
-
                         chiTietDonDat.MaDonDatHang = Convert.ToInt32(madondathang);
                         chiTietDonDat.SoLuong = item.SoLuong;
                         chiTietDonDat.MaSanPham = item.sanpham.MaSanPham;
@@ -194,11 +193,17 @@ namespace HairSalonRoyalDoan.Controllers.User
                         chiTietDonDatModel.ThemChiTietDonDat(chiTietDonDat);
                     }
                 }
+
+                donDatHangModel.CapNhatTongTien(Convert.ToInt32(madondathang));
+
             }
             Session["CART_SESSION"] = null;
             return View();
 
         }
+
+   
+
 
 
 

@@ -1,4 +1,4 @@
-﻿@model HairSalonRoyalDoan.Repository.SanPham
+﻿@model HairSalonRoyalDoan.Repository.DichVu
 @{
     Layout = "~/Views/Shared/_AdminHome.cshtml";
 }
@@ -15,8 +15,7 @@
             border-collapse: collapse;
             border-spacing: 0;
             width: 100%;
-            max-height:20px;
-          
+            max-height: 20px;
             border: 1px solid #ddd;
         }
 
@@ -29,16 +28,14 @@
             background-color: #f2f2f2
         }
 
-        .pane{
-            max-height:400px;
+        .pane {
+            max-height: 400px;
         }
+
         .anhspct {
             width: 100px;
             height: 100px;
         }
-
-    
-
     </style>
 </head>
 <body>
@@ -46,7 +43,8 @@
         <div id="main">
             <ol class="breadcrumb">
                 <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
-                <li class="active"><a href="/AdminDonSanPham/ThemDonDatSanPham">Đơn đặt sản phẩm</a></li>
+                <li class="active"><a href="/AdminDonSanPham/ThemDonDat">Đơn đặt hàng</a></li>
+                <li class="active"><a href="/AdminDonSanPham/ThemDonDatSanPham">Đơn đặt dịch vụ</a></li>
             </ol>
             <div class="col-xs-12">
                 <h4>Thông tin vận khách hàng</h4>
@@ -100,49 +98,49 @@
                 <div class="row" style="padding:8px">
                     <div class="themsp">
                         <h4>Thông tin sản phẩm</h4>
-                      
-
-                            <div class="form-horizontal">
-
-                                <hr />
-
-                                <div class="form-group">
-
-                                    <div class="col-md-12">
-                                        Mã sản phẩm :<input type="text" name="TenSanPham" id="TenSanPham" atrr />
-                                        <button class="ThemSanPhamDH">Thêm</button>
-                             
 
 
-                                    </div>
+                        <div class="form-horizontal">
+
+                            <hr />
+
+                            <div class="form-group">
+
+                                <div class="col-md-12">
+                                    Mã sản phẩm :<input type="text" name="TenSanPham" id="TenSanPham" atrr />
+                                    <button class="ThemSanPhamDH">Thêm</button>
+
+
+
                                 </div>
-
                             </div>
-                        
 
-
-                            <div class="pane" style="overflow-x:auto; overflow-y:scroll; min-height:400px;">
-                                <table id="demotableloop">
-                                    <thead>
-
-                                        <tr>
-                                            <th>Mã Sản Phẩm</th>
-                                            <th>Hình Ảnh</th>
-                                            <th>Tên Sản Phẩm</th>
-                                            <th>Giá</th>
-                                            <th>Số lượng</th>
-                                            <th>Xóa</th>
-                                        </tr>
-                                    </thead>
-
-                                    <tbody class="lsspdh">
-                                    </tbody>
-
-                                </table>
+                        </div>
 
 
 
-                                        </div>
+                        <div class="pane" style="overflow-x:auto; overflow-y:scroll; min-height:400px;">
+                            <table id="demotableloop">
+                                <thead>
+
+                                    <tr>
+                                        <th>Mã Sản Phẩm</th>
+                                        <th>Hình Ảnh</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Giá</th>
+                                        <th>Số lượng</th>
+                                        <th>Xóa</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="lsspdh">
+                                </tbody>
+
+                            </table>
+
+
+
+                        </div>
                     </div>
 
                 </div>
@@ -172,7 +170,7 @@
 
                                 cartList.push(
                                     {
-                                    
+
                                         sanpham: {
                                             MaSanPham: $(item).data('id'),
                                             Gia: $(item).data('price')
@@ -200,7 +198,7 @@
                             });
                         }
 
-      
+
         $(document).ready(function () {
 
                             $("#TenSanPham").autocomplete({
@@ -232,7 +230,7 @@
 
 
         }
-   
+
 
 
         $(".ThemSanPhamDH").click(function () {
@@ -265,7 +263,7 @@
         });
 
 
-        
+
 
 
 

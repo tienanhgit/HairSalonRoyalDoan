@@ -5,6 +5,7 @@ using System.Web;
 
 namespace HairSalonRoyalDoan.Repository
 {
+    [Serializable]
     public class GioHangItem
     {
         public SanPham sanpham { get; set; }

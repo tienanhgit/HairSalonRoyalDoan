@@ -7,7 +7,10 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using System.Web.Services.Description;
+
+
 
 namespace HairSalonRoyalDoan.Controllers.Admin
 {
@@ -42,15 +45,69 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             });
         }
 
+        public ActionResult ThemHoaDon()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ThemHoaDon(string HoTenNguoiNhan, string SoDienThoaiNguoiNhan, string DiaChiGiaoHang, string HinhThucThanhToan,string TrangThai,List<GioHangItem> cartModel)
+        {
+
+            DonDatHangModel donDatHangModel = new DonDatHangModel();
+
+                DonDatHang donDatHang = new DonDatHang();
+                donDatHang.HoTenNguoiNhan = HoTenNguoiNhan;
+                donDatHang.SoDTGiaoHang = Convert.ToInt32(SoDienThoaiNguoiNhan);
+                donDatHang.DiaChiNhanHang = DiaChiGiaoHang;
+                donDatHang.HinhThucThanhToan = HinhThucThanhToan;
+                donDatHang.TrangThaiDonSanPham = Convert.ToInt32(TrangThai);
+                donDatHang.NgayTao = DateTime.Now;
+                 donDatHang.TrangThaiDonSanPham = 1;
+                  donDatHang.TrangThaiDonDichVu = 0;
+                string MaDonHang = donDatHangModel.ThemDonDatHang(donDatHang);
+
+                ChiTietDonDatModel chiTietDonDatModel = new ChiTietDonDatModel();
+
+              
+            foreach(var item in cartModel)
+            {
+                ChiTietDonDat chiTietDonDat = new ChiTietDonDat();
+
+                chiTietDonDat.MaDonDatHang = Convert.ToInt32(MaDonHang);
+                chiTietDonDat.SoLuong = item.SoLuong;
+                chiTietDonDat.MaSanPham = item.sanpham.MaSanPham;
+                chiTietDonDat.Gia = item.sanpham.Gia;
+                chiTietDonDatModel.ThemChiTietDonDat(chiTietDonDat);
+            }
+
+            donDatHangModel.CapNhatTongTien(Convert.ToInt32(MaDonHang));
+            
+                       
+                   
+                
+
+
+            
+
+
+            string Message = "Thanh cong";
+        
+
+            return Json(Message, JsonRequestBehavior.AllowGet);
+
+        }
+
 
         [HttpGet]
         public ActionResult ThemDonDatSanPham()
         {
-
             return View();
-     
         }
-        [HttpPost]
+
+
+
+            [HttpPost]
         public ActionResult ThemDonDatSanPham(string Prefix)
         {
             if (Prefix != null)
@@ -73,8 +130,10 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         [HttpPost]
         public ActionResult ThemSanPham(string MaSanPham)
         {
-            if(MaSanPham!=null)
+           
+            if (MaSanPham!=null)
             {
+               
                 ProductModel productModel = new ProductModel();
                 SanPham Product = productModel.GetSanPhamByMa(Convert.ToInt32(MaSanPham));
                 return Json(Product, JsonRequestBehavior.AllowGet);
@@ -83,6 +142,41 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             var Message = "Thêm sản phẩm thất bại";
             return Json(Message, JsonRequestBehavior.AllowGet);
 
+        }
+
+        [HttpPost]
+        public JsonResult Update(string SanPhamID, string SoLuongMoi)
+        {
+            var cart = Session["CART_SESSION"];
+            int spid = Convert.ToInt32(SanPhamID);
+            int slm = Convert.ToInt32(SoLuongMoi);
+            var list = (List<GioHangItem>)cart;
+
+
+            foreach (var item in list)
+            {
+
+                if (item.sanpham.MaSanPham == spid)
+                {
+                    item.SoLuong = slm;
+                }
+            }
+            Session["DDH_SESSION"] = list;
+
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+
+        //Đơn dịch vụ
+        public ActionResult ThemDonDatDichVu()
+        {
+
+
+
+            return View();
         }
 
 

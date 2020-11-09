@@ -142,7 +142,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             try
             {
                 string rs = "";
-           rs = dataProvider.ExecuteScalar("Proc_DonDatHang_Insert", new object[] { donDatHang.MaNV, donDatHang.MaKH,donDatHang.SoDTGiaoHang, donDatHang.HinhThucThanhToan, donDatHang.TrangThaiDonSanPham, donDatHang.TrangThaiDonDichVu, donDatHang.HoTenNguoiNhan, donDatHang.DiaChiNhanHang,donDatHang.TongTien,donDatHang.NgayTao },
+           rs = dataProvider.ExecuteScalar("Proc_DonDatHang_Insert", new object[] { donDatHang.MaNV, donDatHang.MaKH,donDatHang.SoDTGiaoHang, donDatHang.HinhThucThanhToan, donDatHang.TrangThaiDonSanPham, donDatHang.TrangThaiDonDichVu, donDatHang.HoTenNguoiNhan, donDatHang.DiaChiNhanHang,donDatHang.NgayTao },
                new List<string>() {
             "@MaNV",
             "@MaKH" ,    
@@ -152,7 +152,6 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             "@TrangThaiDonDichVu",
             "@HoTenNguoiNhan" ,
             "@DiaChiNhanHang" ,
-            "@TongTien",
                 "@NgayTao"
                        });
                 return rs;
@@ -162,29 +161,25 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 return ex.Message;
             }
         }
-        
 
 
-
-        public string TinhTongTienDonDathang(int madondathang)
+        public string CapNhatTongTien(int MaDonDatHang)
         {
             try
             {
 
-                string kq = dataProvider.ExecuteScalar("proc_getdata_tongtien", new object[]{ madondathang},
-                  new List<string>() {"@MaDonDatHang" 
-                   
-                  });
+                int kq = dataProvider.ExecuteNonQuery("proc_getdata_tongtien", new object[] {MaDonDatHang},
+                  new List<string>() {
+                      "@MaDonDatHang"
+         });
                 return kq.ToString();
             }
             catch (Exception ex)
             {
                 return "";
             }
-
-
-
         }
+
 
 
 

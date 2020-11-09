@@ -6,9 +6,9 @@ using System.Web.Mvc;
 
 namespace HairSalonRoyalDoan.Controllers.Admin
 {
-    public class AdminDonDichVuController : Controller
+    public class AdminDonDatHangController : Controller
     {
-        // GET: AdminDonDichVu
+        // GET: AdminDonDatHang
         public ActionResult Index()
         {
             return View();

@@ -98,7 +98,7 @@
                                     <td class="cart-info quantity">
 
                                         <div class="btn-increment-decrement" onClick="decrement_quantity(@item.sanpham.MaSanPham,@item.sanpham.Gia)">-</div>
-                                        <input class="input-quantity" id="input-quantity-@item.sanpham.MaSanPham" value="@item.SoLuong" onblur="myFunction(@item.sanpham.MaSanPham,@item.sanpham.Gia)">
+                                        <input class="input-quantity" disabled id="input-quantity-@item.sanpham.MaSanPham" value="@item.SoLuong" onblur="myFunction(@item.sanpham.MaSanPham,@item.sanpham.Gia)">
                                         <div class="btn-increment-decrement" onClick="increment_quantity(@item.sanpham.MaSanPham,@item.sanpham.Gia)">+</div>
 
 
@@ -146,10 +146,12 @@
     </div>
 
     <script type="text/javascript">
-    
+
             function pageRedirect() {
                 window.location.href = "/UserProduct/Index";
         }
+   
+
 
 
         function myFunction(cart_id, price) {
@@ -182,50 +184,53 @@
 
 
         function save_to_db(cart_id, new_quantity, newPrice) {
-            var inputQuantityElement = $("#input-quantity-" + cart_id);
-          
-            var priceElement = $("#cart-price-" + cart_id);
-           
-            $(inputQuantityElement).val(new_quantity);
-            $(priceElement).text (newPrice);
 
-            var totalQuantity = 0;
+                var inputQuantityElement = $("#input-quantity-" + cart_id);
 
-            $("input[id*='input-quantity-']").each(function () {
-                var cart_quantity = $(this).val();
+                var priceElement = $("#cart-price-" + cart_id);
 
-                totalQuantity = parseInt(totalQuantity) + parseInt(cart_quantity);
-             
-            });
-            $("#total-quantity").text(totalQuantity);
-            var totalItemPrice = 0;
+                $(inputQuantityElement).val(new_quantity);
+                $(priceElement).text(newPrice);
 
-            $("span[id*='cart-price-']").each(function () {
-                var cart_price = $(this).text();
-                totalItemPrice = parseInt(totalItemPrice) + parseInt(cart_price);
-            });
+                var totalQuantity = 0;
 
-            $("#total-price").text(totalItemPrice);
-            $.ajax({
-                url: "/GioHang/Update",
-                contentType: 'application/json; charset=utf-8',
-                data: "{ 'SanPhamID':' " + cart_id + "','SoLuongMoi':' " + new_quantity + "' }", 
-                type: 'post',
-                success: function (response) {
-                    if (response == true) {
-                        alert("ok");
+                $("input[id*='input-quantity-']").each(function () {
+                    var cart_quantity = $(this).val();
+
+                    totalQuantity = parseInt(totalQuantity) + parseInt(cart_quantity);
+
+                });
+                $("#total-quantity").text(totalQuantity);
+                var totalItemPrice = 0;
+
+                $("span[id*='cart-price-']").each(function () {
+                    var cart_price = $(this).text();
+                    totalItemPrice = parseInt(totalItemPrice) + parseInt(cart_price);
+                });
+
+                $("#total-price").text(totalItemPrice);
+                $.ajax({
+                    url: "/GioHang/Update",
+                    contentType: 'application/json; charset=utf-8',
+                    data: "{ 'SanPhamID':' " + cart_id + "','SoLuongMoi':' " + new_quantity + "' }",
+                    type: 'post',
+                    success: function (response) {
+                        if (response == true) {
+                            alert("ok");
+                        }
+                    },
+                    error: function () {
+
+                        alert("not oke");
                     }
-                },
-                error: function () {
-
-                    alert("not oke");
-                }
-            });
+                });
+            
+      
 
 
         }
 
-            function ThanhToan() {            
+            function ThanhToan() {
                 window.location.href = "/GioHang/ThanhToanGioHang";
             }
 

@@ -13,5 +13,9 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         {
             return View();
         }
+
+
+
+
     }
 }

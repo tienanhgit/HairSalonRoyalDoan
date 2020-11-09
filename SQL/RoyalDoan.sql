@@ -6,6 +6,7 @@ use HairSalonRoyalDoan
 
 
 
+
 /*chuan*/
 create table NhanVien
 (
@@ -75,8 +76,8 @@ create table ChiTietDonDat
 (
 MaDonDatHang int not null ,
 MaSanPham int not null ,
-Gia float,
-Soluong int 
+Gia float not null,
+Soluong int not null 
 Primary key (MaDonDatHang,MaSanPham)
 );
 
@@ -1102,7 +1103,6 @@ create proc Proc_DonDatHang_Insert
  @TrangThaiDonDichVu int='',
  @HoTenNguoiNhan nvarchar(50)='',
  @DiaChiNhanHang nvarchar(50)='',
- @TongTien float='',
  @NgayTao datetime=''						
 AS BEGIN 
 IF(@MaNV ='')
@@ -1117,8 +1117,7 @@ IF(@MaNV ='')
 	begin
 		SET @MaKH=NULL
 		end
-				
-			
+					
 	INSERT INTO DonDatHang
 	        ( MaNV,
 			MaKH,
@@ -1128,7 +1127,7 @@ IF(@MaNV ='')
 			TrangThaiDonDichVu,
 			HoTenNguoiNhan,
 			DiaChiNhanHang,
-			TongTien,
+		
 			NgayTao						  
 	        )
 	VALUES  ( 
@@ -1140,13 +1139,16 @@ IF(@MaNV ='')
  @TrangThaiDonDichVu ,
  @HoTenNguoiNhan ,
  @DiaChiNhanHang ,
- @TongTien,
  @NgayTao 
  )
 Select scope_identity()
+
 END
 
 GO
+
+
+
 
  
 create Procedure Proc_DonDatHang_GetData 
@@ -1217,7 +1219,6 @@ Select scope_identity()
 END;
 Go
 
-GO
 
 create Procedure Proc_ChiTietDonDat_GetData 
 @MaDonDatHang int=''							
@@ -1394,6 +1395,7 @@ begin
 select ChiTietDonDat.MaDonDatHang,ChiTietDonDat.MaSanPham,ChiTietDonDat.Soluong,SanPham.TenSanPham,SanPham.HinhAnh,ChiTietDonDat.Gia
 from SanPham join ChiTietDonDat on ChiTietDonDat.MaSanPham=SanPham.MaSanPham
 
+
 where ChiTietDonDat.MaDonDatHang=@MaDonDatHang
 end
 go
@@ -1402,18 +1404,30 @@ go
 
  /*end*/
 
-/*Tinh tong tien*/
+/*update tong tien*/
+
 
 create proc proc_getdata_tongtien
 @MaDonDatHang int=''
 as
 begin
-select SUM(ChiTietDonDat.Soluong*SanPham.Gia)
-from ChiTietDonDat join SanPham on ChiTietDonDat.MaSanPham=SanPham.MaSanPham
+update DonDatHang
+set TongTien=(
+select SUM(ChiTietDonDat.Soluong*ChiTietDonDat.Gia)
+from ChiTietDonDat 
 where MaDonDatHang=@MaDonDatHang
-group by (MaDonDatHang)
+)
+where MaDonDatHang=@MaDonDatHang
 end
 
+go
+
+
+
+
+
+select * from DonDatHang
+select * from ChiTietDonDat
 
 
 
