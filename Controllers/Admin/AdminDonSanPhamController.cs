@@ -171,12 +171,38 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
 
         //Đơn dịch vụ
+        [HttpGet]
         public ActionResult ThemDonDatDichVu()
         {
 
 
 
+
             return View();
+        }
+        [HttpPost]
+        public JsonResult ThemDonDatDichVu(string Prefix)
+        {
+            if (Prefix != null)
+            {
+                DichVuModel dichVuModel = new DichVuModel();
+                List<DichVu> lsDichVu = dichVuModel.GetData();
+                var ProductList = (from N in lsDichVu
+                                   where N.TenDichVu.StartsWith(Prefix)
+                                   select new { N.TenDichVu, N.MaDV });
+
+
+
+                return Json(ProductList, JsonRequestBehavior.AllowGet);
+
+            }
+
+            var Message = "Thêm sản phẩm thất bại";
+            return Json(Message, JsonRequestBehavior.AllowGet);
+
+
+
+  
         }
 
 

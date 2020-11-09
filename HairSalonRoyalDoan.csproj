@@ -128,7 +128,6 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Admin\AdminBaiVietController.cs" />
-    <Compile Include="Controllers\Admin\AdminDonDatHangController.cs" />
     <Compile Include="Controllers\Admin\AdminDonSanPhamController.cs" />
     <Compile Include="Controllers\Admin\AdminHomeController.cs" />
     <Compile Include="Controllers\Admin\AdminLichHenController.cs" />
@@ -1290,7 +1289,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Content\Font\" />
     <Folder Include="Content\Icon\" />
-    <Folder Include="Views\AdminDonDatHang\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

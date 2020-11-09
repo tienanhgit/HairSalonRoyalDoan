@@ -56,20 +56,17 @@
 
                         <div class="form-group">
 
-                            <label for="usr">Họ Tên Người Nhận</label>
+                            <label for="usr">Họ Tên Khách Hàng</label>
                             <input type="text" name="hotennguoinhan" class="form-control hotennguoinhan" id="usr">
                         </div>
-                        <div class="form-group">
-                            <label for="pwd">Địa chỉ giao hàng</label>
-                            <input type="text" class="form-control diachigiaohang" id="diachigiaohang">
-                        </div>
+                      
                         <div class="form-group">
                             <label for="pwd">Hình Thức Thanh Toán</label>
                             <br />
                             <select class="hinhthucthanhtoan" style="width:200px;height:25px">
                                 <option value="Trực Tiếp">Trực Tiếp</option>
                                 <option value="Thẻ">Thẻ</option>
-                                <option value="COD">COD</option>
+                  
                             </select>
                         </div>
 
@@ -78,7 +75,7 @@
 
                         <div class="form-group">
 
-                            <label for="usr">Số điện thoại giao hàng</label>
+                            <label for="usr">Số điện thoại khách hàng</label>
                             <input type="text" class="form-control sodienthoaigiaohang" id="usr">
                         </div>
                         <div class="form-group">
@@ -107,7 +104,7 @@
                             <div class="form-group">
 
                                 <div class="col-md-12">
-                                    Mã sản phẩm :<input type="text" name="TenSanPham" id="TenSanPham" atrr />
+                                    Mã dịch vụ :<input type="text" name="TenSanPham" id="TenSanPham" atrr />
                                     <button class="ThemSanPhamDH">Thêm</button>
 
 
@@ -204,13 +201,13 @@
                             $("#TenSanPham").autocomplete({
                                 source: function (request, response) {
                                     $.ajax({
-                                        url: "/AdminDonSanPham/ThemDonDatSanPham",
+                                        url: "/AdminDonSanPham/ThemDonDatDichVu",
                                         type: "POST",
                                         dataType: "json",
                                         data: { Prefix: request.term },
                                         success: function (data) {
                                             response($.map(data, function (item) {
-                                                return { label: item.TenSanPham, value: item.MaSanPham };
+                                                return { label: item.TenDichVu, value: item.MaDV };
 
                                             }))
 
