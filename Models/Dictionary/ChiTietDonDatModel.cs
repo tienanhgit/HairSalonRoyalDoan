@@ -25,7 +25,8 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         ChiTietDonDat chiTietDonDat = new ChiTietDonDat();
                         chiTietDonDat.MaDonDatHang = String.IsNullOrEmpty(row["MaDonDatHang"].ToString()) ? 0 : int.Parse(row["MaDonDatHang"].ToString());
                         chiTietDonDat.MaSanPham = String.IsNullOrEmpty(row["MaSanPham"].ToString()) ? 0 : int.Parse(row["MaSanPham"].ToString());
-                        chiTietDonDat.SoLuong = String.IsNullOrEmpty(row["SoLuong"].ToString()) ? 0 : int.Parse(row["SoLuong"].ToString());          
+                        chiTietDonDat.SoLuong = String.IsNullOrEmpty(row["SoLuong"].ToString()) ? 0 : int.Parse(row["SoLuong"].ToString());
+                        chiTietDonDat.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : int.Parse(row["Gia"].ToString());
                         dsChiTietDonDat.Add(chiTietDonDat);
                     }
                     return dsChiTietDonDat;
@@ -54,7 +55,6 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         chiTietDonDat.TenSanPham = String.IsNullOrEmpty(row["TenSanPham"].ToString()) ? "" : row["TenSanPham"].ToString();
                         chiTietDonDat.HinhAnh = String.IsNullOrEmpty(row["HinhAnh"].ToString()) ? "" : row["HinhAnh"].ToString();
                         chiTietDonDat.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : float.Parse(row["Gia"].ToString());
-
                         dsChiTietDonDat.Add(chiTietDonDat);
 
                     }
@@ -80,6 +80,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                     chiTietDonDat.MaDonDatHang = String.IsNullOrEmpty(row["MaDonDatHang"].ToString()) ? 0 : int.Parse(row["MaDonDatHang"].ToString());
                     chiTietDonDat.MaSanPham = String.IsNullOrEmpty(row["MaSanPham"].ToString()) ? 0 : int.Parse(row["MaSanPham"].ToString());
                     chiTietDonDat.SoLuong = String.IsNullOrEmpty(row["SoLuong"].ToString()) ? 0 : int.Parse(row["SoLuong"].ToString());
+                    chiTietDonDat.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : float.Parse(row["Gia"].ToString());
 
                 }
                 return chiTietDonDat;
@@ -97,11 +98,12 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             {
 
                 string rs = "";
-                rs = dataProvider.ExecuteScalar("Proc_ChiTietDonDat_Insert", new object[] { chiTietDonDat.MaDonDatHang,chiTietDonDat.MaSanPham,chiTietDonDat.SoLuong},
+                rs = dataProvider.ExecuteScalar("Proc_ChiTietDonDat_Insert", new object[] { chiTietDonDat.MaDonDatHang,chiTietDonDat.MaSanPham,chiTietDonDat.SoLuong,chiTietDonDat.Gia},
                   new List<string>() {
                       "@MaDonDatHang",
                       "@MaSanPham",
-                      "@SoLuong"
+                      "@SoLuong",
+                      "@Gia"
                    });
                 return rs;
             }

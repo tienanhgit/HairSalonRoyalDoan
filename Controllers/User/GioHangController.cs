@@ -116,15 +116,22 @@ namespace HairSalonRoyalDoan.Controllers.User
         public ActionResult ThanhToanGioHang()
         {
             var cart = Session["CART_SESSION"];
-            var list = new List<GioHangItem>();
-            if (cart != null)
+            if (Session["CART_SESSION"] == null || Session["USER_SESSION"] == null)
             {
-                list = (List<GioHangItem>)cart;
+                return Redirect("/GioHang/Index");
+
+            }
+            else
+            {
+                var list = new List<GioHangItem>();
+                if (cart != null)
+                {
+                    list = (List<GioHangItem>)cart;
+                }
+
+                return View(list);
             }
 
-            return View(list);
-
-            
 
         }
         [HttpPost]
@@ -134,13 +141,14 @@ namespace HairSalonRoyalDoan.Controllers.User
             string tennguoinhan = Request.Form["shipName"];
             string sodienthoainhanhang = Request.Form["mobile"];
             string diachi = Request.Form["address"];
-            string email = Request.Form["email"];
-
+ 
 
             DonDatHang donDatHang = new DonDatHang();
             donDatHang.DiaChiNhanHang = diachi;
             donDatHang.SoDTGiaoHang = Convert.ToInt32(sodienthoainhanhang);
-            donDatHang.HoTenNguoiNhan = tennguoinhan;
+            donDatHang.HoTenNguoiNhan = tennguoinhan;      
+         
+            donDatHang.HinhThucThanhToan = "COD";
 
             if (Session["CART_SESSION"] != null)
             {
@@ -168,28 +176,34 @@ namespace HairSalonRoyalDoan.Controllers.User
                 }
 
                 donDatHang.NgayTao = DateTime.Now;
-                donDatHang.NgayCat = Convert.ToDateTime("1900-01-01 00:00:00.000");
+          
 
                 string madondathang = donDatHangModel.ThemDonDatHang(donDatHang);
 
-
                 if (madondathang != null)
                 {
+                 
                     foreach (var item in list)
                     {
                         ChiTietDonDat chiTietDonDat = new ChiTietDonDat();
-
                         chiTietDonDat.MaDonDatHang = Convert.ToInt32(madondathang);
                         chiTietDonDat.SoLuong = item.SoLuong;
                         chiTietDonDat.MaSanPham = item.sanpham.MaSanPham;
+                        chiTietDonDat.Gia = item.sanpham.Gia;
                         chiTietDonDatModel.ThemChiTietDonDat(chiTietDonDat);
                     }
                 }
+
+                donDatHangModel.CapNhatTongTien(Convert.ToInt32(madondathang));
+
             }
             Session["CART_SESSION"] = null;
             return View();
 
         }
+
+   
+
 
 
 

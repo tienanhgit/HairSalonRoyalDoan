@@ -79,6 +79,7 @@
 
                         <div class="col-md-12">
                             <form method="post" action="/GioHang/DatHang" id="demoForm">
+                                <input type="hidden" id="total-price-send" name="total-price-send" value=""/>
 
                                     <div class="form-group">
                                         <label>Người nhận</label>
@@ -167,6 +168,7 @@
             totalItemPrice = parseInt(totalItemPrice) + parseInt(cart_price);
         });
         $("#total-price").text(totalItemPrice);
+        $("#total-price-send").val(totalItemPrice);
     });
   
     function pageRedirectDatHang() {

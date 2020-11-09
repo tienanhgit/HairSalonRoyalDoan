@@ -186,37 +186,40 @@
                                         <tbody>
                                             @foreach (var item in Model)
                                             {
-                                                <tr>
-                                                    <td>@item.MaDonDatHang</td>
+                                            <tr>
+                                                <td>@item.MaDonDatHang</td>
+                                                <td>@String.Format("{0:dd/MM/yyyy}", item.NgayTao)</td>
+                                                <td>@item.HoTenNguoiNhan</td>
+                                                <td>@item.SoDTGiaoHang</td>
 
-                                                    <td>@String.Format("{0:dd/MM/yyyy}", item.NgayTao)</td>
-                                                    <td>@item.HoTenNguoiNhan</td>
-                                                    <td>@item.SoDTGiaoHang</td>
+                                                @if (item.TrangThaiDonSanPham == 0)
+                                                {
+                                                    <td>Chờ xác nhận</td>
+                                                }
+                                                @if (item.TrangThaiDonSanPham == 1)
+                                                {
+                                                    <td>Đã xác nhận</td>
+                                                }
+                                                @if (item.TrangThaiDonSanPham == 2)
+                                                {
+                                                    <td>Đang giao hàng</td>
+                                                }
+                                                @if (item.TrangThaiDonSanPham == 3)
+                                                {
+                                                    <td>Hoàn thành</td>
+                                                }
+                                                @if (item.TrangThaiDonSanPham == 4)
+                                                {
+                                                    <td>Đã Hủy</td>
+                                                }
+                                                <td>
+                                                    <a href="#" class="buttonxemchitiet " data-toggle="tooltip" onclick="XemChiTietDon(@item.MaDonDatHang)">Xem chi tiết</a>
+                                                </td>
 
-                                                    @if (item.TrangThaiDonSanPham == 0)
-                                                    {
-                                                        <td>Chờ xác nhận</td>
-                                                    }
-                                                    @if (item.TrangThaiDonSanPham == 1)
-                                                    {
-                                                        <td>Đã xác nhận</td>
-                                                    }
-                                                    @if (item.TrangThaiDonSanPham == 2)
-                                                    {
-                                                        <td>Đang giao hàng</td>
-                                                    }
-                                                    @if (item.TrangThaiDonSanPham == 3)
-                                                    {
-                                                        <td>Hoàn thành</td>
-                                                    }
-                                                    <td>
-                                                        <a href="#" class="buttonxemchitiet " data-toggle="tooltip" onclick="XemChiTietDon(@item.MaDonDatHang)">Xem chi tiết</a>
-                                                    </td>
-
-                                                    <td>
-                                                        <button class="btn btn-sm btn-danger" id="removeItemCart"><i class="fa fa-trash"></i></button>
-                                                    </td>
-                                                </tr>
+                                                <td>
+                                                    <button class="btn btn-sm btn-danger" id="removeItemCart"><i class="fa fa-trash"></i></button>
+                                                </td>
+                                            </tr>
                                             }
                                         </tbody>
 
@@ -274,8 +277,7 @@
                         html += '<td>' + item.Gia + '</td>';
                         html += '<td>' + item.SoLuong + '</td>';
                         html += '<td id="cart-price-">' + item.Gia * item.SoLuong + '<td/>';
-                        html += '</tr>';
-                        
+                        html += '</tr>';         
                  
                     });
                     html += '<tr><td>Tổng tiền :' + '<span id="ttongtien"></span>' + '<td/><tr/>';

@@ -1,0 +1,276 @@
+﻿@model HairSalonRoyalDoan.Repository.SanPham
+@{
+    Layout = "~/Views/Shared/_AdminHome.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+
+    <meta name="viewport" content="width=device-width" />
+    <title>ThemDonDatSanPham</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            max-height:20px;
+          
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2
+        }
+
+        .pane{
+            max-height:400px;
+        }
+        .anhspct {
+            width: 100px;
+            height: 100px;
+        }
+
+    
+
+    </style>
+</head>
+<body>
+    <div class="clearfix">
+        <div id="main">
+            <ol class="breadcrumb">
+                <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
+                <li class="active"><a href="/AdminDonSanPham/ThemDonDatSanPham">Đơn đặt sản phẩm</a></li>
+            </ol>
+            <div class="col-xs-12">
+                <h4>Thông tin vận khách hàng</h4>
+                <div class="row" style="padding:9px;">
+
+
+                    <div class="col-xs-5">
+
+
+                        <div class="form-group">
+
+                            <label for="usr">Họ Tên Người Nhận</label>
+                            <input type="text" name="hotennguoinhan" class="form-control hotennguoinhan" id="usr">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Địa chỉ giao hàng</label>
+                            <input type="text" class="form-control diachigiaohang" id="diachigiaohang">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Hình Thức Thanh Toán</label>
+                            <br />
+                            <select class="hinhthucthanhtoan" style="width:200px;height:25px">
+                                <option value="Trực Tiếp">Trực Tiếp</option>
+                                <option value="Thẻ">Thẻ</option>
+                                <option value="COD">COD</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-5">
+
+                        <div class="form-group">
+
+                            <label for="usr">Số điện thoại giao hàng</label>
+                            <input type="text" class="form-control sodienthoaigiaohang" id="usr">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Trạng thái</label>
+                            <br />
+                            <select class="trangthai" style="width:200px;height:25px">
+                                <option value="1">Xác nhận</option>
+                                <option value="3">Hoàn Thành</option>
+
+                            </select>
+
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="row" style="padding:8px">
+                    <div class="themsp">
+                        <h4>Thông tin sản phẩm</h4>
+                      
+
+                            <div class="form-horizontal">
+
+                                <hr />
+
+                                <div class="form-group">
+
+                                    <div class="col-md-12">
+                                        Mã sản phẩm :<input type="text" name="TenSanPham" id="TenSanPham" atrr />
+                                        <button class="ThemSanPhamDH">Thêm</button>
+                             
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        
+
+
+                            <div class="pane" style="overflow-x:auto; overflow-y:scroll; min-height:400px;">
+                                <table id="demotableloop">
+                                    <thead>
+
+                                        <tr>
+                                            <th>Mã Sản Phẩm</th>
+                                            <th>Hình Ảnh</th>
+                                            <th>Tên Sản Phẩm</th>
+                                            <th>Giá</th>
+                                            <th>Số lượng</th>
+                                            <th>Xóa</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="lsspdh">
+                                    </tbody>
+
+                                </table>
+
+
+
+                                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div style="margin-left:50%"><button onclick="ThemHoaDon()">Lập hóa đơn</button></div>
+                </div>
+
+            </div>
+        </div>
+        <!--END #main-->
+    </div>
+
+
+    <script type="text/javascript">
+
+        function ThemHoaDon() {
+
+                             var HoTenNguoiNhan = $(".hotennguoinhan").val();
+                              var SoDienThoaiNguoiNhan = $(".sodienthoaigiaohang").val();
+                            var DiaChiGiaoHang = $(".diachigiaohang").val();
+                            var HinhThucThanhToan = $(".hinhthucthanhtoan option:selected").val();
+                            var TrangThai = $(".trangthai option:selected").val();
+
+                            var listProduct = $(".txtquantity");
+                            var cartList = [];
+                            $.each(listProduct, function (i, item) {
+
+                                cartList.push(
+                                    {
+                                    
+                                        sanpham: {
+                                            MaSanPham: $(item).data('id'),
+                                            Gia: $(item).data('price')
+
+                                        },
+                                        SoLuong: $(item).val()
+
+                                    });
+
+                            });
+
+                            $.ajax({
+                                type: 'POST',
+                                contentType: 'application/json; charset=utf-8',
+                                url: '/AdminDonSanPham/ThemHoaDon',
+                                data: "{ 'HoTenNguoiNhan':'" + HoTenNguoiNhan + "','SoDienThoaiNguoiNhan':'" + SoDienThoaiNguoiNhan + "','DiaChiGiaoHang':'" +DiaChiGiaoHang + "','HinhThucThanhToan':'" + HinhThucThanhToan + "','TrangThai':'" + TrangThai + "','cartModel':" + JSON.stringify(cartList) + " }",
+                                dataType: "json",
+                                success: function (result) {
+                                    alert("Thêm thành công !");
+
+                                },
+                                error: function (data) {
+                                    alert("Hãy nhập đầy đủ thông tin !");
+                                }
+                            });
+                        }
+
+      
+        $(document).ready(function () {
+
+                            $("#TenSanPham").autocomplete({
+                                source: function (request, response) {
+                                    $.ajax({
+                                        url: "/AdminDonSanPham/ThemDonDatSanPham",
+                                        type: "POST",
+                                        dataType: "json",
+                                        data: { Prefix: request.term },
+                                        success: function (data) {
+                                            response($.map(data, function (item) {
+                                                return { label: item.TenSanPham, value: item.MaSanPham };
+
+                                            }))
+
+                                        }
+                                    })
+                                },
+                                messages: {
+                                    noResults: "", results: ""
+                                }
+                            });
+
+                        });
+
+        function removeItem(MaSanPham) {
+
+            $(".sp_" + MaSanPham).remove();
+
+
+        }
+   
+
+
+        $(".ThemSanPhamDH").click(function () {
+
+
+            var MaSanPham = $("#TenSanPham").val();
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                url: '/AdminDonSanPham/ThemSanPham',
+                data: "{ 'MaSanPham':' " + MaSanPham + "' }",
+                dataType: "json",
+                success: function (result) {
+                    let html = '';
+                    html += '<tr class=sp_' + result.MaSanPham + '>';
+                    html += '<td>' + result.MaSanPham + '</td>';
+                    html += '<td><img class="anhspct" src=' + result.HinhAnh + '></img></td>';
+                    html += '<td>' + result.TenSanPham + '</td>';
+                    html += '<td>' + result.Gia + '</td>';
+                    html += '<td>' + '<input type="number" min="1"  class="txtquantity" data-id="' + result.MaSanPham + '"data-price="' + result.Gia+ '"value="1"/>' + '</td>';
+                    html += '<td><button class="btn btn-sm btn-danger" id="removeItemCart_' + result.MaSanPham + '"onclick="removeItem('+result.MaSanPham+')"><i class="fa fa-trash"></td> <tr/>';
+                    $('.lsspdh').append(html);
+
+                },
+                error: function (data) {
+
+                    alert("Thêm sản phẩm thất bại , hãy nhập đúng mã !");
+                }
+            });
+        });
+
+
+        
+
+
+
+
+    </script>
+
+</body>
+</html>

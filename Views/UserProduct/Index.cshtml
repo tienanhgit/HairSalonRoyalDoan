@@ -1,40 +1,51 @@
 ﻿@using PagedList.Mvc
 @using PagedList;
 @model PagedList.IPagedList<HairSalonRoyalDoan.Repository.SanPham>
-
+@using HairSalonRoyalDoan.Models.Dictionary
 @{
     Layout = "~/Views/Shared/_UserProduct.cshtml";
+    DanhMucModel danhMucModel = new DanhMucModel();
+    ThuongHieuModel thuongHieuModel = new ThuongHieuModel();
+
 
 
 }
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-   
 
-<style>
-    .pagination{
-      
-    }
-    .pagination li a {
-        color: #1d9977 !important;
 
-    }
-    .pagination > li > a, .pagination > li > span {
-        font-size: 16px;
-        position: relative;
-        float: left;
-        padding: 5px 12px;
-        line-height: 1.428571429;
-        text-decoration: none;
-        color: #428bca;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        margin-left: -1px;
-    }
-    .banner-sp{
-        padding:10px;
-    }
-</style>
+    <style>
+        .pagination {
+        }
+
+            .pagination li a {
+                color: #1d9977 !important;
+            }
+
+            .pagination > li > a, .pagination > li > span {
+                font-size: 16px;
+                position: relative;
+                float: left;
+                padding: 5px 12px;
+                line-height: 1.428571429;
+                text-decoration: none;
+                color: #428bca;
+                background-color: #fff;
+                border: 1px solid #ddd;
+                margin-left: -1px;
+            }
+
+        .banner-sp {
+            padding: 10px;
+        }
+
+        .name-product {
+            white-space: nowrap;
+            width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
 
 </head>
 <body>
@@ -50,7 +61,7 @@
                     </div>
                     <div class="swiper-slide">
                         <img src="~/Content/Images/Banner/Banner-Bo-ready-2-white.jpg" />
-                    </div>     
+                    </div>
                     <div class="swiper-slide">
                         <img src="~/Content/Images/UserHomeImg/banner3.jpg" />
                     </div>
@@ -67,9 +78,9 @@
             <div class="col">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Trang chủ</a></li>
-                        <li class="breadcrumb-item"><a href="category.html">Danh mục</a></li>
-                      
+                        <li class="breadcrumb-item"><a href="index.html">Trang Chủ</a></li>
+                        <li class="breadcrumb-item"><a href="/UserProduct/Index">Sản phẩm</a></li>
+                 
                     </ol>
                 </nav>
             </div>
@@ -79,24 +90,24 @@
         <div class="row">
             <div class="col-2 col-sm-3">
                 <div class="card bg-light mb-3">
-                    <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Loại sản phẩm</div>
+                    <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Thương Hiệu</div>
                     <ul class="list-group category_block">
-                        <li class="list-group-item"><a href="category.html">Chăm sóc tóc</a></li>
-                        <li class="list-group-item"><a href="category.html">Chăm sóc da</a></li>
-                        <li class="list-group-item"><a href="category.html">Chăm sóc cơ thể</a></li>
-                        <li class="list-group-item"><a href="category.html">Chăm sóc râu</a></li>
-                        <li class="list-group-item"><a href="category.html">Khác</a></li>
+                        @foreach (var itemthuonghieu in thuongHieuModel.GetData())
+                        {
+                            <li class="list-group-item"><a href="/UserProduct/Index?MaThuongHieu=@itemthuonghieu.MaThuongHieu">@itemthuonghieu.TenThuongHieu</a></li>
+                        }
+
+
                     </ul>
                 </div>
                 <div class="card bg-light mb-3">
-                    <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Thương Hiệu</div>
+                    <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Danh mục</div>
                     <ul class="list-group category_block">
-                        <li class="list-group-item"><a href="category.html">Chăm sóc tóc</a></li>
-                        <li class="list-group-item"><a href="category.html">Chăm sóc da</a></li>
-                        <li class="list-group-item"><a href="category.html">Chăm sóc cơ thể</a></li>
-                        <li class="list-group-item"><a href="category.html">Chăm sóc râu</a></li>
-                        <li class="list-group-item"><a href="category.html">Khác</a></li>
-                    </ul>
+                        @foreach (var itemdanhmuc in danhMucModel.GetData())
+                        {
+                            <li class="list-group-item"><a href="/UserProduct/Index?MaDanhMuc=@itemdanhmuc.MaDanhMuc">@itemdanhmuc.TenDanhMuc</a></li>
+                        }
+                        </ul>
                 </div>
 
             </div>
@@ -109,24 +120,24 @@
                                 @{
                                     if (ItemProduct.HinhAnh != "")
                                     {
-                                        <img src="@ItemProduct.HinhAnh" style="max-height:300px" />
+                                        <img src="@ItemProduct.HinhAnh" style="height:300px" />
                                     }
                                     else
                                     {
-                            <img src="~/Content/Images/ImagesProduct/no-images.png" style="height:300px" />
+                                        <img src="~/Content/Images/ImagesProduct/no-images.png" style="height:300px" />
 
                                     }
                                 }
 
                                 <div class="card-body">
-                                    <h4 class="card-title"><a href="ProductDetail?id=@ItemProduct.MaSanPham" title="View Product">@ItemProduct.TenSanPham</a></h4>
-                                    <p class="card-text">@ItemProduct.MoTa</p>
+                                    <h4 class="card-title name-product"><a href="ProductDetail?id=@ItemProduct.MaSanPham" title="View Product">@ItemProduct.TenSanPham</a></h4>
+                                    <p class="card-text name-product">@ItemProduct.MoTa</p>
                                     <div class="row">
                                         <div class="col">
                                             <p class="btn btn-danger btn-block">@ItemProduct.Gia</p>
                                         </div>
                                         <div class="col">
-                                            <input type="hidden" class="valueIDSP" value="@ItemProduct.MaSanPham"/>
+                                            <input type="hidden" class="valueIDSP" value="@ItemProduct.MaSanPham" />
                                             <span class="btn btn-success btn-block themgiohang" idsp="@ItemProduct.MaSanPham">Thêm vào giỏ hàng</span>
                                         </div>
                                     </div>
@@ -134,12 +145,12 @@
                             </div>
                         </div>
                     }
-                <div class="col-12" style="margin-top:12px; font-size:40px">
-                    <div class="text-right" style="font-size:30px !important">
-                       
-    
-                        @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-                    </div>
+                    <div class="col-12" style="margin-top:12px; font-size:40px">
+                        <div class="text-right" style="font-size:30px !important">
+
+
+                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+                        </div>
                     </div>
                 </div>
             </div>
@@ -148,7 +159,7 @@
     </div>
 
 
-  
+
 
     <script type="text/javascript">
 
@@ -156,9 +167,9 @@
 
             let slsp = 0;
             $('.themgiohang').on('click', function () {
-               
+
                 slsp = slsp + 1;
-              
+
                 $("#soluongspgh").text(slsp);
 
                 var getItemId = parseInt($(this).closest('.card').prop('id'));
@@ -168,14 +179,14 @@
                     contentType: 'application/json; charset=utf-8',
                     url: '/GioHang/ThemSanPhamGioHang',
                     data: "{ 'SanPhamID':' " + getItemId + "' }",
-                    dataType: "json", 
+                    dataType: "json",
                     success: function (data) {
                         //$('#spnCart').html(data);
                         alert("Thêm sản phẩm vào giỏ hàng thành công");
                         console.log(data);
                     },
                     error: function (data) {
-                  
+
                         alert(data);
                     }
 
