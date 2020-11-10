@@ -759,11 +759,16 @@ create proc proc_GetData_DichVu_ChiTietDichVu
 
 as
 begin
+
 select Dichvu.MaDV,TenDV,Gia,Buoc
  from DichVu join Chitietdichvu
 on DichVu.MaDV=Chitietdichvu.MaDV
 
+
+
+
 end
+
 go
 create Proc Proc_Dichvu_Insert @TenDV nvarchar(50),
 								@Gia nvarchar(50)='',
@@ -808,9 +813,23 @@ END
 GO
 
 
-create Procedure Proc_DichVu_GetData 						
-AS BEGIN
-select * from DichVu where 1=1
+create Procedure Proc_DichVu_GetData 	
+@MaDV int=''					
+AS 
+BEGIN
+DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'Select * from DichVu where (1=1)'
+	IF(@MaDV!='')
+	begin
+		SET @Query += ' AND (MaDV = @MaDV) '
+		end
+
+	SET @ParamList =		'@MaDV int
+							  
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDV
+
 END
 go
 
@@ -1399,13 +1418,21 @@ from SanPham join ChiTietDonDat on ChiTietDonDat.MaSanPham=SanPham.MaSanPham
 where ChiTietDonDat.MaDonDatHang=@MaDonDatHang
 end
 go
-
+-- proc-dondathang-dichvu
+create proc proc_getdata_chitietdondat_dichvu
+@MaDonDatHang int=''
+as
+begin
+select ChiTietDonDichVu.MaDV,TenDV,Gia,MaDonDatHang
+from DichVu join ChiTietDonDichVu on ChiTietDonDichVu.MaDV=DichVu.MaDV
+where ChiTietDonDichVu.MaDonDatHang=@MaDonDatHang
+end
+go
 
 
  /*end*/
 
-/*update tong tien*/
-
+/*update tong tien cho sản phẩm*/
 
 create proc proc_getdata_tongtien
 @MaDonDatHang int=''
@@ -1422,12 +1449,25 @@ end
 
 go
 
+/*update tong tien cho dịch vụ*/
+create proc proc_getadata_tongtien_dichvu
+@MaDonDatHang int=''
+as
+begin
+update DonDatHang
+set TongTien=(
+select SUM(DichVu.Gia)
+from DonDatHang join ChiTietDonDichVu on DonDatHang.MaDonDatHang=ChiTietDonDichVu.MaDonDatHang
+join DichVu on DichVu.MaDV=ChiTietDonDichVu.MaDV
+where DonDatHang.MaDonDatHang=@MaDonDatHang
+)
+where DonDatHang.MaDonDatHang=@MaDonDatHang
+
+end
 
 
 
 
-select * from DonDatHang
-select * from ChiTietDonDat
 
 
 

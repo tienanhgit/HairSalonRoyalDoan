@@ -59,7 +59,34 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             }
         }
 
+        public List<ChiTietDonDichVu> GetDataDichVu(int MaDonDatHang)
+        {
+            try
+            {
+                List<ChiTietDonDichVu> dsChiTietDonDatDichVu = new List<ChiTietDonDichVu>();
+                DataTable dt = dataProvider.ExecuteQuery("proc_getdata_chitietdondat_dichvu", new object[] { MaDonDatHang }, new List<string>() { "MaDonDatHang" });
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        ChiTietDonDichVu chiTietDonDichVu = new ChiTietDonDichVu();
+                        chiTietDonDichVu.MaDonDatHang = String.IsNullOrEmpty(row["MaDonDatHang"].ToString()) ? 0 : int.Parse(row["MaDonDatHang"].ToString());
+                        chiTietDonDichVu.TenDichVu = String.IsNullOrEmpty(row["TenDV"].ToString()) ? "" : row["TenDV"].ToString();
+                        chiTietDonDichVu.MaDV = String.IsNullOrEmpty(row["MaDV"].ToString()) ? 0 : int.Parse(row["MaDV"].ToString());
+                        chiTietDonDichVu.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : float.Parse(row["Gia"].ToString());
 
+                        dsChiTietDonDatDichVu.Add(chiTietDonDichVu);
+
+                    }
+                    return dsChiTietDonDatDichVu;
+                }
+                return new List<ChiTietDonDichVu>();
+            }
+            catch (Exception ex)
+            {
+                return new List<ChiTietDonDichVu>();
+            }
+        }
 
     }
 }
