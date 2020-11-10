@@ -5,7 +5,7 @@ using System.Web;
 
 namespace HairSalonRoyalDoan.Repository
 {
-    public class ChiTietDonDichVu
+    public class ChiTietDonDichVu:DichVu
     {
         private int _MaDonDatHang;
         private int _MaDV;

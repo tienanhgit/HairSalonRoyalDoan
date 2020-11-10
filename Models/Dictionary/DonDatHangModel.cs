@@ -179,6 +179,23 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 return "";
             }
         }
+        public string CapNhatTongTienDichVu(int MaDonDatHang)
+        {
+            try
+            {
+
+                int kq = dataProvider.ExecuteNonQuery("proc_getadata_tongtien_dichvu", new object[] { MaDonDatHang },
+                  new List<string>() {
+                      "@MaDonDatHang"
+         });
+                return kq.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
+
 
 
 

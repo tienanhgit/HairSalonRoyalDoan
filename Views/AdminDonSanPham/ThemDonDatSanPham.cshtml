@@ -87,8 +87,8 @@
                             <label for="pwd">Trạng thái</label>
                             <br />
                             <select class="trangthai" style="width:200px;height:25px">
-                                <option value="1">Xác nhận</option>
-                                <option value="3">Hoàn Thành</option>
+                                <option value="2">Xác nhận</option>
+                                <option value="4">Hoàn Thành</option>
 
                             </select>
 
@@ -187,7 +187,7 @@
                             $.ajax({
                                 type: 'POST',
                                 contentType: 'application/json; charset=utf-8',
-                                url: '/AdminDonSanPham/ThemHoaDon',
+                                url: '/AdminDonSanPham/ThemHoaDonSanPham',
                                 data: "{ 'HoTenNguoiNhan':'" + HoTenNguoiNhan + "','SoDienThoaiNguoiNhan':'" + SoDienThoaiNguoiNhan + "','DiaChiGiaoHang':'" +DiaChiGiaoHang + "','HinhThucThanhToan':'" + HinhThucThanhToan + "','TrangThai':'" + TrangThai + "','cartModel':" + JSON.stringify(cartList) + " }",
                                 dataType: "json",
                                 success: function (result) {

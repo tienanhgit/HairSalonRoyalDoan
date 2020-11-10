@@ -10,6 +10,7 @@ namespace HairSalonRoyalDoan.Repository
     {
         public SanPham sanpham { get; set; }
         public int SoLuong { get; set; }
+        public DichVu dichvu { get; set; }
      
    
 

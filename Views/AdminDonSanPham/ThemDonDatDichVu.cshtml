@@ -121,9 +121,8 @@
                                 <thead>
 
                                     <tr>
-                                        <th>Mã Sản Phẩm</th>
-                                        <th>Hình Ảnh</th>
-                                        <th>Tên Sản Phẩm</th>
+                                        <th>Mã dịch vụ</th>
+                                        <th>Tên dịch vụ</th>
                                         <th>Giá</th>
                                         <th>Số lượng</th>
                                         <th>Xóa</th>
@@ -156,24 +155,22 @@
         function ThemHoaDon() {
 
                              var HoTenNguoiNhan = $(".hotennguoinhan").val();
-                              var SoDienThoaiNguoiNhan = $(".sodienthoaigiaohang").val();
-                            var DiaChiGiaoHang = $(".diachigiaohang").val();
+                             var SoDienThoaiNguoiNhan = $(".sodienthoaigiaohang").val();            
                             var HinhThucThanhToan = $(".hinhthucthanhtoan option:selected").val();
                             var TrangThai = $(".trangthai option:selected").val();
+                           
+            var cartList = [];
 
-                            var listProduct = $(".txtquantity");
-                            var cartList = [];
+            var listProduct = $(".txtquantity");
+
                             $.each(listProduct, function (i, item) {
 
                                 cartList.push(
                                     {
-
-                                        sanpham: {
-                                            MaSanPham: $(item).data('id'),
-                                            Gia: $(item).data('price')
-
-                                        },
-                                        SoLuong: $(item).val()
+                                        dichvu: {
+                                            MaDV: $(item).data('id')
+                                       
+                                        }                       
 
                                     });
 
@@ -182,8 +179,8 @@
                             $.ajax({
                                 type: 'POST',
                                 contentType: 'application/json; charset=utf-8',
-                                url: '/AdminDonSanPham/ThemHoaDon',
-                                data: "{ 'HoTenNguoiNhan':'" + HoTenNguoiNhan + "','SoDienThoaiNguoiNhan':'" + SoDienThoaiNguoiNhan + "','DiaChiGiaoHang':'" +DiaChiGiaoHang + "','HinhThucThanhToan':'" + HinhThucThanhToan + "','TrangThai':'" + TrangThai + "','cartModel':" + JSON.stringify(cartList) + " }",
+                                url: '/AdminDonSanPham/ThemHoaDonDichVu',
+                                data: "{ 'HoTenNguoiNhan':'" + HoTenNguoiNhan + "','SoDienThoaiNguoiNhan':'" + SoDienThoaiNguoiNhan + "','HinhThucThanhToan':'" + HinhThucThanhToan + "','TrangThai':'" + TrangThai + "','cartModel':" + JSON.stringify(cartList) + " }",
                                 dataType: "json",
                                 success: function (result) {
                                     alert("Thêm thành công !");
@@ -193,8 +190,9 @@
                                     alert("Hãy nhập đầy đủ thông tin !");
                                 }
                             });
-                        }
+        }
 
+        //auto load mã
 
         $(document).ready(function () {
 
@@ -221,34 +219,33 @@
 
                         });
 
-        function removeItem(MaSanPham) {
+        function removeItem(MaDV) {
 
-            $(".sp_" + MaSanPham).remove();
+            $(".sp_" + MaDV).remove();
 
 
         }
 
-
+        // click trên list
 
         $(".ThemSanPhamDH").click(function () {
 
 
-            var MaSanPham = $("#TenSanPham").val();
+            var MaDV = $("#TenSanPham").val();
             $.ajax({
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',
-                url: '/AdminDonSanPham/ThemSanPham',
-                data: "{ 'MaSanPham':' " + MaSanPham + "' }",
+                url: '/AdminDonSanPham/ThemDichVu',
+                data: "{ 'MaDV':' " + MaDV + "' }",
                 dataType: "json",
                 success: function (result) {
                     let html = '';
-                    html += '<tr class=sp_' + result.MaSanPham + '>';
-                    html += '<td>' + result.MaSanPham + '</td>';
-                    html += '<td><img class="anhspct" src=' + result.HinhAnh + '></img></td>';
-                    html += '<td>' + result.TenSanPham + '</td>';
+                    html += '<tr class=sp_' + result.MaDV + '>';
+                    html += '<td>' + result.MaDV + '</td>';  
+                    html += '<td>' + result.TenDichVu + '</td>';       
                     html += '<td>' + result.Gia + '</td>';
-                    html += '<td>' + '<input type="number" min="1"  class="txtquantity" data-id="' + result.MaSanPham + '"data-price="' + result.Gia+ '"value="1"/>' + '</td>';
-                    html += '<td><button class="btn btn-sm btn-danger" id="removeItemCart_' + result.MaSanPham + '"onclick="removeItem('+result.MaSanPham+')"><i class="fa fa-trash"></td> <tr/>';
+                    html += '<td>' + '<input type="number" min="1" disabled  class="txtquantity" data-id="' + result.MaDV + '"value="1"/>' + '</td>';
+                    html += '<td><button class="btn btn-sm btn-danger" id="removeItemCart_' + result.MaDV + '"onclick="removeItem('+result.MaDV+')"><i class="fa fa-trash"></td> <tr/>';
                     $('.lsspdh').append(html);
 
                 },
