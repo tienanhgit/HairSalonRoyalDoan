@@ -185,6 +185,8 @@ namespace HairSalonRoyalDoan.Controllers.User
                  
                     foreach (var item in list)
                     {
+                        SanPham sanPham = new SanPham();
+                        ProductModel productModel = new ProductModel();
                         ChiTietDonDat chiTietDonDat = new ChiTietDonDat();
                         chiTietDonDat.MaDonDatHang = Convert.ToInt32(madondathang);
                         chiTietDonDat.SoLuong = item.SoLuong;
