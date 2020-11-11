@@ -65,9 +65,10 @@ namespace HairSalonRoyalDoan.Controllers
                     LichHen lichHen = new LichHen();
                     LichHenModel lichHenModel =new LichHenModel();
                     lichHen.MaKH =Convert.ToInt32(makh);
-                    lichHen.NgayHen = Convert.ToDateTime(NgayCat);
-                    lichHen.GioHen = Convert.ToDateTime(GioHen);
+                    lichHen.NgayHen =NgayCat;
+                    lichHen.GioHen = GioHen;
                     lichHen.MaNV = Convert.ToInt32(MaNV);
+                    lichHen.TrangThai = 1;
                     lichHenModel.ThemLichHen(lichHen);
                 }
 

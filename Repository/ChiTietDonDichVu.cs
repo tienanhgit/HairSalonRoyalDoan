@@ -8,7 +8,7 @@ namespace HairSalonRoyalDoan.Repository
     public class ChiTietDonDichVu:DichVu
     {
         private int _MaDonDatHang;
-        private int _MaDV;
+      
 
         public ChiTietDonDichVu()
         {
@@ -23,7 +23,7 @@ namespace HairSalonRoyalDoan.Repository
         }
 
         public int MaDonDatHang { get => _MaDonDatHang; set => _MaDonDatHang = value; }
-        public int MaDV { get => _MaDV; set => _MaDV = value; }
+    
 
     }
 }
