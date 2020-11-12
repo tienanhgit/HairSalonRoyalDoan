@@ -12,14 +12,44 @@ namespace HairSalonRoyalDoan.Controllers.Admin
     public class AdminLichHenController : Controller
     {
         // GET: AdminLichHen
-        public ActionResult Index(int page = 1, int pagesize = 10)
+        [HttpGet]
+        public ActionResult Index()
         {
-            List<LichHen> lslh = new LichHenModel().GetDataAll();
+            return View();
 
-             lslh.Reverse();
+        }
+        [HttpPost]
+        public ActionResult Index(string searchString, int? page)
+        {
+
+            int pageSize = 5;
+            List<LichHen> data = new LichHenModel().GetDataByTrangThai(2);
+
+            if (page > 0)
+            {
+                page = page;
+            }
+            else
+            {
+                page = 1;
+            }
+            int start = (int)(page - 1) * pageSize;
+            ViewBag.pageCurrent = page;
+            if (searchString != null && searchString != "")
+            {
+
+                data = new List<LichHen>(data.Where(p => p.SoDTKH.ToLower().Contains(searchString)));
+            }
+            int totalPage = data.Count();
+            float totalNumsize = (totalPage / (float)pageSize);
+            int numSize = (int)Math.Ceiling(totalNumsize);
+            ViewBag.numSize = numSize;
+            var dataPost = data.OrderByDescending(x => x.MaLichHen).Skip(start).Take(pageSize);
 
 
-            return View(lslh.ToPagedList(page, pagesize));
+            // return Json(listPost);
+            return Json(new { data = dataPost, pageCurrent = page, numSize = numSize, ss = searchString }, JsonRequestBehavior.AllowGet);
+
         }
 
         public JsonResult LichHenLamMoi()
@@ -27,16 +57,16 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
             LichHenModel lichHenModel = new LichHenModel();
             List<LichHen> lslh = lichHenModel.GetDataByTrangThai(1);
-             
-                return Json(lslh, JsonRequestBehavior.AllowGet);
+
+            return Json(lslh, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult UpdateTrangThai(string MaLichHen,string TrangThai)
+        public JsonResult UpdateTrangThai(string MaLichHen, string TrangThai)
         {
-         
+
             if (MaLichHen != null && TrangThai != null)
             {
-                string a = new LichHenModel().UpdateTrangThai(Convert.ToInt32(MaLichHen),Convert.ToInt32(TrangThai));
+                string a = new LichHenModel().UpdateTrangThai(Convert.ToInt32(MaLichHen), Convert.ToInt32(TrangThai));
             }
 
             return Json(new
@@ -44,6 +74,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
                 status = true
             });
         }
+
 
 
 
