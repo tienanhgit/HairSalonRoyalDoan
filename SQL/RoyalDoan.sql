@@ -6,7 +6,6 @@ use HairSalonRoyalDoan
 
 
 
-
 /*chuan*/
 create table NhanVien
 (
@@ -251,15 +250,35 @@ references DichVu(MaDV)
 
 /*Reset identity*/
 --DBCC CHECKIDENT ('SanPham', RESEED, 0)
+create proc TimKiemTheoNgay
+@NgayDat
+as 
+begin
 
+
+
+
+select * from LichHen
 /*Bang Lich Hen*/
+
 go
+alter proc Proc_LichHen_UpdateTT
+@MaLichHen int='',
+@TrangThai int=''
+as
+begin
+update LichHen
+set TrangThai=@TrangThai
+where MaLichHen=@MaLichHen
+end
+go
+
 create Proc Proc_LichHen_Insert
 @MaKH int=null,
 @MaNV int=null,
 @NgayHen date=null,
 @GioHen time =null,
-@TrangThai int =0
+@TrangThai int =''
 											
 AS BEGIN 
 	INSERT INTO LichHen
@@ -290,7 +309,8 @@ create Proc Proc_LichHen_Update
 @TrangThai int =0
 										
 AS BEGIN 
-	UPDATE LichHen SET		MaKH=@MaKH,
+	UPDATE LichHen SET		
+	MaKH=@MaKH,
 	MaNV=@MaNV,
 	NgayHen=@NgayHen,
 	GioHen=@GioHen,
@@ -301,19 +321,32 @@ END
 
 GO
 
-create Procedure Proc_LichHen_GetData 
+go
+
+alter proc proc_LichHen_get_all
+as
+begin
+
+select MaLichHen,LichHen.MaKH,LichHen.MaNV,NgayHen,GioHen,TrangThai,HoTenKH,HoTenNV,SoDTKH from LichHen join KhachHang on LichHen.MaKh=KhachHang.MaKH 
+join NhanVien on LichHen.MaNV=NhanVien.MaNV  where TrangThai=1 and NgayHen='2020-11-12'
+ 
+end
+
+go
+alter Procedure Proc_LichHen_GetData 
 							@MaLichHen INT = '',
 							@MaKH INT='',
 							@MaNV int='',  
-							@NgayHen Date = '',
-							@GioHen Time='',
+							@NgayHen DateTime = '',
+							@GioHen Datetime='',
 							@TrangThai int=''
 						
 							
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
-	SET @Query = 'Select * from LichHen where (1=1)'
+	SET @Query = 'select MaLichHen,LichHen.MaKH,LichHen.MaNV,NgayHen,GioHen,TrangThai,HoTenKH,HoTenNV,SoDTKH from LichHen join KhachHang on LichHen.MaKh=KhachHang.MaKH 
+join NhanVien on LichHen.MaNV=NhanVien.MaNV  where (1=1)'
 	IF(@MaLichHen !='')
 	begin
 		SET @Query += ' AND (MaLichHen = @MaLichHen) '
@@ -346,9 +379,9 @@ AS BEGIN
 	SET @ParamList =		' @MaLichHen INT,
 							@MaKH INT,
 							@MaNV int,  
-							@NgayHen Date ,
-							@GioHen Time=,
-							@TrangThai int=
+							@NgayHen DateTime ,
+							@GioHen DateTime,
+							@TrangThai int
 							 '
 	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaLichHen,@MaKH,@MaNV,@NgayHen,@GioHen,@TrangThai
 END
@@ -1466,7 +1499,7 @@ where DonDatHang.MaDonDatHang=@MaDonDatHang
 end
 
 
-
+select * from LichHen
 
 
 

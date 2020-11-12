@@ -38,10 +38,6 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             return Json(listchitietdondichvu, JsonRequestBehavior.AllowGet);
         }
 
-
-
-
-
         public JsonResult UpdateTrangThai(string MaDonDatHang,string TrangThaiDonSanPham)
         {
             if (MaDonDatHang != null && TrangThaiDonSanPham != null)
@@ -149,30 +145,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
         }
 
-        //[HttpPost]
-        //public JsonResult Update(string SanPhamID, string SoLuongMoi)
-        //{
-        //    var cart = Session["CART_SESSION"];
-        //    int spid = Convert.ToInt32(SanPhamID);
-        //    int slm = Convert.ToInt32(SoLuongMoi);
-        //    var list = (List<GioHangItem>)cart;
-
-
-        //    foreach (var item in list)
-        //    {
-
-        //        if (item.sanpham.MaSanPham == spid)
-        //        {
-        //            item.SoLuong = slm;
-        //        }
-        //    }
-        //    Session["DDH_SESSION"] = list;
-
-        //    return Json(new
-        //    {
-        //        status = true
-        //    });
-        //}
+     
 
 
         //Đơn dịch vụ
@@ -245,7 +218,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
             foreach (var item in cartModel)
             {
-
+               
                 
                 ChiTietDonDichVu chiTietDonDichVu = new ChiTietDonDichVu();
                 chiTietDonDichVu.MaDonDatHang = Convert.ToInt32(MaDonHang);
