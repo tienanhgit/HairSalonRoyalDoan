@@ -276,6 +276,7 @@ where MaLichHen=@MaLichHen
 end
 go
 
+
 create Proc Proc_LichHen_Insert
 @MaKH int=null,
 @MaNV int=null,
@@ -1079,7 +1080,7 @@ END
 
 go
 
-
+select * from KhachHang
 create proc Proc_KhachHang_GetData
 @MaKH int='',
 @HoTenKH int='',

@@ -150,16 +150,25 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
         //Đơn dịch vụ
         [HttpGet]
-        public ActionResult ThemDonDatDichVu()
+        public ActionResult ThemDonDatDichVu(string MaKhachHang)
         {
 
+           if(MaKhachHang!=null)
+            {
+                KhachHangModel khachHangModel = new KhachHangModel();
+                Khachhang kh = khachHangModel.GetKhachHangByMa(Convert.ToInt32(MaKhachHang));
+                ViewBag.KhachHang = kh;
+            }
+              
+            
+            
 
 
-
+          
             return View();
         }
         [HttpPost]
-        public JsonResult ThemDonDatDichVu(string Prefix)
+        public JsonResult ThemDonDatDichVuP(string Prefix)
         {
             if (Prefix != null)
             {

@@ -15,6 +15,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         [HttpGet]
         public ActionResult Index()
         {
+
             return View();
 
         }
@@ -22,7 +23,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         public ActionResult Index(string searchString, int? page)
         {
 
-            int pageSize = 5;
+            int pageSize = 10;
             List<LichHen> data = new LichHenModel().GetDataByTrangThai(2);
 
             if (page > 0)

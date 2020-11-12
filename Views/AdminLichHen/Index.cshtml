@@ -11,7 +11,19 @@
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
     <link href="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+    <style>
+        .table-lich-hen-sum{
+            min-height:500px;
 
+
+        }
+        .table-lich-hen-dang-den{
+            max-height:400px;
+            overflow:auto;
+        }
+
+
+    </style>
 
 
 </head>
@@ -22,6 +34,13 @@
             <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
             <li class="active"><a href="/AdminDonSanPham/Index">Đơn đặt hàng</a></li>
         </ol>
+        <div class="form-group">
+            <!-- Single button -->
+
+            <a href="/AdminDonSanPham/ThemDonDatSanPham" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Thêm mới lịch hẹn</a>
+     
+       
+        </div>
         <div class="col-xs-12">
             <h3>Lịch hẹn </h3>
 
@@ -31,7 +50,7 @@
                         <!-- Single button -->
                         <div class="col-xs-4">
                             <label>Chọn ngày: </label>
-                            <span> <input type="text" id="datepicker"></span>
+                            <span> <input type="text" autocomplete="off" id="datepicker"></span>
                             <button><i class="fa fa-search"></i></button>
                         </div>
                         <div class="col-xs-4">
@@ -48,24 +67,28 @@
                             <span><input id="SearchString" name="search" type="text" value="" placeholder="Tìm kiếm"></span><button type="button" onclick="Search();"><i class="fa fa-search"></i></button>
 
                         </div>
-                    </div>
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th class="hidden-xs">Mã Lịch Hẹn</th>
-                                <th>Tên Khách Hàng</th>
+                    </div >
+                    <div class="table-lich-hen-sum">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="hidden-xs">Mã Lịch Hẹn</th>
+                                    <th>Tên Khách Hàng</th>
 
-                                <th>Tên Nhân Viên Cắt</th>
-                                <th>Số điện thoại</th>
-                                <th>Ngày Hẹn</th>
-                                <th>Giờ Hẹn</th>
-                                <th>Cập nhật</th>
-                                <th>Trạng Thái</th>
-                            </tr>
-                        </thead>
-                        <tbody class="listls-dxn">
-                        </tbody>
-                    </table>
+                                    <th>Tên Nhân Viên Cắt</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Ngày Hẹn</th>
+                                    <th>Giờ Hẹn</th>
+                                    <th>Cập nhật</th>
+                                    <th>Trạng Thái</th>
+                                    <th>Đặt DV</th>
+                                </tr>
+                            </thead>
+                            <tbody class="listls-dxn">
+                            </tbody>
+                        </table>
+                    </div>
+              
 
                     <div class="card-footer">
                         <nav aria-label="Page navigation example">
@@ -74,13 +97,7 @@
                         </nav>
                     </div>
 
-                    <div class="text-right">
-                        <ul class="pagination" id="step5">
-
-                            @*@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))*@
-
-                        </ul>
-                    </div>
+               
                 </div>
             </form>
 
@@ -106,6 +123,7 @@
                                 <th>Giờ Hẹn</th>
                                 <th>Cập nhật</th>
                                 <th>Trạng Thái</th>
+
                             </tr>
                         </thead>
                         <tbody class="row-table-lich-moi">
@@ -131,8 +149,8 @@
                 url: "/AdminLichHen/Index",
                 dataType: "json",
                 success: function (result) {
-                    console.log(result);
-                    $(".listls-dxn").empty();
+            
+               
                     var html = '';
                     $.each(result.data, function (key, item) {
                         html += '<tr>';
@@ -143,8 +161,11 @@
                         html += '<td>' + $.datepicker.formatDate('dd/mm/yy', new Date(item.NgayHen)) + '</td>';
                         html += '<td>' + item.GioHen + '</td>';
                         html += '<td>' + '<div onclick="SuaTrangThaiBelow(' + item.MaLichHen + ')"><a><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Cập nhật"></i> </a><div/>' + '</td>';
-                        html += '<td><select  class="ttlichhenbelow-' + item.MaLichHen + '"  style="width:100%;height:25px"><option value="1">Chưa xác nhận</option><option value="2">Đã xác nhận</option><option value="3">Hủy</option><option value="4"><a href="" >Đã đến<a></option> </select></td>';
+                        html += '<td><select  class="ttlichhenbelow-' + item.MaLichHen + '"  style="width:100%;height:25px"><option value="2">Đã xác nhận</option><option value="3">Hủy</option></select></td>';
+                        html += '<td><button type="button" onclick="DatDichVuTuLichHen(' + item.MaKH+')"><i class="fas fa-arrow-right"></i>' + '</button></td>';
                     });
+
+                    $('.listls-dxn').html(html);
                     var pagination_string = "";
 
                     var pageCurrent = result.pageCurrent;
@@ -170,7 +191,6 @@
                     $("#load-pagination").html(pagination_string);
 
 
-                    $('.listls-dxn').html(html);
 
                 },
                 error: function (data) {
@@ -265,6 +285,14 @@
             alert("Cập nhật trạng thái đơn đặt hàng thành công");
         }
 
+        function DatDichVuTuLichHen(MaKhachHang) {
+
+            window.location.href ="/AdminDonSanPham/ThemDonDatDichVu?MaKhachHang=" + MaKhachHang;
+
+
+
+
+        }
 
 
 
@@ -291,13 +319,10 @@
                         html += '<td>' + item.GioHen + '</td>';
                         html += '<td>' + '<div onclick="SuaTrangThaiBelow(' + item.MaLichHen + ')"><a><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Cập nhật"></i> </a><div/>' + '</td>';
                         html += '<td><select  class="ttlichhenbelow-' + item.MaLichHen + '"  style="width:100%;height:25px"><option value="1">Chưa xác nhận</option><option value="2">Đã xác nhận</option><option value="3">Hủy</option> </select></td>';
-                        html += '<td>' + + '</td>';
+                  
                     });
                     html += '<tr/>';
                     $('.row-table-lich-moi').html(html);
-
-
-
                 },
                 error: function (data) {
 
