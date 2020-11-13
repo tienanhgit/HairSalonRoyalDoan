@@ -174,6 +174,8 @@ namespace HairSalonRoyalDoan.Controllers.User
                     donDatHang.MaKH = Convert.ToInt32(makh);
 
                 }
+                donDatHang.TrangThaiDonSanPham = 1;
+                donDatHang.TrangThaiDonDichVu = 0;
 
                 donDatHang.NgayTao = DateTime.Now;
           

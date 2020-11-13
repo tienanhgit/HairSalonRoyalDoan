@@ -39,6 +39,7 @@
     </style>
 </head>
 <body>
+   
     <div class="clearfix">
         <div id="main">
             <ol class="breadcrumb">
@@ -57,7 +58,7 @@
                         <div class="form-group">
 
                             <label for="usr">Họ Tên Khách Hàng</label>
-                            <input type="text" name="hotennguoinhan" class="form-control hotennguoinhan" id="usr">
+                            <input type="text" name="hotennguoinhan" value="@if (ViewBag.KhachHang != null) { @ViewBag.KhachHang.HoTenKH}" class="form-control hotennguoinhan" id="usr">
                         </div>
                       
                         <div class="form-group">
@@ -76,14 +77,16 @@
                         <div class="form-group">
 
                             <label for="usr">Số điện thoại khách hàng</label>
-                            <input type="text" class="form-control sodienthoaigiaohang" id="usr">
-                        </div>
-                        <div class="form-group">
+                            <input type="text" value="@if (ViewBag.KhachHang != null) { @ViewBag.KhachHang.SDTKH} " class="form-control sodienthoaigiaohang" id="usr">
+</div>
+
+
+<div class="form-group">
                             <label for="pwd">Trạng thái</label>
                             <br />
                             <select class="trangthai" style="width:200px;height:25px">
-                                <option value="1">Xác nhận</option>
-                                <option value="3">Hoàn Thành</option>
+                                <option value="2">Xác nhận</option>
+                                <option value="4">Hoàn Thành</option>
 
                             </select>
 
@@ -154,27 +157,28 @@
 
         function ThemHoaDon() {
 
-                             var HoTenNguoiNhan = $(".hotennguoinhan").val();
-                             var SoDienThoaiNguoiNhan = $(".sodienthoaigiaohang").val();            
-                            var HinhThucThanhToan = $(".hinhthucthanhtoan option:selected").val();
-                            var TrangThai = $(".trangthai option:selected").val();
-                           
-            var cartList = [];
+                                var HoTenNguoiNhan = $(".hotennguoinhan").val();
+                                var SoDienThoaiNguoiNhan = $(".sodienthoaigiaohang").val();
+                                var HinhThucThanhToan = $(".hinhthucthanhtoan option:selected").val();
+                                var TrangThai = $(".trangthai option:selected").val();
 
-            var listProduct = $(".txtquantity");
+                                var cartList = [];
+
+                                var listProduct = $(".txtquantity");
 
                             $.each(listProduct, function (i, item) {
 
-                                cartList.push(
+                                    cartList.push(
                                     {
-                                        dichvu: {
-                                            MaDV: $(item).data('id')
-                                       
-                                        }                       
+                                    dichvu: {
+                                        MaDV: $(item).data('id')
+
+
+                                        }
 
                                     });
 
-                            });
+                                });
 
                             $.ajax({
                                 type: 'POST',
@@ -183,14 +187,14 @@
                                 data: "{ 'HoTenNguoiNhan':'" + HoTenNguoiNhan + "','SoDienThoaiNguoiNhan':'" + SoDienThoaiNguoiNhan + "','HinhThucThanhToan':'" + HinhThucThanhToan + "','TrangThai':'" + TrangThai + "','cartModel':" + JSON.stringify(cartList) + " }",
                                 dataType: "json",
                                 success: function (result) {
-                                    alert("Thêm thành công !");
+                                        alert("Thêm thành công !");
 
-                                },
+                                    },
                                 error: function (data) {
-                                    alert("Hãy nhập đầy đủ thông tin !");
-                                }
-                            });
-        }
+                                        alert("Hãy nhập đầy đủ thông tin !");
+                                    }
+                                });
+                            }
 
         //auto load mã
 
@@ -199,62 +203,58 @@
                             $("#TenSanPham").autocomplete({
                                 source: function (request, response) {
                                     $.ajax({
-                                        url: "/AdminDonSanPham/ThemDonDatDichVu",
+                                        url: "/AdminDonSanPham/ThemDonDatDichVuP",
                                         type: "POST",
                                         dataType: "json",
                                         data: { Prefix: request.term },
                                         success: function (data) {
-                                            response($.map(data, function (item) {
-                                                return { label: item.TenDichVu, value: item.MaDV };
+                                                response($.map(data, function (item) {
+                                                    return { label: item.TenDichVu, value: item.MaDV };
 
-                                            }))
+                                                }))
 
                                         }
-                                    })
+                                        })
                                 },
                                 messages: {
                                     noResults: "", results: ""
                                 }
-                            });
+                                });
 
-                        });
+                            });
 
         function removeItem(MaDV) {
 
             $(".sp_" + MaDV).remove();
 
 
-        }
-
+                            }
         // click trên list
-
         $(".ThemSanPhamDH").click(function () {
-
-
-            var MaDV = $("#TenSanPham").val();
+                                var MaDV = $("#TenSanPham").val();
             $.ajax({
-                type: 'POST',
+                                type: 'POST',
                 contentType: 'application/json; charset=utf-8',
                 url: '/AdminDonSanPham/ThemDichVu',
                 data: "{ 'MaDV':' " + MaDV + "' }",
                 dataType: "json",
                 success: function (result) {
-                    let html = '';
-                    html += '<tr class=sp_' + result.MaDV + '>';
-                    html += '<td>' + result.MaDV + '</td>';  
-                    html += '<td>' + result.TenDichVu + '</td>';       
-                    html += '<td>' + result.Gia + '</td>';
-                    html += '<td>' + '<input type="number" min="1" disabled  class="txtquantity" data-id="' + result.MaDV + '"value="1"/>' + '</td>';
-                    html += '<td><button class="btn btn-sm btn-danger" id="removeItemCart_' + result.MaDV + '"onclick="removeItem('+result.MaDV+')"><i class="fa fa-trash"></td> <tr/>';
+                                        let html = '';
+                                        html += '<tr class=sp_' + result.MaDV + '>';
+                                        html += '<td>' + result.MaDV + '</td>';
+                                        html += '<td>' + result.TenDichVu + '</td>';
+                                        html += '<td>' + result.Gia + '</td>';
+                                        html += '<td>' + '<input type="number" min="1" disabled  class="txtquantity" data-id="' + result.MaDV + '"value="1"/>' + '</td>';
+                                        html += '<td><button class="btn btn-sm btn-danger" id="removeItemCart_' + result.MaDV + '"onclick="removeItem('+result.MaDV+')"><i class="fa fa-trash"></td> <tr/>';
                     $('.lsspdh').append(html);
 
-                },
+                                    },
                 error: function (data) {
 
-                    alert("Thêm sản phẩm thất bại , hãy nhập đúng mã !");
-                }
-            });
-        });
+                                        alert("Thêm sản phẩm thất bại , hãy nhập đúng mã !");
+                                    }
+                                });
+                            });
 
 
 

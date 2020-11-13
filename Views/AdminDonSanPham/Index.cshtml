@@ -1,7 +1,7 @@
 ﻿@using PagedList.Mvc
 @model PagedList.IPagedList<HairSalonRoyalDoan.Repository.DonDatHang>
 @{
-   
+
     Layout = "~/Views/Shared/_AdminHome.cshtml";
 
 }
@@ -142,7 +142,7 @@
                     <th>Tên dịch vụ</th>
                     <th>Giá</th>
                     <th>Số lượng</th>
-                    
+
 
                 </tr>
 
@@ -194,16 +194,16 @@
                             @foreach (var itemddh in Model)
                             {
                                 <tr>
-                                    <td class="hidden-xs">@itemddh.MaDonDatHang</td>
-                                    <td class="hidden-xs"><a onclick="opendialog(@itemddh.MaDonDatHang,@itemddh.TrangThaiDonDichVu,@itemddh.TrangThaiDonSanPham)">@itemddh.HoTenNguoiNhan  </a></td>
-                                    <td class="hidden-xs" style="text-align:center">
+                                    <td>@itemddh.MaDonDatHang</td>
+                                    <td><a onclick="opendialog(@itemddh.MaDonDatHang,@itemddh.TrangThaiDonDichVu,@itemddh.TrangThaiDonSanPham)">@itemddh.HoTenNguoiNhan  </a></td>
+                                    <td style="text-align:center">
                                         @String.Format("{0:dd/MM/yyyy}", itemddh.NgayTao)
                                     </td>
-                                    <td class="hidden-sm hidden-xs" style="text-align:center">
+                                    <td style="text-align:center">
                                         @itemddh.SoDTGiaoHang
                                         <input type="hidden" id="tongtien_@itemddh.MaDonDatHang" value="@itemddh.TongTien" />
                                     </td>
-                                    <td class="hidden-xs" style="text-align:center">
+                                    <td style="text-align:center">
                                         @{
                                             if (itemddh.TrangThaiDonDichVu != 0)
                                             {
@@ -216,9 +216,9 @@
 
                                         }
                                     </td>
-                                    <td class="hidden-sm hidden-xs">
+                                    <td>
                                         @itemddh.HinhThucThanhToan
-                                        <input type="hidden" value="@itemddh.DiaChiNhanHang" id="diachinhanhang" />
+                                        <input type="hidden" value="@itemddh.DiaChiNhanHang" id="diachinhanhang_@itemddh.MaDonDatHang" />
                                     </td>
                                     <td>
                                         <div onclick="SuaTrangThai(@itemddh.MaDonDatHang)"><a><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Sửa sản phẩm"></i> </a>  </div>
@@ -332,11 +332,11 @@
 
 
 
-        function opendialog(MaDonDatHang,TrangThaiDonDichVu,TrangThaiDonSanPham) {
+        function opendialog(MaDonDatHang, TrangThaiDonDichVu, TrangThaiDonSanPham) {
 
             if (TrangThaiDonSanPham != 0) {
 
-                var diachinh = $("#diachinhanhang").val();
+                var diachinh = $("#diachinhanhang_" + MaDonDatHang).val();
                 var tongtien = $("#tongtien_" + MaDonDatHang).val();
                 $.ajax({
                     type: 'POST',
@@ -391,17 +391,17 @@
                         $.each(result, function (key, item) {
 
                             html += '<tr>';
-                            html += '<td>'+item.MaDV + '</td>';
+                            html += '<td>' + item.MaDV + '</td>';
                             html += '<td>' + item.TenDichVu + '</td>';
                             html += '<td>' + item.Gia + '</td>';
-                            html += '<td>' +1 + '</td>';
-                          
+                            html += '<td>' + 1 + '</td>';
+
                         });
 
 
 
                         html += '<tr><td>Tổng tiền :' + tongtien + '<td/><tr/>';
-               
+
                         $('.chitietdvbd').html(html);
 
 

@@ -6,7 +6,6 @@ use HairSalonRoyalDoan
 
 
 
-
 /*chuan*/
 create table NhanVien
 (
@@ -248,18 +247,42 @@ foreign key (MaDV)
 references DichVu(MaDV)
 
 
-
+go
 /*Reset identity*/
 --DBCC CHECKIDENT ('SanPham', RESEED, 0)
+create proc TimKiemTheoNgay
+@NgayDat datetime
+as 
+begin
+select * 
+from LichHen
+
+end
+
+
+
 
 /*Bang Lich Hen*/
+
 go
+create proc Proc_LichHen_UpdateTT
+@MaLichHen int='',
+@TrangThai int=''
+as
+begin
+update LichHen
+set TrangThai=@TrangThai
+where MaLichHen=@MaLichHen
+end
+go
+
+
 create Proc Proc_LichHen_Insert
 @MaKH int=null,
 @MaNV int=null,
 @NgayHen date=null,
 @GioHen time =null,
-@TrangThai int =0
+@TrangThai int =''
 											
 AS BEGIN 
 	INSERT INTO LichHen
@@ -280,17 +303,18 @@ AS BEGIN
 END;
 Go
 
-
+-- Trang Thai 1 :Chưa xác nhận , trạng thái 2 : đã xác nhận, trạng thái 3 : hủy, trạng thái 4 :Đã đến
 create Proc Proc_LichHen_Update 
 @MaLichHen int=null,
 @MaKH int=null,
 @MaNV int=null,
 @NgayHen date=null,
 @GioHen time =null,
-@TrangThai int =0
+@TrangThai int =1
 										
 AS BEGIN 
-	UPDATE LichHen SET		MaKH=@MaKH,
+	UPDATE LichHen SET		
+	MaKH=@MaKH,
 	MaNV=@MaNV,
 	NgayHen=@NgayHen,
 	GioHen=@GioHen,
@@ -301,19 +325,34 @@ END
 
 GO
 
+go
+
+
+
+create  proc proc_LichHen_get_all
+as
+begin
+
+select MaLichHen,LichHen.MaKH,LichHen.MaNV,NgayHen,GioHen,TrangThai,HoTenKH,HoTenNV,SoDTKH from LichHen join KhachHang on LichHen.MaKh=KhachHang.MaKH 
+join NhanVien on LichHen.MaNV=NhanVien.MaNV  where TrangThai=2 and YEAR(NgayHen)=YEAR(GETDATE()) and MONTH(NgayHen)=MONTH(GETDATE()) and DAY(NgayHen)>=Day(GetDate())
+ 
+end
+
+go
+
 create Procedure Proc_LichHen_GetData 
 							@MaLichHen INT = '',
 							@MaKH INT='',
 							@MaNV int='',  
-							@NgayHen Date = '',
-							@GioHen Time='',
+							@NgayHen DateTime = '',
+							@GioHen Datetime='',
 							@TrangThai int=''
-						
-							
-AS BEGIN
+										
+	AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
-	SET @Query = 'Select * from LichHen where (1=1)'
+	SET @Query = 'select MaLichHen,LichHen.MaKH,LichHen.MaNV,NgayHen,GioHen,TrangThai,HoTenKH,HoTenNV,SoDTKH from LichHen join KhachHang on LichHen.MaKh=KhachHang.MaKH 
+	join NhanVien on LichHen.MaNV=NhanVien.MaNV  where (1=1) and YEAR(NgayHen)=YEAR(GETDATE()) and MONTH(NgayHen)=MONTH(GETDATE()) and DAY(NgayHen)>=Day(GetDate())'
 	IF(@MaLichHen !='')
 	begin
 		SET @Query += ' AND (MaLichHen = @MaLichHen) '
@@ -339,16 +378,16 @@ AS BEGIN
 	end
 		IF (@TrangThai != '')
 	begin
-		SET @Query += ' AND (TrangThai=@TrangThai) '
+		SET @Query += ' AND (TrangThai=@TrangThai) Order by NgayHen '
 	
 	end
 	
 	SET @ParamList =		' @MaLichHen INT,
 							@MaKH INT,
 							@MaNV int,  
-							@NgayHen Date ,
-							@GioHen Time=,
-							@TrangThai int=
+							@NgayHen DateTime ,
+							@GioHen DateTime,
+							@TrangThai int
 							 '
 	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaLichHen,@MaKH,@MaNV,@NgayHen,@GioHen,@TrangThai
 END
@@ -1041,7 +1080,7 @@ END
 
 go
 
-
+select * from KhachHang
 create proc Proc_KhachHang_GetData
 @MaKH int='',
 @HoTenKH int='',
@@ -1088,6 +1127,8 @@ go
 
 
 /*Bang Đơn đặt hàng*/
+-- Trạng thái đơn đặt hàng :Trạng thái 1 :Chờ xác nhận, trạng thái 2 :Đã xác nhận, trạng thái 3: đang giao hàng
+--Trạng thái 4: Hoàn thành, trạng thái 5 : Hủy
 create proc Proc_DonDatHang_UpdateTT
 @MaDonDatHang int='',
 @TrangThaiDonSanPham int=0,
