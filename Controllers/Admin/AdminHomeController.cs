@@ -103,26 +103,124 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         {
             return View();
         }
-        public ActionResult ThuongHieu()
+   
+        //Danh muc
+        public ActionResult DanhMuc (int page = 1, int pagesize = 9)
         {
+            List<DanhMuc> lisdm  = new DanhMucModel().GetData();
+
+
+            //if (Session["ADMIN_SESSION"] != null)
+            //{
+                return View(lisdm.ToPagedList(page, pagesize));
+
+
+            //}
+            //else
+            //{
+            //    return Redirect("/NhanVien/DangNhap");
+
+
+            //}
+
+        }
+        [HttpGet]
+        public ActionResult ThemDanhMuc()
+        {
+         
             return View();
         }
-        public ActionResult DanhMuc ()
+        [HttpPost]
+        public ActionResult ThemDanhMuc(DanhMuc std)
         {
-            return View();
-       
+            std.NgayTao = DateTime.Now;
+           string a = new DanhMucModel().ThemDanhMuc(std);
+            string message = "Thêm danh mục oke";
+            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+
+
         }
-
-
-
-
-
+        [HttpGet]
+        public ActionResult SuaDanhMuc(string MaDanhMuc)
+        {
+            DanhMucModel danhMucModel = new DanhMucModel();
+            DanhMuc danhMuc=danhMucModel.GetDanhMucByMa(Convert.ToInt32(MaDanhMuc));
+            ViewBag.DanhMuc = danhMuc;    
+            return View();
         
+        }
+        [HttpPost]
+        public ActionResult SuaDanhMuc(DanhMuc std)
+        {
+            std.NgaySua = DateTime.Now;
+            string a = new DanhMucModel().CapNhatDanhMuc(std);
+            string message = "";
+            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+        }
+
+
+        //Thương hiệu
+        public ActionResult ThuongHieu(int page = 1, int pagesize = 9)
+        {
+            List<ThuongHieu> lstt = new ThuongHieuModel().GetData();
+
+
+            //if (Session["ADMIN_SESSION"] != null)
+            //{
+            return View(lstt.ToPagedList(page, pagesize));
+
+
+            //}
+            //else
+            //{
+            //    return Redirect("/NhanVien/DangNhap");
+
+
+            //}
+
+        }
+        [HttpGet]
+        public ActionResult ThemThuongHieu()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ThemThuongHieu(ThuongHieu std)
+        {
+            std.NgayTao = DateTime.Now;
+            string a = new ThuongHieuModel().ThemThuongHieu(std);
+            string message = "Thêm danh mục oke";
+            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+
+
+        }
+        [HttpGet]
+        public ActionResult SuaThuongHieu(string MaThuongHieu)
+        {
+            ThuongHieuModel thuongHieuModel = new ThuongHieuModel();
+            ThuongHieu thuongHieu = thuongHieuModel.GetThuongHieuByMa(Convert.ToInt32(MaThuongHieu));
+            ViewBag.ThuongHieu = thuongHieu;
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult SuaThuongHieu(ThuongHieu std)
+        {
+            std.NgaySua = DateTime.Now;
+            string a = new ThuongHieuModel().CapNhatThuongHieu(std);
+            string message = "";
+            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+        }
 
 
 
 
-       
+
+
+
+
+
 
     }
 }

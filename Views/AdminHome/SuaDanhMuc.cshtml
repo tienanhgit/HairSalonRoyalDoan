@@ -1,0 +1,121 @@
+﻿
+
+
+@{
+
+    ViewBag.Title = "Them San Pham";
+    Layout = "~/Views/Shared/_AdminHome.cshtml";
+
+
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <base href=".">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sửa danh mục</title>
+
+
+
+</head>
+<body>
+    <div class="clearfix">
+        <div id="main">
+            <ol class="breadcrumb">
+                <li><a href="/AdminHome"><i class="fa fa-home"></i> Trang quản trị</a></li>
+                <li class="active"><a href="/AdminHome/DanhMuc">Danh mục</a></li>
+                <li class="active"><a href="/AdminHome/SuaDanhMuc">Sửa danh mục</a></li>
+            </ol>
+            <div class="col-xs-12">
+                <form id="admin-form" class="form-horizontal col-xl-9 col-lg-10 col-md-12 col-sm-12" enctype="multipart/form-data" role="form">
+
+
+                    <div class="form-group">
+                        <label for="type_product" class="col-sm-3 control-label required">DanhMuc</label>
+                        <div class="col-sm-9">
+                        
+                            <select name="type_trangthaihienthi" id="TrangThaiHienThi" class="form-control">
+                                <option value="" disabled>Chọn trạng thái hiển thị</option>
+                                @if (ViewBag.DanhMuc.TrangThaiHienThi == 1)
+                                {
+
+                                    <option value="1" selected>Hiển thị</option>
+                                    <option value="0">Ẩn</option>
+                                }
+                                else
+                                {
+                                    <option value="1">Hiển thị</option>
+                                    <option value="0" selected>Ẩn</option>
+                                }
+
+
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Tên danh mục</label>
+                        <div class="col-sm-9">
+                            <input id="TenDanhMuc" type="text" value="@ViewBag.Danhmuc.TenDanhMuc" class="form-control" placeholder="Tên danh mục " required="" maxlength="100">
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="button" id="btnAdd"  onclick="SuaDanhMuc(@ViewBag.DanhMuc.MaDanhMuc)" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Sửa</button>
+
+                            <a class="btn btn-warning" href="#"><small><i class="fa fa-reply"></i></small> Trở về</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--END #main-->
+    </div>
+
+
+    <script type="text/javascript">
+        function SuaDanhMuc(MaDanhMuc) {
+
+            var std = {};
+            std.MaDanhMuc = MaDanhMuc
+                std.TrangThaiHienThi = $("#TrangThaiHienThi option:selected").val();
+            std.TenDanhMuc = $("#TenDanhMuc").val();
+            $.ajax({
+                type: "POST",
+                url: "/AdminHome/SuaDanhMuc",
+                data: '{std: ' + JSON.stringify(std) + '}',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                    alert("Sửa danh mục thành công");
+                },
+                error: function () {
+                    alert("Sửa danh mục thất bại");
+                }
+            });
+
+     
+
+
+        }
+
+  
+          
+
+
+
+    </script>
+
+
+
+
+</body>
+</html>

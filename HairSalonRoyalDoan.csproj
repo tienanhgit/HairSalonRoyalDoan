@@ -1284,6 +1284,12 @@
     <Content Include="Views\AdminLichHen\Index.cshtml" />
     <Content Include="Views\AdminDonSanPham\ThemHoaDon.cshtml" />
     <Content Include="Views\AdminDonSanPham\ThemDonDatDichVu.cshtml" />
+    <Content Include="Views\AdminHome\DanhMuc.cshtml" />
+    <Content Include="Views\AdminHome\ThemDanhMuc.cshtml" />
+    <Content Include="Views\AdminHome\SuaDanhMuc.cshtml" />
+    <Content Include="Views\AdminHome\ThuongHieu.cshtml" />
+    <Content Include="Views\AdminHome\ThemThuongHieu.cshtml" />
+    <Content Include="Views\AdminHome\SuaThuongHieu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

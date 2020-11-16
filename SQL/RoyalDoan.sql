@@ -881,7 +881,8 @@ go
 
 create proc Proc_ThuongHieu_GetData						
 @MaThuongHieu INT = '',						
-@TenThuongHieu nvarchar(50)=''									
+@TenThuongHieu nvarchar(50)='',
+@TrangThaiHienThi int								
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
@@ -905,15 +906,19 @@ END
 
 go
 
-create Proc Proc_ThuongHieu_Insert @TenThuongHieu nvarchar(255),
+create Proc Proc_ThuongHieu_Insert
+ @TenThuongHieu nvarchar(255),
+ @TrangThaiHienThi int ,
 @NgayTao datetime
 						
 AS BEGIN 
 	INSERT INTO ThuongHieu
 	        (				TenThuongHieu,
+			TrangThaiHienThi,
 							 NgayTao
 	        )
 	VALUES  (					@TenThuongHieu,
+							@TrangThaiHienThi,
 									@NgayTao
 	        )
 END;
@@ -924,10 +929,13 @@ Go
 create Proc Proc_ThuongHieu_Update 
 @MaThuongHieu int,
 @TenThuongHieu nvarchar(255),
+@TrangThaiHienThi int,
 @NgaySua datetime						
 AS BEGIN 
 
-	UPDATE ThuongHieu SET TenThuongHieu=@TenThuongHieu,
+	UPDATE ThuongHieu SET 
+	TenThuongHieu=@TenThuongHieu,
+	TrangThaiHienThi=@TrangThaiHienThi,
 	NgaySua=@NgaySua		
 							
 	WHERE MaThuongHieu = @MaThuongHieu
@@ -935,10 +943,14 @@ END
 GO
 /*End*/
 
+
 /*Bang danh muc*/
-create proc Proc_DanhMuc_GetData
+alter proc Proc_DanhMuc_GetData
 							@MaDanhMuc INT = '',
-							@TenDanhMuc nvarchar(50)=''
+							@TenDanhMuc nvarchar(50)='',
+							@TrangThaiHienThi int=0 ,
+							@NgayTao datetime ='',
+							@NgaySua datetime= ''
 						
 						
 							
@@ -964,7 +976,41 @@ AS BEGIN
 END
 
 go
+create Proc Proc_DanhMuc_Insert
+ @TenDanhMuc nvarchar(255),
+ @TrangThaiHienThi int=0,
+@NgayTao datetime
+						
+AS BEGIN 
+	INSERT INTO DanhMuc
+	        (				TenDanhMuc,
+			TrangThaiHienThi,
+							 NgayTao
+	        )
+	VALUES  (					@TenDanhMuc,
+	@TrangThaiHienThi,
+									@NgayTao
+	        )
+END;
 
+
+Go
+
+create Proc Proc_DanhMuc_Update 
+@MaDanhMuc int,
+@TenDanhMuc nvarchar(255),
+@TrangThaiHienThi int,
+@NgaySua datetime						
+AS BEGIN 
+
+	UPDATE DanhMuc SET
+	 TenDanhMuc=@TenDanhMuc,
+	 TrangThaiHienThi=@TrangThaiHienThi,
+		NgaySua=@NgaySua		
+							
+	WHERE MaDanhMuc=@MaDanhMuc
+END
+GO
 /*End*/
 
 

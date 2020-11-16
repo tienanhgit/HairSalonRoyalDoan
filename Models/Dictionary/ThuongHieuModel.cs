@@ -23,7 +23,8 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                     {
                         ThuongHieu thuongHieu = new ThuongHieu();
                         thuongHieu.MaThuongHieu = String.IsNullOrEmpty(row["MaThuongHieu"].ToString()) ? 0 : int.Parse(row["MaThuongHieu"].ToString());           
-                     thuongHieu.TenThuongHieu = String.IsNullOrEmpty(row["TenThuongHieu"].ToString()) ? "" : row["TenThuongHieu"].ToString();
+                        thuongHieu.TenThuongHieu = String.IsNullOrEmpty(row["TenThuongHieu"].ToString()) ? "" : row["TenThuongHieu"].ToString();
+                          thuongHieu.TrangThaiHienThi= String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
                         thuongHieu.NgaySua= String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"].ToString());
                         thuongHieu.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"].ToString());
                         dsThuongHieu.Add(thuongHieu);
@@ -49,6 +50,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                     var row = dt.Rows[0];
                     thuongHieu.MaThuongHieu = String.IsNullOrEmpty(row["MaThuongHieu"].ToString()) ? 0 : int.Parse(row["MaThuongHieu"].ToString());
                     thuongHieu.TenThuongHieu = String.IsNullOrEmpty(row["TenThuongHieu"].ToString()) ? "" : row["TenThuongHieu"].ToString();
+                    thuongHieu.TrangThaiHienThi = String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
                     thuongHieu.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"].ToString());
                     thuongHieu.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"].ToString());
 
@@ -67,11 +69,13 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             try
             {
                 string rs = "";
-                rs = dataProvider.ExecuteScalar("Proc_ThuongHieu_Insert", new object[] {thuongHieu.TenThuongHieu,thuongHieu.NgayTao },
+                rs = dataProvider.ExecuteScalar("Proc_ThuongHieu_Insert", new object[] {thuongHieu.TenThuongHieu,thuongHieu.NgayTao,thuongHieu.TrangThaiHienThi },
                   new List<string>() { 
               "@TenThuongHieu" ,
              
-              "@NgayTao" });
+              "@NgayTao",
+                  "@TrangThaiHienThi"
+                  });
                 return rs;
             }
             catch (Exception ex)
@@ -85,10 +89,12 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             try
             {
 
-                int kq = dataProvider.ExecuteNonQuery("Proc_ThuongHieu_Update", new object[] { thuongHieu.TenThuongHieu,thuongHieu.NgaySua,thuongHieu.MaThuongHieu},
+                int kq = dataProvider.ExecuteNonQuery("Proc_ThuongHieu_Update", new object[] { thuongHieu.TenThuongHieu,thuongHieu.NgaySua,thuongHieu.MaThuongHieu,thuongHieu.TrangThaiHienThi},
                   new List<string>() {"@TenThuongHieu" ,
               "@NgaySua" ,
-              "@MaThuongHieu"});
+              "@MaThuongHieu",
+                  "@TrangThaiHienThi"
+                  });
                 return kq.ToString();
             }
             catch (Exception ex)
