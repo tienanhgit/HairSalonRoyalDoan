@@ -6,6 +6,8 @@ use HairSalonRoyalDoan
 
 
 
+
+
 /*chuan*/
 create table NhanVien
 (
@@ -1080,7 +1082,6 @@ END
 
 go
 
-select * from KhachHang
 create proc Proc_KhachHang_GetData
 @MaKH int='',
 @HoTenKH int='',
