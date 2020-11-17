@@ -137,18 +137,18 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             }
         }
 
-        public string CapNhatDichVu(LichHen lichHen)
+        public string CapNhatLichHen(LichHen lichHen)
         {
             try
             {
 
-                int kq = dataProvider.ExecuteNonQuery("Proc_LichHen_Update", new object[] { lichHen.MaKH, lichHen.MaNV, lichHen.NgayHen, lichHen.GioHen, lichHen.TrangThai },
+                int kq = dataProvider.ExecuteNonQuery("Proc_LichHen_Update", new object[] {lichHen.MaLichHen, lichHen.MaNV, lichHen.NgayHen, lichHen.GioHen},
                   new List<string>() {
-                          "@MaKH",
+                      "@MaLichHen",
                       "@MaNV",
                       "@NgayHen",
-                      "@GioHen",
-                      "@TrangThai"
+                      "@GioHen"
+                    
                   });
                 return kq.ToString();
             }

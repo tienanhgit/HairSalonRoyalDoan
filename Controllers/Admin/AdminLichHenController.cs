@@ -76,6 +76,29 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             });
         }
 
+        [HttpPost]
+        public JsonResult SuaLichHen(string NgayCat, string GioHen, string MaLichHen, string MaNV)
+        {
+            if (NgayCat != null && GioHen != null && MaNV != null)
+            {
+             
+                LichHen lichHen = new LichHen();
+                LichHenModel lichHenModel = new LichHenModel(); 
+                lichHen.NgayHen = NgayCat;
+                lichHen.GioHen = GioHen;
+                lichHen.MaLichHen = Convert.ToInt32(MaLichHen);
+                lichHen.MaNV = Convert.ToInt32(MaNV);            
+                lichHenModel.CapNhatLichHen(lichHen);
+            }
+
+            return Json(new
+            {
+                status = true
+            });
+
+        }
+
+
 
 
 

@@ -279,14 +279,19 @@ end
 go
 
 
+
 create Proc Proc_LichHen_Insert
 @MaKH int=null,
 @MaNV int=null,
 @NgayHen date=null,
 @GioHen time =null,
-@TrangThai int =''
-											
+@TrangThai int =''										
 AS BEGIN 
+if(@MaNV=0 or @MaNV='')
+begin
+select @MaNV=null
+end
+
 	INSERT INTO LichHen
 	        ( 
 			MaKH,
@@ -306,22 +311,22 @@ END;
 Go
 
 -- Trang Thai 1 :Chưa xác nhận , trạng thái 2 : đã xác nhận, trạng thái 3 : hủy, trạng thái 4 :Đã đến
+exec Proc_LichHen_Update 1,
 create Proc Proc_LichHen_Update 
 @MaLichHen int=null,
-@MaKH int=null,
 @MaNV int=null,
 @NgayHen date=null,
-@GioHen time =null,
-@TrangThai int =1
-										
+@GioHen time =null								
 AS BEGIN 
+if(@MaNV=0 or @MaNV='')
+begin
+select @MaNV=null
+end
+
 	UPDATE LichHen SET		
-	MaKH=@MaKH,
 	MaNV=@MaNV,
 	NgayHen=@NgayHen,
-	GioHen=@GioHen,
-	TrangThai=@TrangThai
-							
+	GioHen=@GioHen					
 	WHERE MaLichHen=@MaLichHen
 END
 
@@ -341,8 +346,9 @@ join NhanVien on LichHen.MaNV=NhanVien.MaNV  where TrangThai=2 and YEAR(NgayHen)
 end
 
 go
-
-create Procedure Proc_LichHen_GetData 
+select *from LichHen
+exec Proc_LichHen_GetData
+alter  Procedure Proc_LichHen_GetData 
 							@MaLichHen INT = '',
 							@MaKH INT='',
 							@MaNV int='',  
@@ -353,8 +359,10 @@ create Procedure Proc_LichHen_GetData
 	AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
-	SET @Query = 'select MaLichHen,LichHen.MaKH,LichHen.MaNV,NgayHen,GioHen,TrangThai,HoTenKH,HoTenNV,SoDTKH from LichHen join KhachHang on LichHen.MaKh=KhachHang.MaKH 
-	join NhanVien on LichHen.MaNV=NhanVien.MaNV  where (1=1) and YEAR(NgayHen)=YEAR(GETDATE()) and MONTH(NgayHen)=MONTH(GETDATE()) and DAY(NgayHen)>=Day(GetDate())'
+	SET @Query = 'select MaLichHen,LichHen.MaKH,LichHen.MaNV,NgayHen,GioHen,TrangThai,HoTenKH,HoTenNV,SoDTKH from LichHen left join KhachHang on LichHen.MaKh=KhachHang.MaKH 
+	left join NhanVien on LichHen.MaNV=NhanVien.MaNV  where (1=1) and YEAR(NgayHen)=YEAR(GETDATE()) and MONTH(NgayHen)=MONTH(GETDATE()) and DAY(NgayHen)>=Day(GetDate())'
+
+
 	IF(@MaLichHen !='')
 	begin
 		SET @Query += ' AND (MaLichHen = @MaLichHen) '

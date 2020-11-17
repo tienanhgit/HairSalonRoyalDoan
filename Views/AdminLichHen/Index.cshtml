@@ -1,6 +1,18 @@
-﻿
+﻿@using HairSalonRoyalDoan.Models.Dictionary
+
+
+
+
+
+
+
 @{
     Layout = "~/Views/Shared/_AdminHome.cshtml";
+    ViewBag.Title = "_UserHome";
+
+    DichVuModel dichVuModel = new DichVuModel();
+    DonDatHangModel donDatHangModel = new DonDatHangModel();
+    NhanVienModel nhanVienModel = new NhanVienModel();
 
 }
 
@@ -12,35 +24,107 @@
     <title>Index</title>
     <link href="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
     <style>
-        .table-lich-hen-sum{
-            min-height:500px;
-
-
-        }
-        .table-lich-hen-dang-den{
-            max-height:400px;
-            overflow:auto;
+        .table-lich-hen-sum {
+            min-height: 500px;
         }
 
-
+        .table-lich-hen-dang-den {
+            max-height: 400px;
+            overflow: auto;
+        }
     </style>
 
 
 </head>
 <body>
+    @*Day la dialog*@
+    <div class="dialog-lichhen" title="Đặt lịch hẹn">
+        <div class="clear-fix">
+
+            <div class="form-group">
+                <label class="col-sm-3">Ngày cắt</label>
+                <div class="col-sm-9">
+                    <select name="ngayhen" id="ngayhenlich" class="form-control">
+                        <option value="@DateTime.Now">
+                            Hôm nay (@String.Format("{0:dd/MM/yyyy}", DateTime.Now))
+                        </option>
+                        <option value="@DateTime.Now.AddDays(1)">
+                            Ngày mai (@String.Format("{0:dd/MM/yyyy}", DateTime.Now.AddDays(1)))
+                        </option>
+                        <option value="@DateTime.Now.AddDays(2)">
+                            Ngày kia (@String.Format("{0:dd/MM/yyyy}", DateTime.Now.AddDays(2)))
+                        </option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="form-group" >
+                <label class="col-sm-3">Giờ cắt :</label>
+                <div class="col-sm-9">
+                    <select name="giohen" id="giohen" class="form-control">
+                        @{
+                            int i;
+                            for (i = 7; i <= 19; i++)
+                            {
+                                if (i != 11 && i != 12 & i != 13)
+                                {
+                                    <option value="@i:00">
+                                        @i:00
+                                    </option>
+                                    <option value="@i:30">
+                                        @i:30
+                                    </option>
+                                }
+                            }
+                        }
+                    </select>
+                </div>
+
+
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3">Nhân viên:</label>
+                <div class="col-sm-9">
+                    <select name="nhanviencat" id="nhanviencat" class="form-control">
+                        <option value="0">Royal Đoàn chọn cho bạn</option>
+                        @foreach (var itemnv in nhanVienModel.GetData())
+                        {
+                            if (itemnv.MaChucVu == 3)
+                            {
+                                <option value="@itemnv.MaNV">
+                                    @itemnv.HoTenNV
+                                </option>
+
+                            }
+
+
+
+                        }
+                    </select>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9 btnth">
+                   
+
+                </div>
+            </div>
+            <!--END #main-->
+        </div>
+    </div>
+
+
 
     <div id="main">
         <ol class="breadcrumb">
             <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
             <li class="active"><a href="/AdminDonSanPham/Index">Đơn đặt hàng</a></li>
         </ol>
-        <div class="form-group">
-            <!-- Single button -->
-
-            <a href="/AdminDonSanPham/ThemDonDatSanPham" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Thêm mới lịch hẹn</a>
      
-       
-        </div>
         <div class="col-xs-12">
             <h3>Lịch hẹn </h3>
 
@@ -67,7 +151,7 @@
                             <span><input id="SearchString" name="search" type="text" value="" placeholder="Tìm kiếm"></span><button type="button" onclick="Search();"><i class="fa fa-search"></i></button>
 
                         </div>
-                    </div >
+                    </div>
                     <div class="table-lich-hen-sum">
                         <table class="table table-bordered table-hover">
                             <thead>
@@ -88,7 +172,7 @@
                             </tbody>
                         </table>
                     </div>
-              
+
 
                     <div class="card-footer">
                         <nav aria-label="Page navigation example">
@@ -97,7 +181,7 @@
                         </nav>
                     </div>
 
-               
+
                 </div>
             </form>
 
@@ -138,6 +222,55 @@
     <script src="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.js"></script>
 
     <script type="text/javascript">
+        $(document).ready(function () {
+
+            $(".dialog-lichhen").dialog({
+                modal: true,
+                autoOpen: false,
+                width: 600, height: 400,
+                resizable: true,
+            });
+
+        });
+        function SuaLH(MaLichHen) {
+            var NgayCat = $("#ngayhenlich").val();
+            var MaNV = $("#nhanviencat option:selected").val();
+            var GioCat = $("#giohen option:selected").val();
+            $.ajax({
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                url: '/AdminLichHen/SuaLichHen',
+                data: "{ 'NgayCat':'" + NgayCat + "','GioHen':'" + GioCat + "','MaLichHen':'" + MaLichHen + "','MaNV':'" + MaNV + "'}",
+                dataType: "json",
+                success: function (data) {
+                    alert("Sửa lịch hẹn thành công !");
+                },
+                error: function (data) {
+
+                    alert(data);
+                }
+            });
+            loadlichhen();
+            load("", 1);
+        }
+
+        function SuaLichHen(MaLichHen) {
+            $("#ThemLH").remove();
+            $(".dialog-lichhen").dialog("open");
+            $(".btnth").append('<button type="button" onclick="SuaLH('+ MaLichHen+')" id="ThemLH" class="btn btn - submit"><small><i class="fa fa - plus"></i></small> Sửa</button>')
+
+  
+
+
+
+
+        }
+ 
+
+        
+        
+
+
 
 
         function load(txtsearch, page) {
@@ -149,20 +282,20 @@
                 url: "/AdminLichHen/Index",
                 dataType: "json",
                 success: function (result) {
-            
-               
+
+
                     var html = '';
                     $.each(result.data, function (key, item) {
                         html += '<tr>';
                         html += '<td>' + item.MaLichHen + '</td>';
-                        html += '<td>' + item.TenKhachHang + '</td>';
+                        html += '<td><a onclick="SuaLichHen(' + item.MaLichHen + ')">' + item.TenKhachHang + '</a></td>';
                         html += '<td>' + item.TenNhanVien + '</td>';
                         html += '<td>0' + item.SoDTKH + '</td>';
                         html += '<td>' + $.datepicker.formatDate('dd/mm/yy', new Date(item.NgayHen)) + '</td>';
                         html += '<td>' + item.GioHen + '</td>';
                         html += '<td>' + '<div onclick="SuaTrangThaiBelow(' + item.MaLichHen + ')"><a><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Cập nhật"></i> </a><div/>' + '</td>';
                         html += '<td><select  class="ttlichhenbelow-' + item.MaLichHen + '"  style="width:100%;height:25px"><option value="2">Đã xác nhận</option><option value="3">Hủy</option></select></td>';
-                        html += '<td><button type="button" onclick="DatDichVuTuLichHen(' + item.MaKH+')"><i class="fas fa-arrow-right"></i>' + '</button></td>';
+                        html += '<td><button type="button" onclick="DatDichVuTuLichHen(' + item.MaKH + ')"><i class="fas fa-arrow-right"></i>' + '</button></td>';
                     });
 
                     $('.listls-dxn').html(html);
@@ -265,6 +398,9 @@
         }
 
         function SuaTrangThaiBelow(MaLichHen) {
+
+
+
             var TrangThai = $(".ttlichhenbelow-" + MaLichHen + " option:selected").val();
             $.ajax({
                 type: 'POST',
@@ -283,11 +419,14 @@
             loadlichhen();
 
             alert("Cập nhật trạng thái đơn đặt hàng thành công");
+
+            load("", 1);
+
         }
 
         function DatDichVuTuLichHen(MaKhachHang) {
 
-            window.location.href ="/AdminDonSanPham/ThemDonDatDichVu?MaKhachHang=" + MaKhachHang;
+            window.location.href = "/AdminDonSanPham/ThemDonDatDichVu?MaKhachHang=" + MaKhachHang;
 
 
 
@@ -312,14 +451,14 @@
                     $.each(result, function (key, item) {
                         html += '<tr>';
                         html += '<td>' + item.MaLichHen + '</td>';
-                        html += '<td>' + item.TenKhachHang + '</td>';
+                        html += '<td><a onclick="SuaLichHen(' + item.MaLichHen+')">' + item.TenKhachHang + '</a></td>';                  
+                        html += '<td> ' + item.TenNhanVien + '</td>';
                         html += '<td>0' + item.SoDTKH + '</td>';
-                        html += '<td>' + item.TenNhanVien + '</td>';
                         html += '<td>' + $.datepicker.formatDate('dd/mm/yy', new Date(item.NgayHen)) + '</td>';
                         html += '<td>' + item.GioHen + '</td>';
                         html += '<td>' + '<div onclick="SuaTrangThaiBelow(' + item.MaLichHen + ')"><a><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Cập nhật"></i> </a><div/>' + '</td>';
                         html += '<td><select  class="ttlichhenbelow-' + item.MaLichHen + '"  style="width:100%;height:25px"><option value="1">Chưa xác nhận</option><option value="2">Đã xác nhận</option><option value="3">Hủy</option> </select></td>';
-                  
+
                     });
                     html += '<tr/>';
                     $('.row-table-lich-moi').html(html);
@@ -331,7 +470,7 @@
             });
 
 
-
+       
 
         }
 
