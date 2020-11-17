@@ -67,11 +67,9 @@ namespace HairSalonRoyalDoan.Controllers.Admin
                 donDatHang.DiaChiNhanHang = DiaChiGiaoHang;
                 donDatHang.HinhThucThanhToan = HinhThucThanhToan;
                 donDatHang.TrangThaiDonSanPham = Convert.ToInt32(TrangThai);
-                donDatHang.NgayTao = DateTime.Now;
-             
-                  donDatHang.TrangThaiDonDichVu = 0;
+                donDatHang.NgayTao = DateTime.Now; 
+                donDatHang.TrangThaiDonDichVu = 0;
                 string MaDonHang = donDatHangModel.ThemDonDatHang(donDatHang);
-
                 ChiTietDonDatModel chiTietDonDatModel = new ChiTietDonDatModel();
         
           

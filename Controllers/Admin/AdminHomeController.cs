@@ -70,7 +70,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             int MaSanPham = Convert.ToInt32(Request.QueryString["MaSanPham"]);
             int MaDanhMuc = Convert.ToInt32(Request.QueryString["MaDanhMuc"]);
             int MaThuongHieu = Convert.ToInt32(Request.QueryString["MaThuongHieu"]);
-
+      
             ViewBag.MaDanhMuc = MaDanhMuc;
             ViewBag.MaThuongHieu = MaThuongHieu;
 
@@ -99,10 +99,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             string message = "";
             return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
-        public ActionResult Banner()
-        {
-            return View();
-        }
+
    
         //Danh muc
         public ActionResult DanhMuc (int page = 1, int pagesize = 9)
@@ -213,7 +210,66 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             return Json(new { Message = message, JsonRequestBehavior.AllowGet });
         }
 
+        //Dich Vu
 
+        public ActionResult DichVu(int page = 1, int pagesize =9)
+        {
+            List<DichVu> lsdv = new DichVuModel().GetDataByTrangThai(2);//get all
+
+
+            return View(lsdv.ToPagedList(page,pagesize));
+        }
+
+        public JsonResult UpdateTrangThaiDichVu(string MaDV, string TrangThaiDichVu)
+        {
+            if (MaDV != null && TrangThaiDichVu != null)
+            {
+                string a = new DichVuModel().CapNhatDichVu(MaDV, Convert.ToInt32(TrangThaiDichVu), DateTime.Now);
+            }
+
+            return Json(new
+            {
+                status = true
+            });
+        }
+
+        public ActionResult ThemDichVu()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public JsonResult ThemDichVu(DichVu std)
+        {
+            std.NgayTao = DateTime.Now;
+            DichVu dv = new DichVu();
+            string a = new DichVuModel().ThemDichVu(std);
+        
+            return Json(new { Message = std, JsonRequestBehavior.AllowGet });
+
+        }
+        [HttpGet]
+        public ActionResult ThemChiTietDichVu(string MaDV)
+        {
+
+            DichVu dv = new DichVuModel().GetDichVuByMa(Convert.ToInt32(MaDV));
+            ViewBag.DichVu = dv;
+            return View();
+        }
+
+
+            [HttpPost]
+        public JsonResult ThemChiTietDichVu(string MaDV,string Buoc)
+        {
+           ChiTietDichVu chiTietDichVu=new ChiTietDichVu();
+            chiTietDichVu.MaDV = Convert.ToInt32(MaDV);
+            chiTietDichVu.Buoc = Buoc;
+            ChiTietDichVuModel chiTietDichVuModel = new ChiTietDichVuModel();
+            chiTietDichVuModel.ThemChiTietDichVu(chiTietDichVu);
+
+            return Json(new { Message ="", JsonRequestBehavior.AllowGet });
+
+        }
 
 
 

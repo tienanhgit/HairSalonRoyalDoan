@@ -52,10 +52,10 @@
                                         }
                                         else
                                         {
-                                        <option value="@thuonghieu.MaThuongHieu">@thuonghieu.TenThuongHieu</option>
-                                            }
+                                            <option value="@thuonghieu.MaThuongHieu">@thuonghieu.TenThuongHieu</option>
                                         }
                                     }
+                                }
 
                             </select>
                         </div>
@@ -86,77 +86,101 @@
                         </div>
 
                     </div>
-                    <div class="form-group">
-                        <label for="masp" class="col-sm-3 control-label required">Mã sản phẩm</label>
-                        <div class="col-sm-9">
-                            <input id="masp" disabled type="text" value=" @ViewBag.SanPham.MaSanPham" class="form-control" placeholder="Mã sản phẩm" required="" maxlength="100">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="title" class="col-sm-3 control-label required">Tên sản phẩm</label>
-                        <div class="col-sm-9">
-                            <input id="TenSanPham" type="text" value="@ViewBag.SanPham.TenSanPham" class="form-control"  placeholder="Tên sản phẩm " required="" maxlength="100">
-                        </div>
-                    </div>
+
 
                     <div class="form-group">
-                        <label for="description" class="col-sm-3 control-label">Mô tả</label>
+
+                        <label for="masp" class="col-sm-3 control-label required">Trạng Thái Hiển Thị</label>
                         <div class="col-sm-9">
-                            <textarea id="MoTa" class="form-control" placeholder="meta description ( ~ 160 ký tự )" maxlength="255">@ViewBag.SanPham.MoTa</textarea>
+                            <select name="type_trangthaihienthi" id="TrangThaiHienThi" class="form-control">
+                                <option value="" disabled>Chọn trạng thái hiển thị</option>
+                                @if(ViewBag.SanPham.TrangThaiHienThi == 1)
+                                {
+
+                                    <option value="1" selected>Hiển thị</option>
+                                    <option value="0">Ẩn</option>
+                                }
+                                else
+                                {
+                                    <option value="1">Hiển thị</option>
+                                    <option value="0" selected>Ẩn</option>
+                                }
+
+
+                            </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="price" class="col-sm-3 control-label required">Giá</label>
-                        <div class="col-sm-9">
-                            <input id="Gia" type="text"  value="@ViewBag.SanPham.Gia" class="form-control" placeholder="Giá sản phẩm (đơn vị: VNĐ)" maxlength="255">
+                        <div class="form-group">
+                            <label for="masp" class="col-sm-3 control-label required">Mã sản phẩm</label>
+                            <div class="col-sm-9">
+                                <input id="masp" disabled type="text" value=" @ViewBag.SanPham.MaSanPham" class="form-control" placeholder="Mã sản phẩm" required="" maxlength="100">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="content" class="col-sm-3 control-label">Đánh giá  </label>
-                        <div class="col-sm-9">
-                                     <textarea id="DanhGia" rows="5" class="form-control ckeditor" placeholder="Danh Gia Cho San Pham">
+                        <div class="form-group">
+                            <label for="title" class="col-sm-3 control-label required">Tên sản phẩm</label>
+                            <div class="col-sm-9">
+                                <input id="TenSanPham" type="text" value="@ViewBag.SanPham.TenSanPham" class="form-control" placeholder="Tên sản phẩm " required="" maxlength="100">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description" class="col-sm-3 control-label">Mô tả</label>
+                            <div class="col-sm-9">
+                                <textarea id="MoTa" class="form-control" placeholder="meta description ( ~ 160 ký tự )" maxlength="255">@ViewBag.SanPham.MoTa</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="col-sm-3 control-label required">Giá</label>
+                            <div class="col-sm-9">
+                                <input id="Gia" type="text" value="@ViewBag.SanPham.Gia" class="form-control" placeholder="Giá sản phẩm (đơn vị: VNĐ)" maxlength="255">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="content" class="col-sm-3 control-label">Đánh giá  </label>
+                            <div class="col-sm-9">
+                                <textarea id="DanhGia" rows="5" class="form-control ckeditor" placeholder="Danh Gia Cho San Pham">
                                 @Html.Raw(@ViewBag.SanPham.DanhGia)
                                 </textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Ảnh</label>
-                        <div class="col-sm-9 col-sm-offset-3">
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li class="active"><a href="#img-file" role="tab" data-toggle="tab">Upload từ máy tính</a></li>
-                                <li><a href="#img-url" role="tab" data-toggle="tab">Lấy từ URL</a></li>
-                            </ul>
-                            <div class="tab-content" style="margin-top: 15px; min-height: 100px;">
-                                <div class="tab-pane active" id="img-file">
-                                    <label for="image" class="col-sm-3 control-label">Từ máy tính</label>
-                                    <input  type="hidden" value="@ViewBag.SanPham.HinhAnh" id="hasp"/>
-                                    <div class="col-sm-9">
-                                        Hinh anh :
-                                     
-                                        @Html.TextBox("Picture")
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Ảnh</label>
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li class="active"><a href="#img-file" role="tab" data-toggle="tab">Upload từ máy tính</a></li>
+                                    <li><a href="#img-url" role="tab" data-toggle="tab">Lấy từ URL</a></li>
+                                </ul>
+                                <div class="tab-content" style="margin-top: 15px; min-height: 100px;">
+                                    <div class="tab-pane active" id="img-file">
+                                        <label for="image" class="col-sm-3 control-label">Từ máy tính</label>
+                                        <input type="hidden" value="@ViewBag.SanPham.HinhAnh" id="hasp" />
+                                        <div class="col-sm-9">
+                                            Hinh anh :
 
-                                        <input type="button" name="HinhAnh" id="HinhAnh" value="Duyet Anh" />
-                                    </div>
-                                </div>
-                                <div class="tab-pane" id="img-url">
-                                    <label for="url" class="col-sm-3 control-label"> Từ URL</label>
-                                    <div class="col-sm-9">
-                                        <input name="HinhAnhUrl" type="text" value="" class="form-control" id="HinhAnhUrl" placeholder="Đường dẫn tới hình ảnh" maxlength="255">
-                                    </div>
+                                            @Html.TextBox("Picture")
 
+                                            <input type="button" name="HinhAnh" id="HinhAnh" value="Duyet Anh" />
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="img-url">
+                                        <label for="url" class="col-sm-3 control-label"> Từ URL</label>
+                                        <div class="col-sm-9">
+                                            <input name="HinhAnhUrl" type="text" value="" class="form-control" id="HinhAnhUrl" placeholder="Đường dẫn tới hình ảnh" maxlength="255">
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-9">
-                            <button type="button" id="btnAdd" class="btn btn-submit"><small><i class="fa fa-plus"></i></small>Sửa sản phẩm</button>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="button" id="btnAdd" class="btn btn-submit"><small><i class="fa fa-plus"></i></small>Sửa sản phẩm</button>
 
-                            <a class="btn btn-warning" href="#"><small><i class="fa fa-reply"></i></small> Trở về</a>
+                                <a class="btn btn-warning" href="#"><small><i class="fa fa-reply"></i></small> Trở về</a>
+                            </div>
                         </div>
-                    </div>
-                </form>
+</form>
             </div>
         </div>
         <!--END #main-->
@@ -189,7 +213,8 @@
                     std.MaDanhMuc = $("#MaDanhMuc option:selected").val();
                     std.TenSanPham = $("#TenSanPham").val();
                     std.MoTa = $("#MoTa").val();
-                    std.Gia = $("#Gia").val();
+            std.Gia = $("#Gia").val();
+            std.TrangThaiHienThi = $("#TrangThaiHienThi option:selected").val();
                     std.DanhGia = CKEDITOR.instances['DanhGia'].getData();
                     if ($("#Picture").val()!="") {
                         std.HinhAnh = $("#Picture").val();

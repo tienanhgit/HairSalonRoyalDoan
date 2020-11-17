@@ -17,6 +17,7 @@ namespace HairSalonRoyalDoan.Repository
         private string _danhGia;
         private DateTime _ngayTao;
         private DateTime _ngaySua;
+        private int _TrangThaiHienThi;
         public int MaSanPham { get => _maSanPham; set => _maSanPham = value; }
         public int MaDanhMuc { get => _maDanhMuc; set => _maDanhMuc = value; }
         public int MaThuongHieu { get => _maThuongHieu; set => _maThuongHieu = value; }
@@ -27,9 +28,11 @@ namespace HairSalonRoyalDoan.Repository
         public string DanhGia { get => _danhGia; set => _danhGia = value; }
         public DateTime NgayTao { get => _ngayTao; set => _ngayTao = value; }
         public DateTime NgaySua { get => _ngaySua; set => _ngaySua = value; }
+        public int TrangThaiHienThi { get => _TrangThaiHienThi; set => _TrangThaiHienThi = value; }
+
         public SanPham(){ }
 
-  public SanPham(int maSanPham,int maThuongHieu, int maDanhMuc, string tenSanPham,float gia,string hinhAnh,string moTa,string danhGia,DateTime ngayTao,DateTime ngaySua)
+  public SanPham(int maSanPham,int maThuongHieu, int maDanhMuc, string tenSanPham,float gia,string hinhAnh,string moTa,string danhGia,DateTime ngayTao,DateTime ngaySua,int trangThaiHienThi)
         {
             MaSanPham = maSanPham;
             MaThuongHieu = maThuongHieu;
@@ -41,6 +44,7 @@ namespace HairSalonRoyalDoan.Repository
             DanhGia = danhGia;
             NgaySua = ngaySua;
             NgayTao = ngayTao;
+            _TrangThaiHienThi = trangThaiHienThi;
 
         }
         public SanPham( int maThuongHieu, int maDanhMuc, string tenSanPham, float gia, string hinhAnh, string moTa, string danhGia, DateTime ngayTao, DateTime ngaySua)

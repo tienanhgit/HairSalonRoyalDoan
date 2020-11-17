@@ -32,7 +32,7 @@ namespace HairSalonRoyalDoan.Controllers
             }
 
             ProductModel productModel = new ProductModel();
-                List<SanPham> listsp = productModel.GetData();
+                List<SanPham> listsp = productModel.GetDataByTrangThai(1);
                 var ls = listsp.ToPagedList(page, pagesize);
                 return View(ls);
             

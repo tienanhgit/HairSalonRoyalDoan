@@ -66,6 +66,22 @@
 
                     </div>
                     <div class="form-group">
+
+                        <label for="masp" class="col-sm-3 control-label required">Trạng Thái Hiển Thị</label>
+                        <div class="col-sm-9">
+                            <select name="type_trangthaihienthi" id="TrangThaiHienThi" class="form-control">
+                                <option value="" disabled>Chọn trạng thái hiển thị</option>
+                               
+                                    <option value="1" selected>Hiển thị</option>
+                                    <option value="0">Ẩn</option>
+                                
+                             
+
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="masp" class="col-sm-3 control-label required">Mã sản phẩm</label>
                         <div class="col-sm-9">
                             <input id="masp" disabled type="text" value="" class="form-control" placeholder="Mã sản phẩm" required="" maxlength="100">
@@ -157,6 +173,7 @@
             std.TenSanPham = $("#TenSanPham").val();
             std.MoTa = $("#MoTa").val();
             std.Gia = $("#Gia").val();
+            std.TrangThaiHienThi = $("#TrangThaiHienThi option:selected").val();
             std.DanhGia = CKEDITOR.instances['DanhGia'].getData();
             if ($("#Picture").val()!="") {
                 std.HinhAnh = $("#Picture").val();

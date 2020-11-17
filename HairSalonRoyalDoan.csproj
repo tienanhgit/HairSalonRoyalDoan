@@ -1290,6 +1290,9 @@
     <Content Include="Views\AdminHome\ThuongHieu.cshtml" />
     <Content Include="Views\AdminHome\ThemThuongHieu.cshtml" />
     <Content Include="Views\AdminHome\SuaThuongHieu.cshtml" />
+    <Content Include="Views\AdminHome\DichVu.cshtml" />
+    <Content Include="Views\AdminHome\ThemDichVu.cshtml" />
+    <Content Include="Views\AdminHome\ThemChiTietDichVu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

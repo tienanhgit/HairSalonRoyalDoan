@@ -36,7 +36,7 @@ namespace HairSalonRoyalDoan.Controllers
         public ActionResult XemDichVu()
         {
 
-            List<DichVu> listdv = new DichVuModel().GetData();
+            List<DichVu> listdv = new DichVuModel().GetDataByTrangThai(1);
             ViewBag.listdv = listdv;
 
             return View(listdv);

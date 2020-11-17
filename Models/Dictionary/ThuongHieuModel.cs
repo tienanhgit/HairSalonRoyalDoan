@@ -38,6 +38,33 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 return new List<ThuongHieu>();
             }
         }
+        public List<ThuongHieu> GetDataByTrangThai(int TrangThai)
+        {
+            try
+            {
+                List<ThuongHieu> dsThuongHieu = new List<ThuongHieu>();
+                DataTable dt = dataProvider.ExecuteQuery("Proc_ThuongHieu_GetData", new object[] { TrangThai }, new List<string>() { "TrangThaiHienThi" });
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        ThuongHieu thuongHieu = new ThuongHieu();
+                        thuongHieu.MaThuongHieu = String.IsNullOrEmpty(row["MaThuongHieu"].ToString()) ? 0 : int.Parse(row["MaThuongHieu"].ToString());
+                        thuongHieu.TenThuongHieu = String.IsNullOrEmpty(row["TenThuongHieu"].ToString()) ? "" : row["TenThuongHieu"].ToString();
+                        thuongHieu.TrangThaiHienThi = String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
+                        thuongHieu.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"].ToString());
+                        thuongHieu.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"].ToString());
+                        dsThuongHieu.Add(thuongHieu);
+                    }
+                    return dsThuongHieu;
+                }
+                return new List<ThuongHieu>();
+            }
+            catch (Exception ex)
+            {
+                return new List<ThuongHieu>();
+            }
+        }
         public ThuongHieu GetThuongHieuByMa(int MaThuongHieu)
         {
             try

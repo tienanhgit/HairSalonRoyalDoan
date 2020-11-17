@@ -444,7 +444,7 @@ Go
 
 
 
-create Proc Proc_SanPham_Update 
+alter Proc Proc_SanPham_Update 
 							@MaSanPham int, 
 							@MaDanhMuc int='', 
 							@MaThuongHieu int='',
@@ -453,8 +453,9 @@ create Proc Proc_SanPham_Update
 							@HinhAnh NVARCHAR(255)='', 
 							@MoTa ntext='', 
 							@DanhGia ntext='' ,
-							@TrangThaiHienThi int=1,						
+							@TrangThaiHienThi int='',						
 							@NgaySua datetime=''
+					
 
 							
 AS BEGIN 
@@ -467,6 +468,7 @@ AS BEGIN
 							DanhGia = @DanhGia,
 							TrangThaiHienThi=@TrangThaiHienThi,		
 							NgaySua=@NgaySua
+						
 							
 	WHERE MaSanPham = @MaSanPham
 END
@@ -475,19 +477,20 @@ GO
 
 
 
+
 create Procedure Proc_SanPham_GetData 
 							@MaSanPham INT = '',					
 							@MaDanhMuc INT='',
 							@MaThuongHieu int='',
 							@TenSanPham NVARCHAR(255)='', 
-							@TrangThaiHienThi int='', 
+							@TrangThaiHienThi int=2, 
 							@Gia FLOAT = ''
 						
 							
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
-	SET @Query = 'Select * from SanPham where (TrangThaiHienThi=1)'
+	SET @Query = 'Select * from SanPham where 1=1'
 	IF(@MaSanPham !='')
 	begin
 		SET @Query += ' AND (MaSanPham = @MaSanPham) '
@@ -500,7 +503,7 @@ AS BEGIN
 		begin
 		set @Query += ' AND (MaThuongHieu=@MaThuongHieu) '
 		end
-			if(@TrangThaiHienThi!='')
+			if(@TrangThaiHienThi!=2)
 		begin
 		set @Query += ' AND (TrangThaiHienThi=@TrangThaiHienThi) '
 		end
@@ -522,10 +525,11 @@ AS BEGIN
 	SET @ParamList =		'  @MaSanPham int,
 								@MaDanhMuc int,
 								@MaThuongHieu int,
+								@TrangThaiHienThi int,
 								@TenSanPham NVARCHAR(255),
 								@Gia FLOAT  
 							 '
-	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaSanPham,@MaDanhMuc,@MaThuongHieu,@TenSanPham,@Gia
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaSanPham,@MaDanhMuc,@MaThuongHieu,@TrangThaiHienThi,@TenSanPham,@Gia
 END
 
 
@@ -811,6 +815,7 @@ on DichVu.MaDV=Chitietdichvu.MaDV
 end
 
 go
+
 create Proc Proc_Dichvu_Insert @TenDV nvarchar(50),
 								@Gia nvarchar(50)='',
 								@TrangThaiHienThi int='',				
@@ -821,7 +826,7 @@ AS BEGIN
 	INSERT INTO DichVu
 	        (					TenDV ,
 								Gia,
-									TrangThaiHienThi,	
+								TrangThaiHienThi,	
 								NgayTao 
 							
 	        )
@@ -836,18 +841,17 @@ END;
 
 Go
 
-create Proc Proc_DichVu_Update @MaDV int,
-								@TenDV nvarchar(50),
-								@Gia nvarchar(50)='',
-								@HoatDong nvarchar(255)='',											
+
+create Proc Proc_DichVu_Update 
+								@MaDV int='',
+							
+								@TrangThaiHienThi int='',											
 								@NgaySua datetime=''
 														
 AS BEGIN 
 	UPDATE DichVu SET 
-	TenDV=@TenDV,
-	Gia=@Gia,
-	NgaySua=@NgaySua	
-							
+	TrangThaiHienThi=@TrangThaiHienThi,
+	NgaySua=@NgaySua							
 	WHERE MaDV = @MaDV
 END
 
@@ -855,7 +859,8 @@ GO
 
 
 create Procedure Proc_DichVu_GetData 	
-@MaDV int=''					
+@MaDV int='',
+@TrangThaiHienThi int=2					
 AS 
 BEGIN
 DECLARE @Query AS NVARCHAR(MAX)
@@ -865,11 +870,15 @@ DECLARE @Query AS NVARCHAR(MAX)
 	begin
 		SET @Query += ' AND (MaDV = @MaDV) '
 		end
-
-	SET @ParamList =		'@MaDV int
+			IF(@TrangThaiHienThi!=2)
+		begin
+		SET @Query += ' AND (TrangThaiHienThi = @TrangThaiHienThi) '
+		end
+	SET @ParamList =		'@MaDV int,
+							@TrangThaiHienThi int
 							  
 							 '
-	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDV
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDV,@TrangThaiHienThi
 
 END
 go
@@ -879,10 +888,11 @@ go
 
 /*Bang thuong hiệu*/
 
+
 create proc Proc_ThuongHieu_GetData						
 @MaThuongHieu INT = '',						
 @TenThuongHieu nvarchar(50)='',
-@TrangThaiHienThi int								
+@TrangThaiHienThi int=2								
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
@@ -891,17 +901,23 @@ AS BEGIN
 	begin	
 		set @Query += ' AND (MaThuongHieu = @MaThuongHieu) '
 		end
+			IF(@TrangThaiHienThi !=2)
+	begin	
+		set @Query += ' AND (TrangThaiHienThi = @TrangThaiHienThi) '
+		end
 	IF(@TenThuongHieu != '')
 		BEGIN
 			SET @TenThuongHieu = '%'+@TenThuongHieu+'%'
 			SET @Query += ' AND (TenThuongHieu like @TenThuongHieu) '
 		END	
+	
 	set @query +='order by MaThuongHieu';
 	SET @ParamList =		'
 							@MaThuongHieu int,
-								@TenThuongHieu NVARCHAR(50)
+								@TenThuongHieu NVARCHAR(50),
+								@TrangThaiHienThi int
 							 '
-	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaThuongHieu,@TenThuongHieu
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaThuongHieu,@TenThuongHieu,@TrangThaiHienThi
 END
 
 go
@@ -945,10 +961,10 @@ GO
 
 
 /*Bang danh muc*/
-alter proc Proc_DanhMuc_GetData
+create proc Proc_DanhMuc_GetData
 							@MaDanhMuc INT = '',
 							@TenDanhMuc nvarchar(50)='',
-							@TrangThaiHienThi int=0 ,
+							@TrangThaiHienThi int=2 ,
 							@NgayTao datetime ='',
 							@NgaySua datetime= ''
 						
@@ -967,12 +983,18 @@ AS BEGIN
 			SET @TenDanhMuc = '%'+@TenDanhMuc+'%'
 			SET @Query += ' AND (TenDanhMuc like @TenDanhMuc) '
 		END	
+		IF(@TrangThaiHienThi !=2)
+	begin	
+		set @Query += ' AND (TrangThaiHienThi = @TrangThaiHienThi) '
+		end
+
 	set @query +='order by MaDanhMuc';
 	SET @ParamList =		'
 							@MaDanhMuc int,
-								@TenDanhMuc NVARCHAR(50)
+								@TenDanhMuc NVARCHAR(50),
+								@TrangThaiHienThi int
 							 '
-	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDanhMuc,@TenDanhMuc
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDanhMuc,@TenDanhMuc,@TrangThaiHienThi
 END
 
 go
@@ -1536,6 +1558,7 @@ where MaDonDatHang=@MaDonDatHang
 end
 
 go
+
 
 /*update tong tien cho dịch vụ*/
 create proc proc_getadata_tongtien_dichvu

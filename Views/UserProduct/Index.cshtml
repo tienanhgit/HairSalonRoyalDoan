@@ -91,7 +91,7 @@
                 <div class="card bg-light mb-3">
                     <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Thương Hiệu</div>
                     <ul class="list-group category_block">
-                        @foreach (var itemthuonghieu in thuongHieuModel.GetData())
+                        @foreach (var itemthuonghieu in thuongHieuModel.GetDataByTrangThai(1))
                         {
                             <li class="list-group-item"><a href="/UserProduct/Index?MaThuongHieu=@itemthuonghieu.MaThuongHieu">@itemthuonghieu.TenThuongHieu</a></li>
                         }
@@ -102,7 +102,7 @@
                 <div class="card bg-light mb-3">
                     <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Danh mục</div>
                     <ul class="list-group category_block">
-                        @foreach (var itemdanhmuc in danhMucModel.GetData())
+                        @foreach (var itemdanhmuc in danhMucModel.GetDataByTrangThai(1))
                         {
                             <li class="list-group-item"><a href="/UserProduct/Index?MaDanhMuc=@itemdanhmuc.MaDanhMuc">@itemdanhmuc.TenDanhMuc</a></li>
                         }

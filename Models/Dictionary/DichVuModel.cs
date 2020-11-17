@@ -40,7 +40,39 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 return new List<DichVu>();
             }
         }
-       
+        public List<DichVu> GetDataByTrangThai(int TrangThai)
+        {
+            try
+            {
+                List<DichVu> dsDichVu = new List<DichVu>();
+                DataTable dt = dataProvider.ExecuteQuery("Proc_DichVu_GetData", new object[] {TrangThai},
+                  new List<string>() {
+                      "@TrangThaiHienThi"
+                     
+                   });
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        DichVu dichvu = new DichVu();
+                        dichvu.MaDV = String.IsNullOrEmpty(row["MaDV"].ToString()) ? 0 : int.Parse(row["MaDV"].ToString());
+                        dichvu.TenDichVu = String.IsNullOrEmpty(row["TenDV"].ToString()) ? "" : row["TenDV"].ToString();
+                        dichvu.Gia = String.IsNullOrEmpty(row["Gia"].ToString()) ? 0 : float.Parse(row["Gia"].ToString());
+                        dichvu.TrangThaiHienThi = String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
+                        dichvu.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
+                        dichvu.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
+                        dsDichVu.Add(dichvu);
+                    }
+                    return dsDichVu;
+                }
+                return new List<DichVu>();
+            }
+            catch (Exception ex)
+            {
+                return new List<DichVu>();
+            }
+        }
+
 
         public string ThemDichVu(DichVu dichVu)
         {
@@ -48,7 +80,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             {
 
                 string rs = "";
-                rs = dataProvider.ExecuteScalar("Proc_Dichvu_Insert", new object[] { dichVu.TenDichVu,dichVu,dichVu.Gia,dichVu.TrangThaiHienThi,dichVu.NgayTao },
+                rs = dataProvider.ExecuteScalar("Proc_Dichvu_Insert", new object[] {dichVu.TenDichVu,dichVu.Gia,dichVu.TrangThaiHienThi,dichVu.NgayTao},
                   new List<string>() {
                       "@TenDV",
                       "@Gia",
@@ -87,18 +119,17 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             }
         }
 
-        public string CapNhatDichVu(DichVu dichVu)
+        public string CapNhatDichVu(string MaDV,int TrangThaiHienThi,DateTime NgaySua)
         {
             try
             {
 
-                int kq = dataProvider.ExecuteNonQuery("Proc_DichVu_Update", new object[] {dichVu.MaDV, dichVu.TenDichVu, dichVu, dichVu.Gia, dichVu.TrangThaiHienThi, dichVu.NgayTao },
+                int kq = dataProvider.ExecuteNonQuery("Proc_DichVu_Update", new object[] {MaDV,TrangThaiHienThi,NgaySua },
                   new List<string>() {
                       "@MaDV",
-                        "@TenDV",
-                      "@Gia",
+                   
                       "@TrangThaiHienThi",
-                      "@NgayTao"
+                      "@NgaySua"
                   });
                 return kq.ToString();
             }

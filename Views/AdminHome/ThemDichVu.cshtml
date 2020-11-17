@@ -1,0 +1,112 @@
+﻿
+
+@{
+
+    ViewBag.Title = "Them Thuong Hieu";
+    Layout = "~/Views/Shared/_AdminHome.cshtml";
+
+
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <base href=".">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Them Thuong Hieu</title>
+
+
+
+</head>
+<body>
+    <div class="clearfix">
+        <div id="main">
+            <ol class="breadcrumb">
+                <li><a href="/AdminHome"><i class="fa fa-home"></i> Trang quản trị</a></li>
+                <li class="active"><a href="/AdminHome/DichVu">Dịch Vụ</a></li>
+                <li class="active"><a href="/AdminHome/ThemDichVu">Thêm dịch vụ</a></li>
+            </ol>
+            <div class="col-xs-12">
+                <form id="admin-form" class="form-horizontal col-xl-9 col-lg-10 col-md-12 col-sm-12" enctype="multipart/form-data" role="form">
+
+
+                    <div class="form-group">
+                        <label for="type_product" class="col-sm-3 control-label required">ThuongHieu</label>
+                        <div class="col-sm-9">
+                            <select name="type_trangthaihienthi" id="TrangThaiHienThi" class="form-control">
+                                <option value="" disabled>Chọn trạng thái hiển thị</option>
+                                <option value="1">Hiển thị</option>
+                                <option value="0">Ẩn</option>
+
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Tên dịch vụ</label>
+                        <div class="col-sm-9">
+                            <input id="TenDV" type="text" value="" class="form-control" placeholder="Tên dịch vụ " required="" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Giá</label>
+                        <div class="col-sm-9">
+                            <input id="Gia" type="text" value="" class="form-control" placeholder="Giá" required="" maxlength="100">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="button" id="btnAdd"  class="btn"><small><i class="fa fa-plus"></i></small> Thêm mới</button>
+
+                            <a class="btn btn-warning" href="#"><small><i class="fa fa-reply"></i></small> Trở về</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--END #main-->
+    </div>
+
+
+    <script type="text/javascript">
+
+
+        $("#btnAdd").click(function () {
+            var std = {};
+            std.TrangThaiHienThi = $("#TrangThaiHienThi option:selected").val();
+            std.TenDichVu = $("#TenDV").val();
+            std.Gia = $("#Gia").val();
+            $.ajax({
+                type: "POST",
+                url: "/AdminHome/ThemDichVu",
+                data: '{std: ' + JSON.stringify(std) + '}',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
+                    console.log(result);
+                    alert("Thêm dịch vụ thành công");
+                },
+                error: function () {
+                    alert("Thêm dịch vụ thất bại");
+                }
+            });
+
+        });
+
+
+
+    </script>
+
+
+
+
+</body>
+</html>
+
+
+

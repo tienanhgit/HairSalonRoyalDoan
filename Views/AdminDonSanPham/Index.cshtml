@@ -320,13 +320,14 @@
                 data: "{ 'MaDonDatHang':' " + MaDonDatHang + "', 'TrangThaiDonSanPham':' " + TrangThaiDonSanPham + "'}",
                 dataType: "json",
                 success: function (data) {
+                    alert("Cập nhật trạng thái đơn đặt hàng thành công");
                 },
                 error: function (data) {
 
                     alert(data);
                 }
             });
-            alert("Cập nhật trạng thái đơn đặt hàng thành công");
+           
         }
 
 

@@ -46,6 +46,7 @@
 
                                     <th class="hidden-sm hidden-xs">Ngày thêm</th>
                                     <th>Ngày Sửa</th>
+                                    <th>TrangThaiHienThi</th>
                                     <th>Sửa Sản Phẩm</th>
                                 </tr>
                             </thead>
@@ -54,18 +55,32 @@
                                 @foreach (var sp in Model)
                                 {
                                     
-                                    <tr>
-                                        <td class="hidden-xs">@sp.MaSanPham </td>
+                                <tr>
+                                    <td class="hidden-xs">@sp.MaSanPham </td>
+                                    <td>
+                                        <p>@sp.TenSanPham</p>
+                                    </td>
+                                    <td class="hidden-sm hidden-xs">@sp.Gia</td>
+                                    <td class="hidden-sm hidden-xs">@String.Format("{0:dd/MM/yyyy}", @sp.NgayTao)</td>
+                                    <td class="hidden-sm hidden-xs">@String.Format("{0:dd/MM/yyyy}", @sp.NgaySua)</td>
+                                    @if (sp.TrangThaiHienThi == 1)
+                                    {
                                         <td>
-                                            <p>@sp.TenSanPham</p>
+                                            <i class="fa fa-check text-success" data-toggle="tooltip" data-placement="top" title="Đang hiển thị"></i>
                                         </td>
-                                        <td class="hidden-sm hidden-xs">@sp.Gia</td>
-                                        <td class="hidden-sm hidden-xs">@String.Format("{0:dd/MM/yyyy}", @sp.NgayTao)</td>
-                                        <td class="hidden-sm hidden-xs">@String.Format("{0:dd/MM/yyyy}", @sp.NgaySua)</td>
+                                    }
+                                    else
+                                    {
                                         <td>
-                                            <a href="/AdminHome/SuaSanPham?MaSanPham=@sp.MaSanPham&MaThuongHieu=@sp.MaThuongHieu&MaDanhMuc=@sp.MaDanhMuc"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Sửa sản phẩm"></i></a>
+                                            <p class="note-items"><i class="fa fa-times text-danger"></i> Ẩn với người dùng</p>
                                         </td>
-                                    </tr>
+
+
+                                    }
+                                    <td>
+                                        <a href="/AdminHome/SuaSanPham?MaSanPham=@sp.MaSanPham&MaThuongHieu=@sp.MaThuongHieu&MaDanhMuc=@sp.MaDanhMuc"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Sửa sản phẩm"></i></a>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>
