@@ -258,6 +258,12 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
         }
 
+        public ActionResult InHoaDon()
+        {
+
+
+            return View();
+        }
 
 
 
