@@ -1,11 +1,4 @@
 ﻿@using HairSalonRoyalDoan.Models.Dictionary
-
-
-
-
-
-
-
 @{
     Layout = "~/Views/Shared/_AdminHome.cshtml";
     ViewBag.Title = "_UserHome";
@@ -38,7 +31,7 @@
 </head>
 <body>
     @*Day la dialog*@
-    <div class="dialog-lichhen" title="Đặt lịch hẹn">
+    <div class="dialog-lichhen" title="Sửa lịch hẹn">
         <div class="clear-fix">
 
             <div class="form-group">
@@ -58,8 +51,6 @@
                 </div>
 
             </div>
-
-
             <div class="form-group" >
                 <label class="col-sm-3">Giờ cắt :</label>
                 <div class="col-sm-9">
@@ -122,12 +113,11 @@
     <div id="main">
         <ol class="breadcrumb">
             <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
-            <li class="active"><a href="/AdminDonSanPham/Index">Đơn đặt hàng</a></li>
+            <li class="active"><a href="/AdminLichHen/Ind">Lịch Hẹn</a></li>
         </ol>
      
         <div class="col-xs-12">
             <h3>Lịch hẹn </h3>
-
             <form id="post_form" method="post" action="" role="form">
                 <div class="col-xs-12">
                     <div class="form-group col-xs-12">
@@ -137,16 +127,7 @@
                             <span> <input type="text" autocomplete="off" id="datepicker"></span>
                             <button><i class="fa fa-search"></i></button>
                         </div>
-                        <div class="col-xs-4">
-                            <select id="ttdondathang" style="width:100%;height:25px">
-                                <option disabled>Trạng Thái</option>
-                                <option>Đã xác nhận</option>
-                                <option>Đã đến </option>
-                                <option>Hủy </option>
-
-                            </select>
-                        </div>
-
+                  
                         <div class="btn-group pull-right hidden-xs col-xs-4" id="div-search">
                             <span><input id="SearchString" name="search" type="text" value="" placeholder="Tìm kiếm"></span><button type="button" onclick="Search();"><i class="fa fa-search"></i></button>
 
@@ -158,7 +139,6 @@
                                 <tr>
                                     <th class="hidden-xs">Mã Lịch Hẹn</th>
                                     <th>Tên Khách Hàng</th>
-
                                     <th>Tên Nhân Viên Cắt</th>
                                     <th>Số điện thoại</th>
                                     <th>Ngày Hẹn</th>
@@ -257,24 +237,21 @@
         function SuaLichHen(MaLichHen) {
             $("#ThemLH").remove();
             $(".dialog-lichhen").dialog("open");
-            $(".btnth").append('<button type="button" onclick="SuaLH('+ MaLichHen+')" id="ThemLH" class="btn btn - submit"><small><i class="fa fa - plus"></i></small> Sửa</button>')
+            $(".btnth").append('<button type="button" onclick="SuaLH(' + MaLichHen + ')" id="ThemLH" class="btn btn - submit"><small><i class="fa fa - plus"></i></small> Sửa</button>');
+        }
+        function searchNgayHen() {
 
-  
 
 
 
 
         }
- 
 
-        
-        
 
 
 
 
         function load(txtsearch, page) {
-
             $.ajax({
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',
@@ -282,8 +259,6 @@
                 url: "/AdminLichHen/Index",
                 dataType: "json",
                 success: function (result) {
-
-
                     var html = '';
                     $.each(result.data, function (key, item) {
                         html += '<tr>';
@@ -377,7 +352,7 @@
 
                 loadlichhen();
 
-            }, 300000);
+            }, 30000);
         });
         function SuaTrangThai(MaLichHen) {
             var TrangThai = $("#ttlichhen-" + MaLichHen + " option:selected").val();

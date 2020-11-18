@@ -4,7 +4,7 @@ go
 use HairSalonRoyalDoan
 
 
-
+select * from DonDatHang
 
 
 
@@ -265,6 +265,18 @@ end
 
 
 /*Bang Lich Hen*/
+-- Trang Thai 1 :Chưa xác nhận , trạng thái 2 : đã xác nhận, trạng thái 3 : hủy, trạng thái 4 :Đã đến
+create proc TimKiemTheoThoiGian
+@NgayHen datetime=''
+as
+begin
+select MaLichHen,LichHen.MaKH,LichHen.MaNV,NgayHen,GioHen,TrangThai,HoTenKH,HoTenNV,SoDTKH from LichHen left join KhachHang on LichHen.MaKh=KhachHang.MaKH 
+	left join NhanVien on LichHen.MaNV=NhanVien.MaNV  where (1=1) and Day(@NgayHen)=Date(NgayHen) and
+	MONTH(  
+where 
+
+
+end
 
 go
 create proc Proc_LichHen_UpdateTT
@@ -310,7 +322,7 @@ end
 END;
 Go
 
--- Trang Thai 1 :Chưa xác nhận , trạng thái 2 : đã xác nhận, trạng thái 3 : hủy, trạng thái 4 :Đã đến
+
 exec Proc_LichHen_Update 1,
 create Proc Proc_LichHen_Update 
 @MaLichHen int=null,
@@ -346,9 +358,11 @@ join NhanVien on LichHen.MaNV=NhanVien.MaNV  where TrangThai=2 and YEAR(NgayHen)
 end
 
 go
-select *from LichHen
-exec Proc_LichHen_GetData
-alter  Procedure Proc_LichHen_GetData 
+
+
+
+
+create  Procedure Proc_LichHen_GetData 
 							@MaLichHen INT = '',
 							@MaKH INT='',
 							@MaNV int='',  

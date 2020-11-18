@@ -1,0 +1,111 @@
+﻿@using PagedList.Mvc
+
+@{
+    Layout = "~/Views/Shared/_AdminHome.cshtml";
+    ViewBag.Title = "_UserHome";
+
+    var ListLichHen = ViewBag.LichHen as PagedList.IPagedList<HairSalonRoyalDoan.Repository.LichHen>;
+
+
+}
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div id="main">
+        <ol class="breadcrumb">
+            <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
+            <li class="active"><a href="/AdminLichHen/Index">Lịch Hẹn</a></li>
+        </ol>
+
+        <div class="col-xs-12">
+            <h3>Lịch hẹn </h3>
+            <form id="post_form" method="post" action="" role="form">
+                <div class="col-xs-12">
+                    <div class="form-group col-xs-12">
+                        <!-- Single button -->
+                        <div class="col-xs-4">
+                            <label>Chọn ngày: </label>
+                            <span> <input type="text" autocomplete="off" id="datepickerNgayHen"></span>
+                            <button type="button" onclick="SearchNgayHen()"><i class="fa fa-search"></i></button>
+                        </div>
+
+
+                    </div>
+                    <div class="table-lich-hen-sum">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="hidden-xs">Mã Lịch Hẹn</th>
+                                    <th>Tên Khách Hàng</th>
+                                    <th>Tên Nhân Viên Cắt</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Ngày Hẹn</th>
+                                    <th>Giờ Hẹn</th>
+
+                                </tr>
+                            </thead>
+                            <tbody class="listls-dxn">
+                                @foreach (var itemlh in ListLichHen)
+                                {
+                                    <tr>
+                                        <td>@itemlh.MaLichHen</td>
+                                        <td>@itemlh.TenKhachHang</td>
+                                        <td>@itemlh.TenNhanVien</td>
+                                        <td>@itemlh.SoDTKH</td>
+                                        <td>@itemlh.NgayHen</td>
+                                        <td>@itemlh.GioHen</td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="card-footer">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination" id="load-pagination">
+                                @Html.PagedListPager(ListLichHen, page => Url.Action("Index", new { page }))
+                            </ul>
+                        </nav>
+                    </div>
+
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+         
+
+            $(function () {
+                $("#datepickerNgayHen").datepicker();
+            });
+        });
+
+        function SearchNgayHen() {
+          
+            var NgayHen = $('#datepickerNgayHen').val();
+           
+            window.location="/AdminList/LichHen?NgayHen=" +'"'+NgayHen+'"';
+
+
+
+
+        }
+       
+        
+
+
+    </script>
+
+
+
+</body>
+</html>

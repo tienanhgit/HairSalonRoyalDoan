@@ -131,6 +131,7 @@
     <Compile Include="Controllers\Admin\AdminDonSanPhamController.cs" />
     <Compile Include="Controllers\Admin\AdminHomeController.cs" />
     <Compile Include="Controllers\Admin\AdminLichHenController.cs" />
+    <Compile Include="Controllers\Admin\AdminListController.cs" />
     <Compile Include="Controllers\Admin\NhanVienController.cs" />
     <Compile Include="Controllers\Common\SessionHelper.cs" />
     <Compile Include="Controllers\User\GioHangController.cs" />
@@ -1293,6 +1294,7 @@
     <Content Include="Views\AdminHome\DichVu.cshtml" />
     <Content Include="Views\AdminHome\ThemDichVu.cshtml" />
     <Content Include="Views\AdminHome\ThemChiTietDichVu.cshtml" />
+    <Content Include="Views\AdminList\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
