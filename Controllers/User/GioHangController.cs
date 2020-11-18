@@ -145,7 +145,7 @@ namespace HairSalonRoyalDoan.Controllers.User
 
             DonDatHang donDatHang = new DonDatHang();
             donDatHang.DiaChiNhanHang = diachi;
-            donDatHang.SoDTGiaoHang = Convert.ToInt32(sodienthoainhanhang);
+            donDatHang.SoDTGiaoHang =sodienthoainhanhang;
             donDatHang.HoTenNguoiNhan = tennguoinhan;      
          
             donDatHang.HinhThucThanhToan = "COD";

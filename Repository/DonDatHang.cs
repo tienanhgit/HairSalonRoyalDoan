@@ -10,7 +10,7 @@ namespace HairSalonRoyalDoan.Repository
         private int _MaDonDatHang;
         private int _MaNV;
         private int _MaKH;
-        private int _SoDTGiaoHang;
+        private string _SoDTGiaoHang;
         private string _HinhThucThanhToan;
         private int _TrangThaiDonSanPham;
         private int _TrangThaiDonDichVu;
@@ -22,8 +22,7 @@ namespace HairSalonRoyalDoan.Repository
         {
 
         }
-
-        public DonDatHang(int maDonDatHang, int maNV, int maKH, int soDTGiaoHang, string hinhThucThanhToan, int trangThaiDonSanPham, int trangThaiDonDichVu, string hoTenNguoiNhan, string diaChiNhanHang, double tongTien, DateTime ngayTao)
+        public DonDatHang(int maDonDatHang, int maNV, int maKH, string soDTGiaoHang, string hinhThucThanhToan, int trangThaiDonSanPham, int trangThaiDonDichVu, string hoTenNguoiNhan, string diaChiNhanHang, double tongTien, DateTime ngayTao)
         {
             MaDonDatHang = maDonDatHang;
             MaNV = maNV;
@@ -41,7 +40,7 @@ namespace HairSalonRoyalDoan.Repository
         public int MaDonDatHang { get => _MaDonDatHang; set => _MaDonDatHang = value; }
         public int MaNV { get => _MaNV; set => _MaNV = value; }
         public int MaKH { get => _MaKH; set => _MaKH = value; }
-        public int SoDTGiaoHang { get => _SoDTGiaoHang; set => _SoDTGiaoHang = value; }
+        public string SoDTGiaoHang { get => _SoDTGiaoHang; set => _SoDTGiaoHang = value; }
         public string HinhThucThanhToan { get => _HinhThucThanhToan; set => _HinhThucThanhToan = value; }
         public int TrangThaiDonSanPham { get => _TrangThaiDonSanPham; set => _TrangThaiDonSanPham = value; }
         public int TrangThaiDonDichVu { get => _TrangThaiDonDichVu; set => _TrangThaiDonDichVu = value; }

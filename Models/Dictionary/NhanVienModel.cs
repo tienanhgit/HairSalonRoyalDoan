@@ -84,10 +84,10 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         nhanVien.MaNV = String.IsNullOrEmpty(row["MaNV"].ToString()) ? 0 : int.Parse(row["MaNV"].ToString());
                         nhanVien.HoTenNV = String.IsNullOrEmpty(row["HoTenNV"].ToString()) ? "" : row["HoTenNV"].ToString();
                         nhanVien.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
-                        nhanVien.MatKhau = String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString();
-                        nhanVien.SDTNV = String.IsNullOrEmpty(row["SoDTNV"].ToString()) ? 0 : int.Parse(row["SoDTNV"].ToString());
+                        nhanVien.MatKhau = String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString(); 
+                       nhanVien.SDTNV = String.IsNullOrEmpty(row["SoDTNV"].ToString()) ? "" : row["SoDTNV"].ToString();
                         nhanVien.QueQuan = String.IsNullOrEmpty(row["QueQuan"].ToString()) ? "" : row["QueQuan"].ToString();
-                        nhanVien.CMND = String.IsNullOrEmpty(row["CMND"].ToString()) ? 0 : int.Parse(row["CMND"].ToString());
+                        nhanVien.CMND = String.IsNullOrEmpty(row["CMND"].ToString()) ? "" : row["CMND"].ToString();
                         nhanVien.NgaySinh = String.IsNullOrEmpty(row["NgaySinh"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySinh"]);
                         nhanVien.HinhThucLam= String.IsNullOrEmpty(row["Hinhthuclam"].ToString()) ? "" : row["Hinhthuclam"].ToString();
                         nhanVien.MaChucVu= String.IsNullOrEmpty(row["MaChucVu"].ToString()) ? 0 : int.Parse(row["MaChucVu"].ToString());

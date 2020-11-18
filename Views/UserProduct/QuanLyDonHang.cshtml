@@ -149,16 +149,7 @@
         <div class="d-flex" id="wrapper">
 
             <!-- Sidebar -->
-            <div class="bg-light border-right" id="sidebar-wrapper">
-
-                <div class="list-group list-group-flush">
-                    <a href="#" class="list-group-item list-group-item-action bg-light">Thông tin tài khoản</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-light">Đơn đặt hàng</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-light">Lịch sử mua hàng</a>
-                    <a href="#" class="list-group-item list-group-item-action bg-light">Hỏi đáp ?</a>
-
-                </div>
-            </div>
+        
             <!-- /#sidebar-wrapper -->
             <!-- Page Content -->
             <div id="page-content-wrapper">
@@ -215,10 +206,19 @@
                                                 <td>
                                                     <a href="#" class="buttonxemchitiet " data-toggle="tooltip" onclick="XemChiTietDon(@item.MaDonDatHang)">Xem chi tiết</a>
                                                 </td>
+                                                @if (item.TrangThaiDonSanPham < 3)
+                                                {
+                                                    <td>
+                                                        <button class="btn btn-sm btn-danger"  onclick="HuyDatHang(@item.MaDonDatHang)" id="removeItemCart"><i class="fa fa-trash"></i></button>
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                            <td>
+                                                <button class="btn btn-sm btn-danger" type="button" onclick="HuyDatHang(@item.MaDonDatHang)" disabled id="removeItemCart"><i class="fa fa-trash"></i></button>
+                                            </td>
+                                                }
 
-                                                <td>
-                                                    <button class="btn btn-sm btn-danger" id="removeItemCart"><i class="fa fa-trash"></i></button>
-                                                </td>
                                             </tr>
                                             }
                                         </tbody>
@@ -245,6 +245,45 @@
         </div>
     </div>
     <script type="text/javascript">
+
+        function HuyDatHang(MaDonDatHang) {
+       
+            $.ajax({
+                url: "/UserProduct/HuyDonDatHang",
+                method: "POST",
+                data: "{'MaDonDatHang' :'" + MaDonDatHang + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == true) {
+                        alert("Huỷ đơn hàng thành công");
+                    }
+                    else {
+                        alert("Huỷ đơn hàng thất bại !");
+                    }
+                  
+                },
+                error: function (data) {
+
+                    alert("Hủy thất bại !");
+                }
+
+
+
+
+
+
+            });
+
+
+
+        }
+
+
+
+
+
+
         $(document).ready(function () {
           
 

@@ -40,15 +40,30 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
         public JsonResult UpdateTrangThai(string MaDonDatHang,string TrangThaiDonSanPham)
         {
-            if (MaDonDatHang != null && TrangThaiDonSanPham != null)
+
+            DonDatHang donDatHang = new DonDatHangModel().GetDonDatHangByMa(Convert.ToInt32(MaDonDatHang));
+            if (donDatHang.TrangThaiDonSanPham !=5)
             {
-                string a = new DonDatHangModel().UpdateTrangThai(MaDonDatHang,TrangThaiDonSanPham,"");
+
+                if (MaDonDatHang != null && TrangThaiDonSanPham != null)
+                {
+                    string a = new DonDatHangModel().UpdateTrangThai(MaDonDatHang, TrangThaiDonSanPham, "");
+                }
+
+                return Json(new
+                {
+                    status = true
+                });
+            }
+            else
+            {
+
+                return Json(new
+                {
+                    status = false
+                }); ;
             }
 
-            return Json(new
-            {
-                status = true
-            });
         }
 
         public ActionResult ThemHoaDon()
@@ -63,7 +78,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             DonDatHangModel donDatHangModel = new DonDatHangModel();
                 DonDatHang donDatHang = new DonDatHang();
                 donDatHang.HoTenNguoiNhan = HoTenNguoiNhan;
-                donDatHang.SoDTGiaoHang = Convert.ToInt32(SoDienThoaiNguoiNhan);
+                donDatHang.SoDTGiaoHang =SoDienThoaiNguoiNhan;
                 donDatHang.DiaChiNhanHang = DiaChiGiaoHang;
                 donDatHang.HinhThucThanhToan = HinhThucThanhToan;
                 donDatHang.TrangThaiDonSanPham = Convert.ToInt32(TrangThai);
@@ -214,7 +229,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
             DonDatHang donDatHang = new DonDatHang();
             donDatHang.HoTenNguoiNhan = HoTenNguoiNhan;
-            donDatHang.SoDTGiaoHang = Convert.ToInt32(SoDienThoaiNguoiNhan);
+            donDatHang.SoDTGiaoHang = SoDienThoaiNguoiNhan;
             donDatHang.HinhThucThanhToan = HinhThucThanhToan;
             donDatHang.NgayTao = DateTime.Now;
             donDatHang.TrangThaiDonSanPham = 0;

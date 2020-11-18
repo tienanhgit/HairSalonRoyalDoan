@@ -91,8 +91,6 @@
 
                             }
 
-
-
                         }
                     </select>
                 </div>
@@ -164,7 +162,6 @@
 
                 </div>
             </form>
-
         </div>
         <div class="col-xs-12">
             <h3>Lịch hẹn chờ xác nhận</h3>
@@ -265,7 +262,7 @@
                         html += '<td>' + item.MaLichHen + '</td>';
                         html += '<td><a onclick="SuaLichHen(' + item.MaLichHen + ')">' + item.TenKhachHang + '</a></td>';
                         html += '<td>' + item.TenNhanVien + '</td>';
-                        html += '<td>0' + item.SoDTKH + '</td>';
+                        html += '<td>' + item.SoDTKH + '</td>';
                         html += '<td>' + $.datepicker.formatDate('dd/mm/yy', new Date(item.NgayHen)) + '</td>';
                         html += '<td>' + item.GioHen + '</td>';
                         html += '<td>' + '<div onclick="SuaTrangThaiBelow(' + item.MaLichHen + ')"><a><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Cập nhật"></i> </a><div/>' + '</td>';
@@ -428,7 +425,7 @@
                         html += '<td>' + item.MaLichHen + '</td>';
                         html += '<td><a onclick="SuaLichHen(' + item.MaLichHen+')">' + item.TenKhachHang + '</a></td>';                  
                         html += '<td> ' + item.TenNhanVien + '</td>';
-                        html += '<td>0' + item.SoDTKH + '</td>';
+                        html += '<td>' + item.SoDTKH + '</td>';
                         html += '<td>' + $.datepicker.formatDate('dd/mm/yy', new Date(item.NgayHen)) + '</td>';
                         html += '<td>' + item.GioHen + '</td>';
                         html += '<td>' + '<div onclick="SuaTrangThaiBelow(' + item.MaLichHen + ')"><a><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Cập nhật"></i> </a><div/>' + '</td>';

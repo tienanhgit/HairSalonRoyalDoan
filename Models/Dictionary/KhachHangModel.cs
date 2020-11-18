@@ -67,7 +67,8 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         Khachhang khachhang = new Khachhang();
                         khachhang.MaKH = String.IsNullOrEmpty(row["MaKhachHang"].ToString()) ? 0 : int.Parse(row["MaKH"].ToString());
                         khachhang.HoTenKH = String.IsNullOrEmpty(row["HoTenKH"].ToString()) ? "" : row["HoTenKH"].ToString();
-                        khachhang.SDTKH = String.IsNullOrEmpty(row["SoSTKH"].ToString()) ? 0 : int.Parse(row["SoDTKH"].ToString());
+                  
+                        khachhang.SDTKH = String.IsNullOrEmpty(row["SoSTKH"].ToString()) ? "" : row["SoSTKH"].ToString();
                         khachhang.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
                         khachhang.DiaChi = String.IsNullOrEmpty(row["DiaChi"].ToString()) ? "" : row["DiaChi"].ToString();
                         khachhang.MatKhau= String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString();
@@ -94,7 +95,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                     khachhang = new Khachhang();
                     khachhang.MaKH = String.IsNullOrEmpty(row["MaKH"].ToString()) ? 0 : int.Parse(row["MaKH"].ToString());
                     khachhang.HoTenKH = String.IsNullOrEmpty(row["HoTenKH"].ToString()) ? "" : row["HoTenKH"].ToString();
-                    khachhang.SDTKH = String.IsNullOrEmpty(row["SoDTKH"].ToString()) ? 0 : int.Parse(row["SoDTKH"].ToString());
+                    khachhang.SDTKH = String.IsNullOrEmpty(row["SoDTKH"].ToString()) ? "" : row["SoDTKH"].ToString();
                     khachhang.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
                     khachhang.DiaChi = String.IsNullOrEmpty(row["DiaChi"].ToString()) ? "" : row["DiaChi"].ToString();
                     khachhang.MatKhau = String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString();
@@ -119,7 +120,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                     khachhang = new Khachhang();
                     khachhang.MaKH = String.IsNullOrEmpty(row["MaKH"].ToString()) ? 0 : int.Parse(row["MaKH"].ToString());
                     khachhang.HoTenKH = String.IsNullOrEmpty(row["HoTenKH"].ToString()) ? "" : row["HoTenKH"].ToString();
-                    khachhang.SDTKH = String.IsNullOrEmpty(row["SoDTKH"].ToString()) ? 0 : int.Parse(row["SoDTKH"].ToString());
+                    khachhang.SDTKH = String.IsNullOrEmpty(row["SoDTKH"].ToString()) ? "" : row["SoDTKH"].ToString();
                     khachhang.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
                     khachhang.DiaChi = String.IsNullOrEmpty(row["DiaChi"].ToString()) ? "" : row["DiaChi"].ToString();
                     khachhang.MatKhau = String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString();

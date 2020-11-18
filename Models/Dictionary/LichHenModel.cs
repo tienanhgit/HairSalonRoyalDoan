@@ -116,7 +116,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             try
             {
                 List<LichHen> dsLichHen = new List<LichHen>();
-                DataTable dt = dataProvider.ExecuteQuery("Proc_LichHen_GetData", new object[] { NgayHen }, new List<string>() { "@NgayHen" });
+                DataTable dt = dataProvider.ExecuteQuery("LichHen_TimKiemTheoThoiGian", new object[] { NgayHen }, new List<string>() { "@NgayHen" });
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     foreach (DataRow row in dt.Rows)

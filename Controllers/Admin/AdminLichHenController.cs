@@ -46,8 +46,6 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             int numSize = (int)Math.Ceiling(totalNumsize);
             ViewBag.numSize = numSize;
             var dataPost = data.OrderByDescending(x => x.MaLichHen).Skip(start).Take(pageSize);
-
-
             // return Json(listPost);
             return Json(new { data = dataPost, pageCurrent = page, numSize = numSize, ss = searchString }, JsonRequestBehavior.AllowGet);
 

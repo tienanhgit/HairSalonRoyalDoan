@@ -146,6 +146,8 @@
     <Compile Include="Models\Dictionary\LichHenModel.cs" />
     <Compile Include="Models\Dictionary\NhanVienModel.cs" />
     <Compile Include="Models\Dictionary\ThuongHieuModel.cs" />
+    <Compile Include="Repository\BaiViet.cs" />
+    <Compile Include="Repository\Banner.cs" />
     <Compile Include="Repository\ChiTietDichVu.cs" />
     <Compile Include="Repository\ChiTietDonDat.cs" />
     <Compile Include="Repository\ChiTietDonDichVu.cs" />

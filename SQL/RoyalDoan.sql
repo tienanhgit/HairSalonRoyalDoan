@@ -4,7 +4,7 @@ go
 use HairSalonRoyalDoan
 
 
-select * from DonDatHang
+
 
 
 
@@ -15,9 +15,9 @@ MaNV int Identity primary key,
 HoTenNV nvarchar(50),
 Email nvarchar(50),
 MatKhau nvarchar(255),
-SoDTNV int,
+SoDTNV varchar(20),
 QueQuan nvarchar(50),
-CMND int,
+CMND varchar(25),
 NgaySinh datetime,
 Hinhthuclam nvarchar(50),
 MaChucVu int,
@@ -38,7 +38,7 @@ create table KhachHang
 (
 MaKH int not null identity primary key,
 HoTenKH nvarchar(50),
-SoDTKH int not null,
+SoDTKH varchar(20) not null,
 Email nvarchar(50),
 DiaChi ntext,
 MatKhau nvarchar(50),
@@ -51,7 +51,7 @@ create table DonDatHang
 MaDonDatHang int not null identity primary key,
 MaNV int,
 MaKH int,
-SoDTGiaoHang int,
+SoDTGiaoHang varchar(20),
 HinhThucTT nvarchar(50),
 TrangThaiDonSanPham int,/*1 chờ xác nhận , 2 xác nhận ,3 thành công */
 TrangThaiDonDichVu int,/*1 chờ xác nhận , 2 xác nhận ,3 thành công */
@@ -261,19 +261,19 @@ from LichHen
 
 end
 
-
+go
 
 
 /*Bang Lich Hen*/
 -- Trang Thai 1 :Chưa xác nhận , trạng thái 2 : đã xác nhận, trạng thái 3 : hủy, trạng thái 4 :Đã đến
-create proc TimKiemTheoThoiGian
+
+create proc LichHen_TimKiemTheoThoiGian
 @NgayHen datetime=''
 as
 begin
 select MaLichHen,LichHen.MaKH,LichHen.MaNV,NgayHen,GioHen,TrangThai,HoTenKH,HoTenNV,SoDTKH from LichHen left join KhachHang on LichHen.MaKh=KhachHang.MaKH 
-	left join NhanVien on LichHen.MaNV=NhanVien.MaNV  where (1=1) and Day(@NgayHen)=Date(NgayHen) and
-	MONTH(  
-where 
+	left join NhanVien on LichHen.MaNV=NhanVien.MaNV  where (1=1) and @NgayHen=NgayHen
+
 
 
 end
@@ -323,7 +323,7 @@ END;
 Go
 
 
-exec Proc_LichHen_Update 1,
+
 create Proc Proc_LichHen_Update 
 @MaLichHen int=null,
 @MaNV int=null,
@@ -466,7 +466,7 @@ Go
 
 
 
-alter Proc Proc_SanPham_Update 
+create Proc Proc_SanPham_Update 
 							@MaSanPham int, 
 							@MaDanhMuc int='', 
 							@MaThuongHieu int='',
@@ -606,7 +606,7 @@ go
 create Proc Proc_NhanVien_Insert @HoTenNV nvarchar(50),
 								@Email nvarchar(50)='',
 								@MatKhau nvarchar(255)='',
-								@SoDTNV INT='',
+								@SoDTNV varchar(50),
 								@QueQuan nvarchar(50)='',
 								@CMND int='',
 								@NgaySinh datetime='',
@@ -1128,7 +1128,7 @@ end
 go
 create Proc Proc_KhachHang_Insert
  @HoTenKH nvarchar(50)='',
-@SoDTKH nvarchar(50)='',
+@SoDTKH varchar(50)='',
 @Email nvarchar(50)='',
 @DiaChi ntext='',
 @MatKhau nvarchar(50)=''
@@ -1248,7 +1248,7 @@ go
 create proc Proc_DonDatHang_Insert
  @MaNV int =null,
  @MaKH int=null,
- @SoDTGiaoHang int='',
+ @SoDTGiaoHang varchar(50),
  @HinhThucTT nvarchar(50)='',
  @TrangThaiDonSanPham int='',
  @TrangThaiDonDichVu int='',
@@ -1298,15 +1298,11 @@ END
 
 GO
 
-
-
-
- 
 create Procedure Proc_DonDatHang_GetData 
 @MaDonDatHang int='',
 @MaNV int ='',
  @MaKH int='',
- @SoDTGiaoHang int='',
+ @SoDTGiaoHang varchar='',
  @HinhThucTT nvarchar(50)='',
  @TrangThaiDonSanPham int='',
  @TrangThaiDonDichVu int='',
@@ -1326,6 +1322,22 @@ AS BEGIN
 	begin
 		SET @Query += ' AND (MaNV = @MaNV) '
 		end
+		IF(@SoDTGiaoHang !='')
+	begin
+		SET @Query += ' AND (SoDTGiaoHang = @SoDTGiaoHang)'
+		end
+			IF(@NgayTao !='')
+	begin
+		SET @Query += ' AND (NgayTao = @NgayTao) '
+		end
+				IF(@TrangThaiDonSanPham !='')
+	begin
+		SET @Query += ' AND (TrangThaiDonSanPham = @TrangThaiDonSanPham) '
+		end
+						IF(@TrangThaiDonDichVu !='')
+	begin
+		SET @Query += ' AND (TrangThaiDonDichVu = @TrangThaiDonDichVu) '
+		end
 		IF(@MaKH !='')
 	begin
 		SET @Query += ' AND (MaKH = @MaKH) '
@@ -1333,10 +1345,14 @@ AS BEGIN
 
 	SET @ParamList =		'@MaDonDatHang int,
 							@MaKH int,
-							@MaNV int
+							@MaNV int,
+							@SoDTGiaoHang varchar, 
+							@NgayTao datetime,
+							@TrangThaiDonSanPham int,
+							@TrangThaiDonDichVu int
 							  
 							 '
-	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDonDatHang,@MaKH,@MaNV
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaDonDatHang,@MaKH,@MaNV,@SoDTGiaoHang,@NgayTao,@TrangThaiDonSanPham,@TrangThaiDonDichVu
 END				
 go
 

@@ -80,6 +80,37 @@ namespace HairSalonRoyalDoan.Controllers
             List<ChiTietDonDat> listchitietdondat = new ChiTietDonDatModel().GetDataSanPham(Convert.ToInt32(MaDonDatHang));     
             return Json(listchitietdondat,JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        public JsonResult HuyDonDatHang(string MaDonDatHang)
+        {
+            //Kiểm tra lại trạng thái
+            DonDatHang donDatHang = new DonDatHangModel().GetDonDatHangByMa(Convert.ToInt32(MaDonDatHang));
+            if(donDatHang.TrangThaiDonSanPham<3)
+            {
+                if (MaDonDatHang != null)
+                {
+                    string a = new DonDatHangModel().UpdateTrangThai(MaDonDatHang, "5", "");
+                }
+
+                return Json(new
+                {
+                    status = true
+                });
+            }
+            else
+            {
+
+                return Json(new
+                {
+                    status = false
+                }); ;
+            }
+
+           
+
+
+
+        }
 
 
 

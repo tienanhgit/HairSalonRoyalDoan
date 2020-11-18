@@ -5,7 +5,7 @@
     ViewBag.Title = "_UserHome";
 
     var ListLichHen = ViewBag.LichHen as PagedList.IPagedList<HairSalonRoyalDoan.Repository.LichHen>;
-
+    var ListDonDatHang=ViewBag.DonDatHang as PagedList.IPagedList<HairSalonRoyalDoan.Repository.DonDatHang>;
 
 }
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -45,6 +45,7 @@
                                     <th>Số điện thoại</th>
                                     <th>Ngày Hẹn</th>
                                     <th>Giờ Hẹn</th>
+                                    <th>Trạng Thái</th>
 
                                 </tr>
                             </thead>
@@ -58,6 +59,23 @@
                                         <td>@itemlh.SoDTKH</td>
                                         <td>@itemlh.NgayHen</td>
                                         <td>@itemlh.GioHen</td>
+                                        @if (itemlh.TrangThai == 1)
+                                        {
+                                            <td>Chưa xác nhận</td>
+                                        }
+                                        @if (itemlh.TrangThai == 2)
+                                        {
+                                            <td>Đã xác nhận</td>
+                                        }
+                                        @if (itemlh.TrangThai == 3)
+                                        {
+                                            <td>Hủy</td>
+                                        }
+                                        @if (itemlh.TrangThai == 4)
+                                        {
+                                            <td>Đã đến</td>
+                                        }
+
                                     </tr>
                                 }
 
@@ -78,22 +96,23 @@
             </form>
 
         </div>
-    </div>
+
+       
 
     <script type="text/javascript">
         $(document).ready(function () {
-         
+            $("#datepickerDonDatHang").datepicker();
 
-            $(function () {
+         
                 $("#datepickerNgayHen").datepicker();
-            });
+         
         });
 
         function SearchNgayHen() {
           
             var NgayHen = $('#datepickerNgayHen').val();
            
-            window.location="/AdminList/LichHen?NgayHen=" +'"'+NgayHen+'"';
+            window.location="/AdminList/LichHen?NgayHen=" +NgayHen;
 
 
 
