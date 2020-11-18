@@ -233,19 +233,43 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             }
         }
 
-
-
-
-
-
-
-
-
-
+        public float GetDataBieuDo(int Thang,int TrangThaiDonDichVu,int TrangThaiDonSanPham)
+        {
+            try
+            {
+                float tongtien = 0;
+                DataTable dt = dataProvider.ExecuteQuery("BieuDo", new object[] { Thang,TrangThaiDonSanPham,TrangThaiDonDichVu }, new List<string>() { "Thang","TrangThaiDonSanPham","TrangThaiDonDichVu" });
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    var row = dt.Rows[0];
+                    tongtien = String.IsNullOrEmpty(row["TongTien"].ToString()) ? 0 : float.Parse(row["TongTien"].ToString());
+                    return tongtien;
+                }
+                return tongtien ;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
 
 
 
 
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

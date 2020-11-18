@@ -1,0 +1,92 @@
+﻿@using HairSalonRoyalDoan.Models.Dictionary
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminHome.cshtml";
+
+
+
+}
+
+
+
+<div id="main">
+
+    <ol class="breadcrumb">
+        <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
+        <li class="active"><a href="/ThongKe/Index">Thống kê</a></li>
+    </ol>
+
+
+
+    <h4>Doanh thu</h4>
+    <div class="col-xs-6">
+        <div id="chart"></div>
+    </div>
+    <div class="col-xs-6">
+        <select class="target" style="width:120px;height:30px">
+            <option value="1" selected>Tất cả</option>
+            <option value="2">Sản phẩm</option>
+            <option value="3">Dịch Vụ</option>
+
+        </select>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+    $(document).ready(function () {
+      
+        google.charts.setOnLoadCallback(drawChart);
+        drawChart();
+    });
+    $(".target").change(function () {
+        drawChart();
+           
+        });
+            function drawChart() {
+                // Tạo data table
+            
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Tháng');
+                    data.addColumn('number', 'Tổng tiền');
+                    var LoaiThongKe = $(".target option:selected").val();
+                    $.ajax({
+                        type: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        url: '/ThongKe/ThongKeAll',
+                        data: "{'LoaiThongKe':'" + LoaiThongKe+"'}",
+                            dataType: "json",
+                        success: function (result) {
+                            $.each(result.data, function (key, item) {
+                            
+                                data.addRows([
+                                    ['Tháng ' + item.Thang, item.TongTien]
+                                ]);
+                            });
+
+                            // Set option của biểu đồ
+                            var options = {
+                                'title': 'Doanh thu ' + result.LBD,
+                                'width': 1000,
+                                'height': 500
+                            };
+
+                            // Vẽ biểu đồ từ data và option đã khai báo
+                            var chart = new google.visualization.ColumnChart(document.getElementById('chart'));
+                            chart.draw(data, options);
+                       
+                        }
+                    });
+
+                 
+
+
+
+             
+
+            }
+ 
+</script>
+

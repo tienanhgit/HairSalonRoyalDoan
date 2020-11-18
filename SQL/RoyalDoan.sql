@@ -1216,10 +1216,59 @@ go
 
 /*end*/
 
+create proc BieuDo
+@Thang int='',
+@TrangThaiDonSanPham int='',
+@TrangThaiDonDichVu int=''
+as
+begin
+DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'select Month(NgayTao) as NgayTao,Sum(TongTien) as TongTien
+from DonDatHang where (Year(NgayTao)=Year(GetDate()))'
+IF(@TrangThaiDonDichVu !='')
+	begin	
+		set @Query += ' AND (TrangThaiDonDichVu=@TrangThaiDonDichVu)'
+		end
+		IF(@TrangThaiDonSanPham !='')
+	begin	
+		set @Query += ' AND (TrangThaiDonSanPham=@TrangThaiDonSanPham)'
+		end
+			IF(@TrangThaiDonSanPham =''and @TrangThaiDonDichVu='')
+	begin	
+		set @Query += ' AND (TrangThaiDonSanPham=4 or TrangThaiDonDichVu=4)'
+		end
+				IF(@Thang!='')
+	begin	
+		set @Query += 'AND (Month(NgayTao)=@Thang)'
+		end
+		set @Query+='group by MONTH(NgayTao),YEAR(NgayTao)'
+
+	SET @ParamList =		'@Thang int,
+								
+								@TrangThaiDonSanPham int,
+								@TrangThaiDonDichVu int	
+													
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@Thang,@TrangThaiDonSanPham,@TrangThaiDonDichVu
+
+	end
+
+
+
+
+
+
+
 
 /*Bang Đơn đặt hàng*/
+
 -- Trạng thái đơn đặt hàng :Trạng thái 1 :Chờ xác nhận, trạng thái 2 :Đã xác nhận, trạng thái 3: đang giao hàng
 --Trạng thái 4: Hoàn thành, trạng thái 5 : Hủy
+
+--Proc thống kê doanh thu theo tháng
+
+
 create proc Proc_DonDatHang_UpdateTT
 @MaDonDatHang int='',
 @TrangThaiDonSanPham int=0,
