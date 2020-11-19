@@ -7,7 +7,6 @@ use HairSalonRoyalDoan
 
 
 
-
 /*chuan*/
 create table NhanVien
 (
@@ -1254,12 +1253,7 @@ IF(@TrangThaiDonDichVu !='')
 
 	end
 
-
-
-
-
-
-
+go
 
 /*Bang Đơn đặt hàng*/
 
@@ -1282,7 +1276,6 @@ set
 TrangThaiDonSanPham=@TrangThaiDonSanPham
 where MaDonDatHang=@MaDonDatHang
 end
-
 if(@TrangThaiDonDichVu!=0)
 begin 
 update DonDatHang

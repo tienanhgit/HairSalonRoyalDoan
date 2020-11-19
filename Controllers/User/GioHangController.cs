@@ -116,13 +116,25 @@ namespace HairSalonRoyalDoan.Controllers.User
         public ActionResult ThanhToanGioHang()
         {
             var cart = Session["CART_SESSION"];
-            if (Session["CART_SESSION"] == null || Session["USER_SESSION"] == null)
+            if (Session["USER_SESSION"] == null)
             {
-                return Redirect("/GioHang/Index");
+                return Redirect("/KhachHang/DangNhap");
 
+            }
+            else 
+            if (Session["CART_SESSION"] == null)
+            {
+                return Redirect("/UserProduct/Index");
             }
             else
             {
+                var sdtkh = Session["USER_SESSION"].ToString();
+                int sdtkhnhan = Convert.ToInt32(sdtkh);
+
+                Khachhang kh = new KhachHangModel().GetKhachHangBySDT(sdtkhnhan);
+                ViewBag.KhachHang = kh;
+
+
                 var list = new List<GioHangItem>();
                 if (cart != null)
                 {
@@ -160,7 +172,7 @@ namespace HairSalonRoyalDoan.Controllers.User
 
 
                     Khachhang kh = new KhachHangModel().GetKhachHangBySDT(sdtkhnhan);
-                    makh = kh.MaKH.ToString();
+                    makh = kh.MaKH.ToString();  
                 }
                 var cart = Session["CART_SESSION"];
 
