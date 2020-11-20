@@ -143,6 +143,39 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             }
         }
 
+        public List<LichHen> GetDataByKhachHang(int MaKH,int TrangThai)
+        {
+            try
+            {
+                List<LichHen> dsLichHen = new List<LichHen>();
+                DataTable dt = dataProvider.ExecuteQuery("Proc_LichHen_GetData", new object[] {MaKH,TrangThai }, new List<string>() {"@MaKH","@TrangThai"});
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        LichHen lichHen = new LichHen();
+                        lichHen.MaLichHen = String.IsNullOrEmpty(row["MaLichHen"].ToString()) ? 0 : int.Parse(row["MaLichHen"].ToString());
+                        lichHen.MaKH = String.IsNullOrEmpty(row["MaKH"].ToString()) ? 0 : int.Parse(row["MaKH"].ToString());
+                        lichHen.MaNV = String.IsNullOrEmpty(row["MaNV"].ToString()) ? 0 : int.Parse(row["MaNV"].ToString());
+                        lichHen.GioHen = String.IsNullOrEmpty(row["GioHen"].ToString()) ? "" : row["GioHen"].ToString();
+                        lichHen.NgayHen = String.IsNullOrEmpty(row["NgayHen"].ToString()) ? "" : row["NgayHen"].ToString();
+                        lichHen.TrangThai = String.IsNullOrEmpty(row["TrangThai"].ToString()) ? 0 : int.Parse(row["TrangThai"].ToString());
+                        lichHen.TenKhachHang = String.IsNullOrEmpty(row["HoTenKH"].ToString()) ? "" : row["HoTenKH"].ToString();
+                        lichHen.TenNhanVien = String.IsNullOrEmpty(row["HoTenNV"].ToString()) ? "" : row["HoTenNV"].ToString();
+                        lichHen.SoDTKH = String.IsNullOrEmpty(row["SoDTKH"].ToString()) ? "" : row["SoDTKH"].ToString();
+                        dsLichHen.Add(lichHen);
+                    }
+                    return dsLichHen;
+                }
+                return new List<LichHen>();
+            }
+            catch (Exception ex)
+            {
+                return new List<LichHen>();
+            }
+        }
+
+
 
 
 

@@ -304,34 +304,45 @@
             std.Email = $("#EmailDK").val();
             std.DiaChi = $("#DiaChi").val();
             std.MatKhau = $("#MatKhauDK").val();
+
+            var mk_regex =/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
             var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
             var mobile = std.SDTKH;
         
-                if (vnf_regex.test(mobile) == false) {
-                    alert('Số điện thoại của bạn không đúng định dạng!');
+            if (vnf_regex.test(mobile) == false) {
+                alert('Số điện thoại của bạn không đúng định dạng!');
+                check = 0;
+            } else
+                if (std.HoTenKH == "" || std.SDTKH == "" || std.Email == "" || std.DiaChi == "" || std.MatKhau == "") {
+
                     check = 0;
-                } else {
-                    check = 1;
-                   
+                    alert("Hãy nhập đầy đủ thông tin !");
                 }
-    
-
-
-            if (check == 0||std.HoTenKH == "" || std.SDTKH == "" || std.Email == "" || std.DiaChi == "" || std.MatKhau ) {
-                console.log(check);
-                    alert("Hãy nhập đầy đủ thông tin  ! ");
+                else if (mk_regex.test(std.MatKhau) == false) {
+                    check = 0;
+                    alert("Mật khẩu tối thiểu sáu ký tự, ít nhất một chữ cái và một số")
                 }
+                else
+            {
+                        check = 1;
+                    }
 
-                else {
+           
+            if (check == 1) {
                     $.ajax({
                         type: "POST",
                         url: '@Url.Action("/DangKy")',
                         data: '{std: ' + JSON.stringify(std) + '}',
                         dataType: "json",
                         contentType: "application/json; charset=utf-8",
-                        success: function () {
-                            console.log(std);
-                            alert("Tạo tài khoản thành công !");
+                        success: function (result) {
+                            if (result.data == 0) {
+                                alert("Tạo tài khoản thành công !");
+                            }
+                            else {
+                                alert("Số điện thoại đã tồn tại !");
+                            }
+                      
                         },
                         error: function (errormessage) {
                             alert(errormessage.responseText);

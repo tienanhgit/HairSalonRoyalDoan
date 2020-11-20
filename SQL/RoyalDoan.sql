@@ -3,10 +3,6 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
-
-
-
-
 /*chuan*/
 create table NhanVien
 (
@@ -273,8 +269,6 @@ begin
 select MaLichHen,LichHen.MaKH,LichHen.MaNV,NgayHen,GioHen,TrangThai,HoTenKH,HoTenNV,SoDTKH from LichHen left join KhachHang on LichHen.MaKh=KhachHang.MaKH 
 	left join NhanVien on LichHen.MaNV=NhanVien.MaNV  where (1=1) and @NgayHen=NgayHen
 
-
-
 end
 
 go
@@ -375,14 +369,13 @@ create  Procedure Proc_LichHen_GetData
 	SET @Query = 'select MaLichHen,LichHen.MaKH,LichHen.MaNV,NgayHen,GioHen,TrangThai,HoTenKH,HoTenNV,SoDTKH from LichHen left join KhachHang on LichHen.MaKh=KhachHang.MaKH 
 	left join NhanVien on LichHen.MaNV=NhanVien.MaNV  where (1=1) and YEAR(NgayHen)=YEAR(GETDATE()) and MONTH(NgayHen)=MONTH(GETDATE()) and DAY(NgayHen)>=Day(GetDate())'
 
-
 	IF(@MaLichHen !='')
 	begin
 		SET @Query += ' AND (MaLichHen = @MaLichHen) '
 		end
 		if(@MaKH!='')
 		begin
-		set @Query += ' AND (MaKH = @MaKH) '
+		set @Query += ' AND (LichHen.MaKH = @MaKH) '
 		end
 	IF(@MaNV != '')
 		BEGIN

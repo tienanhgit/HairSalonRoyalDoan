@@ -127,7 +127,7 @@ namespace HairSalonRoyalDoan.Controllers.User
                 khachHangModel.ThemKhachHang(std);
             }
             
-            return Json(new { Message = message, JsonRequestBehavior.AllowGet });
+            return Json(new { data=cvcheck, JsonRequestBehavior.AllowGet });
 
         }
 

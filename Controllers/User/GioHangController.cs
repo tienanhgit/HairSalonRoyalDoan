@@ -17,13 +17,14 @@ namespace HairSalonRoyalDoan.Controllers.User
         // GET: GioHang
         public ActionResult Index()
         {
+          
             var cart = Session["CART_SESSION"];
             var list = new List<GioHangItem>();
             if (cart != null)
             {
                 list = (List<GioHangItem>)cart;
             }
-      
+            ViewBag.SLSP = Session["SLSP_SESSION"];
             return View(list);
         }
 
@@ -33,6 +34,7 @@ namespace HairSalonRoyalDoan.Controllers.User
             //Bắt đầu khởi tạo session
             var message = ""; 
             var Soluong = 1;
+            Session["SLSP_SESSION"] = Convert.ToInt32(Session["SLSP_SESSION"]) + 1;
             var sanpham = new ProductModel().GetSanPhamByMa(SanPhamID);
             var cart = Session["CART_SESSION"];
             if (cart != null)
@@ -108,6 +110,8 @@ namespace HairSalonRoyalDoan.Controllers.User
             var sessionCart = (List<GioHangItem>)Session["CART_SESSION"]; 
             sessionCart.RemoveAll(x => x.sanpham.MaSanPham == SanPhamID);
             Session["CART_SESSION"] = sessionCart;
+
+            Session["SLSP_SESSION"] = Convert.ToInt32(Session["SLSP_SESSION"]) - 1;
             return Json(new
             {
                 status = true
@@ -121,8 +125,8 @@ namespace HairSalonRoyalDoan.Controllers.User
                 return Redirect("/KhachHang/DangNhap");
 
             }
-            else 
-            if (Session["CART_SESSION"] == null)
+           
+            if (Convert.ToInt32(Session["SLSP_SESSION"]) == 0)
             {
                 return Redirect("/UserProduct/Index");
             }
@@ -146,6 +150,9 @@ namespace HairSalonRoyalDoan.Controllers.User
 
 
         }
+     
+
+
         [HttpPost]
         public ActionResult DatHang()
         {
