@@ -41,7 +41,6 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
     }
 
-
         public ActionResult DangXuat()
         {
 

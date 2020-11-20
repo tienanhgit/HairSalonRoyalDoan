@@ -71,6 +71,8 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 return new List<DonDatHang>();
             }
         }
+
+
         public List<DonDatHang> GetDataByTrangThai(int TrangThaiDonSanPham,int TrangThaiDonDichVu)
         {
             try

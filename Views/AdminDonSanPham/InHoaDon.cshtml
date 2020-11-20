@@ -1,4 +1,8 @@
-﻿@{
+﻿
+@{
+   
+
+
     Layout = "";
 }
 <!doctype html>
@@ -117,13 +121,13 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="https://www.sparksuite.com/images/logo.png" style="width:100%; max-width:300px;">
                             </td>
 
                             <td>
-                                Mã hóa đơn :<br>
-                                Ngày lập:@DateTime.Now<br>
-                             
+                                Mã hóa đơn :@ViewBag.DonDatHang.MaDonDatHang<br>
+                                Ngày lập:@ViewBag.DonDatHang.NgayTao<br>
+                                Nhân viên : <br />
+
                             </td>
                         </tr>
                     </table>
@@ -135,81 +139,71 @@
                     <table>
                         <tr>
                             <td>
-                                Họ Tên : Nguyễn Thị Ngọc Hạnh<br />
-                                SĐT :0358746677<br />
-                                Địa chỉ nhận : Khu 3 Hoàng thương ,Thanh ba , Phú Thọ
+                                Họ tên khách hàng : @ViewBag.DonDatHang.HoTenNguoiNhan<br />
+                                SĐT :@ViewBag.DonDatHang.SoDTGiaoHang<br />
+                                @if (ViewBag.DonDathang.DiaChiNhanHang != "")
+                                {
+                                    <span>Địa chỉ nhận: @ViewBag.DonDatHang.DiaChiNhanHang</span>
+                                }
+
                             </td>
-               
+
                         </tr>
                     </table>
                 </td>
             </tr>
 
-            <tr class="heading">
-                <td>
-                    Payment Method
-                </td>
 
-                <td>
-                    Check #
-                </td>
-            </tr>
 
-            <tr class="details">
-                <td>
-                    Check
-                </td>
-
-                <td>
-                    1000
-                </td>
-            </tr>
 
             <tr class="heading">
                 <td>
-                    Item
+                    Tên
                 </td>
 
                 <td>
-                    Price
+                    Giá
                 </td>
             </tr>
+            @if (ViewBag.ListDV != null)
+            {
+                foreach (var itemsp in ViewBag.ListDV)
+                {
+                    <tr class="item">
+                        <td>
+                            @itemsp.TenDichVu
+                        </td>
 
-            <tr class="item">
-                <td>
-                    Website design
-                </td>
+                        <td>
+                            @itemsp.Gia
+                        </td>
+                    </tr>
+                }
+            }
+            @if (ViewBag.ListSP != null)
+            {
+                foreach (var itemsp in ViewBag.ListSP)
+                {
+                    <tr class="item">
+                        <td>
+                            @itemsp.TenSanPham
+                        </td>
 
-                <td>
-                    $300.00
-                </td>
-            </tr>
+                        <td>
+                            @itemsp.Gia
+                        </td>
+                    </tr>
+                }
+            }
 
-            <tr class="item">
-                <td>
-                    Hosting (3 months)
-                </td>
 
-                <td>
-                    $75.00
-                </td>
-            </tr>
 
-            <tr class="item last">
-                <td>
-                    Domain name (1 year)
-                </td>
-
-                <td>
-                    $10.00
-                </td>
-            </tr>
 
             <tr class="total">
                 <td></td>
 
                 <td>
-                    Total: $385.00
+                    Tổng tiền :@ViewBag.DonDatHang.TongTien
                 </td>
             </tr>
         </table>

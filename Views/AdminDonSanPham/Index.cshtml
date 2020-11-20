@@ -108,7 +108,7 @@
 </head>
 <body>
     @*Day la dialog cho sản phẩm *@
-    <div class="dialog-chi-tiet-don-san-pham" title="CHI TIẾT ĐƠN ĐẶT">
+    <div class="dialog-chi-tiet-don-san-pham" title="CHI TIẾT ĐƠN ĐẶT" >
 
         <table class="table table-hover">
             <thead>
@@ -125,40 +125,34 @@
             <tbody class="chitietspbd">
             </tbody>
 
-
         </table>
 
-
+        
 
 
     </div>
     @*Day la dialog cho dịch vụ *@
-    <div class="dialog-chi-tiet-don-dich-vu" title="CHI TIẾT ĐƠN DỊCH VỤ">
+<div class="dialog-chi-tiet-don-dich-vu" title="CHI TIẾT ĐƠN DỊCH VỤ">
 
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Mã dịch vụ</th>
-                    <th>Tên dịch vụ</th>
-                    <th>Giá</th>
-                    <th>Số lượng</th>
-
-
-                </tr>
-
-            </thead>
-            <tbody class="chitietdvbd">
-            </tbody>
+    <table class="table table-hover ">
+        <thead>
+            <tr>
+                <th>Mã dịch vụ</th>
+                <th>Tên dịch vụ</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
 
 
-        </table>
+            </tr>
+
+        </thead>
+        <tbody class="chitietdvbd">
+        </tbody>
 
 
-
-
-    </div>
-
-
+    </table>
+    
+</div>
     <div id="main">
         <ol class="breadcrumb">
             <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
@@ -367,14 +361,15 @@
                             html += '<td>' + item.SoLuong + '</td>';
                             html += '<td id="cart-price-">' + item.Gia * item.SoLuong + '<td/>';
                         });
-
+                       
 
 
                         html += '<tr><td>Tổng tiền :' + tongtien + '<td/><tr/>';
                         html += '<td> Địa chỉ nhận hàng :' + diachinh + '</td>';
+                        html += '</tr>';
+                   
                         $('.chitietspbd').html(html);
-
-
+                        $(".dialog-chi-tiet-don-san-pham").append('<input type="button" onclick="InHoaDon(' + MaDonDatHang + ')" value="In Hóa Đơn" style="margin-left:50%;height:30px;width:100px"/>');
                     },
                     error: function (data) {
 
@@ -410,11 +405,10 @@
                         });
 
 
-
                         html += '<tr><td>Tổng tiền :' + tongtien + '<td/><tr/>';
 
                         $('.chitietdvbd').html(html);
-
+                        $(".dialog-chi-tiet-don-dich-vu").append('<input type="button" onclick="InHoaDon(' + MaDonDatHang + ')" value="In Hóa Đơn" style="margin-left:50%;height:30px;width:100px"/>');
 
                     },
                     error: function (data) {
@@ -432,7 +426,10 @@
 
         }
 
+        function InHoaDon(MaDonDatHang) {
+            window.location.href = "/AdminDonSanPham/InHoaDon?MaDonDatHang="+MaDonDatHang;
 
+        }
 
 
     </script>

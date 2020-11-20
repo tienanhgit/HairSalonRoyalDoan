@@ -6,34 +6,23 @@ using System.Web.Mvc;
 
 namespace HairSalonRoyalDoan.Controllers.Admin
 {
-    public class AdminBaiVietController : Controller
+    public class AdminNhanVienController : Controller
     {
-        // GET: AdminBaiViet
+        // GET: AdminNhanVien
         public ActionResult Index()
         {
-
-
-
             return View();
         }
-        public ActionResult ThemMoiBaiViet()
+
+        public ActionResult ThemMoiNhanVien()
         {
-
-
             return View();
         }
-        public ActionResult SuaBaiViet(string MaBaiViet,string TenBaiViet,string TrangThaiHienThi,string DanhGia)
+
+        public ActionResult SuaNhanVien()
         {
-
-
-
-
             return View();
         }
-
-
-
-
 
 
     }

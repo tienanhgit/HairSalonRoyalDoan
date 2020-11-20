@@ -10,9 +10,13 @@
     <meta name="viewport" content="width=device-width" />
     <title>_UserProduct</title>
     <script src="~/Scripts/Common/Library/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/Common/Library/jquery-3.4.1.js"></script>
+    <link href="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet" />
+
     <link href="~/CSS/Common/Library.css" rel="stylesheet" />
     <link href="~/CSS/User/Product.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
 
 </head>
 <body>
@@ -38,17 +42,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/KhachHang/DangNhap" id="usdnstore">Đăng Nhập</a>
                     </li>
-             
-                   
+
+
 
 
                 </ul>
 
                 <form class="form-inline my-2 my-lg-0">
                     <div class="input-group input-group-sm">
-                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
+                        <input type="text" class="form-control" name="TenSanPham" id="TenSanPham" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
                         <div class="input-group-append">
-                            <button type="button" class="btn btn-secondary btn-number">
+                            <button type="button" onclick="TimKiemSanPham()" class="btn btn-secondary btn-number">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
@@ -79,7 +83,7 @@
                     <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
                     <ul class="list-unstyled">
                         <li><a>Giờ phục vụ 7h-21h (kể cả thứ 7,CN)</a></li>
-                       
+
                     </ul>
                 </div>
 
@@ -92,16 +96,40 @@
                 </div>
 
                 <div class="col-12 copyright mt-3">
-                  
+
                     <p class="text-right text-muted">Copyright © RoyalDoan</p>
                 </div>
             </div>
         </div>
     </footer>
 
-
+    <script src="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.min.js"></script>
     <script>
         $(document).ready(function () {
+            $("#TenSanPham").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/AdminDonSanPham/ThemDonDatSanPham",
+                        type: "POST",
+                        dataType: "json",
+                        data: { Prefix: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.TenSanPham, value: item.TenSanPham };
+
+                            }))
+
+                        }
+                    })
+                },
+                messages: {
+                    noResults: "", results: ""
+                }
+            });
+
+
+
+
             var session = "@Session["USER_SESSION"]";
 
                 var usdn = $("#usdn").val();
@@ -114,10 +142,17 @@
                 }
 
         });
+        function TimKiemSanPham() {
+            var nameProduct = $("#TenSanPham").val();
+            window.location.href="/UserProduct/ProductDetail?TenSanPham=" + nameProduct;
+
+        }
 
 
 
 
     </script>
+
+
 </body>
 </html>

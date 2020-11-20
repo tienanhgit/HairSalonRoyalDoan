@@ -85,12 +85,13 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         nhanVien.HoTenNV = String.IsNullOrEmpty(row["HoTenNV"].ToString()) ? "" : row["HoTenNV"].ToString();
                         nhanVien.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
                         nhanVien.MatKhau = String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString(); 
-                       nhanVien.SDTNV = String.IsNullOrEmpty(row["SoDTNV"].ToString()) ? "" : row["SoDTNV"].ToString();
+                          nhanVien.SDTNV = String.IsNullOrEmpty(row["SoDTNV"].ToString()) ? "" : row["SoDTNV"].ToString();
                         nhanVien.QueQuan = String.IsNullOrEmpty(row["QueQuan"].ToString()) ? "" : row["QueQuan"].ToString();
                         nhanVien.CMND = String.IsNullOrEmpty(row["CMND"].ToString()) ? "" : row["CMND"].ToString();
                         nhanVien.NgaySinh = String.IsNullOrEmpty(row["NgaySinh"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySinh"]);
                         nhanVien.HinhThucLam= String.IsNullOrEmpty(row["Hinhthuclam"].ToString()) ? "" : row["Hinhthuclam"].ToString();
                         nhanVien.MaChucVu= String.IsNullOrEmpty(row["MaChucVu"].ToString()) ? 0 : int.Parse(row["MaChucVu"].ToString());
+                     nhanVien.TrangThaiHienThi= String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
                         nhanVien.NgayTao= String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
                         dsKhachHang.Add(nhanVien);
                     }
@@ -103,6 +104,39 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 return new List<NhanVien>();
             }
         }
+
+        public NhanVien GetNhanVienByMa(int MaNhanVien)
+        {
+            try
+            {
+                NhanVien nhanVien= null;
+                DataTable dt = dataProvider.ExecuteQuery("Proc_NhanVien_GetData", new object[] { MaNhanVien }, new List<string>() { "MaNV" });
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    var row = dt.Rows[0];
+                    nhanVien.MaNV = String.IsNullOrEmpty(row["MaNV"].ToString()) ? 0 : int.Parse(row["MaNV"].ToString());
+                    nhanVien.HoTenNV = String.IsNullOrEmpty(row["HoTenNV"].ToString()) ? "" : row["HoTenNV"].ToString();
+                    nhanVien.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
+                    nhanVien.MatKhau = String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString();
+                    nhanVien.SDTNV = String.IsNullOrEmpty(row["SoDTNV"].ToString()) ? "" : row["SoDTNV"].ToString();
+                    nhanVien.QueQuan = String.IsNullOrEmpty(row["QueQuan"].ToString()) ? "" : row["QueQuan"].ToString();
+                    nhanVien.CMND = String.IsNullOrEmpty(row["CMND"].ToString()) ? "" : row["CMND"].ToString();
+                    nhanVien.NgaySinh = String.IsNullOrEmpty(row["NgaySinh"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySinh"]);
+                    nhanVien.HinhThucLam = String.IsNullOrEmpty(row["Hinhthuclam"].ToString()) ? "" : row["Hinhthuclam"].ToString();
+                    nhanVien.MaChucVu = String.IsNullOrEmpty(row["MaChucVu"].ToString()) ? 0 : int.Parse(row["MaChucVu"].ToString());
+                    nhanVien.TrangThaiHienThi = String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
+                    nhanVien.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
+                }
+                return nhanVien;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+
         public string ThemNhanVien(NhanVien nhanVien)
         {
             try
@@ -111,7 +145,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 string rs = "";
                 rs = dataProvider.ExecuteScalar("Proc_NhanVien_Insert", new object[] { nhanVien.HoTenNV,nhanVien.Email,
                     nhanVien.MatKhau,nhanVien.SDTNV,nhanVien.QueQuan,nhanVien.CMND,
-                    nhanVien.NgaySinh,nhanVien.HinhThucLam,nhanVien.MaChucVu,nhanVien.NgayTao,nhanVien.NgaySua},
+                    nhanVien.NgaySinh,nhanVien.HinhThucLam,nhanVien.MaChucVu,nhanVien.TrangThaiHienThi,nhanVien.NgayTao},
                   new List<string>() {
                       "@HoTenNhanVien",
                       "@Email",
@@ -122,6 +156,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                       "@NgaySinh",
                       "@Hinhthuclam",
                       "@MaChucVu",
+                      "@TrangThaiHienThi",
                       "@NgayTao"                    
                    });
                 return rs;
@@ -139,7 +174,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
 
                 int kq = dataProvider.ExecuteNonQuery("Proc_DichVu_Update", new object[] {  nhanVien.HoTenNV,nhanVien.Email,
                     nhanVien.MatKhau,nhanVien.SDTNV,nhanVien.QueQuan,nhanVien.CMND,
-                    nhanVien.NgaySinh,nhanVien.HinhThucLam,nhanVien.MaChucVu,nhanVien.NgayTao,nhanVien.NgaySua },
+                    nhanVien.NgaySinh,nhanVien.HinhThucLam,nhanVien.MaChucVu,nhanVien.TrangThaiHienThi,nhanVien.NgaySua },
                   new List<string>() {
                     "@HoTenNhanVien",
                       "@Email",
@@ -150,7 +185,8 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                       "@NgaySinh",
                       "@Hinhthuclam",
                       "@MaChucVu",
-                      "@NgayTao"
+                      "@TrangThaiHienThi",
+                      "@NgaySua"
                   });
                 return kq.ToString();
             }

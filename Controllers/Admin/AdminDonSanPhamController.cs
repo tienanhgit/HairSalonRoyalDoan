@@ -228,6 +228,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             DonDatHangModel donDatHangModel = new DonDatHangModel();
 
             DonDatHang donDatHang = new DonDatHang();
+           
             donDatHang.HoTenNguoiNhan = HoTenNguoiNhan;
             donDatHang.SoDTGiaoHang = SoDienThoaiNguoiNhan;
             donDatHang.HinhThucThanhToan = HinhThucThanhToan;
@@ -257,11 +258,38 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             return Json(Message, JsonRequestBehavior.AllowGet);
 
         }
+        //In hóa đơn
 
-        public ActionResult InHoaDon()
+        public ActionResult InHoaDon(string MaDonDatHang)
         {
+            int mddh = Convert.ToInt32(MaDonDatHang);
+            
+            DonDatHangModel donDatHangModel = new DonDatHangModel();
+            DonDatHang donDatHang= donDatHangModel.GetDonDatHangByMa(mddh);
+            if(donDatHang.MaKH!=0)
+            {
+                Khachhang kh = new KhachHangModel().GetKhachHangByMa(donDatHang.MaKH);
+                ViewBag.KhachHang = kh;
 
+            }
+            if (donDatHang.MaNV != 0)
+            {
+                NhanVien nv = new NhanVienModel().GetNhanVienByMa(donDatHang.MaNV);
+                ViewBag.NhanVien = nv;
 
+            }
+            ViewBag.DonDatHang = donDatHang;
+            if(donDatHang.TrangThaiDonDichVu!=0)
+            {
+                List<ChiTietDonDichVu> listchitietdondichvu = new ChiTietDonDichVuModel().GetDataDichVu(mddh);
+                ViewBag.ListDV = listchitietdondichvu;
+            }
+            if (donDatHang.TrangThaiDonSanPham != 0)
+            {
+                List<ChiTietDonDat> listchitietdondat = new ChiTietDonDatModel().GetDataSanPham(mddh);
+                ViewBag.ListSP = listchitietdondat;
+            }
+     
             return View();
         }
 

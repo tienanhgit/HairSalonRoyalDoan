@@ -54,6 +54,18 @@ namespace HairSalonRoyalDoan.Controllers
 
                 ViewBag.SanPham = sp;
             }
+            if (Request.QueryString["TenSanPham"] != null)
+            {
+            string TenSanPham = Request.QueryString["TenSanPham"].ToString();
+
+
+                SanPham sp = new ProductModel().GetSanPhamByTen(TenSanPham);
+
+
+
+                ViewBag.SanPham = sp;
+            }
+
             return View();
         }
         [HttpGet]

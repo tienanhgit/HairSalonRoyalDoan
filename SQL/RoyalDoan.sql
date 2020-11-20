@@ -3,6 +3,8 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
+
+
 /*chuan*/
 create table NhanVien
 (
@@ -16,6 +18,7 @@ CMND varchar(25),
 NgaySinh datetime,
 Hinhthuclam nvarchar(50),
 MaChucVu int,
+TrangThaiHienThi int ,
 NgayTao datetime,
 NgaySua datetime
 );
@@ -574,6 +577,7 @@ go
 
 /*Bảng nhân viên*/
 /*Proc login*/
+
 Create Proc Proc_NhanVien_DangNhap
  @Email NVARCHAR(50), 
  @MatKhau NVARCHAR(255)
@@ -604,6 +608,7 @@ create Proc Proc_NhanVien_Insert @HoTenNV nvarchar(50),
 								@NgaySinh datetime='',
 								@HinhThucLam nvarchar(50)='',
 								@MaChucVu int='',
+								@TrangThaiHienThi int='',
 								@NgayTao datetime=''
 						
 
@@ -619,6 +624,7 @@ AS BEGIN
 								NgaySinh ,
 								HinhThucLam ,
 								MaChucVu ,
+								TrangThaiHienThi,
 								NgayTao 
 								
 	        )
@@ -631,6 +637,7 @@ AS BEGIN
 								@NgaySinh ,
 								@HinhThucLam ,
 								@MaChucVu ,
+								@TrangThaiHienThi,
 								@NgayTao 
 							
 
@@ -657,7 +664,8 @@ create Proc Proc_NhanVien_Update @MaNV int,
 								@CMND int,
 								@NgaySinh datetime,
 								@HinhThucLam nvarchar(50),
-								@MaChucVu nvarchar(50),		
+								@MaChucVu nvarchar(50),
+								@TrangThaiHienThi int,		
 								@NgaySua datetime
 
 							
@@ -670,7 +678,8 @@ AS BEGIN
 								CMND=@CMND ,
 								NgaySinh =@NgaySinh,
 								HinhThucLam=@HinhThucLam ,
-								MaChucVu=@MaChucVu ,					
+								MaChucVu=@MaChucVu ,
+								TrangThaiHienThi=@TrangThaiHienThi,					
 								NgaySua=@NgaySua 
 							
 	WHERE MaNV = @MaNV
@@ -689,6 +698,7 @@ create Procedure Proc_NhanVien_GetData
 								@NgaySinh datetime='',
 								@HinhThucLam nvarchar(50)='',
 								@MaChucVu nvarchar(50)='',
+								@TrangThaiHienThi int='',
 								@NgayTao datetime='',
 								@NgaySua datetime=''
 							
@@ -696,10 +706,21 @@ AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
 	SET @Query = 'Select * from NhanVien where (1=1) '
-	
-	SET @ParamList =		'@MaNV int						
+	IF(@MaNV!='')
+	begin
+		SET @Query += ' AND (MaNV= @MaNV) '
+		end
+			IF(@TrangThaiHienThi!='')
+	begin
+		SET @Query += ' AND (TrangThaiHienThi= @TrangThaiHienThi) '
+		end
+		SET @ParamList =		'@MaNV int,
+								@TrangThaiHienThi int
+								
+
+							
 							 '
-	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaNV
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaNV,@TrangThaiHienThi
 END
 go
 /*End*/
@@ -1053,11 +1074,28 @@ GO
 
 
 /*Bang Bai Viet*/
-create proc Proc_BaiViet_Get
-as
-begin 
-select * from BaiViet
-end
+
+create proc Proc_BaiViet_GetData
+							@MaBaiViet INT = '',
+							@TenBaiViet nvarchar(255)=''
+																
+AS BEGIN
+	DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'Select * from BaiViet where (1=1)'
+	IF(@MaBaiViet !='')
+	begin	
+		set @Query += ' AND (MaBaiViet = @MaBaiViet) '
+		end
+	
+
+	SET @ParamList =		'
+							@MaBaiViet int,
+							@TenBaiViet nvarchar
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaBaiViet,@TenBaiViet
+END
+
 go
 
 create Proc Proc_BaiViet_Insert 
@@ -1430,7 +1468,7 @@ AS BEGIN
 	SET @Query = 'Select * from ChiTietDonDat where (1=1)'
 	IF(@MaDonDatHang!='')
 	begin
-		SET @Query += ' AND (M = @MaDonDatHang) '
+		SET @Query += ' AND (MaDonDatHang = @MaDonDatHang) '
 		end
 
 	SET @ParamList =		'@MaDonDatHang int
@@ -1443,10 +1481,23 @@ go
 /*End*/
 
 /*Bang Banner*/
-create proc Proc_Banner_Get
+create proc Proc_Banner_GetData
+@MaBanner int=''
 as
 begin 
-select * from Banner
+DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'Select * from Banner where (1=1)'
+	IF(@MaBanner!='')
+	begin
+		SET @Query += ' AND (MaBanner = @MaBanner) '
+		end
+
+	SET @ParamList =		'@MaBanner int
+							  
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaBanner
+
 end
 go
 
@@ -1531,18 +1582,17 @@ values
 (N'Nhân viên cắt tóc'),
 (N'Nhân viên gội đầu')
 
-
 insert into NhanVien 
 values 
-(N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','090208707',N'Hải Dương',142987653,'09/02/1978','Fulltime',1,'10/7/2020','10/7/2020'),
-(N'Đoàn Ngọc Giàu','ngocgiaudoan@gmail.com','123456','0902084027',N'Hải Dương',142911153,'09/02/1980','Fulltime',3,'10/7/2020','10/7/2020'),
-(N'Vũ Văn Quân','quanvu@gmail.com','123456','0902047097',N'Hải Dương',142987634,'09/02/1990','Fulltime',3,'10/7/2020','10/7/2020'),
-(N'Nguyễn Quang Ninh','ninhquang@gmail.com','123456','0902187097',N'Hải Dương',142987611,'09/02/1991','Fulltime',3,'10/7/2020','10/7/2020'),
-(N'Nguyễn Anh Vũ','anhvu@gmail.com','123456','090202707',N'Hải Dương',142987655,'09/02/1997','Fulltime',3,'10/7/2020','10/7/2020'),
-(N'Nguyễn Hoàng Giang','gianghoang@gmail.com','123456','0902087017',N'Hải Dương',142987666,'09/02/1998','Fulltime',2,'10/7/2020','10/7/2020'),
-(N'Nguyễn Thị Ánh Ngọc','anhngoc@gmail.com','123456','0902087017',N'Hải Dương',142987677,'09/02/2000','Fulltime',4,'10/7/2020','10/7/2020'),
-(N'Nguyễn Thủy Tiên','tiennguyen@gmail.com','123456','0902087027',N'Hải Dương',142987632,'09/02/1999','PartTime',4,'10/7/2020','10/7/2020'),
-(N'Dương Thị Phương','phuongthanh@gmail.com','123456','0902087397',N'Hải Dương',142983453,'09/02/1999','PartTime',4,'10/7/2020','10/7/2020')
+(N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','090208707',N'Hải Dương',142987653,'09/02/1978','Fulltime',1,1,'10/7/2020','10/7/2020'),
+(N'Đoàn Ngọc Giàu','ngocgiaudoan@gmail.com','123456','0902084027',N'Hải Dương',142911153,'09/02/1980','Fulltime',3,1,'10/7/2020','10/7/2020'),
+(N'Vũ Văn Quân','quanvu@gmail.com','123456','0902047097',N'Hải Dương',142987634,'09/02/1990','Fulltime',3,1,'10/7/2020','10/7/2020'),
+(N'Nguyễn Quang Ninh','ninhquang@gmail.com','123456','0902187097',N'Hải Dương',142987611,'09/02/1991','Fulltime',3,1,'10/7/2020','10/7/2020'),
+(N'Nguyễn Anh Vũ','anhvu@gmail.com','123456','090202707',N'Hải Dương',142987655,'09/02/1997','Fulltime',3,1,'10/7/2020','10/7/2020'),
+(N'Nguyễn Hoàng Giang','gianghoang@gmail.com','123456','0902087017',N'Hải Dương',142987666,'09/02/1998','Fulltime',2,1,'10/7/2020','10/7/2020'),
+(N'Nguyễn Thị Ánh Ngọc','anhngoc@gmail.com','123456','0902087017',N'Hải Dương',142987677,'09/02/2000','Fulltime',4,1,'10/7/2020','10/7/2020'),
+(N'Nguyễn Thủy Tiên','tiennguyen@gmail.com','123456','0902087027',N'Hải Dương',142987632,'09/02/1999','PartTime',4,1,'10/7/2020','10/7/2020'),
+(N'Dương Thị Phương','phuongthanh@gmail.com','123456','0902087397',N'Hải Dương',142983453,'09/02/1999','PartTime',4,1,'10/7/2020','10/7/2020')
 
 
 

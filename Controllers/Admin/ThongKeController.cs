@@ -58,9 +58,6 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
 
             }    
-
-
-
             return Json(new { data = lsbd,LBD=LoaiBieuDo}, JsonRequestBehavior.AllowGet);
         }
 
