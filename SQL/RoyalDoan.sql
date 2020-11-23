@@ -4,7 +4,6 @@ go
 use HairSalonRoyalDoan
 
 
-
 /*chuan*/
 create table NhanVien
 (
@@ -64,11 +63,11 @@ create table LichHen
 MaLichHen int identity primary key not null,
 MaKH int not null,
 MaNV int ,
+SDTHen varchar(20),
 NgayHen date not null,
 GioHen time not null,
 TrangThai int
 );
-
 
 
 create table ChiTietDonDat
