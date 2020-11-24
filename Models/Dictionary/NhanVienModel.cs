@@ -73,7 +73,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
         {
             try
             {
-                List<NhanVien> dsKhachHang = new List<NhanVien>();
+                List<NhanVien> dsNhanVien = new List<NhanVien>();
                 DataTable dt = dataProvider.ExecuteQuery("Proc_NhanVien_GetData", null, null);
                 if (dt != null && dt.Rows.Count > 0)
                 {
@@ -94,9 +94,9 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         nhanVien.TrangThaiHienThi= String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
                         nhanVien.NgayTao= String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
                         nhanVien.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
-                        dsKhachHang.Add(nhanVien);
+                        dsNhanVien.Add(nhanVien);
                     }
-                    return dsKhachHang;
+                    return dsNhanVien;
                 }
                 return new List<NhanVien>();
             }

@@ -687,7 +687,7 @@ END
 
 go
 select * from NhanVien
- create Procedure Proc_NhanVien_GetData 
+ alter Procedure Proc_NhanVien_GetData 
 								@MaNV int='',
 								@HoTenNV nvarchar(50)='',
 								@Email nvarchar(50)='',
