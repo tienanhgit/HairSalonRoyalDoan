@@ -29,16 +29,16 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="title" class="col-sm-3 control-label required">Mã Nhân Viên</label>
+                        <label for="title" class="col-sm-3 control-label required">Tên Bài Viết</label>
                         <div class="col-sm-9">
-                            <input id="TenSanPham" disabled type="text" value="" class="form-control" placeholder="Tên bài viết " required="" maxlength="100">
+                            <input id="TenBaiViet" type="text" value="" class="form-control" placeholder="Tên bài viết " required="" maxlength="100">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="description" class="col-sm-3 control-label">Trạng Thái Hiển Thị</label>
                         <div class="col-sm-9">
-                            <select style="width:100%; height:100%;">
+                            <select id="TrangThaiHienThi" style="width:100%; height:100%;">
                                 <option value="1">Hiển Thị</option>
                                 <option value="0">Ẩn</option>
                             </select>
@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <label for="content" class="col-sm-3 control-label">Nội dung</label>
                         <div class="col-sm-9">
-                            <textarea id="DanhGia" rows="5" class="form-control ckeditor" placeholder="Danh Gia Cho San Pham"></textarea>
+                            <textarea id="NoiDung" rows="5" class="form-control ckeditor" placeholder="Danh Gia Cho San Pham"></textarea>
                         </div>
                     </div>
 
@@ -64,8 +64,33 @@
         </div>
         <!--END #main-->
     </div>
+    <script type="text/javascript">
+
+        $("#btnAdd").click(function () {
+        
+            var std = {};
+          std.TenBaiViet = $("#TenBaiViet").val();
+            std.TrangThaiHienThi = $("#TrangThaiHienThi option:selected").val();
+            std.NoiDung = CKEDITOR.instances['NoiDung'].getData(); 
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("/ThemMoiBaiViet")',
+                data: '{std: ' + JSON.stringify(std) + '}',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    alert("Thêm bài viết thành công");
+                },
+                error: function () {
+                    alert("Thêm bài viết thất bại");
+                }
+            });
+
+        });
 
 
+    </script>
 </body>
 </html>
 

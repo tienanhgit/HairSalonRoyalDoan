@@ -1,7 +1,6 @@
 ﻿
 @{
     ViewBag.Title = "BaiViet";
-
     Layout = "~/Views/Shared/_UserHome.cshtml";
 }
 
@@ -9,11 +8,13 @@
 
     <div class="row">
         <div class="col-md-12">
-            <h3>GIỚI THIỆU</h3>
+            <h3>@ViewBag.BaiViet.TenBaiViet</h3>
         </div>
     </div>
     <div class="container">
-        <div class="row mt-4">
+
+        @Html.Raw(ViewBag.BaiViet.NoiDung)
+        @*<div class="row mt-4">
             <div class="col-md-12">
                 
                 <h4>
@@ -99,8 +100,8 @@
             </p>
         </div>
     </div>
+</div>*@
 </div>
-
 <div class="col-12">
     <h5>Các bài viết khác :</h5>
     <span>Công dụng dầu gội </span>,

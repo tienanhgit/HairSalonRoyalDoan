@@ -110,7 +110,7 @@ namespace HairSalonRoyalDoan.Controllers.User
             var sessionCart = (List<GioHangItem>)Session["CART_SESSION"]; 
             sessionCart.RemoveAll(x => x.sanpham.MaSanPham == SanPhamID);
             Session["CART_SESSION"] = sessionCart;
-
+           
             Session["SLSP_SESSION"] = Convert.ToInt32(Session["SLSP_SESSION"]) - 1;
             return Json(new
             {
@@ -160,7 +160,6 @@ namespace HairSalonRoyalDoan.Controllers.User
             string tennguoinhan = Request.Form["shipName"];
             string sodienthoainhanhang = Request.Form["mobile"];
             string diachi = Request.Form["address"];
- 
 
             DonDatHang donDatHang = new DonDatHang();
             donDatHang.DiaChiNhanHang = diachi;

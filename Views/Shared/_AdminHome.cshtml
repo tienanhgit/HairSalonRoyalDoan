@@ -1,6 +1,17 @@
-﻿
+﻿@using HairSalonRoyalDoan.Models.Dictionary
 @{
     Layout = null;
+    NhanVienModel nhanVienModel = new NhanVienModel();
+    string quyen = "";
+    if (Session["ADMIN_SESSION"]!= null)
+    {
+        quyen = nhanVienModel.GetQuyen(Session["ADMIN_SESSION"].ToString());
+    }
+    else
+    {
+        quyen = "";
+    }
+
 }
 
 <!DOCTYPE html>
@@ -71,71 +82,106 @@
                         <b class="fa fa-plus-sign visible-xs pull-right"></b>
                     </h3>
                 </div>
-                <ul id="menu" class="list-group">
+                @if (quyen == "1")
+                {
+                    <ul id="menu" class="list-group">
+                        <li class="list-group-item">
+                            <a href="/AdminDonSanPham/Index">
+                                <i class="fa fa-edit"></i> <span>Đơn đặt hàng</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/AdminLichHen/Index">
+                                <i class="fa fa-fire"></i><span>Lịch hẹn</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/AdminHome/SanPham">
+                                <i class="fa fa-edit"></i> <span>Sản phẩm</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/AdminHome/DichVu">
+                                <i class="fa fa-bars"></i> <span>Dịch Vụ</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/AdminHome/DanhMuc">
+                                <i class="fa fa-bars"></i> <span>Danh Mục</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/AdminHome/ThuongHieu">
+                                <i class="fa fa-bars"></i>  <span>Thương Hiệu</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/AdminBaiViet/Index">
+                                <i class="fa fa-picture-o"></i> <span>Banner</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/AdminBaiViet/Index">
+                                <i class="fas fa-book-open"></i> <span>Bài Viết</span>
+                            </a>
+                        </li>
 
-                    <li class="list-group-item">
-                        <a href="/AdminDonSanPham/Index">
-                            <i class="fa fa-edit"></i> <span>Đơn đặt hàng</span>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/AdminLichHen/Index">
-                            <i class="fa fa-fire"></i><span>Lịch hẹn</span>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/AdminHome/SanPham">
-                            <i class="fa fa-edit"></i> <span>Sản phẩm</span>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/AdminHome/DichVu">
-                            <i class="fa fa-bars"></i> <span>Dịch Vụ</span>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/AdminHome/DanhMuc">
-                            <i class="fa fa-bars"></i> <span>Danh Mục</span>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/AdminHome/ThuongHieu">
-                            <i class="fa fa-bars"></i>  <span>Thương Hiệu</span>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/AdminBaiViet/Index">
-                            <i class="fa fa-picture-o"></i> <span>Banner</span>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/AdminBaiViet/Index">
-                            <i class="fas fa-book-open"></i> <span>Bài Viết</span>
-                        </a>
-                    </li>
+                        <li class="list-group-item">
+                            <a href="user.html">
+                                <i class="fa fa-user"></i> <span>Nhân Viên</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/ThongKe/Index">
 
-                    <li class="list-group-item">
-                        <a href="user.html">
-                            <i class="fa fa-user"></i> <span>Nhân Viên</span>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/ThongKe/Index">
+                                <i class="fas fa-chart-bar"></i> <span>Thống kê</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/AdminList/Index">
+                                <i class="fas fa-list"></i> <span>Tổng hợp</span>
+                            </a>
+                        </li>
+                    </ul>
+                }
+                else if (quyen =="2")
+                {
 
-                            <i class="fas fa-chart-bar"></i> <span>Thống kê</span>
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="/AdminList/Index">
-                            <i class="fas fa-list"></i> <span>Tổng hợp</span>
-                        </a>
-                    </li>
-                </ul>
+                    <ul id="menu" class="list-group">
+                        <li class="list-group-item">
+                            <a href="/AdminDonSanPham/Index">
+                                <i class="fa fa-edit"></i> <span>Đơn đặt hàng</span>
+                            </a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="/AdminLichHen/Index">
+                                <i class="fa fa-fire"></i><span>Lịch hẹn</span>
+                            </a>
+                        </li>
+                       
+                       
+                   
+                    </ul>
+
+                }
+
+
+
+
+
             </div>
         </div>
         @RenderBody()
     </div>
+    <script type="text/javascript">
+        var session = "@Session["ADMIN_SESSION"]";
+        if (session == "") {
+            window.location.href = "/NhanVien/DangNhap";
+        }
 
+
+
+    </script>
 
     <script src="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 </body>

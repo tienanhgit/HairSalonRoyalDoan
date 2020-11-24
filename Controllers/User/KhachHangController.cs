@@ -95,6 +95,7 @@ namespace HairSalonRoyalDoan.Controllers.User
      
             Session[SessionHelper.CART_SESSION] = null;
             Session[SessionHelper.USER_SESSION] = null;
+            Session["SLSP_SESSION"] = null;
             string refere = Request.UrlReferrer.LocalPath.ToString();
             if(refere=="/UserHome/Index")
             {

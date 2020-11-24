@@ -1306,6 +1306,7 @@
     <Content Include="Views\ThongKe\Index.cshtml" />
     <Content Include="Views\AdminDonSanPham\InHoaDon.cshtml" />
     <Content Include="Views\AdminBaiViet\ThemMoiBaiViet.cshtml" />
+    <Content Include="Views\AdminBaiViet\SuaBaiViet.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

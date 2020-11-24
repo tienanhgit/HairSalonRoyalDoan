@@ -24,11 +24,10 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         public ActionResult DangNhap(string Email,string MatKhau) {
              NhanVienModel nhanVienModel = new NhanVienModel();
             //string em = Uri.EscapeUriString(Email);
-            var result = nhanVienModel.DangNhap(Email, MatKhau);
-            var chucvu = nhanVienModel.GetQuyen(Email);
-            
+            var result = nhanVienModel.DangNhap(Email, MatKhau);           
             if(!String.IsNullOrEmpty(result))
             {
+
                 Session.Add(SessionHelper.ADMIN_SESSION,Email);
 
                 return RedirectToAction("Index", "AdminHome");

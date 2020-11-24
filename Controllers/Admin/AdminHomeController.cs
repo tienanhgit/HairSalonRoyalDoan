@@ -12,7 +12,34 @@ namespace HairSalonRoyalDoan.Controllers.Admin
     public class AdminHomeController : Controller
     {
         // GET: AdminHome
+
         ProductModel productModel = new ProductModel();
+        public int CheckQuyen()
+        {
+            if (Session["ADMIN_SESSION"] != null)
+            {
+                NhanVienModel nhanVienModel = new NhanVienModel();
+                string macv=nhanVienModel.GetQuyen(Session["ADMIN_SESSION"].ToString());
+                if (macv == "1")
+                {
+                    return 1;
+                }
+                else if(macv=="2")
+                {
+                    return 2;
+                }
+                else
+                {
+                    return 3;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+       
         public ActionResult Index()
         {
             if (Session["ADMIN_SESSION"] != null)
@@ -22,16 +49,16 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             else
             {
                 return Redirect("/NhanVien/DangNhap");
-
             }
         }
         public ActionResult SanPham(int page = 1, int pagesize = 9)
         {
+            
             List<SanPham> listsp = new ProductModel().GetData();
             ViewBag.ListSanPham = listsp;
             var links = listsp;
 
-            if (Session["ADMIN_SESSION"] != null)
+            if (CheckQuyen()==1)
             {
                 return
                  Request.IsAjaxRequest()
@@ -49,10 +76,19 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         [HttpGet]
         public ActionResult ThemSanPham()
         {
-            ViewBag.ListDanhMuc = new DanhMucModel().GetData();
-            List<ThuongHieu> listThuongHieu = new ThuongHieuModel().GetData();
-            ViewBag.ListThuongHieu = listThuongHieu;
-            return View();
+            if (CheckQuyen() == 1)
+            {
+
+                ViewBag.ListDanhMuc = new DanhMucModel().GetData();
+                List<ThuongHieu> listThuongHieu = new ThuongHieuModel().GetData();
+                ViewBag.ListThuongHieu = listThuongHieu;
+                return View();
+            }
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
+            }
+
         }
         [HttpPost]
         public ActionResult ThemSanPham(SanPham std)
@@ -67,29 +103,37 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         [HttpGet]
         public ActionResult SuaSanPham()
         {
-            int MaSanPham = Convert.ToInt32(Request.QueryString["MaSanPham"]);
-            int MaDanhMuc = Convert.ToInt32(Request.QueryString["MaDanhMuc"]);
-            int MaThuongHieu = Convert.ToInt32(Request.QueryString["MaThuongHieu"]);
-      
-            ViewBag.MaDanhMuc = MaDanhMuc;
-            ViewBag.MaThuongHieu = MaThuongHieu;
-
-            List<ThuongHieu> listThuongHieu = new ThuongHieuModel().GetData();
-            ViewBag.ListThuongHieu = listThuongHieu;
-
-            List<DanhMuc> listDanhMuc = new DanhMucModel().GetData();
-            ViewBag.ListDanhMuc = listDanhMuc;
-            SanPham sp = new ProductModel().GetSanPhamByMa(MaSanPham);
-            ViewBag.SanPham = sp;
-            if (Session["ADMIN_SESSION"] != null)
+            if (CheckQuyen() == 1)
             {
-                return View();
+                int MaSanPham = Convert.ToInt32(Request.QueryString["MaSanPham"]);
+                int MaDanhMuc = Convert.ToInt32(Request.QueryString["MaDanhMuc"]);
+                int MaThuongHieu = Convert.ToInt32(Request.QueryString["MaThuongHieu"]);
+
+                ViewBag.MaDanhMuc = MaDanhMuc;
+                ViewBag.MaThuongHieu = MaThuongHieu;
+
+                List<ThuongHieu> listThuongHieu = new ThuongHieuModel().GetData();
+                ViewBag.ListThuongHieu = listThuongHieu;
+
+                List<DanhMuc> listDanhMuc = new DanhMucModel().GetData();
+                ViewBag.ListDanhMuc = listDanhMuc;
+                SanPham sp = new ProductModel().GetSanPhamByMa(MaSanPham);
+                ViewBag.SanPham = sp;
+                if (Session["ADMIN_SESSION"] != null)
+                {
+                    return View();
+                }
+                else
+                {
+                    return Redirect("/NhanVien/DangNhap");
+
+                }
             }
             else
             {
                 return Redirect("/NhanVien/DangNhap");
-
             }
+
         }
         [HttpPost]
         public ActionResult SuaSanPham(SanPham std)
@@ -104,28 +148,39 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         //Danh muc
         public ActionResult DanhMuc (int page = 1, int pagesize = 9)
         {
-            List<DanhMuc> lisdm  = new DanhMucModel().GetData();
+            if (CheckQuyen() == 1)
+            {
+                List<DanhMuc> lisdm = new DanhMucModel().GetData();
 
 
-            //if (Session["ADMIN_SESSION"] != null)
-            //{
+
                 return View(lisdm.ToPagedList(page, pagesize));
 
+            }
 
-            //}
-            //else
-            //{
-            //    return Redirect("/NhanVien/DangNhap");
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
 
 
-            //}
+            }
 
         }
         [HttpGet]
         public ActionResult ThemDanhMuc()
         {
-         
-            return View();
+            if (CheckQuyen() == 1)
+            {
+
+                return View();
+            }
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
+
+
+            }
+
         }
         [HttpPost]
         public ActionResult ThemDanhMuc(DanhMuc std)
@@ -140,11 +195,20 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         [HttpGet]
         public ActionResult SuaDanhMuc(string MaDanhMuc)
         {
-            DanhMucModel danhMucModel = new DanhMucModel();
-            DanhMuc danhMuc=danhMucModel.GetDanhMucByMa(Convert.ToInt32(MaDanhMuc));
-            ViewBag.DanhMuc = danhMuc;    
-            return View();
-        
+            if (CheckQuyen() == 1)
+            {
+                DanhMucModel danhMucModel = new DanhMucModel();
+                DanhMuc danhMuc = danhMucModel.GetDanhMucByMa(Convert.ToInt32(MaDanhMuc));
+                ViewBag.DanhMuc = danhMuc;
+                return View();
+            }
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
+
+
+            }
+
         }
         [HttpPost]
         public ActionResult SuaDanhMuc(DanhMuc std)
@@ -159,28 +223,34 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         //Thương hiệu
         public ActionResult ThuongHieu(int page = 1, int pagesize = 9)
         {
-            List<ThuongHieu> lstt = new ThuongHieuModel().GetData();
+            if (CheckQuyen() == 1)
+            {
+                List<ThuongHieu> lstt = new ThuongHieuModel().GetData();
+
+                return View(lstt.ToPagedList(page, pagesize));
+            }
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
 
 
-            //if (Session["ADMIN_SESSION"] != null)
-            //{
-            return View(lstt.ToPagedList(page, pagesize));
+            }
 
-
-            //}
-            //else
-            //{
-            //    return Redirect("/NhanVien/DangNhap");
-
-
-            //}
 
         }
         [HttpGet]
         public ActionResult ThemThuongHieu()
         {
+            if (CheckQuyen() == 1)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
 
-            return View();
+
+            }
         }
         [HttpPost]
         public ActionResult ThemThuongHieu(ThuongHieu std)
@@ -195,11 +265,19 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         [HttpGet]
         public ActionResult SuaThuongHieu(string MaThuongHieu)
         {
-            ThuongHieuModel thuongHieuModel = new ThuongHieuModel();
-            ThuongHieu thuongHieu = thuongHieuModel.GetThuongHieuByMa(Convert.ToInt32(MaThuongHieu));
-            ViewBag.ThuongHieu = thuongHieu;
-            return View();
+            if (CheckQuyen() == 1)
+            {
+                ThuongHieuModel thuongHieuModel = new ThuongHieuModel();
+                ThuongHieu thuongHieu = thuongHieuModel.GetThuongHieuByMa(Convert.ToInt32(MaThuongHieu));
+                ViewBag.ThuongHieu = thuongHieu;
+                return View();
+            }
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
 
+
+            }
         }
         [HttpPost]
         public ActionResult SuaThuongHieu(ThuongHieu std)
@@ -214,10 +292,21 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
         public ActionResult DichVu(int page = 1, int pagesize =9)
         {
-            List<DichVu> lsdv = new DichVuModel().GetDataByTrangThai(2);//get all
+            if (CheckQuyen() == 1)
+            {
+
+                List<DichVu> lsdv = new DichVuModel().GetDataByTrangThai(2);//get all
 
 
-            return View(lsdv.ToPagedList(page,pagesize));
+                return View(lsdv.ToPagedList(page, pagesize));
+            }
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
+
+
+            }
+
         }
 
         public JsonResult UpdateTrangThaiDichVu(string MaDV, string TrangThaiDichVu)
@@ -235,8 +324,19 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
         public ActionResult ThemDichVu()
         {
+            if (CheckQuyen() == 1)
+            {
 
-            return View();
+
+                return View();
+            }
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
+
+
+            }
+
         }
         [HttpPost]
         public JsonResult ThemDichVu(DichVu std)
@@ -251,10 +351,21 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         [HttpGet]
         public ActionResult ThemChiTietDichVu(string MaDV)
         {
+            if (CheckQuyen() == 1)
+            {
 
-            DichVu dv = new DichVuModel().GetDichVuByMa(Convert.ToInt32(MaDV));
-            ViewBag.DichVu = dv;
-            return View();
+
+                DichVu dv = new DichVuModel().GetDichVuByMa(Convert.ToInt32(MaDV));
+                ViewBag.DichVu = dv;
+                return View();
+            }
+            else
+            {
+                return Redirect("/NhanVien/DangNhap");
+
+
+            }
+
         }
 
 

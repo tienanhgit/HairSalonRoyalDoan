@@ -85,14 +85,15 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         nhanVien.HoTenNV = String.IsNullOrEmpty(row["HoTenNV"].ToString()) ? "" : row["HoTenNV"].ToString();
                         nhanVien.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
                         nhanVien.MatKhau = String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString(); 
-                          nhanVien.SDTNV = String.IsNullOrEmpty(row["SoDTNV"].ToString()) ? "" : row["SoDTNV"].ToString();
+                         nhanVien.SDTNV = String.IsNullOrEmpty(row["SoDTNV"].ToString()) ? "" : row["SoDTNV"].ToString();
                         nhanVien.QueQuan = String.IsNullOrEmpty(row["QueQuan"].ToString()) ? "" : row["QueQuan"].ToString();
                         nhanVien.CMND = String.IsNullOrEmpty(row["CMND"].ToString()) ? "" : row["CMND"].ToString();
                         nhanVien.NgaySinh = String.IsNullOrEmpty(row["NgaySinh"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySinh"]);
                         nhanVien.HinhThucLam= String.IsNullOrEmpty(row["Hinhthuclam"].ToString()) ? "" : row["Hinhthuclam"].ToString();
                         nhanVien.MaChucVu= String.IsNullOrEmpty(row["MaChucVu"].ToString()) ? 0 : int.Parse(row["MaChucVu"].ToString());
-                     nhanVien.TrangThaiHienThi= String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
+                        nhanVien.TrangThaiHienThi= String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
                         nhanVien.NgayTao= String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
+                        nhanVien.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
                         dsKhachHang.Add(nhanVien);
                     }
                     return dsKhachHang;
@@ -126,6 +127,37 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                     nhanVien.MaChucVu = String.IsNullOrEmpty(row["MaChucVu"].ToString()) ? 0 : int.Parse(row["MaChucVu"].ToString());
                     nhanVien.TrangThaiHienThi = String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
                     nhanVien.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
+                     nhanVien.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
+                }
+                return nhanVien;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public NhanVien GetNhanVienByEmail(string Email)
+        {
+            try
+            {
+                NhanVien nhanVien = null;
+                DataTable dt = dataProvider.ExecuteQuery("Proc_NhanVien_GetData",new object[] {Email }, new List<string>() { "Email" });
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    var row = dt.Rows[0];
+                    nhanVien.MaNV = String.IsNullOrEmpty(row["MaNV"].ToString()) ? 0 : int.Parse(row["MaNV"].ToString());
+                    nhanVien.HoTenNV = String.IsNullOrEmpty(row["HoTenNV"].ToString()) ? "" : row["HoTenNV"].ToString();
+                    nhanVien.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
+                    nhanVien.MatKhau = String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString();
+                    nhanVien.SDTNV = String.IsNullOrEmpty(row["SoDTNV"].ToString()) ? "" : row["SoDTNV"].ToString();
+                    nhanVien.QueQuan = String.IsNullOrEmpty(row["QueQuan"].ToString()) ? "" : row["QueQuan"].ToString();
+                    nhanVien.CMND = String.IsNullOrEmpty(row["CMND"].ToString()) ? "" : row["CMND"].ToString();
+                    nhanVien.NgaySinh = String.IsNullOrEmpty(row["NgaySinh"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySinh"]);
+                    nhanVien.HinhThucLam = String.IsNullOrEmpty(row["Hinhthuclam"].ToString()) ? "" : row["Hinhthuclam"].ToString();
+                    nhanVien.MaChucVu = String.IsNullOrEmpty(row["MaChucVu"].ToString()) ? 0 : int.Parse(row["MaChucVu"].ToString());
+                    nhanVien.TrangThaiHienThi = String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
+                    nhanVien.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
+                    nhanVien.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
                 }
                 return nhanVien;
             }

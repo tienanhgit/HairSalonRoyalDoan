@@ -45,14 +45,18 @@ namespace HairSalonRoyalDoan.Controllers
             return View(listdv);
         }
 
-        public ActionResult BaiViet()
+        public ActionResult BaiViet(string MaBaiViet)
         {
-
+            BaiViet baiViet = new BaiViet();
+            BaiVietModel baiVietModel = new BaiVietModel();
+            ViewBag.BaiViet = baiVietModel.GetDataByMa(MaBaiViet);
+            ViewBag.AllBaiViet = baiVietModel.GetData();
 
 
             return View();
         }
 
+        
 
 
       [HttpPost]

@@ -588,6 +588,7 @@ go
 
 
 
+
 create proc Nhanvien_GetChucVu @Email nvarchar(50)=''
 as 
 begin
@@ -685,9 +686,9 @@ AS BEGIN
 END
 
 go
-
-create Procedure Proc_NhanVien_GetData 
-								@MaNV int ='' ,
+select * from NhanVien
+ create Procedure Proc_NhanVien_GetData 
+								@MaNV int='',
 								@HoTenNV nvarchar(50)='',
 								@Email nvarchar(50)='',
 								@MatKhau nvarchar(255)='',
@@ -705,21 +706,24 @@ AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
 	SET @Query = 'Select * from NhanVien where (1=1) '
+	
 	IF(@MaNV!='')
 	begin
 		SET @Query += ' AND (MaNV= @MaNV) '
+		end
+		IF(@Email!='')
+	begin
+		SET @Query += ' AND (Email=@Email) '
 		end
 			IF(@TrangThaiHienThi!='')
 	begin
 		SET @Query += ' AND (TrangThaiHienThi= @TrangThaiHienThi) '
 		end
 		SET @ParamList =		'@MaNV int,
-								@TrangThaiHienThi int
-								
-
-							
+								@TrangThaiHienThi int,
+								@Email nvarchar(50)						
 							 '
-	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaNV,@TrangThaiHienThi
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaNV,@TrangThaiHienThi,@Email
 END
 go
 /*End*/
@@ -1096,7 +1100,7 @@ AS BEGIN
 END
 
 go
-
+exec  Proc_BaiViet_Insert '1','1','1','1',''
 create Proc Proc_BaiViet_Insert 
 @MaNV int,
 @TenBaiViet nvarchar(255),
@@ -1124,6 +1128,7 @@ END;
 
 Go
 
+select * from BaiViet
 create Proc Proc_BaiViet_Update 
 @MaBaiViet int,
 	@MaNV int,
