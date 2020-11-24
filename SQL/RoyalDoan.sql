@@ -3,7 +3,6 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
-
 /*chuan*/
 create table NhanVien
 (
@@ -686,8 +685,8 @@ AS BEGIN
 END
 
 go
-select * from NhanVien
- alter Procedure Proc_NhanVien_GetData 
+
+create Procedure Proc_NhanVien_GetData 
 								@MaNV int='',
 								@HoTenNV nvarchar(50)='',
 								@Email nvarchar(50)='',
@@ -706,7 +705,6 @@ AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
 	SET @Query = 'Select * from NhanVien where (1=1) '
-	
 	IF(@MaNV!='')
 	begin
 		SET @Query += ' AND (MaNV= @MaNV) '
@@ -1077,7 +1075,7 @@ GO
 
 
 /*Bang Bai Viet*/
-
+exec  Proc_BaiViet_GetData
 create proc Proc_BaiViet_GetData
 							@MaBaiViet INT = '',
 							@TenBaiViet nvarchar(255)=''
@@ -1091,16 +1089,14 @@ AS BEGIN
 		set @Query += ' AND (MaBaiViet = @MaBaiViet) '
 		end
 	
-
 	SET @ParamList =		'
 							@MaBaiViet int,
 							@TenBaiViet nvarchar
 							 '
 	EXEC SP_EXECUTESQL @Query, @ParamList ,@MaBaiViet,@TenBaiViet
 END
-
 go
-exec  Proc_BaiViet_Insert '1','1','1','1',''
+
 create Proc Proc_BaiViet_Insert 
 @MaNV int,
 @TenBaiViet nvarchar(255),
@@ -1128,28 +1124,26 @@ END;
 
 Go
 
-select * from BaiViet
 create Proc Proc_BaiViet_Update 
 @MaBaiViet int,
 	@MaNV int,
 @TenBaiViet nvarchar(255),
 @NoiDung ntext,
 @TrangThaiHienThi int,
-@NgayTao datetime				
+@NgaySua datetime				
 AS BEGIN 
 	UPDATE BaiViet SET 
 	MaNV=@MaNV,
 	TenBaiViet=@TenBaiViet,
 	NoiDung=@NoiDung,
-	NgayTao=@NgayTao
-	
+	NgaySua=@NgaySua,
+	TrangThaiHienThi=@TrangThaiHienThi
 							
 	WHERE MaBaiViet = @MaBaiViet
 END
 GO
 
-
-/*Bang Luong*/
+select * from NhanVien
 
 
 /*Bang khach hang*/
@@ -1702,7 +1696,6 @@ where DonDatHang.MaDonDatHang=@MaDonDatHang
 where DonDatHang.MaDonDatHang=@MaDonDatHang
 
 end
-
 
 
 

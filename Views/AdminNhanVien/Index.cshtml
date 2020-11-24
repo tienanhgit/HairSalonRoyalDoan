@@ -1,7 +1,8 @@
-﻿@using PagedList.Mvc
-@model PagedList.IPagedList<HairSalonRoyalDoan.Repository.BaiViet>
+﻿
+@using PagedList.Mvc
+@model PagedList.IPagedList<HairSalonRoyalDoan.Repository.NhanVien>
 @{
-    ViewBag.Title = "BaiViet";
+    ViewBag.Title = "NhanVien";
     Layout = "~/Views/Shared/_AdminHome.cshtml";
 
 }
@@ -15,23 +16,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Quản trị hệ thống</title>
-
-
-
 </head>
 <body>
     <div class="clearfix">
         <div id="main">
             <ol class="breadcrumb">
                 <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
-                <li class="active"><a href="/AdminBaiViet/Index">Bài Viết</a></li>
+                <li class="active"><a href="/AdminNhanVien/Index">Nhân Viên</a></li>
             </ol>
             <div class="col-xs-12">
                 <form id="post_form" method="post" action="" role="form">
                     <div class="col-xs-12">
                         <div class="form-group">
                             <!-- Single button -->
-                            <a href="ThemMoiBaiViet" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Thêm mới</a>
+                            <a href="ThemMoiNhanVien" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Thêm mới</a>
                             <div class="btn-group pull-right hidden-xs" id="div-search">
                                 <input id="search" name="search" type="text" value="" class="form-control" placeholder="Tìm kiếm">
                                 <span class="fa fa-search"></span>
@@ -40,10 +38,12 @@
                         <table class="table table-bordered table-hover">
                             <thead>
                                 <tr>
-                                    <th class="hidden-xs">Mã Bài Viết</th>
-                                    <th>Mã Nhân Viên</th>
-                                    <th>Tên Bài Viết</th>
-                                  
+                                   
+                                    <th>Mã NV</th>
+                                    <th>Họ tên nhân viên</th>
+                                    <th class="hidden-sm hidden-xs">Email</th>  
+                                    <th class="hidden-sm hidden-xs">Quê Quán</th>
+                                    <th class="hidden-sm hidden-xs">Hình thức làm</th>
                                     <th>Ngày Sửa</th>
                                     <th>Ngày Tạo</th>
                                     <th class="hidden-sm hidden-xs">Trạng Thái Hiển Thị</th>
@@ -52,20 +52,21 @@
                             </thead>
                             <tbody>
 
-                                @foreach (var bv in Model)
+                                @foreach (var nv in ViewBag.ListNV)
                                 {
 
                                     <tr>
-                                        <td class="hidden-xs">@bv.MaBaiViet</td>
-                                        <td class="hidden-xs">@bv.MaNV</td>
+                                        <td class="hidden-xs">@nv.MaNV</td>
+                                        <td class="hidden-xs">@nv.HoTenNV</td>
                                         <td>
-                                            <p>@bv.TenBaiViet</p>
+                                            <p>@nv.Email</p>
                                         </td>
-                                   
+                                        <td class="hidden-sm hidden-xs">@nv.QueQuan</td>
+                                        <td class="hidden-sm hidden-xs">@nv.HinhThucLam</td>
 
-                                        <td class="hidden-sm hidden-xs">@String.Format("{0:dd/MM/yyyy}", @bv.NgayTao)</td>
-                                        <td class="hidden-sm hidden-xs">@String.Format("{0:dd/MM/yyyy}", @bv.NgaySua)</td>
-                                        @if (bv.TrangThaiHienThi == 1)
+                                        <td class="hidden-sm hidden-xs">@String.Format("{0:dd/MM/yyyy}", @nv.NgayTao)</td>
+                                        <td class="hidden-sm hidden-xs">@String.Format("{0:dd/MM/yyyy}", @nv.NgaySua)</td>
+                                        @if (nv.TrangThaiHienThi == 1)
                                         {
                                             <td>
                                                 <i class="fa fa-check text-success" data-toggle="tooltip" data-placement="top" title="Đang hiển thị"></i>
@@ -78,7 +79,7 @@
                                             </td>
                                         }
                                         <td>
-                                            <a href="/AdminBaiViet/SuaBaiViet?MaBaiViet=@bv.MaBaiViet"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Sửa bài viết"></i></a>
+                                            <a href="/AdminBaiViet/SuaNhanVien?MaNhanVien=" @nv.MaNV><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Sửa bài viết"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -94,9 +95,6 @@
         </div>
         <!--END #main-->
     </div>
-
-
-
 
 </body>
 </html>

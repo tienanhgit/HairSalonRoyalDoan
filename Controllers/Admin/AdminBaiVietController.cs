@@ -32,31 +32,40 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             
                 BaiVietModel baiVietModel = new BaiVietModel();
                 NhanVien nhanVien = new NhanVienModel().GetNhanVienByEmail(Session["ADMIN_SESSION"].ToString());
-            NhanVien nhanVien1 = new NhanVienModel().GetNhanVienByMa(1);
-         List<NhanVien> lsnv= new NhanVienModel().GetData();
-            //BaiViet bv = new BaiViet();
-            //    std.MaNV = 1;
-            //std.NgayTao = DateTime.Now;
+            
+  
+            std.MaNV = nhanVien.MaNV;
+            std.NgayTao = DateTime.Now;
 
-            //baiVietModel.ThemBaiViet(std);
-            string message = nhanVien1.MaNV.ToString();
-            return Json(new { data= lsnv, JsonRequestBehavior.AllowGet });
+            baiVietModel.ThemBaiViet(std);
+     
+            return Json(new { data="", JsonRequestBehavior.AllowGet });
 
 
         }
-        public ActionResult SuaBaiViet(string MaBaiViet,string TenBaiViet,string TrangThaiHienThi,string DanhGia)
+        [HttpGet]
+        public ActionResult SuaBaiViet(string MaBaiViet)
         {
 
 
+            BaiVietModel baiVietModel = new BaiVietModel();
+            BaiViet baiViet = new BaiViet();
+            baiViet = baiVietModel.GetDataByMa(MaBaiViet);
 
-
+            ViewBag.BaiViet = baiViet;
             return View();
+        }
+        [HttpPost]
+        public JsonResult SuaBaiViet(BaiViet std)
+        {
+            std.NgaySua = DateTime.Now;
+            std.MaNV = 1;
+           string baiVietModel = new BaiVietModel().CapNhatBaiViet(std);
+
+            return Json(new { data = "", JsonRequestBehavior.AllowGet });
+
         }
 
 
-
-
-
-
+        }
     }
-}

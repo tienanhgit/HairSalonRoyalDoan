@@ -49,12 +49,18 @@ namespace HairSalonRoyalDoan.Controllers
         {
             BaiViet baiViet = new BaiViet();
             BaiVietModel baiVietModel = new BaiVietModel();
-            ViewBag.BaiViet = baiVietModel.GetDataByMa(MaBaiViet);
+            ViewBag.BaiViet = baiVietModel.GetDataByMa("2");
+            if (MaBaiViet != null)
+            {
+                ViewBag.BaiViet = baiVietModel.GetDataByMa(MaBaiViet);
+            }
+     
             ViewBag.AllBaiViet = baiVietModel.GetData();
-
+            
 
             return View();
         }
+        
 
         
 

@@ -79,13 +79,12 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 {
                     foreach (DataRow row in dt.Rows)
                     {
-                        NhanVien nhanVien = new NhanVien();
-                        
+                        NhanVien nhanVien = new NhanVien();                 
                         nhanVien.MaNV = String.IsNullOrEmpty(row["MaNV"].ToString()) ? 0 : int.Parse(row["MaNV"].ToString());
                         nhanVien.HoTenNV = String.IsNullOrEmpty(row["HoTenNV"].ToString()) ? "" : row["HoTenNV"].ToString();
                         nhanVien.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
                         nhanVien.MatKhau = String.IsNullOrEmpty(row["MatKhau"].ToString()) ? "" : row["MatKhau"].ToString(); 
-                         nhanVien.SDTNV = String.IsNullOrEmpty(row["SoDTNV"].ToString()) ? "" : row["SoDTNV"].ToString();
+                        nhanVien.SDTNV = String.IsNullOrEmpty(row["SoDTNV"].ToString()) ? "" : row["SoDTNV"].ToString();
                         nhanVien.QueQuan = String.IsNullOrEmpty(row["QueQuan"].ToString()) ? "" : row["QueQuan"].ToString();
                         nhanVien.CMND = String.IsNullOrEmpty(row["CMND"].ToString()) ? "" : row["CMND"].ToString();
                         nhanVien.NgaySinh = String.IsNullOrEmpty(row["NgaySinh"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySinh"]);
@@ -106,15 +105,16 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             }
         }
 
-        public NhanVien GetNhanVienByMa(int MaNhanVien)
+        public NhanVien GetNhanVienByMa(int MaNV)
         {
             try
             {
                 NhanVien nhanVien= null;
-                DataTable dt = dataProvider.ExecuteQuery("Proc_NhanVien_GetData", new object[] { MaNhanVien }, new List<string>() { "MaNV" });
+                DataTable dt = dataProvider.ExecuteQuery("Proc_NhanVien_GetData", new object[] { MaNV }, new List<string>() { "MaNV" });
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     var row = dt.Rows[0];
+                    nhanVien = new NhanVien();
                     nhanVien.MaNV = String.IsNullOrEmpty(row["MaNV"].ToString()) ? 0 : int.Parse(row["MaNV"].ToString());
                     nhanVien.HoTenNV = String.IsNullOrEmpty(row["HoTenNV"].ToString()) ? "" : row["HoTenNV"].ToString();
                     nhanVien.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();
@@ -127,7 +127,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                     nhanVien.MaChucVu = String.IsNullOrEmpty(row["MaChucVu"].ToString()) ? 0 : int.Parse(row["MaChucVu"].ToString());
                     nhanVien.TrangThaiHienThi = String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
                     nhanVien.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
-                     nhanVien.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
+                    nhanVien.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
                 }
                 return nhanVien;
             }
@@ -141,10 +141,11 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             try
             {
                 NhanVien nhanVien = null;
-                DataTable dt = dataProvider.ExecuteQuery("Proc_NhanVien_GetData",new object[] {Email }, new List<string>() { "Email" });
+                DataTable dt = dataProvider.ExecuteQuery("Proc_NhanVien_GetData",new object[] {Email}, new List<string>() { "Email" });
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     var row = dt.Rows[0];
+                    nhanVien = new NhanVien();
                     nhanVien.MaNV = String.IsNullOrEmpty(row["MaNV"].ToString()) ? 0 : int.Parse(row["MaNV"].ToString());
                     nhanVien.HoTenNV = String.IsNullOrEmpty(row["HoTenNV"].ToString()) ? "" : row["HoTenNV"].ToString();
                     nhanVien.Email = String.IsNullOrEmpty(row["Email"].ToString()) ? "" : row["Email"].ToString();

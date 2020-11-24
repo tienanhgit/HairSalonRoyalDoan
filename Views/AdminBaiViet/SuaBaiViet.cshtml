@@ -1,10 +1,10 @@
-﻿@using PagedList.Mvc
-@model PagedList.IPagedList<HairSalonRoyalDoan.Repository.BaiViet>
+﻿
 @{
-    ViewBag.Title = "BaiViet";
+    ViewBag.Title = "San Pham";
     Layout = "~/Views/Shared/_AdminHome.cshtml";
 
 }
+
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -14,8 +14,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quản trị hệ thống</title>
-
+    <title>Them San Pham</title>
+    <script src="~/Scripts/Common/Library/jquery-3.4.1.js"></script>
+    <script src="~/Content/plugins/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/plugins/ckfinder/ckfinder.js"></script>
 
 
 </head>
@@ -23,80 +25,106 @@
     <div class="clearfix">
         <div id="main">
             <ol class="breadcrumb">
-                <li><a href="/AdminHome/Index"><i class="fa fa-home"></i> Trang quản trị</a></li>
-                <li class="active"><a href="/AdminBaiViet/Index">Bài Viết</a></li>
+                <li><a href="/AdminHome"><i class="fa fa-home"></i> Trang quản trị</a></li>
+                <li class="active"><a href="/AdminBaiViet/Index">Bài viết</a></li>
+                <li class="active"><a href="AdminBaiViet/SuaBaiViet">Sửa bài viết</a></li>
             </ol>
             <div class="col-xs-12">
-                <form id="post_form" method="post" action="" role="form">
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <!-- Single button -->
-                            <a href="ThemMoiBaiViet" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Thêm mới</a>
-                            <div class="btn-group pull-right hidden-xs" id="div-search">
-                                <input id="search" name="search" type="text" value="" class="form-control" placeholder="Tìm kiếm">
-                                <span class="fa fa-search"></span>
-                            </div>
-                        </div>
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                                <tr>
-                                    <th class="hidden-xs">Mã Bài Viết</th>
-                                    <th>Mã Nhân Viên</th>
-                                    <th>Tên Bài Viết</th>
-                                    <th class="hidden-sm hidden-xs">Ngày thêm</th>
-                                    <th>Ngày Sửa</th>
-                                    <th class="hidden-sm hidden-xs">Trạng Thái Hiển Thị</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                <form id="admin-form" class="form-horizontal col-xl-9 col-lg-10 col-md-12 col-sm-12" enctype="multipart/form-data" role="form">
 
-                                @foreach (var bv in Model)
+            
+                    <div class="form-group">
+
+                        <label for="masp" class="col-sm-3 control-label required">Trạng Thái Hiển Thị</label>
+                        <div class="col-sm-9">
+                            <select name="type_trangthaihienthi" id="TrangThaiHienThi" class="form-control">
+                                <option value="" disabled>Chọn trạng thái hiển thị</option>
+                                @if (ViewBag.BaiViet.TrangThaiHienThi == 1)
                                 {
 
-                                    <tr>
-                                        <td class="hidden-xs">@bv.MaBaiViet</td>
-                                        <td class="hidden-xs">@bv.MaNV</td>
-                                        <td>
-                                            <p>@bv.TenBaiViet</p>
-                                        </td>
-                                        <td class="hidden-sm hidden-xs">@bv.</td>
-
-                                        <td class="hidden-sm hidden-xs">@String.Format("{0:dd/MM/yyyy}", @bv.NgayTao)</td>
-                                        <td class="hidden-sm hidden-xs">@String.Format("{0:dd/MM/yyyy}", @bv.NgaySua)</td>
-                                        @if (bv.TrangThaiHienThi == 1)
-                                        {
-                                            <td>
-                                                <i class="fa fa-check text-success" data-toggle="tooltip" data-placement="top" title="Đang hiển thị"></i>
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                <p class="note-items"><i class="fa fa-times text-danger"></i> Ẩn với người dùng</p>
-                                            </td>
-                                        }
-                                        <td>
-                                            <a href="/AdminBaiViet/SuaBaiViet?MaBaiViet=" @bv.MaBaiViet><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Sửa bài viết"></i></a>
-                                        </td>
-                                    </tr>
+                                    <option value="1" selected>Hiển thị</option>
+                                    <option value="0">Ẩn</option>
                                 }
-                            </tbody>
-                        </table>
-                        <div class="text-right">
-                            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-                        </div>
+                                else
+                                {
+                                    <option value="1">Hiển thị</option>
+                                    <option value="0" selected>Ẩn</option>
+                                }
 
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mabaiviet" class="col-sm-3 control-label required">Mã bài viết</label>
+                        <div class="col-sm-9">
+                            <input id="mabaiviet" disabled type="text" value=" @ViewBag.BaiViet.MaBaiViet" class="form-control" placeholder="Mã sản phẩm" required="" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Tên bài viết</label>
+                        <div class="col-sm-9">
+                            <input id="TenBaiViet" type="text" value="@ViewBag.BaiViet.TenBaiViet" class="form-control" placeholder="Tên sản phẩm " required="" maxlength="100">
+                        </div>
+                    </div>
+
+               
+                    <div class="form-group">
+                        <label for="content" class="col-sm-3 control-label">Đánh giá  </label>
+                        <div class="col-sm-9">
+                            <textarea id="NoiDung" rows="5" class="form-control ckeditor" placeholder="Danh Gia Cho San Pham">
+                                @Html.Raw(@ViewBag.BaiViet.NoiDung)
+                                </textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="button" id="btnAdd" class="btn btn-submit"><small><i class="fa fa-plus"></i></small>Sửa bài viết</button>
+
+                            <a class="btn btn-warning" href="/AdminBaiViet/Index"><small><i class="fa fa-reply"></i></small> Trở về</a>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
         <!--END #main-->
+
     </div>
 
+    <script type="text/javascript">
+        $(function () {
+
+        $("#btnAdd").click(function () {
+                    var std = {};
+              
+                    std.TenBaiViet = $("#TenBaiViet").val();
+            std.MaBaiViet = $("#mabaiviet").val();
+            
+                 std.TrangThaiHienThi = $("#TrangThaiHienThi option:selected").val();
+                    std.NoiDung = CKEDITOR.instances['NoiDung'].getData();
+           
+            $.ajax({
+                    type: "POST",
+                url: '@Url.Action("/SuaBaiViet")',
+                data: '{std: ' + JSON.stringify(std) + '}',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function () {
+                            console.log(std);
+                            alert("Sửa bài viết thành công");
+                        },
+                error: function () {
+                            alert("Sửa bài viết thất bại");
+                        }
+                    });
+
+                });
+            });
 
 
+    </script>
 
 </body>
 </html>
-
 

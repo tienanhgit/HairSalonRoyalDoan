@@ -1307,13 +1307,15 @@
     <Content Include="Views\AdminDonSanPham\InHoaDon.cshtml" />
     <Content Include="Views\AdminBaiViet\ThemMoiBaiViet.cshtml" />
     <Content Include="Views\AdminBaiViet\SuaBaiViet.cshtml" />
+    <Content Include="Views\AdminNhanVien\Index.cshtml" />
+    <Content Include="Views\AdminBanner\Index.cshtml" />
+    <Content Include="Views\AdminNhanVien\ThemMoiNhanVien.cshtml" />
+    <Content Include="Views\AdminNhanVien\SuaNhanVien.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\Font\" />
     <Folder Include="Content\Icon\" />
-    <Folder Include="Views\AdminBanner\" />
-    <Folder Include="Views\AdminNhanVien\" />
     <Folder Include="Views\BaiViet\" />
   </ItemGroup>
   <ItemGroup>
