@@ -3,6 +3,7 @@ create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
 
+
 /*chuan*/
 create table NhanVien
 (

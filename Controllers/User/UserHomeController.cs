@@ -87,7 +87,7 @@ namespace HairSalonRoyalDoan.Controllers
                 }
 
             }
-            return Json(new { Message = NgayCat, JsonRequestBehavior.AllowGet });
+            return Json(new { Message = GioHen, JsonRequestBehavior.AllowGet });
         }
 
         [HttpPost]
