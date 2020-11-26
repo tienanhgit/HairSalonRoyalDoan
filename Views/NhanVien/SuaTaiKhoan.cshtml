@@ -1,0 +1,88 @@
+﻿
+
+@{
+
+    ViewBag.Title = "Them San Pham";
+    Layout = "~/Views/Shared/_AdminHome.cshtml";
+
+
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <base href=".">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sửa danh mục</title>
+
+
+
+</head>
+<body>
+    <div class="clearfix">
+        <div id="main">
+            <ol class="breadcrumb">
+                <li><a href="/AdminHome"><i class="fa fa-home"></i> Trang quản trị</a></li>
+                <li class="active"><a href="/AdminHome/DanhMuc">Nhân Viên</a></li>
+                <li class="active"><a href="/AdminHome/SuaDanhMuc">Sửa thông tin</a></li>
+            </ol>
+            <div class="col-xs-12">
+                <form id="admin-form" class="form-horizontal col-xl-9 col-lg-10 col-md-12 col-sm-12" enctype="multipart/form-data" role="form">
+
+
+
+            
+
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Mật khẩu mới</label>
+                        <div class="col-sm-9">
+                            <input id="MatKhau" type="password"  class="form-control" placeholder="Mật khẩu" required="" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Nhập lại mật khẩu mới</label>
+                        <div class="col-sm-9">
+                            <input id="NhapLaiMatKhau" type="password"  class="form-control" placeholder="Nhập lại mật khẩu mới" required="" maxlength="100">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="button" id="btnAdd" onclick="SuaTaiKhoan()" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Sửa</button>
+
+                            <a class="btn btn-warning" href="#"><small><i class="fa fa-reply"></i></small> Trở về</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--END #main-->
+    </div>
+
+
+    <script type="text/javascript">
+        function SuaTaiKhoan(MaDanhMuc) {
+
+         
+
+
+
+
+        }
+
+
+
+
+
+
+    </script>
+
+
+
+
+</body>
+</html>
+

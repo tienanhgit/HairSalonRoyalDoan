@@ -22,11 +22,20 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             ViewBag.ListNV = lsnv;
             return View(lsnv.ToPagedList(page, pagesize));
         }
-        [HttpPost]
+        [HttpGet]
         public ActionResult ThemMoiNhanVien()
         {
+            ChucVuModel chucVuModel = new ChucVuModel();
+            ViewBag.ChucVu = chucVuModel.GetData();
 
 
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ThemMoiNhanVien(ChucVu std)
+        {
+            ChucVuModel chucVuModel = new ChucVuModel();
+            ViewBag.ChucVu = chucVuModel.GetData();
             return View();
         }
 

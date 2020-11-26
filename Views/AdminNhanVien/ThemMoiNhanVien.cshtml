@@ -25,16 +25,45 @@
                     <div class="form-group">
                         <label for="masp" class="col-sm-3 control-label required">Mã nhân viên</label>
                         <div class="col-sm-9">
-                            <input id="MaNhanvien" name="MaBaiViet" disabled type="text" value="" class="form-control" placeholder="Mã" required="" maxlength="100">
+                            <input id="MaNhanvien" name="MaNhanVien" disabled type="text" value="" class="form-control" placeholder="Mã" required="" maxlength="100">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="title" class="col-sm-3 control-label required">Tên Nhân Viên</label>
                         <div class="col-sm-9">
-                            <input id="TenNhanVien" type="text" value="" class="form-control" placeholder="Tên bài viết " required="" maxlength="100">
+                            <input id="TenNhanVien" type="text" value="" class="form-control" placeholder="Tên nhân viên " required="" maxlength="100">
                         </div>
                     </div>
-
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Email</label>
+                        <div class="col-sm-9">
+                            <input id="Email" type="text" value="" class="form-control" placeholder="Email" required="" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Quê Quán</label>
+                        <div class="col-sm-9">
+                            <input id="QueQuan" type="text" value="" class="form-control" placeholder="Quê quán" required="" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">CMND</label>
+                        <div class="col-sm-9">
+                            <input id="CMND" type="text" value="" class="form-control" placeholder="Chứng minh nhân dân" required="" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Ngày sinh</label>
+                        <div class="col-sm-9">
+                            <input id="NgaySinh" type="text" value="" class="form-control" placeholder="Ngày Sinh" required="" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Hình thức làm</label>
+                        <div class="col-sm-9">
+                            <input id="HinhThucLam" type="text" value="" class="form-control" placeholder="Hình thức làm" required="" maxlength="100">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="description" class="col-sm-3 control-label">Trạng Thái Hiển Thị</label>
                         <div class="col-sm-9">
@@ -44,18 +73,26 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <label for="content" class="col-sm-3 control-label">Nội dung</label>
+                        <label for="description" class="col-sm-3 control-label">Chức vụ</label>
                         <div class="col-sm-9">
-                            <textarea id="NoiDung" rows="5" class="form-control ckeditor" placeholder="Danh Gia Cho San Pham"></textarea>
+                            <select id="ChucVu" style="width:100%; height:100%;">
+                                @foreach (var itemcv in ViewBag.ChucVu)
+                                {
+                                    if (itemcv.MaChucVu>1)
+                                    {
+                                        <option value="1">@itemcv.TenChucVu</option>
+                                    }
+
+                                }
+
+                            </select>
                         </div>
                     </div>
 
-
                     <div class="form-group">
                         <div class="col-sm-offset-3 col-sm-9">
-                            <button type="button" id="btnAdd" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Sửa</button>
+                            <button type="button" id="btnAdd" class="btn btn-submit"><small><i class="fa fa-plus"></i></small>Thêm</button>
                             <a class="btn btn-warning" href="/AdminHome/Index"><small><i class="fa fa-reply"></i></small> Trở về</a>
                         </div>
                     </div>

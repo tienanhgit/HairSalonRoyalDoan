@@ -31,6 +31,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             List<ChiTietDonDat> listchitietdondat = new ChiTietDonDatModel().GetDataSanPham(Convert.ToInt32(MaDonDatHang));
             return Json(listchitietdondat, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult ChiTietDonDichVu(string MaDonDatHang)
         {
@@ -76,7 +77,14 @@ namespace HairSalonRoyalDoan.Controllers.Admin
         {
 
             DonDatHangModel donDatHangModel = new DonDatHangModel();
+         
                 DonDatHang donDatHang = new DonDatHang();
+            if (Session["ADMIN_SESSION"] != null)
+            {
+                NhanVien nhanVien = new NhanVienModel().GetNhanVienByEmail(Session["ADMIN_SESSION"].ToString());
+                donDatHang.MaNV = nhanVien.MaNV;
+            }
+
                 donDatHang.HoTenNguoiNhan = HoTenNguoiNhan;
                 donDatHang.SoDTGiaoHang =SoDienThoaiNguoiNhan;
                 donDatHang.DiaChiNhanHang = DiaChiGiaoHang;
@@ -84,6 +92,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
                 donDatHang.TrangThaiDonSanPham = Convert.ToInt32(TrangThai);
                 donDatHang.NgayTao = DateTime.Now; 
                 donDatHang.TrangThaiDonDichVu = 0;
+            
                 string MaDonHang = donDatHangModel.ThemDonDatHang(donDatHang);
                 ChiTietDonDatModel chiTietDonDatModel = new ChiTietDonDatModel();
         
@@ -102,9 +111,6 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
             donDatHangModel.CapNhatTongTien(Convert.ToInt32(MaDonHang));
             
-                       
-                 
-
             string Message = "Thanh cong";
         
 
@@ -228,7 +234,12 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             DonDatHangModel donDatHangModel = new DonDatHangModel();
 
             DonDatHang donDatHang = new DonDatHang();
-           
+         
+            if (Session["ADMIN_SESSION"] != null)
+            {
+                NhanVien nhanVien = new NhanVienModel().GetNhanVienByEmail(Session["ADMIN_SESSION"].ToString());
+                donDatHang.MaNV = nhanVien.MaNV;
+            }
             donDatHang.HoTenNguoiNhan = HoTenNguoiNhan;
             donDatHang.SoDTGiaoHang = SoDienThoaiNguoiNhan;
             donDatHang.HinhThucThanhToan = HinhThucThanhToan;
@@ -236,7 +247,6 @@ namespace HairSalonRoyalDoan.Controllers.Admin
             donDatHang.TrangThaiDonSanPham = 0;
             donDatHang.TrangThaiDonDichVu = Convert.ToInt32(TrangThai);
             string MaDonHang = donDatHangModel.ThemDonDatHang(donDatHang);
-
             ChiTietDonDichVuModel chiTietDonDichVuModel = new ChiTietDonDichVuModel();
 
             foreach (var item in cartModel)

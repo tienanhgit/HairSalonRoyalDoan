@@ -220,6 +220,8 @@ namespace HairSalonRoyalDoan.Controllers.User
 
             }
             Session["CART_SESSION"] = null;
+            Session["SLSP_SESSION"] = null;
+
             return View();
 
         }

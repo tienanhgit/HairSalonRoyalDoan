@@ -157,6 +157,29 @@
 
 
     <script type="text/javascript">
+        function CheckNhap() {
+            var HoTenNguoiNhan = $(".hotennguoinhan").val();
+            var SoDienThoaiNguoiNhan = $(".sodienthoaigiaohang").val();
+            var DiaChiGiaoHang = $(".diachigiaohang").val();
+            var listProduct = $(".txtquantity");
+            var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+            console.log(listProduct.length);
+            if (HoTenNguoiNhan == "" || SoDienThoaiNguoiNhan == "" || DiaChiGiaoHang == "" || listProduct.length==0) {
+                alert("Hãy nhập đầy đủ thông tin");
+            }
+            else if (vnf_regex.test(SoDienThoaiNguoiNhan) == false) {
+                alert("Số điện thoại không đúng định dạng");
+
+            }
+            else {
+                return true;
+            }
+
+
+
+        }
+
+
 
         function ThemHoaDon() {
 
@@ -164,12 +187,11 @@
                               var SoDienThoaiNguoiNhan = $(".sodienthoaigiaohang").val();
                             var DiaChiGiaoHang = $(".diachigiaohang").val();
                             var HinhThucThanhToan = $(".hinhthucthanhtoan option:selected").val();
-                            var TrangThai = $(".trangthai option:selected").val();
+                               var TrangThai = $(".trangthai option:selected").val();
+                             var listProduct = $(".txtquantity");
 
-                            var listProduct = $(".txtquantity");
                             var cartList = [];
                             $.each(listProduct, function (i, item) {
-
                                 cartList.push(
                                     {
                                     
@@ -183,21 +205,26 @@
                                     });
 
                             });
+            if (CheckNhap()) {
 
-                            $.ajax({
-                                type: 'POST',
-                                contentType: 'application/json; charset=utf-8',
-                                url: '/AdminDonSanPham/ThemHoaDonSanPham',
-                                data: "{ 'HoTenNguoiNhan':'" + HoTenNguoiNhan + "','SoDienThoaiNguoiNhan':'" + SoDienThoaiNguoiNhan + "','DiaChiGiaoHang':'" +DiaChiGiaoHang + "','HinhThucThanhToan':'" + HinhThucThanhToan + "','TrangThai':'" + TrangThai + "','cartModel':" + JSON.stringify(cartList) + " }",
-                                dataType: "json",
-                                success: function (result) {
-                                    alert("Thêm thành công !");
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    url: '/AdminDonSanPham/ThemHoaDonSanPham',
+                    data: "{ 'HoTenNguoiNhan':'" + HoTenNguoiNhan + "','SoDienThoaiNguoiNhan':'" + SoDienThoaiNguoiNhan + "','DiaChiGiaoHang':'" + DiaChiGiaoHang + "','HinhThucThanhToan':'" + HinhThucThanhToan + "','TrangThai':'" + TrangThai + "','cartModel':" + JSON.stringify(cartList) + " }",
+                    dataType: "json",
+                    success: function (result) {
+                        alert("Thêm thành công !");
 
-                                },
-                                error: function (data) {
-                                    alert("Hãy nhập đầy đủ thông tin !");
-                                }
-                            });
+                    },
+                    error: function (data) {
+                        alert("Hãy nhập đầy đủ!");
+                    }
+                });
+
+            }
+
+
                         }
 
       

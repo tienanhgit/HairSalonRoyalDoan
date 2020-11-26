@@ -9,7 +9,7 @@
     }
     else
     {
-        quyen = "";
+        Response.Redirect("/NhanVien/DangNhap");
     }
 
 }
@@ -64,7 +64,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">@Session["ADMIN_SESSION"]<b class="caret"></b></a>
 
                     <ul class="dropdown-menu">
-                        <li><a href="#"><i class="fa fa-user"></i> Chỉnh sửa tài khoản</a></li>
+                        <li><a href="/NhanVien/SuaTaiKhoan"><i class="fa fa-user"></i> Chỉnh sửa tài khoản</a></li>
                         <li><a href="/NhanVien/DangXuat"><i class="fa fa-power-off"></i> Đăng xuất</a></li>
                     </ul>
                 </li>
@@ -173,15 +173,6 @@
         </div>
         @RenderBody()
     </div>
-    <script type="text/javascript">
-        var session = "@Session["ADMIN_SESSION"]";
-        if (session == "") {
-            window.location.href = "/NhanVien/DangNhap";
-        }
-
-
-
-    </script>
 
     <script src="~/CSS/Library/jquery-ui-1.12.1/jquery-ui.min.js"></script>
 </body>

@@ -126,7 +126,7 @@
                             <td>
                                 Mã hóa đơn :@ViewBag.DonDatHang.MaDonDatHang<br>
                                 Ngày lập:@ViewBag.DonDatHang.NgayTao<br>
-                                Nhân viên : <br />
+                                Nhân viên : @if (ViewBag.NhanVien.MaNV != null) {@ViewBag.NhanVien.HoTenNV } <br />
 
                             </td>
                         </tr>
@@ -207,7 +207,7 @@
                 </td>
             </tr>
         </table>
-        <input style="padding:5px;" value="Print Document" type="button" onclick="myFunction()" class="button"></input>
+        <input style="padding:5px;" value="In Hóa Đơn" type="button" onclick="myFunction()" class="button"></input>
     </div>
 
     <script>

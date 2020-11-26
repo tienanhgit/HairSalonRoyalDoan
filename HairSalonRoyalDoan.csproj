@@ -144,6 +144,7 @@
     <Compile Include="Models\Dictionary\ChiTietDichVuModel.cs" />
     <Compile Include="Models\Dictionary\ChiTietDonDatModel.cs" />
     <Compile Include="Models\Dictionary\ChiTietDonDichVuModel.cs" />
+    <Compile Include="Models\Dictionary\ChucVuModel.cs" />
     <Compile Include="Models\Dictionary\DanhMucModel.cs" />
     <Compile Include="Models\Dictionary\DichVuModel.cs" />
     <Compile Include="Models\Dictionary\DonDatHangModel.cs" />
@@ -1311,6 +1312,7 @@
     <Content Include="Views\AdminBanner\Index.cshtml" />
     <Content Include="Views\AdminNhanVien\ThemMoiNhanVien.cshtml" />
     <Content Include="Views\AdminNhanVien\SuaNhanVien.cshtml" />
+    <Content Include="Views\NhanVien\SuaTaiKhoan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

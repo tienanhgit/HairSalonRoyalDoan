@@ -552,6 +552,7 @@ END
 go
 /*End*/
 /*Bảng Chuc Vu*/
+
 create proc Proc_ChucVu_GetData
 						@MaChucVu INT = ''
 							 
@@ -559,7 +560,7 @@ create proc Proc_ChucVu_GetData
 AS BEGIN
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
-	SET @Query = 'Select * from ChuVu where (1=1)'
+	SET @Query = 'Select * from ChucVu where (1=1)'
 	IF(@MaChucVu !='')
 	begin
 		SET @Query += ' AND (MaChucVu = @MaChucVu) '
@@ -598,6 +599,7 @@ end
 
 go
 
+
 create Proc Proc_NhanVien_Insert @HoTenNV nvarchar(50),
 								@Email nvarchar(50)='',
 								@MatKhau nvarchar(255)='',
@@ -613,6 +615,7 @@ create Proc Proc_NhanVien_Insert @HoTenNV nvarchar(50),
 
 						
 AS BEGIN 
+
 	INSERT INTO NhanVien
 	        (				HoTenNV ,
 								Email,
@@ -1075,7 +1078,7 @@ GO
 
 
 /*Bang Bai Viet*/
-exec  Proc_BaiViet_GetData
+
 create proc Proc_BaiViet_GetData
 							@MaBaiViet INT = '',
 							@TenBaiViet nvarchar(255)=''
@@ -1143,7 +1146,7 @@ AS BEGIN
 END
 GO
 
-select * from NhanVien
+
 
 
 /*Bang khach hang*/
@@ -1580,14 +1583,16 @@ values
 (N'Nhân viên cắt tóc'),
 (N'Nhân viên gội đầu')
 
+
 insert into NhanVien 
 values 
-(N'Đoàn Minh Ngọc','ngocdoan@gmail.com','123456','090208707',N'Hải Dương',142987653,'09/02/1978','Fulltime',1,1,'10/7/2020','10/7/2020'),
+(N'Đoàn Minh Ngọc','ngocdoan@gmail.com','FEC9D37358838A72AE49C15A4373A9B4','090208707',N'Hải Dương',142987653,'09/02/1978','Fulltime',1,1,'10/7/2020','10/7/2020'),
 (N'Đoàn Ngọc Giàu','ngocgiaudoan@gmail.com','123456','0902084027',N'Hải Dương',142911153,'09/02/1980','Fulltime',3,1,'10/7/2020','10/7/2020'),
 (N'Vũ Văn Quân','quanvu@gmail.com','123456','0902047097',N'Hải Dương',142987634,'09/02/1990','Fulltime',3,1,'10/7/2020','10/7/2020'),
 (N'Nguyễn Quang Ninh','ninhquang@gmail.com','123456','0902187097',N'Hải Dương',142987611,'09/02/1991','Fulltime',3,1,'10/7/2020','10/7/2020'),
 (N'Nguyễn Anh Vũ','anhvu@gmail.com','123456','090202707',N'Hải Dương',142987655,'09/02/1997','Fulltime',3,1,'10/7/2020','10/7/2020'),
-(N'Nguyễn Hoàng Giang','gianghoang@gmail.com','123456','0902087017',N'Hải Dương',142987666,'09/02/1998','Fulltime',2,1,'10/7/2020','10/7/2020'),
+(N'Nguyễn Hoàng Giang','gianghoang@gmail.com','FEC9D37358838A72AE49C15A4373A9B4','0902087017',N'Hải Dương',142987666,'09/02/1998','Fulltime',2,1,'10/7/2020','10/7/2020'),
+
 (N'Nguyễn Thị Ánh Ngọc','anhngoc@gmail.com','123456','0902087017',N'Hải Dương',142987677,'09/02/2000','Fulltime',4,1,'10/7/2020','10/7/2020'),
 (N'Nguyễn Thủy Tiên','tiennguyen@gmail.com','123456','0902087027',N'Hải Dương',142987632,'09/02/1999','PartTime',4,1,'10/7/2020','10/7/2020'),
 (N'Dương Thị Phương','phuongthanh@gmail.com','123456','0902087397',N'Hải Dương',142983453,'09/02/1999','PartTime',4,1,'10/7/2020','10/7/2020')

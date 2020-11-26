@@ -156,6 +156,27 @@
 
     <script type="text/javascript">
 
+        function CheckNhap() {
+            var HoTenNguoiNhan = $(".hotennguoinhan").val();
+            var SoDienThoaiNguoiNhan = $(".sodienthoaigiaohang").val();
+            var listProduct = $(".txtquantity");
+            var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+         
+            if (HoTenNguoiNhan == "" || SoDienThoaiNguoiNhan == ""  || listProduct.length == 0) {
+                alert("Hãy nhập đầy đủ thông tin");
+            }
+            else if (vnf_regex.test(SoDienThoaiNguoiNhan) == false) {
+                alert("Số điện thoại không đúng định dạng");
+
+            }
+            else {
+                return true;
+            }
+
+
+
+        }
+
         function ThemHoaDon() {
 
             var HoTenNguoiNhan = $(".hotennguoinhan").val();
@@ -181,20 +202,23 @@
 
             });
 
-            $.ajax({
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                url: '/AdminDonSanPham/ThemHoaDonDichVu',
-                data: "{ 'HoTenNguoiNhan':'" + HoTenNguoiNhan + "','SoDienThoaiNguoiNhan':'" + SoDienThoaiNguoiNhan + "','HinhThucThanhToan':'" + HinhThucThanhToan + "','TrangThai':'" + TrangThai + "','cartModel':" + JSON.stringify(cartList) + " }",
-                dataType: "json",
-                success: function (result) {
-                    alert("Thêm thành công !");
+            if (CheckNhap()) {
 
-                },
-                error: function (data) {
-                    alert("Hãy nhập đầy đủ thông tin !");
-                }
-            });
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    url: '/AdminDonSanPham/ThemHoaDonDichVu',
+                    data: "{ 'HoTenNguoiNhan':'" + HoTenNguoiNhan + "','SoDienThoaiNguoiNhan':'" + SoDienThoaiNguoiNhan + "','HinhThucThanhToan':'" + HinhThucThanhToan + "','TrangThai':'" + TrangThai + "','cartModel':" + JSON.stringify(cartList) + " }",
+                    dataType: "json",
+                    success: function (result) {
+                        alert("Thêm thành công !");
+
+                    },
+                    error: function (data) {
+                        alert("Hãy nhập đầy đủ thông tin !");
+                    }
+                });
+            }
         }
 
         //auto load mã
