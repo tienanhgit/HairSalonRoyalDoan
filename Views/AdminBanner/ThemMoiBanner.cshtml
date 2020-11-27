@@ -1,0 +1,138 @@
+﻿
+
+@{
+    Layout = null;
+    Layout = "~/Views/Shared/_AdminHome.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div class="clearfix">
+        <div id="main">
+            <ol class="breadcrumb">
+                <li><a href="/AdminHome"><i class="fa fa-home"></i> Trang quản trị</a></li>
+                <li class="active"><a href="/AdminBanner/ThemMoiBanner">Thêm Banner</a></li>
+
+            </ol>
+            <div class="col-xs-12">
+                <form id="admin-form" class="form-horizontal col-xl-9 col-lg-10 col-md-12 col-sm-12" enctype="multipart/form-data" role="form">
+                    <div class="form-group">
+                        <label for="masp" class="col-sm-3 control-label required">Mã Banner</label>
+                        <div class="col-sm-9">
+                            <input id="MaBanner" name="MaBanner" disabled type="text" value="" class="form-control" placeholder="Mã" required="" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Ảnh Banner</label>
+                        <div class="col-sm-9">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="active"><a href="#img-file" role="tab" data-toggle="tab">Upload từ máy tính</a></li>
+                                <li><a href="#img-url" role="tab" data-toggle="tab">Lấy từ URL</a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="img-file">
+                                <label for="image" class="col-sm-3 control-label">Từ máy tính</label>
+                                <div class="col-sm-9">
+                                    Hinh anh : @Html.TextBox("Picture")
+                                    <input type="button" name="HinhAnh" id="HinhAnh" value="Duyet Anh" />
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="img-url">
+                                <label for="url" class="col-sm-3 control-label"> Từ URL</label>
+                                <div class="col-sm-9">
+                                    <input name="HinhAnhUrl" type="text" value="" class="form-control" id="HinhAnhUrl" placeholder="Đường dẫn tới hình ảnh" maxlength="255">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Vị Trí</label>
+                        <div class="col-sm-9">
+                            <select id="ViTri" style="width:100%; height:100%;">
+                                <option value="1">Trang Chủ</option>
+                                <option value="0">Trang Sản Phẩm</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description" class="col-sm-3 control-label">Trạng Thái Hiển Thị</label>
+                        <div class="col-sm-9">
+                            <select id="TrangThaiHienThi" style="width:100%; height:100%;">
+                                <option value="1">Hiển Thị</option>
+                                <option value="0">Ẩn</option>
+                            </select>
+                        </div>
+                    </div>
+
+                  
+
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="button" id="btnAdd" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Sửa</button>
+                            <a class="btn btn-warning" href="/AdminHome/Index"><small><i class="fa fa-reply"></i></small> Trở về</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!--END #main-->
+    </div>
+    <script>
+        $("#HinhAnh").click(function () {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                fileUrl = fileUrl.substring(fileUrl);
+                $("#Picture").val(fileUrl);
+            };
+            finder.popup();
+        })
+    </script>
+    <script type="text/javascript">
+
+        $("#btnAdd").click(function () {
+
+            var std = {};
+        
+            std.TrangThaiHienThi = $("#TrangThaiHienThi option:selected").val();
+            std.ViTri = $("#ViTri option:selected").val();
+       
+            if ($("#Picture").val() != "") {
+                std.AnhBanner = $("#Picture").val();
+            }
+            else {
+                std.AnhBanner = $("#HinhAnhUrl").val();
+            }
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("/ThemMoiBanner")',
+                data: '{std: ' + JSON.stringify(std) + '}',
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log(data);
+                    alert("Thêm banner thành công");
+                },
+                error: function () {
+                    alert("Thêm banner thất bại");
+                }
+            });
+
+        });
+
+
+    </script>
+</body>
+</html>
+
+

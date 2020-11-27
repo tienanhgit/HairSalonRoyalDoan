@@ -32,20 +32,22 @@
             <div class="col-xs-12">
                 <form id="admin-form" class="form-horizontal col-xl-9 col-lg-10 col-md-12 col-sm-12" enctype="multipart/form-data" role="form">
 
-
-
-            
-
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Mật khẩu cũ</label>
+                        <div class="col-sm-9">
+                            <input id="MatKhauCu" name="MatKhauCu" type="password" class="form-control" placeholder="Mật khẩu Cũ" required="" maxlength="100">
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label for="title" class="col-sm-3 control-label required">Mật khẩu mới</label>
                         <div class="col-sm-9">
-                            <input id="MatKhau" type="password"  class="form-control" placeholder="Mật khẩu" required="" maxlength="100">
+                            <input id="MatKhau" name="MatKhau" type="password" class="form-control" placeholder="Mật khẩu" required="" maxlength="100">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="title" class="col-sm-3 control-label required">Nhập lại mật khẩu mới</label>
                         <div class="col-sm-9">
-                            <input id="NhapLaiMatKhau" type="password"  class="form-control" placeholder="Nhập lại mật khẩu mới" required="" maxlength="100">
+                            <input id="NhapLaiMatKhau" type="password" class="form-control" placeholder="Nhập lại mật khẩu mới" required="" maxlength="100">
                         </div>
                     </div>
 
@@ -64,15 +66,28 @@
 
 
     <script type="text/javascript">
-        function SuaTaiKhoan(MaDanhMuc) {
 
-         
+        function SuaTaiKhoan() {
+            var MatKhau = $("#MatKhau").val();
+            var MatKhauCu = $("#MatKhauCu").val();
+           $.ajax({
+                  type: "POST",
+               url: '@Url.Action("/SuaTaiKhoan")',
+               data: "{ 'MatKhau':'" + MatKhau + "','MatKhauCu':'" + MatKhauCu + "'}",
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (result) {
 
+                    alert(result.Message);
+                        },
+                error: function () {
+                            alert("Sửa mật khẩu thất bại");
+                        }
+                    });
 
-
+            
 
         }
-
 
 
 

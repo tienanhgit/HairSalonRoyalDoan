@@ -11,7 +11,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
     public class BannerModel
     {
         DataProvider dataProvider = new DataProvider();
-        public Banner GetData()
+        public Banner GetDataByMa()
         {
             try
             {
@@ -34,6 +34,36 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        public List<Banner> GetData()
+        {
+            try
+            {
+                List<Banner> dsBanner = new List<Banner>();
+                DataTable dt = dataProvider.ExecuteQuery("Proc_Banner_GetData", null, null);
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        Banner banner = new Banner();
+                        banner.MaBanner = String.IsNullOrEmpty(row["MaBanner"].ToString()) ? 0 : int.Parse(row["MaBanner"].ToString());
+                        banner.MaNV = String.IsNullOrEmpty(row["MaNV"].ToString()) ? 0 : int.Parse(row["MaNV"].ToString());
+                        banner.AnhBanner = String.IsNullOrEmpty(row["AnhBanner"].ToString()) ? "" : row["AnhBanner"].ToString();
+                        banner.ViTri = String.IsNullOrEmpty(row["ViTri"].ToString()) ? 0 : int.Parse(row["ViTri"].ToString());
+                        banner.TrangThaiHienThi = String.IsNullOrEmpty(row["TrangThaiHienThi"].ToString()) ? 0 : int.Parse(row["TrangThaiHienThi"].ToString());
+                        banner.NgaySua = String.IsNullOrEmpty(row["NgaySua"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgaySua"]);
+                        banner.NgayTao = String.IsNullOrEmpty(row["NgayTao"].ToString()) ? DateTime.Now : Convert.ToDateTime(row["NgayTao"]);
+                        dsBanner.Add(banner);
+                    }
+                    return dsBanner;
+                }
+                return new List<Banner>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Banner>();
             }
         }
         public string ThemBaner(Banner banner)

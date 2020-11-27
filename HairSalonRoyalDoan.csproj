@@ -185,6 +185,7 @@
     <Content Include="Content\Images\Banner\Hair_car.gif" />
     <Content Include="Content\Images\ImagesProduct\anhsanpham1.jpg" />
     <Content Include="Content\Images\ImagesProduct\anhsanphan2.jpg" />
+    <Content Include="Content\Images\ImagesProduct\Bo-Tri-Mun-Ac.jpg" />
     <Content Include="Content\Images\ImagesProduct\dauduongtocdiva.jpg" />
     <Content Include="Content\Images\ImagesProduct\dauduongtocp&amp;m.jpg" />
     <Content Include="Content\Images\ImagesProduct\dauduongtoctigi.jpg" />
@@ -193,7 +194,9 @@
     <Content Include="Content\Images\ImagesProduct\dau_goi_tang_phong_toc.jpg" />
     <Content Include="Content\Images\ImagesProduct\dau_hap_dangello.jpg" />
     <Content Include="Content\Images\ImagesProduct\dau_xa_phuc_hoi_prosee.jpg" />
+    <Content Include="Content\Images\ImagesProduct\gel-tay.jpg" />
     <Content Include="Content\Images\ImagesProduct\hap_dau_oil_hair_butter.jpg" />
+    <Content Include="Content\Images\ImagesProduct\Mau-Xit-Toc-KSM.jpg" />
     <Content Include="Content\Images\ImagesProduct\no-images.png" />
     <Content Include="Content\Images\ImagesProduct\tinhdauduongmemmuot.jpg" />
     <Content Include="Content\Images\ImagesProduct\tinhdauduongsch.jpg" />
@@ -1313,6 +1316,7 @@
     <Content Include="Views\AdminNhanVien\ThemMoiNhanVien.cshtml" />
     <Content Include="Views\AdminNhanVien\SuaNhanVien.cshtml" />
     <Content Include="Views\NhanVien\SuaTaiKhoan.cshtml" />
+    <Content Include="Views\AdminBanner\ThemMoiBanner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
