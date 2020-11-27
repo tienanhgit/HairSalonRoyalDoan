@@ -194,7 +194,6 @@ namespace HairSalonRoyalDoan.Controllers.User
                 }
                 donDatHang.TrangThaiDonSanPham = 1;
                 donDatHang.TrangThaiDonDichVu = 0;
-
                 donDatHang.NgayTao = DateTime.Now;
           
 
@@ -206,13 +205,28 @@ namespace HairSalonRoyalDoan.Controllers.User
                     foreach (var item in list)
                     {
                         SanPham sanPham = new SanPham();
+                      
                         ProductModel productModel = new ProductModel();
+                        sanPham = productModel.GetSanPhamByMa(item.sanpham.MaSanPham);
                         ChiTietDonDat chiTietDonDat = new ChiTietDonDat();
                         chiTietDonDat.MaDonDatHang = Convert.ToInt32(madondathang);
                         chiTietDonDat.SoLuong = item.SoLuong;
-                        chiTietDonDat.MaSanPham = item.sanpham.MaSanPham;
-                        chiTietDonDat.Gia = item.sanpham.Gia;
-                        chiTietDonDatModel.ThemChiTietDonDat(chiTietDonDat);
+                        chiTietDonDat.MaSanPham = sanPham.MaSanPham;
+                        chiTietDonDat.Gia = sanPham.Gia;
+                        //update lai so luong san pham
+                        if (sanPham.SoLuong > item.SoLuong)
+                        {
+                            int SoLuongMoi = sanPham.SoLuong - item.SoLuong;
+                            productModel.CapNhatSoLuong(sanPham.MaSanPham, SoLuongMoi);
+                            chiTietDonDatModel.ThemChiTietDonDat(chiTietDonDat);
+                            ViewBag.Alert = "Đặt hàng thành công !";
+                        }
+                        else
+                        {
+                            ViewBag.Alert = "Đặt hàng thất bại , số lượng sản phẩm không đủ ";
+                        }
+                  
+                       
                     }
                 }
 

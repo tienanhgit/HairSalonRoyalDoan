@@ -13,7 +13,7 @@ namespace HairSalonRoyalDoan.Models.Common
         //desktop viettel
         string chuoikn = @"Data Source=DESKTOP-C5LNGFV\SQLEXPRESS;Initial Catalog=HairSalonRoyalDoan;Integrated Security=True";
         //desktop btanh
-        string chuoikn = @"Data Source=DESKTOP-2FL7VEI;Initial Catalog=HairSalonRoyalDoan;Integrated Security=True";
+        //string chuoikn = @"Data Source=DESKTOP-2FL7VEI;Initial Catalog=HairSalonRoyalDoan;Integrated Security=True";
         ////macbook btanh
         //string chuoikn = @"Data Source=DESKTOP-QTKK141\TEST;Initial Catalog=HairSalonRoyalDoan;Integrated Security=True";
 

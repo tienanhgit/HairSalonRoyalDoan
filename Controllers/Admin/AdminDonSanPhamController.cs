@@ -49,6 +49,24 @@ namespace HairSalonRoyalDoan.Controllers.Admin
                 if (MaDonDatHang != null && TrangThaiDonSanPham != null)
                 {
                     string a = new DonDatHangModel().UpdateTrangThai(MaDonDatHang, TrangThaiDonSanPham, "");
+                    if (Convert.ToInt32(TrangThaiDonSanPham)==5)
+                    {
+                        ChiTietDonDatModel chiTietDonDatModel = new ChiTietDonDatModel();
+                        ProductModel productModel = new ProductModel();
+
+                        ChiTietDonDat chitietdondat = new ChiTietDonDat();
+                        List<ChiTietDonDat> lsctdd = chiTietDonDatModel.GetDataSanPham(Convert.ToInt32(MaDonDatHang));
+                        foreach (ChiTietDonDat item in lsctdd)
+                        {
+                            SanPham sanPham = new SanPham();
+                            sanPham = productModel.GetSanPhamByMa(item.MaSanPham);
+                            int SoLuongCu = sanPham.SoLuong;
+                            int SoLuongMoi = SoLuongCu + item.SoLuong;
+                            productModel.CapNhatSoLuong(item.MaSanPham, SoLuongMoi);
+
+                        }
+                    }
+                
                 }
 
                 return Json(new
@@ -272,8 +290,7 @@ namespace HairSalonRoyalDoan.Controllers.Admin
 
         public ActionResult InHoaDon(string MaDonDatHang)
         {
-            int mddh = Convert.ToInt32(MaDonDatHang);
-            
+            int mddh = Convert.ToInt32(MaDonDatHang);     
             DonDatHangModel donDatHangModel = new DonDatHangModel();
             DonDatHang donDatHang= donDatHangModel.GetDonDatHangByMa(mddh);
             if(donDatHang.MaKH!=0)

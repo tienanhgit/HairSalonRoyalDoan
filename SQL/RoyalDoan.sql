@@ -2,7 +2,11 @@
 create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
-select * from Banner
+
+
+
+
+
 /*chuan*/
 create table NhanVien
 (
@@ -91,6 +95,7 @@ create table SanPham
 (
 MaSanPham int not null identity primary key,
 MaDanhMuc int,
+SoLuong int,
 MaThuongHieu int,
 TenSanPham nvarchar(50),
 Gia float,
@@ -422,6 +427,7 @@ go
 create Proc Proc_SanPham_Insert @MaDanhMuc int ='',
 								@MaThuongHieu int='',
 							   @TenSanPham nvarchar(50)='', 
+							   @SoLuong int,
 							   @Gia float='', 
 							  @HinhAnh NVARCHAR(255)='', 
 							  @MoTa ntext='', 
@@ -435,6 +441,7 @@ AS BEGIN
 	        ( MaDanhMuc ,
 				MaThuongHieu,
 	          TenSanPham ,
+			  SoLuong,
 	          Gia ,
 	          HinhAnh ,
 			  MoTa,
@@ -446,6 +453,7 @@ AS BEGIN
 	VALUES  ( @MaDanhMuc , 
 			  @MaThuongHieu,
 	          @TenSanPham , 
+			  @SoLuong,
 	          @Gia , 
 	          @HinhAnh , 
 	          @MoTa, 
@@ -464,6 +472,7 @@ create Proc Proc_SanPham_Update
 							@MaDanhMuc int='', 
 							@MaThuongHieu int='',
 							@TenSanPham nvarchar(50)='', 
+							@SoLuong int,
 							@Gia float='',					
 							@HinhAnh NVARCHAR(255)='', 
 							@MoTa ntext='', 
@@ -477,6 +486,7 @@ AS BEGIN
 	UPDATE SanPham SET		MaDanhMuc = @MaDanhMuc,
 							MaThuongHieu=@MaThuongHieu,
 							TenSanPham = @TenSanPham,
+							SoLuong=@SoLuong,
 							Gia=@Gia,
 							HinhAnh = @HinhAnh,
 							MoTa = @MoTa,
@@ -1570,18 +1580,19 @@ values (N'Chăm sóc tóc',1),
 (N'Chăm sóc cơ thể',1),
 (N'Chăm sóc râu',1)
 go
-insert into SanPham(MaDanhMuc,TenSanPham,Gia,HinhAnh,MoTa,DanhGia,TrangThaiHienThi)
-values (2,N'Xịt dưỡng khóa biểu bì tóc',450000,'/Content/Images/ImagesProduct/dauduongtocdiva.jpg',N'Sản phẩm chính hãng',N'Uu diem :tốt , nhược :giá cao',1),
-(2,N'Dầu dưỡng spa Aura',450000,'/Content/images/ImagesProduct/dau_duong_spa_aura.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
-(3,N'Dầu gội aurane',460000,'/Content/images/ImagesProduct/dau_goi_aurane.jpg',N'Sản phẩm độc quyền',N'Uu diem :tốt , nhược :giá cao',1),
-(4,N'Dầu gội tăng phồng tóc',440000,'/Content/images/ImagesProduct/dau_goi_tang_phong_toc.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
-(2,N'Dầu hấp deangello',450000,'/Content/images/ImagesProduct/dau_hap_dangello.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
-(4,N'Dầu xả phục hồi prosee',435000,'/Content/images/ImagesProduct/dau_xa_phuc_hoi_prosee.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
-(3,N'Dầu gội dưỡng tóc',250000,'/Content/Images/ImagesProduct/dauduongtocp&m.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
-(3,N'Dầu hấp oil hair',150000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
-(3,N'Dầu hấp oil hair',150000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
-(3,N'Wax tạo kiểu tóc',150000,'/Content/images/ImagesProduct/wax_tao_kieu_aurane.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
-(3,N'Wax tạo kiểu tóc',150000,'/Content/images/ImagesProduct/wax_tao_kieu_aurane.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',0)
+select * from SanPham
+insert into SanPham(MaDanhMuc,TenSanPham,SoLuong,Gia,HinhAnh,MoTa,DanhGia,TrangThaiHienThi)
+values (2,N'Xịt dưỡng khóa biểu bì tóc',100,450000,'/Content/Images/ImagesProduct/dauduongtocdiva.jpg',N'Sản phẩm chính hãng',N'Uu diem :tốt , nhược :giá cao',1),
+(2,N'Dầu dưỡng spa Aura',100,450000,'/Content/images/ImagesProduct/dau_duong_spa_aura.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Dầu gội aurane',100,460000,'/Content/images/ImagesProduct/dau_goi_aurane.jpg',N'Sản phẩm độc quyền',N'Uu diem :tốt , nhược :giá cao',1),
+(4,N'Dầu gội tăng phồng tóc',100,440000,'/Content/images/ImagesProduct/dau_goi_tang_phong_toc.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
+(2,N'Dầu hấp deangello',100,450000,'/Content/images/ImagesProduct/dau_hap_dangello.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
+(4,N'Dầu xả phục hồi prosee',100,435000,'/Content/images/ImagesProduct/dau_xa_phuc_hoi_prosee.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Dầu gội dưỡng tóc',99,250000,'/Content/Images/ImagesProduct/dauduongtocp&m.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Dầu hấp oil hair',90,150000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Dầu hấp oil hair',80,150000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Wax tạo kiểu tóc',70,150000,'/Content/images/ImagesProduct/wax_tao_kieu_aurane.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Wax tạo kiểu tóc',50,150000,'/Content/images/ImagesProduct/wax_tao_kieu_aurane.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',0)
 insert into ThuongHieu
 values
 ('Aurane',1,'',''),
@@ -1714,9 +1725,28 @@ where DonDatHang.MaDonDatHang=@MaDonDatHang
 where DonDatHang.MaDonDatHang=@MaDonDatHang
 
 end
+go
+/* Update Số lượng sản phẩm*/
+create proc Update_SoLuong_SanPham
+@MaSanPham int='',
+@SoLuongMoi int=''
+as
+begin
+update SanPham
+set SanPham.SoLuong=@SoLuongMoi
+ where SanPham.MaSanPham=@MaSanPham
+end
+go
 
+create proc proc_soluongsanpham_dondat
+@MaDonDatHang int=''
+as
+begin 
+select MaSanPham,SoLuong from DonDatHang join ChiTietDonDat 
+on DonDatHang.MaDonDatHang=ChiTietDonDat.MaDonDatHang
+where ChiTietDonDat.MaDonDatHang=@MaDonDatHang
 
-
+end
 
 
 

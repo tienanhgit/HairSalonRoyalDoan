@@ -97,11 +97,30 @@ namespace HairSalonRoyalDoan.Controllers
         {
             //Kiểm tra lại trạng thái
             DonDatHang donDatHang = new DonDatHangModel().GetDonDatHangByMa(Convert.ToInt32(MaDonDatHang));
+           
             if(donDatHang.TrangThaiDonSanPham<3)
             {
                 if (MaDonDatHang != null)
                 {
+                    ChiTietDonDatModel chiTietDonDatModel = new ChiTietDonDatModel();
+                    ProductModel productModel = new ProductModel();
+                   
+                    ChiTietDonDat chitietdondat = new ChiTietDonDat();
+                   List<ChiTietDonDat> lsctdd= chiTietDonDatModel.GetDataSanPham(donDatHang.MaDonDatHang);
+                    foreach(ChiTietDonDat item in lsctdd)
+                    {
+                        SanPham sanPham = new SanPham();
+                        sanPham = productModel.GetSanPhamByMa(item.MaSanPham);
+                        int SoLuongCu = sanPham.SoLuong;
+                        int SoLuongMoi = SoLuongCu + item.SoLuong;
+                        productModel.CapNhatSoLuong(item.MaSanPham, SoLuongMoi);
+
+                    }
+
+
                     string a = new DonDatHangModel().UpdateTrangThai(MaDonDatHang, "5", "");
+
+                   
                 }
 
                 return Json(new

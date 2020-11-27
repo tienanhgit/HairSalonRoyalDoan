@@ -80,6 +80,7 @@
                                 <th scope="col"> </th>
                                 <th scope="col"  class="text-center">Sản phẩm</th>
                                 <th scope="col" class="text-center">Số lượng</th>
+                                <th scope="col" class="text-center">Số lượng còn</th>
                                 <th scope="col" class="text-center">Giá</th>
                                 <th scope="col" class="text-right">Thành tiền</th>
                                 <th scope="col" class="text-right">Xóa</th>
@@ -90,33 +91,33 @@
                             @foreach (var item in Model)
                             {
 
-                                <tr id="myList" class="sp_@item.sanpham.MaSanPham">
-                                    <td>
-                                        <img src="@item.sanpham.HinhAnh" style="width:50px;height:50px" />
-                                    </td>
-                                    <td>@item.sanpham.TenSanPham</td>
-                                    <td class="cart-info quantity">
+                            <tr id="myList" class="sp_@item.sanpham.MaSanPham">
+                                <td>
+                                    <img src="@item.sanpham.HinhAnh" style="width:50px;height:50px" />
+                                </td>
+                                <td>@item.sanpham.TenSanPham</td>
+                                <td class="cart-info quantity">
 
-                                        <div class="btn-increment-decrement" onClick="decrement_quantity(@item.sanpham.MaSanPham,@item.sanpham.Gia)">-</div>
-                                        <input class="input-quantity" disabled id="input-quantity-@item.sanpham.MaSanPham" value="@item.SoLuong" onblur="myFunction(@item.sanpham.MaSanPham,@item.sanpham.Gia)">
-                                        <div class="btn-increment-decrement" onClick="increment_quantity(@item.sanpham.MaSanPham,@item.sanpham.Gia)">+</div>
+                                    <div class="btn-increment-decrement" onClick="decrement_quantity(@item.sanpham.MaSanPham,@item.sanpham.Gia)">-</div>
+                                    <input class="input-quantity" disabled id="input-quantity-@item.sanpham.MaSanPham" value="@item.SoLuong" onblur="myFunction(@item.sanpham.MaSanPham,@item.sanpham.Gia)">
+                                    <div class="btn-increment-decrement" onClick="increment_quantity(@item.sanpham.MaSanPham,@item.sanpham.Gia)">+</div>
 
+                                </td>
+                                <td><input id="SoLuongCon-@item.sanpham.MaSanPham" disabled value="@item.sanpham.SoLuong"/></td>
+                                @*gia*@
+                                <td>@item.sanpham.Gia</td>
 
-                                    </td>
-                                    @*gia*@
-                                    <td>@item.sanpham.Gia</td>
-                                    
-                                    @*thanh tien*@
-                                    <td class="text-right " >
-                                        <span class="cart-info price" id="cart-price-@item.sanpham.MaSanPham">
-                                            @(item.sanpham.Gia*item.SoLuong)
-                                        </span>
-                                      
-                                    </td>
-                                    <td class="text-right card">
-                                        <button class="btn btn-sm btn-danger" id="removeItemCart" onclick="cartAction(@item.sanpham.MaSanPham,@item.sanpham.Gia)"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
+                                @*thanh tien*@
+                                <td class="text-right ">
+                                    <span class="cart-info price" id="cart-price-@item.sanpham.MaSanPham">
+                                        @(item.sanpham.Gia*item.SoLuong)
+                                    </span>
+
+                                </td>
+                                <td class="text-right card">
+                                    <button class="btn btn-sm btn-danger" id="removeItemCart" onclick="cartAction(@item.sanpham.MaSanPham,@item.sanpham.Gia)"><i class="fa fa-trash"></i></button>
+                                </td>
+                            </tr>
                             }
                         <tr>
                             <td></td>
@@ -164,9 +165,18 @@
 
 
         function increment_quantity(cart_id, price) {
+            var SoluongCon = parseInt($("#SoLuongCon-" + cart_id).val());
+         
             var inputQuantityElement = $("#input-quantity-" + cart_id);
-            var newQuantity = parseInt($(inputQuantityElement).val()) + 1;
+            var SoLuongCu = parseInt($(inputQuantityElement).val());
+
+            var newQuantity = SoLuongCu;
+            if (SoLuongCu < SoluongCon) {
+                var newQuantity =parseInt($(inputQuantityElement).val()) + 1;
+            }
+               
             var newPrice = newQuantity * price;
+
             save_to_db(cart_id, newQuantity, newPrice);
         }
 
