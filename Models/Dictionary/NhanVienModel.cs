@@ -12,7 +12,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
     public class NhanVienModel
     {
         DataProvider dataProvider=new DataProvider();
-        public static string CreateMD5(string input)
+        public  string CreateMD5(string input)
         {
             // Use input string to calculate MD5 hash
             using (System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create())
@@ -199,13 +199,32 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 return "";
             }
         }
+        public string CapNhatMatKhau(string MaNV,string MatKhau)
+        {
+            try
+            {
+
+                int kq = dataProvider.ExecuteNonQuery("Proc_NhanVien_Update_Pass", new object[] {MaNV,MatKhau},
+                  new List<string>() {
+                    "@MaNV",
+                      "@MatKhau"
+               
+                  });
+                return kq.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
+
 
         public string CapNhatNhanVien(NhanVien nhanVien)
         {
             try
             {
 
-                int kq = dataProvider.ExecuteNonQuery("Proc_DichVu_Update", new object[] {  nhanVien.HoTenNV,nhanVien.Email,
+                int kq = dataProvider.ExecuteNonQuery("Proc_NhanVien_Update", new object[] {  nhanVien.HoTenNV,nhanVien.Email,
                     nhanVien.MatKhau,nhanVien.SDTNV,nhanVien.QueQuan,nhanVien.CMND,
                     nhanVien.NgaySinh,nhanVien.HinhThucLam,nhanVien.MaChucVu,nhanVien.TrangThaiHienThi,nhanVien.NgaySua },
                   new List<string>() {

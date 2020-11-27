@@ -21,7 +21,8 @@ namespace HairSalonRoyalDoan.Controllers
 
             List<SanPham> listsp = new ProductModel().GetData();
             ViewBag.ListSanPham = listsp;
-
+            List<Banner> listBanner = new BannerModel().GetData();
+            ViewBag.listBanner = listBanner;
             return View();
         }
         
@@ -100,7 +101,7 @@ namespace HairSalonRoyalDoan.Controllers
 
             return Json(new { data=lslh, JsonRequestBehavior.AllowGet });
         }
-
+        
 
 
 

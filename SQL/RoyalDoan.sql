@@ -2,8 +2,7 @@
 create database HairSalonRoyalDoan
 go
 use HairSalonRoyalDoan
-
-
+select * from Banner
 /*chuan*/
 create table NhanVien
 (
@@ -657,6 +656,19 @@ BEGIN
 	SELECT Count (MaNV) FROM NhanVien WHERE Email = @Email
 END
 go
+
+create proc Proc_NhanVien_Update_Pass
+ @MaNV int,
+ @MatKhau nvarchar(255)
+ as 
+ begin
+ update NhanVien set
+ MatKhau=@MatKhau
+ where MaNV=@MaNV
+  
+ end
+ go
+
 
 create Proc Proc_NhanVien_Update @MaNV int,
 								@HoTenNV nvarchar(50),
@@ -1702,8 +1714,6 @@ where DonDatHang.MaDonDatHang=@MaDonDatHang
 where DonDatHang.MaDonDatHang=@MaDonDatHang
 
 end
-
-
 
 
 

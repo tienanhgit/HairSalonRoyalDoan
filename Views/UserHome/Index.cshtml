@@ -44,16 +44,29 @@
             <div class="swiper-main">
                 <div class="swiper-container swp1">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
+                        @if (ViewBag.listBanner != null)
+                        {
+                            foreach (var item in ViewBag.listBanner)
+                            {
+                                if (item.TrangThaiHienThi == 1 && item.ViTri == 1)
+                                {
+                                    <div class="swiper-slide">
+                                        <img src="@item.AnhBanner" />
+                                    </div>
+                                }
+
+                            }
+                        }
+                        @*<div class="swiper-slide">
                             <img src="~/Content/Images/UserHomeImg/hoinghetocvietnam.png" />
                         </div>
-                    
+
                         <div class="swiper-slide"><img src="~/Content/Images/UserHomeImg/banner2.jpg" /></div>
                         <div class="swiper-slide"><img src="~/Content/Images/UserHomeImg/banner.jpg" /></div>
-                      
+
                         <div class="swiper-slide">
                             <img src="~/Content/Images/UserHomeImg/banner3.jpg" />
-                        </div>
+                        </div>*@
                     </div>
                     <div class="swiper-button-next"></div>
                     <div class="swiper-button-prev"></div>
@@ -88,12 +101,17 @@
                                 <div class="swiper-slide">
                                     <img src="~/Content/Images/ImagesProduct/anhsanphan2.jpg" />
                                 </div>
-                                <div class="swiper-slide " style="cursor:pointer" onclick="XemSanPham()">
-                                <img src="~/Content/Images/ImagesProduct/dau_goi_tang_phong_toc.jpg" /></div>
-                                <div class="swiper-slide"><img src="~/Content/Images/ImagesProduct/anhsanphan2.jpg" /></div>
-                                <div class="swiper-slide"><a href=""><img src="~/Content/Images/ImagesProduct/anhsanphan2.jpg" /></a></div>
+                       
+                                <div class="swiper-slide">
+                                    <img src="~/Content/Images/ImagesProduct/gel-tay.jpg" />
+                                </div>
+                                <div class="swiper-slide">
+                                    <img src="~/Content/Images/ImagesProduct/Bo-Tri-Mun-Ac.jpg" />
+                                </div>
 
-                                <div class="swiper-slide"><a href=""><img src="~/Content/Images/ImagesProduct/anhsanphan2.jpg" /></a></div>
+                                <div class="swiper-slide"><a href="">
+    <img src="~/Content/Images/ImagesProduct/Mau-Xit-Toc-KSM.jpg" />
+</a></div>
                                 <div class="swiper-slide"><a href=""></a></div>
 
                             </div>
