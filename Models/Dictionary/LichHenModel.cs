@@ -281,6 +281,25 @@ namespace HairSalonRoyalDoan.Models.Dictionary
 
         }
 
+        //public string KiemTraLichHenKhachHang(int MaKH)
+        //{
+        //    try
+        //    {
+
+        //        string kq = dataProvider.ExecuteScalar("DemSoLichTrenTungKhachHang", new object[] { MaKH},
+        //          new List<string>() {
+        //              "@MaKH"
+                  
+
+        //     });
+        //        return kq.ToString();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return "";
+        //    }
+
+        //}
 
 
 

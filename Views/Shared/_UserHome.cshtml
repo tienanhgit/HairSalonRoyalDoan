@@ -359,7 +359,7 @@
                                     GioHen.html(html);
                                 } else {
                                     if (result.Message < 1) {
-                                    
+                                        console.log(result.Message);
                                         html += '<option  value=' + i + ':00>' + i + ':00  </option > ';
 
                                     }
@@ -384,9 +384,9 @@
             else {
                 GioHen.empty();
                 for (i = 7; i <= 19; i++) {
-                    if (i != 11 && i != 12 && i != 13 && i>n) {
+                    if ( i != 13) {
                         html += '<option selected value=' + i + ':00>' + i + ':00  </option > ';
-                        html += '<option value=' + i + ':30>' + i + ':30  </option > ';
+               
 
 
                     }
@@ -496,7 +496,9 @@
                 url: '/UserHome/DatDichVu',
                 data: "{ 'NgayCat':'" +NgayCat+"','GioHen':'" +GioHen+ "','MaNV':'" +MaNV+"'}",
                 dataType: "json",
-                success: function (data) {
+                success: function (result) {
+                    
+
                     alert("Đặt lịch thành công, nhân viên sẽ liên hệ với bạn sớm nhất để xác nhận !");
                     location.reload();
                 },

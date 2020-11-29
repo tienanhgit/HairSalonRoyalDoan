@@ -3,6 +3,7 @@ using HairSalonRoyalDoan.Repository;
 using PagedList;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Web;
@@ -17,12 +18,24 @@ namespace HairSalonRoyalDoan.Controllers.Admin
     public class AdminDonSanPhamController : Controller
     {
         // GET: AdminDonSanPham
-        public ActionResult Index(int page = 1, int pagesize = 10)
+        public ActionResult Index(int page = 1, int pagesize = 10,string NgayTao="")
         {
-          
+            if (NgayTao != "")
+            {
+                DateTime NH = DateTime.ParseExact(NgayTao, "MM/dd/yyyy", CultureInfo.InvariantCulture);
+
+                List<DonDatHang> ddh = new DonDatHangModel().GetDataByNgayTao(NH);
+                return View(ddh.ToPagedList(page, pagesize));
+            }
+
+            else
+            {
                 List<DonDatHang> ddh = new DonDatHangModel().GetData();
-                     return View(ddh.ToPagedList(page, pagesize));
-            
+                return View(ddh.ToPagedList(page, pagesize));
+
+
+            }
+
 
         }
         [HttpPost]

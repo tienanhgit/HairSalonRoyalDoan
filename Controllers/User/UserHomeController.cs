@@ -68,11 +68,13 @@ namespace HairSalonRoyalDoan.Controllers
       [HttpPost]
         public JsonResult DatDichVu(string NgayCat,string GioHen,string MaNV)
         {
+           
             if (Session["USER_SESSION"] != null)
             {
                 var makh = "";
             if (NgayCat != null && GioHen != null && MaNV != null)
             {
+
                     var sdtkh = Session["USER_SESSION"].ToString();
                     Khachhang khachhang = new KhachHangModel().GetKhachHangBySDT(Convert.ToInt32(sdtkh));
                     makh = khachhang.MaKH.ToString();         
@@ -83,10 +85,9 @@ namespace HairSalonRoyalDoan.Controllers
                     lichHen.GioHen = GioHen;
                     lichHen.MaNV = Convert.ToInt32(MaNV);
                     lichHen.TrangThai = 1;
-
-
-
+                  
                     lichHenModel.ThemLichHen(lichHen);
+                  
                 }
 
             }

@@ -6,6 +6,7 @@ use HairSalonRoyalDoan
 
 
 
+
 /*chuan*/
 create table NhanVien
 (
@@ -1394,6 +1395,8 @@ END
 
 GO
 
+
+
 create Procedure Proc_DonDatHang_GetData 
 @MaDonDatHang int='',
 @MaNV int ='',
@@ -1424,7 +1427,7 @@ AS BEGIN
 		end
 			IF(@NgayTao !='')
 	begin
-		SET @Query += ' AND (NgayTao = @NgayTao) '
+		SET @Query += ' AND (Year(NgayTao) = Year(@NgayTao) and Month(NgayTao)=Month(@NgayTao) and Day(NgayTao)=Day(@NgayTao))'
 		end
 				IF(@TrangThaiDonSanPham !='')
 	begin
@@ -1581,17 +1584,17 @@ values (N'Chăm sóc tóc',1),
 go
 select * from SanPham
 insert into SanPham(MaDanhMuc,TenSanPham,SoLuong,Gia,HinhAnh,MoTa,DanhGia,TrangThaiHienThi)
-values (2,N'Xịt dưỡng khóa biểu bì tóc',100,450000,'/Content/Images/ImagesProduct/dauduongtocdiva.jpg',N'Sản phẩm chính hãng',N'Uu diem :tốt , nhược :giá cao',1),
-(2,N'Dầu dưỡng spa Aura',100,450000,'/Content/images/ImagesProduct/dau_duong_spa_aura.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
-(3,N'Dầu gội aurane',100,460000,'/Content/images/ImagesProduct/dau_goi_aurane.jpg',N'Sản phẩm độc quyền',N'Uu diem :tốt , nhược :giá cao',1),
-(4,N'Dầu gội tăng phồng tóc',100,440000,'/Content/images/ImagesProduct/dau_goi_tang_phong_toc.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
-(2,N'Dầu hấp deangello',100,450000,'/Content/images/ImagesProduct/dau_hap_dangello.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
-(4,N'Dầu xả phục hồi prosee',100,435000,'/Content/images/ImagesProduct/dau_xa_phuc_hoi_prosee.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
-(3,N'Dầu gội dưỡng tóc',99,250000,'/Content/Images/ImagesProduct/dauduongtocp&m.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
-(3,N'Dầu hấp oil hair',90,150000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
-(3,N'Dầu hấp oil hair',80,150000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
-(3,N'Wax tạo kiểu tóc',70,150000,'/Content/images/ImagesProduct/wax_tao_kieu_aurane.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
-(3,N'Wax tạo kiểu tóc',50,150000,'/Content/images/ImagesProduct/wax_tao_kieu_aurane.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',0)
+values (2,N'Xịt dưỡng khóa biểu bì tóc',100,45000,'/Content/Images/ImagesProduct/dauduongtocdiva.jpg',N'Sản phẩm chính hãng',N'Uu diem :tốt , nhược :giá cao',1),
+(2,N'Dầu dưỡng spa Aura',100,45000,'/Content/images/ImagesProduct/dau_duong_spa_aura.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Dầu gội aurane',100,46000,'/Content/images/ImagesProduct/dau_goi_aurane.jpg',N'Sản phẩm độc quyền',N'Uu diem :tốt , nhược :giá cao',1),
+(4,N'Dầu gội tăng phồng tóc',100,44000,'/Content/images/ImagesProduct/dau_goi_tang_phong_toc.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
+(2,N'Dầu hấp deangello',100,45000,'/Content/images/ImagesProduct/dau_hap_dangello.jpg',N'Sp mới 2020',N'Uu diem :tốt , nhược :giá cao',1),
+(4,N'Dầu xả phục hồi prosee',100,43500,'/Content/images/ImagesProduct/dau_xa_phuc_hoi_prosee.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Dầu gội dưỡng tóc',99,25000,'/Content/Images/ImagesProduct/dauduongtocp&m.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Dầu hấp oil hair',90,30000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Dầu hấp oil hair',80,18000,'/Content/images/ImagesProduct/hap_dau_oil_hair_butter.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Wax tạo kiểu tóc',70,22000,'/Content/images/ImagesProduct/wax_tao_kieu_aurane.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',1),
+(3,N'Wax tạo kiểu tóc',50,25000,'/Content/images/ImagesProduct/wax_tao_kieu_aurane.jpg',N'Sp oke',N'Uu diem :tốt , nhược :giá cao',0)
 insert into ThuongHieu
 values
 ('Aurane',1,'',''),
@@ -1746,11 +1749,10 @@ on DonDatHang.MaDonDatHang=ChiTietDonDat.MaDonDatHang
 where ChiTietDonDat.MaDonDatHang=@MaDonDatHang
 
 end
-
+go
 
 -- Trang Thai 1 :Chưa xác nhận , trạng thái 2 : đã xác nhận, trạng thái 3 : hủy, trạng thái 4 :Đã đến
 /*Xử lý đặt lịch*/
-
 
 
 create proc DemSoNguoiHen
@@ -1764,13 +1766,11 @@ DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
 	SET @Query = 'select count(MaLichHen)
 from LichHen
-where TrangThai=1 and GioHen=@GioHen and NgayHen=@NgayHen ' 
+where (TrangThai=1 or TrangThai=2)  and GioHen=@GioHen and NgayHen=@NgayHen ' 
 if(@MaNV!=0)
 begin
-SET @Query+='and MaNV=@MaNV '
+SET @Query+='and (MaNV=@MaNV or MaNV is NULL) '
 end
-SET @Query+='or TrangThai=2'
-
 	SET @ParamList =		'@NgayHen date,
 							@Giohen time,
 							@MaNV int
@@ -1782,11 +1782,9 @@ SET @Query+='or TrangThai=2'
 end
 
 
-
 /*Xử lý 1 khách hàng chỉ đặt 1 lịch hẹn chưa xác nhận */
-select count(MaLichHen) as SoLichHen
-from LichHen
-where TrangThai=1 and MaKH=1
+
+
 
 
 

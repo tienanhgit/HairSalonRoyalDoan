@@ -166,9 +166,11 @@
 
                         <a href="/AdminDonSanPham/ThemDonDatSanPham" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Thêm mới đơn sản phẩm</a>
                         <a href="/AdminDonSanPham/ThemDonDatDichVu" class="btn btn-submit"><small><i class="fa fa-plus"></i></small> Thêm mới đơn dịch vụ</a>
+
                         <div class="btn-group pull-right hidden-xs" id="div-search">
-                            <input id="search" name="search" type="text" value="" class="form-control" placeholder="Tìm kiếm">
-                            <span class="fa fa-search"></span>
+                            <label>Chọn ngày: </label>
+                            <span> <input type="text" autocomplete="off" id="datepickerDonDatHang"></span>
+                            <button type="button" onclick="SearchNgayHen()"><i class="fa fa-search"></i></button>
                         </div>
                     </div>
                     <table class="table table-bordered table-hover">
@@ -289,7 +291,13 @@
 
 
     <script type="text/javascript">
+
+        function SearchNgayHen() {
+            var NgayTao = $('#datepickerDonDatHang').val();
+            window.location = "/AdminDonSanPham/Index?NgayTao=" + NgayTao;
+        }
         $(document).ready(function () {
+            $("#datepickerDonDatHang").datepicker();
             $('.dialog-chi-tiet-don-dich-vu').on('dialogclose', function (event) {
 
                 alert('closed');
