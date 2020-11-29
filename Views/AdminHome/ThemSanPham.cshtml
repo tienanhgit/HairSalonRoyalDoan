@@ -71,11 +71,11 @@
                         <div class="col-sm-9">
                             <select name="type_trangthaihienthi" id="TrangThaiHienThi" class="form-control">
                                 <option value="" disabled>Chọn trạng thái hiển thị</option>
-                               
-                                    <option value="1" selected>Hiển thị</option>
-                                    <option value="0">Ẩn</option>
-                                
-                             
+
+                                <option value="1" selected>Hiển thị</option>
+                                <option value="0">Ẩn</option>
+
+
 
 
                             </select>
@@ -91,6 +91,12 @@
                         <label for="title" class="col-sm-3 control-label required">Tên sản phẩm</label>
                         <div class="col-sm-9">
                             <input id="TenSanPham" type="text" value="" class="form-control" placeholder="Tên sản phẩm " required="" maxlength="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="title" class="col-sm-3 control-label required">Số lượng</label>
+                        <div class="col-sm-9">
+                            <input id="SoLuong" type="text" value="" class="form-control" placeholder="Số lượng sản phẩm " required="" maxlength="100">
                         </div>
                     </div>
 
@@ -173,6 +179,7 @@
             std.TenSanPham = $("#TenSanPham").val();
             std.MoTa = $("#MoTa").val();
             std.Gia = $("#Gia").val();
+            std.SoLuong = $("#SoLuong").val();
             std.TrangThaiHienThi = $("#TrangThaiHienThi option:selected").val();
             std.DanhGia = CKEDITOR.instances['DanhGia'].getData();
             if ($("#Picture").val()!="") {

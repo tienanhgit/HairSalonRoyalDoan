@@ -493,8 +493,7 @@ AS BEGIN
 							DanhGia = @DanhGia,
 							TrangThaiHienThi=@TrangThaiHienThi,		
 							NgaySua=@NgaySua
-						
-							
+													
 	WHERE MaSanPham = @MaSanPham
 END
 
@@ -1660,7 +1659,7 @@ go
 
 --create proc proc_getdata_dondathang_sanpham
 
-select * from DonDatHang
+
 select DonDatHang.MaDonDatHang from DonDatHang 
 join ChiTietDonDat on 
 ChiTietDonDat.MaDonDatHang=DonDatHang.MaDonDatHang

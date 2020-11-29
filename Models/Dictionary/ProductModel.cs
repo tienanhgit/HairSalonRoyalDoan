@@ -233,7 +233,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             {
                 
                 string rs = "";           
-                rs = dataProvider.ExecuteScalar("Proc_SanPham_Insert", new object[] {sanPham.MaThuongHieu, sanPham.MaDanhMuc, sanPham.TenSanPham, sanPham.Gia, sanPham.HinhAnh, sanPham.MoTa, sanPham.DanhGia, sanPham.NgayTao,sanPham.TrangThaiHienThi },
+                rs = dataProvider.ExecuteScalar("Proc_SanPham_Insert", new object[] {sanPham.MaThuongHieu, sanPham.MaDanhMuc, sanPham.TenSanPham, sanPham.Gia, sanPham.HinhAnh, sanPham.MoTa, sanPham.DanhGia, sanPham.NgayTao,sanPham.TrangThaiHienThi,sanPham.SoLuong },
                   new List<string>() {
                       "@MaThuongHieu",
                       "@MaDanhMuc",
@@ -243,7 +243,8 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                         "@MoTa",
                          "@DanhGia",
                         "@NgayTao",
-                  "@TrangThaiHienThi"
+                  "@TrangThaiHienThi",
+                  "@SoLuong"
                   });
                          return rs;
             }
@@ -258,7 +259,7 @@ namespace HairSalonRoyalDoan.Models.Dictionary
             try
             {
                
-                int kq = dataProvider.ExecuteNonQuery("Proc_SanPham_Update", new object[] { sanPham.MaSanPham,sanPham.MaDanhMuc,sanPham.MaThuongHieu,sanPham.TenSanPham,sanPham.Gia,sanPham.HinhAnh, sanPham.MoTa, sanPham.DanhGia, sanPham.NgaySua,sanPham.TrangThaiHienThi },
+                int kq = dataProvider.ExecuteNonQuery("Proc_SanPham_Update", new object[] { sanPham.MaSanPham,sanPham.MaDanhMuc,sanPham.MaThuongHieu,sanPham.TenSanPham,sanPham.Gia,sanPham.HinhAnh, sanPham.MoTa, sanPham.DanhGia, sanPham.NgaySua,sanPham.TrangThaiHienThi,sanPham.SoLuong },
                   new List<string>() {
                       "@MaSanPham",
                       "@MaDanhMuc" ,
@@ -269,7 +270,8 @@ namespace HairSalonRoyalDoan.Models.Dictionary
               "@MoTa",
               "@DanhGia",
               "@NgaySua",
-              "@TrangThaiHienThi"
+              "@TrangThaiHienThi",
+              "@SoLuong"
                   });
                 return kq.ToString();
             }
