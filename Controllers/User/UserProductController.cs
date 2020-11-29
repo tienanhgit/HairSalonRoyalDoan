@@ -18,6 +18,7 @@ namespace HairSalonRoyalDoan.Controllers
             if (MaDanhMuc!= null)
             {
                 ProductModel productModel1 = new ProductModel();
+
                 List<SanPham> listsp1 = productModel1.GetDataDVTH(MaDanhMuc);
                 var ls1 = listsp1.ToPagedList(page, pagesize);
                 return View(ls1);

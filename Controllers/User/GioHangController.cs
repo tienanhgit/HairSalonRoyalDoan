@@ -195,11 +195,27 @@ namespace HairSalonRoyalDoan.Controllers.User
                 donDatHang.TrangThaiDonSanPham = 1;
                 donDatHang.TrangThaiDonDichVu = 0;
                 donDatHang.NgayTao = DateTime.Now;
-          
+                string madondathang = "";
+                foreach (var item in list)
+                {
+                    SanPham sanPham = new SanPham();
+                    ProductModel productModel = new ProductModel();
+                    sanPham = productModel.GetSanPhamByMa(item.sanpham.MaSanPham);
+                    if (sanPham.SoLuong >= item.SoLuong)
+                    {
+                        madondathang = donDatHangModel.ThemDonDatHang(donDatHang);
+                        ViewBag.Alert = "Đặt hàng thành công !";
 
-                string madondathang = donDatHangModel.ThemDonDatHang(donDatHang);
+                    }
+                    else
+                    {
+                        ViewBag.Alert = "Đặt hàng thất bại , số lượng sản phẩm không đủ ";
+                    }
+                }
+                    
+                  
 
-                if (madondathang != null)
+                if (madondathang !=""&&madondathang!=null)
                 {
                  
                     foreach (var item in list)
@@ -214,23 +230,19 @@ namespace HairSalonRoyalDoan.Controllers.User
                         chiTietDonDat.MaSanPham = sanPham.MaSanPham;
                         chiTietDonDat.Gia = sanPham.Gia;
                         //update lai so luong san pham
-                        if (sanPham.SoLuong > item.SoLuong)
-                        {
+                       
                             int SoLuongMoi = sanPham.SoLuong - item.SoLuong;
                             productModel.CapNhatSoLuong(sanPham.MaSanPham, SoLuongMoi);
                             chiTietDonDatModel.ThemChiTietDonDat(chiTietDonDat);
-                            ViewBag.Alert = "Đặt hàng thành công !";
-                        }
-                        else
-                        {
-                            ViewBag.Alert = "Đặt hàng thất bại , số lượng sản phẩm không đủ ";
-                        }
+                      
                   
                        
                     }
+                    donDatHangModel.CapNhatTongTien(Convert.ToInt32(madondathang));
                 }
 
-                donDatHangModel.CapNhatTongTien(Convert.ToInt32(madondathang));
+                
+
 
             }
             Session["CART_SESSION"] = null;

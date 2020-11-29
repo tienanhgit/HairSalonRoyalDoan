@@ -110,27 +110,61 @@ namespace HairSalonRoyalDoan.Controllers.Admin
                 donDatHang.TrangThaiDonSanPham = Convert.ToInt32(TrangThai);
                 donDatHang.NgayTao = DateTime.Now; 
                 donDatHang.TrangThaiDonDichVu = 0;
-            
-                string MaDonHang = donDatHangModel.ThemDonDatHang(donDatHang);
-                ChiTietDonDatModel chiTietDonDatModel = new ChiTietDonDatModel();
-        
-          
-            foreach(var item in cartModel)
+            string MaDonHang= "";
+            string Message = "";
+   
+            foreach (var item in cartModel)
             {
+                SanPham sanPham = new SanPham();
                 ProductModel productModel = new ProductModel();
-              SanPham sp=  productModel.GetSanPhamByMa(item.sanpham.MaSanPham);   
-                ChiTietDonDat chiTietDonDat = new ChiTietDonDat();
-                chiTietDonDat.MaDonDatHang = Convert.ToInt32(MaDonHang);
-                chiTietDonDat.SoLuong = item.SoLuong;
-                chiTietDonDat.MaSanPham = item.sanpham.MaSanPham;
-                chiTietDonDat.Gia = sp.Gia;
-                chiTietDonDatModel.ThemChiTietDonDat(chiTietDonDat);
+                sanPham = productModel.GetSanPhamByMa(item.sanpham.MaSanPham);
+                if (sanPham.SoLuong >= item.SoLuong)
+                {
+                    MaDonHang = donDatHangModel.ThemDonDatHang(donDatHang);
+               
+                    Message = "1";
+                  
+                }
+                else
+                {
+                    Message = "0";
+               
+                }
             }
 
-            donDatHangModel.CapNhatTongTien(Convert.ToInt32(MaDonHang));
+
+
+            ChiTietDonDatModel chiTietDonDatModel = new ChiTietDonDatModel();
+            if (MaDonHang != "" && MaDonHang != null)
+            {
+                foreach (var item in cartModel)
+                {
+                    ProductModel productModel = new ProductModel();
+                    SanPham sp = productModel.GetSanPhamByMa(item.sanpham.MaSanPham);
+                    ChiTietDonDat chiTietDonDat = new ChiTietDonDat();
+                    chiTietDonDat.MaDonDatHang = Convert.ToInt32(MaDonHang);
+                    chiTietDonDat.SoLuong = item.SoLuong;
+                    chiTietDonDat.MaSanPham = item.sanpham.MaSanPham;
+                    chiTietDonDat.Gia = sp.Gia;
+                    //update lai so luong san pham
+
+                    int SoLuongMoi = sp.SoLuong - item.SoLuong;
+                    productModel.CapNhatSoLuong(sp.MaSanPham, SoLuongMoi);
+                    chiTietDonDatModel.ThemChiTietDonDat(chiTietDonDat);
+                 
+                }
+
+
+                donDatHangModel.CapNhatTongTien(Convert.ToInt32(MaDonHang));
+         
+            }
+            else
+            {
+          
+
+            }
+              
             
-            string Message = "Thanh cong";
-        
 
             return Json(Message, JsonRequestBehavior.AllowGet);
 

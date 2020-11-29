@@ -132,13 +132,26 @@
                                     <h4 class="card-title name-product"><a href="ProductDetail?id=@ItemProduct.MaSanPham" title="View Product">@ItemProduct.TenSanPham</a></h4>
                                     <p class="card-text name-product">@ItemProduct.MoTa</p>
                                     <div class="row">
-                                        <div class="col">
-                                            <p class="btn btn-danger btn-block">@ItemProduct.Gia</p>
-                                        </div>
-                                        <div class="col">
-                                            <input type="hidden" class="valueIDSP" value="@ItemProduct.MaSanPham" />
-                                            <span class="btn btn-success btn-block themgiohang" idsp="@ItemProduct.MaSanPham">Thêm vào giỏ hàng</span>
-                                        </div>
+                                        @if (ItemProduct.SoLuong <= 0)
+                                        {
+                                            <p class="btn btn-danger btn-block">Hết hàng</p>
+                                }
+                                                                    else
+                                                                    {
+                                    <div class="col">
+                                        <p class="btn btn-danger btn-block">@ItemProduct.Gia</p>
+                                    </div>
+                                    <div class="col">
+                                        <input type="hidden" class="valueIDSP" value="@ItemProduct.MaSanPham" />
+
+
+
+                                        <span class="btn btn-success btn-block themgiohang" idsp="@ItemProduct.MaSanPham">Thêm vào giỏ hàng</span>
+
+
+                                    </div>
+                                                                            }
+
                                     </div>
                                 </div>
                             </div>

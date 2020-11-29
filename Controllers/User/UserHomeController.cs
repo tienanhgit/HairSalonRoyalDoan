@@ -23,6 +23,8 @@ namespace HairSalonRoyalDoan.Controllers
             ViewBag.ListSanPham = listsp;
             List<Banner> listBanner = new BannerModel().GetData();
             ViewBag.listBanner = listBanner;
+
+            
             return View();
         }
         
@@ -32,8 +34,6 @@ namespace HairSalonRoyalDoan.Controllers
         {
             List<DonDatHang> listdondathang = new DonDatHangModel().GetData();
           
-
-
 
             return View();
         }
@@ -57,8 +57,7 @@ namespace HairSalonRoyalDoan.Controllers
             }
      
             ViewBag.AllBaiViet = baiVietModel.GetData();
-            
-
+           
             return View();
         }
         
@@ -84,6 +83,9 @@ namespace HairSalonRoyalDoan.Controllers
                     lichHen.GioHen = GioHen;
                     lichHen.MaNV = Convert.ToInt32(MaNV);
                     lichHen.TrangThai = 1;
+
+
+
                     lichHenModel.ThemLichHen(lichHen);
                 }
 
@@ -102,6 +104,25 @@ namespace HairSalonRoyalDoan.Controllers
             return Json(new { data=lslh, JsonRequestBehavior.AllowGet });
         }
         
+        public JsonResult KiemTraLichHen(string MaNV,string NgayCat,string GioHen)
+        {
+            string SoNguoi = "";
+            LichHenModel lichHenModel = new LichHenModel();
+            if (Convert.ToInt32(MaNV) != 0)
+            {
+                SoNguoi = lichHenModel.SoKhachHangDatNhanVien(Convert.ToInt32(MaNV), NgayCat, GioHen);
+            }
+            else
+            {
+                SoNguoi =lichHenModel.SoKhachHangDat(NgayCat,GioHen);
+            }
+            
+            
+
+
+            return Json(new { Message=SoNguoi , JsonRequestBehavior.AllowGet });
+        }
+
 
 
 

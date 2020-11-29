@@ -6,7 +6,6 @@ use HairSalonRoyalDoan
 
 
 
-
 /*chuan*/
 create table NhanVien
 (
@@ -1749,11 +1748,45 @@ where ChiTietDonDat.MaDonDatHang=@MaDonDatHang
 end
 
 
+-- Trang Thai 1 :Chưa xác nhận , trạng thái 2 : đã xác nhận, trạng thái 3 : hủy, trạng thái 4 :Đã đến
+/*Xử lý đặt lịch*/
 
 
 
+create proc DemSoNguoiHen
+@NgayHen date,
+@GioHen time,
+@MaNV int =0
+
+as
+begin 
+DECLARE @Query AS NVARCHAR(MAX)
+	DECLARE @ParamList AS NVARCHAR(max)
+	SET @Query = 'select count(MaLichHen)
+from LichHen
+where TrangThai=1 and GioHen=@GioHen and NgayHen=@NgayHen ' 
+if(@MaNV!=0)
+begin
+SET @Query+='and MaNV=@MaNV '
+end
+SET @Query+='or TrangThai=2'
+
+	SET @ParamList =		'@NgayHen date,
+							@Giohen time,
+							@MaNV int
+							  
+							 '
+	EXEC SP_EXECUTESQL @Query, @ParamList ,@NgayHen,@GioHen,@MaNV
 
 
+end
+
+
+
+/*Xử lý 1 khách hàng chỉ đặt 1 lịch hẹn chưa xác nhận */
+select count(MaLichHen) as SoLichHen
+from LichHen
+where TrangThai=1 and MaKH=1
 
 
 

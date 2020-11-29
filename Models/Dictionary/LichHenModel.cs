@@ -241,7 +241,45 @@ namespace HairSalonRoyalDoan.Models.Dictionary
                 return "";
             }
         }
+        public string SoKhachHangDat( string NgayDat,string GioDat)
+        {
+            try
+            {
 
+                string kq = dataProvider.ExecuteScalar("DemSoNguoiHen", new object[] { NgayDat,GioDat },
+                  new List<string>() {     
+                      "@NgayHen",
+                      "@GioHen"
+
+             });
+                return kq.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "0";
+            }
+
+        }
+        public string SoKhachHangDatNhanVien(int MaNV, string NgayDat, string GioDat)
+        {
+            try
+            {
+
+                string kq = dataProvider.ExecuteScalar("DemSoNguoiHen", new object[] { MaNV, NgayDat, GioDat },
+                  new List<string>() {
+                      "@MaNV",
+                      "@NgayHen",
+                      "@GioHen"
+
+             });
+                return kq.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+
+        }
 
 
 

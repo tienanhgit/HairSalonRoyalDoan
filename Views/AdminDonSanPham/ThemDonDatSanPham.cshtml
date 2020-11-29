@@ -130,7 +130,8 @@
                                             <th>Hình Ảnh</th>
                                             <th>Tên Sản Phẩm</th>
                                             <th>Giá</th>
-                                            <th>Số lượng</th>
+                                            <th>Số lượng mua</th>
+                                            <th>Số lượng còn</th>
                                             <th>Xóa</th>
                                         </tr>
                                     </thead>
@@ -214,7 +215,15 @@
                     data: "{ 'HoTenNguoiNhan':'" + HoTenNguoiNhan + "','SoDienThoaiNguoiNhan':'" + SoDienThoaiNguoiNhan + "','DiaChiGiaoHang':'" + DiaChiGiaoHang + "','HinhThucThanhToan':'" + HinhThucThanhToan + "','TrangThai':'" + TrangThai + "','cartModel':" + JSON.stringify(cartList) + " }",
                     dataType: "json",
                     success: function (result) {
-                        alert("Thêm thành công !");
+                        if (result.Message = 1) {
+                            location.reload();
+                            alert("Thêm thành công !");
+                        }
+                        else {
+                            alert("Thêm thất bại, số lượng sản phẩm không đủ");
+                          
+                        }
+                       
 
                     },
                     error: function (data) {
@@ -263,8 +272,6 @@
 
 
         $(".ThemSanPhamDH").click(function () {
-
-
             var MaSanPham = $("#TenSanPham").val();
             $.ajax({
                 type: 'POST',
@@ -273,16 +280,23 @@
                 data: "{ 'MaSanPham':' " + MaSanPham + "' }",
                 dataType: "json",
                 success: function (result) {
-                    let html = '';
-                    html += '<tr class=sp_' + result.MaSanPham + '>';
-                    html += '<td>' + result.MaSanPham + '</td>';
-                    html += '<td><img class="anhspct" src=' + result.HinhAnh + '></img></td>';
-                    html += '<td>' + result.TenSanPham + '</td>';
-                    html += '<td>' + result.Gia + '</td>';
-                    html += '<td>' + '<input type="number" min="1" onKeyDown="return false" class="txtquantity" data-id="' + result.MaSanPham + '"data-price="' + result.Gia+ '"value="1"/>' + '</td>';
-                    html += '<td><button class="btn btn-sm btn-danger" id="removeItemCart_' + result.MaSanPham + '"onclick="removeItem('+result.MaSanPham+')"><i class="fa fa-trash"></td> <tr/>';
-                    $('.lsspdh').append(html);
-
+                   
+                    if (result.SoLuong <= 0) {
+                        alert("Sản phẩm đã hết hàng !");
+                    }
+                    else {
+                        let html = '';
+                        html += '<tr class=sp_' + result.MaSanPham + '>';
+                        html += '<td>' + result.MaSanPham + '</td>';
+                        html += '<td><img class="anhspct" src=' + result.HinhAnh + '></img></td>';
+                        html += '<td>' + result.TenSanPham + '</td>';
+                        html += '<td>' + result.Gia + '</td>';
+                        html += '<td>' + '<input type="number" max="' + result.SoLuong + '" min="1" onKeyDown="return false" class="txtquantity" data-id="' + result.MaSanPham + '"data-price="' + result.Gia + '"value="1"/>' + '</td>';
+                        html += '<td>' + result.SoLuong + '</td>';
+                        html += '<td><button class="btn btn-sm btn-danger" id="removeItemCart_' + result.MaSanPham + '"onclick="removeItem(' + result.MaSanPham + ')"><i class="fa fa-trash"></td> <tr/>';
+                        $('.lsspdh').append(html);
+                    }
+           
                 },
                 error: function (data) {
 

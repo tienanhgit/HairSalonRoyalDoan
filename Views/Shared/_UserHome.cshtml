@@ -5,6 +5,7 @@
     DichVuModel dichVuModel = new DichVuModel();
     DonDatHangModel donDatHangModel = new DonDatHangModel();
     NhanVienModel nhanVienModel = new NhanVienModel();
+    LichHenModel lichHenModel = new LichHenModel();
 
 
 
@@ -150,7 +151,8 @@
                         <div class="col-md-4 col-lg-3"></div>
                         <div class="col-md-4 col-lg-6" style=   "background:gray;">
                             <div>
-                                <select onchange="CustomGioHen()"  name="ngayhen" id="ngayhenlich" class="form-control mb-3">
+                                <select onchange="CustomGioHen()" name="ngayhen" id="ngayhenlich" class="form-control mb-3">
+                                    <option selected value="Chọn ngày cắt" disabled>Chọn ngày cắt</option>
                                     <option value="@DateTime.Now">
                                         Hôm nay (@String.Format("{0:dd/MM/yyyy}", DateTime.Now))
                                     </option>
@@ -179,21 +181,35 @@
 
                             <div>
                                 <select name="giohen" id="giohen" class="form-control mb-3">
-                                    @{
+                                    @*@{
                                         int i;
-                                        for (i = 7; i <= 19; i++)
+                                        for (i = 7; i <= 20; i++)
                                         {
-                                            if (i != 11 && i != 12 && i != 13&&i>DateTime.Now.Hour)
+                                            if ( i != 13 && i > DateTime.Now.Hour)
                                             {
-                                                <option value="@i:00">
-                                                    @i:00
-                                                </option>
-                                                <option value="@i:30">
-                                                    @i:30
-                                                </option>
+                                                if (lichHenModel.SoKhachHangDat(DateTime.Now.ToString(), i.ToString()) != null)
+                                                {
+                                                    if (Convert.ToInt32(lichHenModel.SoKhachHangDat(DateTime.Now.ToString(),(i.ToString()+":00"))) > 1)
+                                                    {
+                                                        <option disabled value="@i:00">
+                                                            @i:00 FULL
+                                                        </option>
+                                                        
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@i:00">
+                                                            @i:00
+                                                        </option>
+                                                 
+                                                    }
+
+                                                }
+
+
                                             }
                                         }
-                                    }
+                                    }*@
 
                                 </select>
                             </div>
@@ -212,8 +228,9 @@
                         <div class="col-md-4 col-lg-6" style="background:gray;">
 
                             <div>
-                                <select name="nhanviencat" id="nhanviencat" class="form-control mb-3">
-                                    <option value="0">Royal Đoàn chọn cho bạn</option>
+                                <select onchange="CustomGioHen()" name="nhanviencat" id="nhanviencat" class="form-control mb-3">
+                                    <option  disabled>Chọn nhân viên cắt</option>
+                                    <option selected value="0">Royal Đoàn chọn cho bạn</option>
                                     @foreach (var itemnv in nhanVienModel.GetData())
                                     {
 
@@ -301,26 +318,68 @@
 
 
     <script>
+
+
+
         //giờ hẹn
         function CustomGioHen() {
-            var GioHen = $("#giohen");     
-            var html = "";
+            var GioHen = $("#giohen");
+            var NgayCat = $("#ngayhenlich option:selected").val();
+
+         let html = "";
             var x = document.getElementById("ngayhenlich").selectedIndex;
             var y = document.getElementById("ngayhenlich").options;
             var d = new Date();
             var n = d.getHours();
             if (y[x].index != 0) {
                 GioHen.empty();
-                for (i = 7; i <= 19; i++) {
-                    if (i != 11 && i != 12 && i != 13) {
-                        html += '<option selected value='+ i +':00>' + i + ':00  </option > ';
-                        html += '<option value=' + i + ':30>' + i + ':30  </option > ';
+                for (let i = 7; i <= 20; i++) {
+                    if (i != 13) {
+                        var MaNV = $("#nhanviencat option:selected");
+                        var GioHenConfig = i + ":00";
+                        $.ajax({
+                            type: 'POST',
+                            contentType: 'application/json; charset=utf-8',
+                            async: false,
+                            url: '/UserHome/KiemTraLichHen',
+                            data: "{ 'NgayCat':'" + NgayCat + "','GioHen':'" + GioHenConfig + "','MaNV':'" + MaNV.val() + "'}",
+                            dataType: "json",
+                            success: function (result) {
 
+
+                                if (MaNV.val() == 0) {
+
+                                    if (result.Message < 4) {
+                                        html += '<option  value=' + i + ':00>' + i + ':00  </option > ';
+                                    }
+                                    else {
+                                        html += '<option disabled value=' + i + ':00>' + i + ':00 - Lịch đã đầy </option > ';
+
+                                    }
+                                    GioHen.html(html);
+                                } else {
+                                    if (result.Message < 1) {
+                                    
+                                        html += '<option  value=' + i + ':00>' + i + ':00  </option > ';
+
+                                    }
+                                    else {
+                                        html += '<option disabled value=' + i + ':00>' + i + ':00 - Lịch đã đầy </option > ';
+                                    }
+                                    GioHen.html(html);
+
+                                }
+                            },
+                            error: function (data) {
+                                console.log("That bai");
+
+                            }
+                        })
 
                     }
                 };
-               
-                GioHen.html(html);
+            
+              
             }
             else {
                 GioHen.empty();
@@ -341,6 +400,7 @@
 
         $(document).ready(function () {
 
+            
             $(".buttondatlich").click(function () {
 
 
@@ -398,7 +458,6 @@
                         html += '<tr>';
                         html += '<td>' + item.TenKhachHang + '</td>';
                         html += '<td>' + item.SoDTKH + '</td>';
-
                         html += '<td>' + $.datepicker.formatDate('dd/mm/yy', new Date(item.NgayHen)) + '</td>';
                         html += '<td>' + item.GioHen + '</td>';
                         html += '<td>' + item.TenNhanVien + '</td>';
@@ -424,7 +483,7 @@
             var NgayCat = $("#ngayhenlich option:selected").val();
             var MaNV = $("#nhanviencat option:selected").val();
             var GioHen = $("#giohen option:selected").val();
-            console.log(NgayCat);
+    
 
             //var ListIdDichVu = [];
             //$("input:checkbox[class=MaDV]:checked").each(function () {
@@ -439,7 +498,7 @@
                 dataType: "json",
                 success: function (data) {
                     alert("Đặt lịch thành công, nhân viên sẽ liên hệ với bạn sớm nhất để xác nhận !");
-                    console.log('oke' + JSON.stringify(data));
+                    location.reload();
                 },
                 error: function (data) {
 
@@ -451,6 +510,16 @@
 
         };
 
+        function KiemTraLichHen(NgayCat,GioHen) {
+      
+          
+         
+            var kq = "";
+        
+
+            return kq;
+
+        }
 
 
 

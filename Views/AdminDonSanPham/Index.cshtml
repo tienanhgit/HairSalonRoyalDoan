@@ -290,6 +290,14 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('.dialog-chi-tiet-don-dich-vu').on('dialogclose', function (event) {
+
+                alert('closed');
+            });
+            $('.dialog-chi-tiet-don-san-pham').on('dialogclose', function (event) {
+                $(".dialog-chi-tiet-don-san-pham #btn_remove").remove();
+       
+            });
 
             $(".dialog-chi-tiet-don-san-pham").dialog({
                 modal: true,
@@ -369,7 +377,7 @@
                         html += '</tr>';
                    
                         $('.chitietspbd').html(html);
-                        $(".dialog-chi-tiet-don-san-pham").append('<input type="button" onclick="InHoaDon(' + MaDonDatHang + ')" value="In Hóa Đơn" style="margin-left:50%;height:30px;width:100px"/>');
+                        $(".dialog-chi-tiet-don-san-pham").append('<input type="button" id="btn_remove" onclick="InHoaDon(' + MaDonDatHang + ')" value="In Hóa Đơn" style="margin-left:50%;height:30px;width:100px"/>');
                     },
                     error: function (data) {
 
@@ -425,7 +433,7 @@
 
 
         }
-
+   
         function InHoaDon(MaDonDatHang) {
             window.location.href = "/AdminDonSanPham/InHoaDon?MaDonDatHang="+MaDonDatHang;
 

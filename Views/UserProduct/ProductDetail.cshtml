@@ -387,21 +387,32 @@
                             <div class="col-md-6">
                                 <div class="product-dtl">
                                     <div class="product-info">
-                                      
+
 
                                         <div class="product-price-discount"><span>@ViewBag.SanPham.TenSanPham</span></div>
                                     </div>
                                     <div class="product-info">
-                                   
+
 
                                         <div class="product-price-discount"><span>@ViewBag.SanPham.Gia</span></div>
                                     </div>
                                     <p>@ViewBag.SanPham.MoTa</p>
+                                    <p>Còn: @ViewBag.SanPham.SoLuong sản phẩm</p>
+                                    @if (ViewBag.SanPham.SoLuong <= 0)
+                                    {
+                                        <div class="product-count">
 
-                                    <div class="product-count">
+                                            <a class="round-red-btn">Hết hàng</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="product-count">
 
-                                        <a href="#" class="round-black-btn themgiohang">Add to Cart</a>
-                                    </div>
+                                            <a href="#" class="round-black-btn themgiohang">Thêm vào giỏ hàng</a>
+                                        </div>
+                                    }
+
                                 </div>
                             </div>
                         </div>
