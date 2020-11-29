@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>A simple, clean, and responsive HTML invoice template</title>
+    <title>In Hóa Đơn</title>
 
     <style>
         @@media print
@@ -160,10 +160,13 @@
                 <td>
                     Tên
                 </td>
-
+                <td>
+                    Số lượng
+                </td>
                 <td>
                     Giá
                 </td>
+
             </tr>
             @if (ViewBag.ListDV != null)
             {
@@ -172,6 +175,9 @@
                     <tr class="item">
                         <td>
                             @itemsp.TenDichVu
+                        </td>
+                        <td>
+                            @itemsp.So
                         </td>
 
                         <td>
@@ -184,15 +190,18 @@
             {
                 foreach (var itemsp in ViewBag.ListSP)
                 {
-                    <tr class="item">
-                        <td>
-                            @itemsp.TenSanPham
-                        </td>
+        <tr class="item">
+            <td>
+                @itemsp.TenSanPham
+            </td>
+            <td>
+                @itemsp.SoLuong
+            </td>
+            <td>
+                @itemsp.Gia
+            </td>
 
-                        <td>
-                            @itemsp.Gia
-                        </td>
-                    </tr>
+        </tr>
                 }
             }
 

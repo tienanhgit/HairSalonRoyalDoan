@@ -373,7 +373,7 @@ create  Procedure Proc_LichHen_GetData
 	DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
 	SET @Query = 'select MaLichHen,LichHen.MaKH,LichHen.MaNV,NgayHen,GioHen,TrangThai,HoTenKH,HoTenNV,SoDTKH from LichHen left join KhachHang on LichHen.MaKh=KhachHang.MaKH 
-	left join NhanVien on LichHen.MaNV=NhanVien.MaNV  where (1=1) and YEAR(NgayHen)=YEAR(GETDATE()) and MONTH(NgayHen)=MONTH(GETDATE()) and DAY(NgayHen)>=Day(GetDate())'
+	left join NhanVien on LichHen.MaNV=NhanVien.MaNV  where (1=1) and YEAR(NgayHen)=YEAR(GETDATE()) '
 
 	IF(@MaLichHen !='')
 	begin
@@ -1764,13 +1764,17 @@ as
 begin 
 DECLARE @Query AS NVARCHAR(MAX)
 	DECLARE @ParamList AS NVARCHAR(max)
+
 	SET @Query = 'select count(MaLichHen)
 from LichHen
-where (TrangThai=1 or TrangThai=2)  and GioHen=@GioHen and NgayHen=@NgayHen ' 
+where (TrangThai=1 or TrangThai=2)  and GioHen=@GioHen and NgayHen=@NgayHen' 
+
+
 if(@MaNV!=0)
 begin
 SET @Query+='and (MaNV=@MaNV or MaNV is NULL) '
 end
+
 	SET @ParamList =		'@NgayHen date,
 							@Giohen time,
 							@MaNV int
@@ -1783,7 +1787,6 @@ end
 
 
 /*Xử lý 1 khách hàng chỉ đặt 1 lịch hẹn chưa xác nhận */
-
 
 
 

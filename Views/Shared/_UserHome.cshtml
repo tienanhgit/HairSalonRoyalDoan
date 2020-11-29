@@ -151,8 +151,8 @@
                         <div class="col-md-4 col-lg-3"></div>
                         <div class="col-md-4 col-lg-6" style=   "background:gray;">
                             <div>
-                                <select onchange="CustomGioHen()" name="ngayhen" id="ngayhenlich" class="form-control mb-3">
-                                    <option selected value="Chọn ngày cắt" disabled>Chọn ngày cắt</option>
+                                <select  name="ngayhen" id="ngayhenlich" class="form-control mb-3">
+                                    
                                     <option value="@DateTime.Now">
                                         Hôm nay (@String.Format("{0:dd/MM/yyyy}", DateTime.Now))
                                     </option>
@@ -181,35 +181,25 @@
 
                             <div>
                                 <select name="giohen" id="giohen" class="form-control mb-3">
-                                    @*@{
-                                        int i;
-                                        for (i = 7; i <= 20; i++)
-                                        {
-                                            if ( i != 13 && i > DateTime.Now.Hour)
+                                    
+                                        @{
+                                            int i;
+                                            for (i = 7; i <= 19; i++)
                                             {
-                                                if (lichHenModel.SoKhachHangDat(DateTime.Now.ToString(), i.ToString()) != null)
+                                                if (i != 11 && i != 12 & i != 13)
                                                 {
-                                                    if (Convert.ToInt32(lichHenModel.SoKhachHangDat(DateTime.Now.ToString(),(i.ToString()+":00"))) > 1)
-                                                    {
-                                                        <option disabled value="@i:00">
-                                                            @i:00 FULL
-                                                        </option>
-                                                        
-                                                    }
-                                                    else
-                                                    {
-                                                        <option value="@i:00">
-                                                            @i:00
-                                                        </option>
-                                                 
-                                                    }
-
+                                                    
+                                                    <option value="@i:00">
+                                                        @i:00
+                                                    </option>
+                                                    <option value="@i:30">
+                                                        @i:30
+                                                    </option>
                                                 }
-
-
                                             }
                                         }
-                                    }*@
+
+                                    
 
                                 </select>
                             </div>
@@ -228,8 +218,7 @@
                         <div class="col-md-4 col-lg-6" style="background:gray;">
 
                             <div>
-                                <select onchange="CustomGioHen()" name="nhanviencat" id="nhanviencat" class="form-control mb-3">
-                                    <option  disabled>Chọn nhân viên cắt</option>
+                                <select name="nhanviencat" id="nhanviencat" class="form-control mb-3">             
                                     <option selected value="0">Royal Đoàn chọn cho bạn</option>
                                     @foreach (var itemnv in nhanVienModel.GetData())
                                     {
@@ -322,81 +311,82 @@
 
 
         //giờ hẹn
-        function CustomGioHen() {
-            var GioHen = $("#giohen");
-            var NgayCat = $("#ngayhenlich option:selected").val();
+        //function CustomGioHen() {
+        //    var GioHen = $("#giohen");
+        //    var NgayCat = $("#ngayhenlich option:selected").val();
 
-         let html = "";
-            var x = document.getElementById("ngayhenlich").selectedIndex;
-            var y = document.getElementById("ngayhenlich").options;
-            var d = new Date();
-            var n = d.getHours();
-            if (y[x].index != 0) {
-                GioHen.empty();
-                for (let i = 7; i <= 20; i++) {
-                    if (i != 13) {
-                        var MaNV = $("#nhanviencat option:selected");
-                        var GioHenConfig = i + ":00";
-                        $.ajax({
-                            type: 'POST',
-                            contentType: 'application/json; charset=utf-8',
-                            async: false,
-                            url: '/UserHome/KiemTraLichHen',
-                            data: "{ 'NgayCat':'" + NgayCat + "','GioHen':'" + GioHenConfig + "','MaNV':'" + MaNV.val() + "'}",
-                            dataType: "json",
-                            success: function (result) {
+        // let html = "";
+        //    var x = document.getElementById("ngayhenlich").selectedIndex;
+        //    var y = document.getElementById("ngayhenlich").options;
+        //    var d = new Date();
+        //    var n = d.getHours();
+        //    if (y[x].index != 0) {
+        //        GioHen.empty();
+        //        for (let i = 7; i <= 20; i++) {
+        //            if (i != 13) {
+        //                var MaNV = $("#nhanviencat option:selected");
+        //                var GioHenConfig = i + ":00";
+        //                $.ajax({
+        //                    type: 'POST',
+        //                    contentType: 'application/json; charset=utf-8',
+        //                    async: false,
+        //                    url: '/UserHome/KiemTraLichHen',
+        //                    data: "{ 'NgayCat':'" + NgayCat + "','GioHen':'" + GioHenConfig + "','MaNV':'" + MaNV.val() + "'}",
+        //                    dataType: "json",
+        //                    success: function (result) {
+                                
 
+        //                        if (MaNV.val() == 0) {
+                                  
+        //                            if (result.Message < 4) {
+                                     
+        //                                html += '<option  value=' + i + ':00>' + i + ':00  </option > ';
+        //                            }
+        //                            else {
+        //                                html += '<option disabled value=' + i + ':00>' + i + ':00 - Lịch đã đầy </option > ';
 
-                                if (MaNV.val() == 0) {
+        //                            }
+        //                            GioHen.html(html);
+        //                        } else {
+        //                            if (result.Message < 1) {
+        //                                console.log(result.Message);
+        //                                html += '<option  value=' + i + ':00>' + i + ':00  </option > ';
 
-                                    if (result.Message < 4) {
-                                        html += '<option  value=' + i + ':00>' + i + ':00  </option > ';
-                                    }
-                                    else {
-                                        html += '<option disabled value=' + i + ':00>' + i + ':00 - Lịch đã đầy </option > ';
+        //                            }
+        //                            else {
+        //                                html += '<option disabled value=' + i + ':00>' + i + ':00 - Lịch đã đầy </option > ';
+        //                            }
+        //                            GioHen.html(html);
 
-                                    }
-                                    GioHen.html(html);
-                                } else {
-                                    if (result.Message < 1) {
-                                        console.log(result.Message);
-                                        html += '<option  value=' + i + ':00>' + i + ':00  </option > ';
+        //                        }
+        //                    },
+        //                    error: function (data) {
+        //                        console.log("That bai");
 
-                                    }
-                                    else {
-                                        html += '<option disabled value=' + i + ':00>' + i + ':00 - Lịch đã đầy </option > ';
-                                    }
-                                    GioHen.html(html);
+        //                    }
+        //                })
 
-                                }
-                            },
-                            error: function (data) {
-                                console.log("That bai");
-
-                            }
-                        })
-
-                    }
-                };
+        //            }
+        //        };
             
               
-            }
-            else {
-                GioHen.empty();
-                for (i = 7; i <= 19; i++) {
-                    if ( i != 13) {
-                        html += '<option selected value=' + i + ':00>' + i + ':00  </option > ';
+        //    }
+        //    else {
+        //        GioHen.empty();
+        //        for (i = 7; i <= 19; i++) {
+        //            if ( i != 13) {
+        //                html += '<option selected value=' + i + ':00>' + i + ':00  </option > ';
                
 
 
-                    }
-                };
+        //            }
+        //        };
 
-                GioHen.html(html);
+        //        GioHen.html(html);
 
-            }
+        //    }
           
-        }
+        //}
 
         $(document).ready(function () {
 
@@ -500,14 +490,14 @@
                     
 
                     alert("Đặt lịch thành công, nhân viên sẽ liên hệ với bạn sớm nhất để xác nhận !");
-                    location.reload();
+                   
                 },
                 error: function (data) {
-
+                    console.log("That Bai");
                 
                 }
             });
-          
+            
             $(".dialog-datlich").dialog('close');
 
         };
